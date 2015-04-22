@@ -181,7 +181,9 @@ On Error GoTo Err_Handler
 
     Set cnt = dbs.Containers("Forms")
     For Each doc In cnt.Documents
+        If doc.name <> "frm_Switchboard" Then
         Application.SaveAsText acForm, doc.name, Path & "\Forms\" & doc.name & ".txt"
+        End If
     Next doc
 
     Set cnt = dbs.Containers("Reports")
@@ -404,7 +406,8 @@ On Error Resume Next
 End Function
 
 Public Sub test()
-GetDescriptions "VCS_base_test.accdb"
+    DocDatabase
+'GetDescriptions "VCS_base_test.accdb"
 End Sub
 
 ' ---------------------------------

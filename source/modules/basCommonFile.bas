@@ -13,7 +13,7 @@ Type tagOPENFILENAME
     lStructSize As Long
     hwndOwner As Long
     hInstance As Long
-    strfilter As String
+    strFilter As String
     strCustomFilter As String
     nMaxCustFilter As Long
     nFilterIndex As Long
@@ -93,7 +93,7 @@ Function adhCommonFileOpenSave( _
     On Error GoTo Err_Handler
 
     Dim ofn As tagOPENFILENAME
-    Dim strFileName As String
+    Dim strFilename As String
     Dim strFileTitle As String
     Dim fResult As Boolean
 
@@ -107,17 +107,17 @@ Function adhCommonFileOpenSave( _
     If IsMissing(OpenFile) Then OpenFile = True
 
     ' Allocate string space for the returned string.
-    strFileName = Left(fileName & String(256, 0), 256)
+    strFilename = Left(fileName & String(256, 0), 256)
     strFileTitle = String(256, 0)
 
     ' Set up the data structure before you call the function
     With ofn
         .lStructSize = Len(ofn)
         .hwndOwner = Application.hWndAccessApp
-        .strfilter = Filter
+        .strFilter = Filter
         .nFilterIndex = FilterIndex
-        .strFile = strFileName
-        .nMaxFile = Len(strFileName)
+        .strFile = strFilename
+        .nMaxFile = Len(strFilename)
         .strFileTitle = strFileTitle
         .nMaxFileTitle = Len(strFileTitle)
         .strTitle = DialogTitle
@@ -182,13 +182,13 @@ End Function
 ' Revisions:    John R. Boetsch, May 17, 2006 - documentation and error-trapping
 ' =================================
 
-Function adhAddFilterItem(strfilter As String, _
+Function adhAddFilterItem(strFilter As String, _
     strDescription As String, Optional varItem As Variant) As String
 
     On Error GoTo Err_Handler
     
     If IsMissing(varItem) Then varItem = "*.*"
-    adhAddFilterItem = strfilter & strDescription & vbNullChar & _
+    adhAddFilterItem = strFilter & strDescription & vbNullChar & _
         varItem & vbNullChar
     
 Exit_Procedure:

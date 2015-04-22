@@ -15,16 +15,20 @@ Begin Form
     Width =8580
     DatasheetFontHeight =9
     ItemSuffix =10
-    Left =3900
-    Top =1575
-    Right =12225
-    Bottom =7065
+    Left =132
+    Top =300
+    Right =8712
+    Bottom =6048
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x81b16fedaecae340
     End
     Caption ="Exotic Invasives Reports"
     DatasheetFontName ="Arial"
+    PrtMip = Begin
+        0x6801000068010000680100006801000000000000201c0000e010000001000000 ,
+        0x010000006801000000000000a10700000100000001000000
+    End
     AllowDatasheetView =0
     AllowPivotTableView =0
     AllowPivotChartView =0
@@ -72,10 +76,10 @@ Begin Form
                     Caption ="Link Data Tables"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                 End
                 Begin CommandButton
                     OverlapFlags =85
@@ -88,10 +92,10 @@ Begin Form
                     Caption ="Infestation Report"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                 End
                 Begin CommandButton
                     OverlapFlags =85
@@ -104,10 +108,10 @@ Begin Form
                     Caption ="Infestations by Route"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                 End
                 Begin CommandButton
                     OverlapFlags =85
@@ -120,10 +124,10 @@ Begin Form
                     Caption ="Close Form"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                 End
                 Begin CommandButton
                     OverlapFlags =85
@@ -136,10 +140,10 @@ Begin Form
                     Caption ="Infestations by Size Class"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                 End
                 Begin CommandButton
                     OverlapFlags =85
@@ -152,10 +156,10 @@ Begin Form
                     Caption ="Infestations by Growth Stage"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                 End
                 Begin CommandButton
                     OverlapFlags =85
@@ -168,10 +172,10 @@ Begin Form
                     Caption ="Monitoring Transect Data"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                 End
                 Begin CommandButton
                     OverlapFlags =85
@@ -184,10 +188,10 @@ Begin Form
                     Caption ="Species Cover by Route"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                 End
                 Begin CommandButton
                     OverlapFlags =85
@@ -200,10 +204,45 @@ Begin Form
                     Caption ="Transect Count by Route"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    Left =4440
+                    Top =3300
+                    Width =2580
+                    FontSize =11
+                    TabIndex =9
+                    ForeColor =16711680
+                    Name ="btnLaunchTgtTool"
+                    Caption ="Launch Tgt Species Tool >>"
+                    StatusBarText ="Launch target species tool"
+                    OnClick ="[Event Procedure]"
+                    FontName ="Calibri"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =4440
+                    LayoutCachedTop =3300
+                    LayoutCachedWidth =7020
+                    LayoutCachedHeight =3660
+                    GridlineThemeColorIndex =1
+                    GridlineShade =65.0
+                    UseTheme =1
+                    Shape =1
+                    BackColor =6750156
+                    BorderColor =52377
+                    ThemeFontIndex =1
+                    HoverColor =3407769
+                    PressedColor =52224
+                    HoverForeColor =2375487
+                    PressedForeColor =6750156
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                 End
             End
         End
@@ -215,6 +254,35 @@ Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Compare Database
+
+
+' ---------------------------------
+' SUB:          btnLaunchTgtTool_Click
+' Description:  open the species target list tool
+' Parameters:   -
+' Returns:      -
+' Throws:       -
+' References:   -
+' Source/date:  Bonnie Campbell, April 2015 for NCPN tools
+' Adapted:      -
+' Revisions:    BLC - 4/21/2015 - initial version
+' ---------------------------------
+Private Sub btnLaunchTgtTool_Click()
+On Error GoTo Err_Handler
+
+    DoCmd.OpenForm "frm_Switchboard", acNormal
+
+Exit_Procedure:
+    Exit Sub
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnLaunchTgtTool_Click[frm_Main_Menu])"
+    End Select
+    Resume Exit_Procedure
+End Sub
 
 Private Sub ButtonLink_Click()
 On Error GoTo Err_ButtonLink_Click
