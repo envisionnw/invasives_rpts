@@ -555,7 +555,7 @@ Dim missingTable As String
     End Select
         
     For i = 0 To UBound(sysTables)
-        If fxnTableExists("tsys_" & sysTables(i)) = False Then
+        If fxnTableExists("tsys_" & Trim(sysTables(i))) = False Then
             missingTable = sysTables(i)
             GoTo Missing_Table:
         End If
@@ -573,7 +573,7 @@ Missing_Table:
                 sysTables(i) & vbCrLf & vbCrLf
 
     Select Case missingTable
-        Case "App_Defaults", "BE_Updates", "Link_Dbs", "Link_Tables"
+        Case "App_Defaults", "BE_Updates", "Link_Dbs", "Link_Tables", "Link_Files"
             strMsg = strMsg & "Notify the database administrator."
             DoCmd.SetWarnings True
             DoCmd.Quit acQuitSaveNone

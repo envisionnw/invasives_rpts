@@ -24,9 +24,9 @@ Begin Form
     Width =12300
     DatasheetFontHeight =10
     ItemSuffix =178
-    Top =72
-    Right =15540
-    Bottom =12432
+    Left =3732
+    Right =16032
+    Bottom =10068
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x80d28b4cb201e340
@@ -349,7 +349,7 @@ Begin Form
                     LayoutCachedHeight =8655
                 End
                 Begin Label
-                    OverlapFlags =85
+                    OverlapFlags =93
                     Left =60
                     Top =60
                     Width =3780
@@ -360,7 +360,6 @@ Begin Form
                     Name ="lblNetwork"
                     Caption ="Target Species List Tool"
                     FontName ="Tahoma"
-                    OnDblClick ="[Event Procedure]"
                     ShortcutMenuBar ="Double-click to open website"
                     ForeThemeColorIndex =1
                     ForeShade =85.0
@@ -575,11 +574,11 @@ Begin Form
                                     Height =420
                                     FontSize =11
                                     ForeColor =16711680
-                                    Name ="btnOutliers"
-                                    Caption ="Outliers"
+                                    Name ="btnCreateTgtLists"
+                                    Caption ="Create Target List"
                                     FontName ="Calibri"
                                     OnClick ="[Event Procedure]"
-                                    ControlTipText ="Run Outliers data validation"
+                                    ControlTipText ="Create species target list"
                                     LayoutCachedLeft =1080
                                     LayoutCachedTop =3675
                                     LayoutCachedWidth =3480
@@ -597,151 +596,15 @@ Begin Form
                                     Height =420
                                     FontSize =11
                                     ForeColor =16711680
-                                    Name ="btnMissingData"
-                                    Caption ="Missing Data"
+                                    Name ="btnAddTargetArea"
+                                    Caption ="Add Target Area(s)"
                                     FontName ="Calibri"
                                     OnClick ="[Event Procedure]"
-                                    ControlTipText ="Run Missing Data data validation"
+                                    ControlTipText ="Add target area"
                                     LayoutCachedLeft =1080
                                     LayoutCachedTop =4335
                                     LayoutCachedWidth =3479
                                     LayoutCachedHeight =4755
-                                    ThemeFontIndex =1
-                                End
-                                Begin Label
-                                    FontUnderline = NotDefault
-                                    BorderWidth =1
-                                    OverlapFlags =247
-                                    TextAlign =2
-                                    Left =1200
-                                    Top =5595
-                                    Width =480
-                                    Height =420
-                                    FontSize =11
-                                    TopMargin =36
-                                    ForeColor =16711680
-                                    Name ="btnSuspectDO"
-                                    Caption ="DO"
-                                    FontName ="Calibri"
-                                    OnClick ="[Event Procedure]"
-                                    ControlTipText ="Run Suspect DO data validation"
-                                    LayoutCachedLeft =1200
-                                    LayoutCachedTop =5595
-                                    LayoutCachedWidth =1680
-                                    LayoutCachedHeight =6015
-                                    ThemeFontIndex =1
-                                End
-                                Begin Label
-                                    FontUnderline = NotDefault
-                                    BorderWidth =1
-                                    OverlapFlags =247
-                                    TextAlign =2
-                                    Left =1755
-                                    Top =5595
-                                    Width =495
-                                    Height =420
-                                    FontSize =11
-                                    TopMargin =36
-                                    ForeColor =16711680
-                                    Name ="btnSuspectpH"
-                                    Caption ="pH"
-                                    FontName ="Calibri"
-                                    OnClick ="[Event Procedure]"
-                                    ControlTipText ="Run Suspect pH data validation"
-                                    LayoutCachedLeft =1755
-                                    LayoutCachedTop =5595
-                                    LayoutCachedWidth =2250
-                                    LayoutCachedHeight =6015
-                                    ThemeFontIndex =1
-                                End
-                                Begin Label
-                                    FontUnderline = NotDefault
-                                    BorderWidth =1
-                                    OverlapFlags =247
-                                    TextAlign =2
-                                    Left =3645
-                                    Top =3675
-                                    Width =2355
-                                    Height =420
-                                    FontSize =11
-                                    ForeColor =16711680
-                                    Name ="btnDuplicates"
-                                    Caption ="Duplicates (NFV)"
-                                    FontName ="Calibri"
-                                    OnClick ="[Event Procedure]"
-                                    ControlTipText ="Run Duplicates (NFV) data validation"
-                                    LayoutCachedLeft =3645
-                                    LayoutCachedTop =3675
-                                    LayoutCachedWidth =6000
-                                    LayoutCachedHeight =4095
-                                    ThemeFontIndex =1
-                                End
-                                Begin Label
-                                    FontUnderline = NotDefault
-                                    BorderWidth =1
-                                    OverlapFlags =247
-                                    TextAlign =2
-                                    Left =1065
-                                    Top =4935
-                                    Width =2399
-                                    Height =420
-                                    FontSize =11
-                                    ForeColor =16711680
-                                    Name ="btnSuspectValues"
-                                    Caption ="Suspect Values"
-                                    FontName ="Calibri"
-                                    OnClick ="[Event Procedure]"
-                                    ControlTipText ="Run Suspect Values data validation"
-                                    LayoutCachedLeft =1065
-                                    LayoutCachedTop =4935
-                                    LayoutCachedWidth =3464
-                                    LayoutCachedHeight =5355
-                                    ThemeFontIndex =1
-                                End
-                                Begin Label
-                                    FontUnderline = NotDefault
-                                    BorderWidth =1
-                                    OverlapFlags =247
-                                    TextAlign =2
-                                    Left =2325
-                                    Top =5595
-                                    Width =525
-                                    Height =420
-                                    FontSize =11
-                                    TopMargin =36
-                                    ForeColor =16711680
-                                    Name ="btnSuspectSC"
-                                    Caption ="SC"
-                                    FontName ="Calibri"
-                                    OnClick ="[Event Procedure]"
-                                    ControlTipText ="Run Suspect SC data validation"
-                                    LayoutCachedLeft =2325
-                                    LayoutCachedTop =5595
-                                    LayoutCachedWidth =2850
-                                    LayoutCachedHeight =6015
-                                    ThemeFontIndex =1
-                                End
-                                Begin Label
-                                    FontUnderline = NotDefault
-                                    BorderWidth =1
-                                    OverlapFlags =247
-                                    TextAlign =2
-                                    Left =2925
-                                    Top =5595
-                                    Width =435
-                                    Height =420
-                                    FontSize =11
-                                    TopMargin =36
-                                    ForeColor =16711680
-                                    Name ="btnSuspectWT"
-                                    Caption ="WT"
-                                    FontName ="Calibri"
-                                    OnClick ="[Event Procedure]"
-                                    ControlTipText ="Run Suspect WT data validation"
-                                    LayoutCachedLeft =2925
-                                    LayoutCachedTop =5595
-                                    LayoutCachedWidth =3360
-                                    LayoutCachedHeight =6015
                                     ThemeFontIndex =1
                                 End
                             End
@@ -906,12 +769,12 @@ Begin Form
                                     FontSize =11
                                     TopMargin =72
                                     ForeColor =16711680
-                                    Name ="btnPrecision"
-                                    Caption ="Precision"
+                                    Name ="btnCrewSpeciesList"
+                                    Caption ="Crew Species List"
                                     FontName ="Calibri"
                                     OnClick ="[Event Procedure]"
-                                    ShortcutMenuBar ="Run Precision report"
-                                    ControlTipText ="Open edit log"
+                                    ShortcutMenuBar ="Run Species List report"
+                                    ControlTipText ="Prepare field crew target species list"
                                     LayoutCachedLeft =1020
                                     LayoutCachedTop =4455
                                     LayoutCachedWidth =3360
@@ -930,12 +793,12 @@ Begin Form
                                     FontSize =11
                                     TopMargin =72
                                     ForeColor =16711680
-                                    Name ="btnEffectiveness"
-                                    Caption ="Effectiveness"
+                                    Name ="btnSpeciesListByPark"
+                                    Caption ="Species List by Park"
                                     FontName ="Calibri"
                                     OnClick ="[Event Procedure]"
-                                    ShortcutMenuBar ="Run Effectiveness report"
-                                    ControlTipText ="Open edit log"
+                                    ShortcutMenuBar ="Run target species list by park report"
+                                    ControlTipText ="Run target species list by park report"
                                     LayoutCachedLeft =1020
                                     LayoutCachedTop =4995
                                     LayoutCachedWidth =3360
@@ -954,11 +817,12 @@ Begin Form
                                     FontSize =11
                                     TopMargin =72
                                     ForeColor =16711680
-                                    Name ="btnBias"
-                                    Caption ="Bias"
+                                    Name ="btnTgtListAnnualSummary"
+                                    Caption ="Annual Summary"
                                     FontName ="Calibri"
                                     OnClick ="[Event Procedure]"
-                                    ControlTipText ="Run Bias report"
+                                    ShortcutMenuBar ="Run species list annual summary report"
+                                    ControlTipText ="Run species list annual summary report"
                                     LayoutCachedLeft =1020
                                     LayoutCachedTop =5535
                                     LayoutCachedWidth =3360
@@ -1174,8 +1038,8 @@ Option Compare Database
 Option Explicit
 
 ' =================================
-' FORM NAME:    frm_Switchboard
-' Description:  Standard form - main screen of the user interface, viewed at startup
+' FORM NAME:    frm_Tgt_List_Tool
+' Description:  Standard form - main screen of the target list tool user interface
 ' Data source:  tsys_App_Defaults
 ' Data access:  edit only, no additions, moving between records or deletions
 ' Pages:        pgDefaults, pgAbout, pgSettings
@@ -1183,33 +1047,11 @@ Option Explicit
 ' References:   fxnAppSetup, fxnDeleteFile, fxnFileExists, fxnMakeBackup, fxnParseFileExt,
 '                   fxnSaveFile, fxnTableExists, fxnVerifyConnections
 ' Source/date:  John R. Boetsch, May 24, 2006
-' Adapted/date: Bonnie L. Campbell, June 3, 2014
-' Revisions:    JRB, 6/10/2008 - updated Form_Close to run query only if back-end file is
-'                   connected; updated Form_Open to bail out if back-end file is not connected;
-'                   added fxnBEUpdates in Form_Open if the current release isn't listed
-'               JRB, 6/20/2008 - various updates and standardization
-'               JRB, 7/31/2008 - added cmdSchedule and updated the button enable statements in
-'                   Form_Open
-'               JRB, 10/15/2008 - additional minor changes to bring up to standard
-'               JRB, 10/30/2008 - updated code on cmdQAReport and other db output
-'               JRB, 11/21/2008 - updated fxnBEUpdates and call in Form_Open
-'               JRB, 2/10/2009 - added auto compact setting to Form_Open
-'               JRB, 5/21/2009 - added cmdNavCoords and cmdTaskListRpt; updated output command
-'                   button code
-'               JRB, 7/9/2009 - significant changes to startup procedures (moved many to
-'                   std module functions); added refs to gvarHasAccessBE and gvarWritePermission
-'               JRB, 12/14/2009 - added check on Access BE before backups in cmdExit, cmdEnter
-'               JRB, 2/5/2013 - removed login prompt before opening QA tool (relies on environ login)
-'               JRB, 10/31/2013 - added gvarWritePermission check before compacting to avoid writing
-'                   over a read-only file in compact procedure
+' Adapted/date: Bonnie L. Campbell, April 21, 2015 from frm_Switchboard (WQ Utilities tool)
 '               --------------------------------------------------------------------------------------
-'               BLC, 6/3/2014 - Adapted for NCPN WQ Utilities tool
-'               BLC, 12/9/2014 - Added color coding identifying network vs local dbs (network = blue,
-'                   local = black) in lbxLinkedDbs display to draw attention to linked network databases
-'                   which may slow the application
-'               --------------------------------------------------------------------------------------
-'               BLC, 4/21/2015 - Adapted for NCPN Invasives Reports - Species Target List tool
+' Revisions:    BLC, 4/21/2015 - Adapted for NCPN Invasives Reports - Species Target List tool
 '                   Converted tabQAQC to tabCreate, tabLogs to tabView
+'               BLC, 4/22/2015 - Renamed
 ' =================================
 
 ' ********************************************************************************************
@@ -1221,12 +1063,12 @@ Option Explicit
 ' ********************************************************************************************
 
 ' =================================
-'   Main Switchboard Form Functionality
+'   Main Target List Tool Form Functionality
 ' =================================
 
 ' ---------------------------------
 ' SUB:     Form_Open
-' Description:  Open switchboard form & run table checks
+' Description:  Open form & run table checks
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       -
@@ -1239,7 +1081,7 @@ Option Explicit
 '               BLC, 4/21/2015 - Adapted for NCPN Invasives Reports - Species Target List tool
 ' ---------------------------------
 Private Sub Form_Open(Cancel As Integer)
-    On Error GoTo Err_Handler
+On Error GoTo Err_Handler
     Dim strSQL As String
     Dim aryFields As Variant
 
@@ -1250,25 +1092,22 @@ Private Sub Form_Open(Cancel As Integer)
     setUserAccess Me, "update"
     
     ' Initialize UI
-    optGrpTabs.Value = 1 'QA/QC
-    'Forms!frm_Switchboard.optGrpTabs_Click
+    optGrpTabs.Value = 1 'Create
+    
     Me.optGrpTabs_Click
     Me!fsub_Filter.Visible = False
-'    lbxConditionalColor Me.lbxLinkedDbs, 0, 0, 1, vbBlack, vbBlue
-    strSQL = "SELECT tsys_Link_Dbs.Is_Network_db, tsys_Link_Dbs.Link_db, IIf([Backups],'bkp') AS For_backups, IIf(IsNull([Server])=False,'Server: ' & [Server],IIf(Len([File_path])-Len([Link_db])>75,IIf(Left([File_path],2)='\\',Left([File_path],InStr(3,[File_path],'\')),Left([File_path],12)) & ' ... ' & Right(Left([File_path],Len([File_path])-Len([Link_db])-1),48),Left([File_path],Len([File_path])-Len([Link_db])-1))) AS [Desc]"
-    aryFields = Array("Is_Network_db", "For_backups", "[Desc]")
-    lvwPopulateFromQuery Me.lvwLinkedDbs, strSQL, aryFields
-Exit_Procedure:
+    
+Exit_Sub:
     DoCmd.SetWarnings True
     Exit Sub
 
 Err_Handler:
     Select Case Err.Number
       Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - Form_Open[Form_frm_Tgt_List_Tool])"
     End Select
-    Resume Exit_Procedure
-
+    Resume Exit_Sub
 End Sub
 
 ' ---------------------------------
@@ -1421,116 +1260,6 @@ Err_Handler:
 
 End Sub
 
-' ---------------------------------
-' SUB:     lblNPS_DblClick
-' Description:  Open NPS website
-' Parameters:   -
-' Returns:      -
-' Throws:       -
-' References:   -
-' Source/date:  Adapted from John Boetsch
-'               Created 06/12/2014 blc; Last modified 06/12/2014 blc.
-' Revisions:    Bonnie Campbell, June 12, 2014 - XX
-' ---------------------------------
-Private Sub lblNPS_DblClick(Cancel As Integer)
-    On Error GoTo Err_Handler
-
-    ' Upon clicking the NPS label, open the website
-    DoCmd.Hourglass True
-    Application.FollowHyperlink "http://www.nps.gov", , True
-
-Exit_Procedure:
-    DoCmd.Hourglass False
-    Exit Sub
-
-Err_Handler:
-    MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
-    Resume Exit_Procedure
-
-End Sub
-
-' ---------------------------------
-' SUB:     imgNPS_DblClick
-' Description: Open NPS website
-' Parameters:   -
-' Returns:      -
-' Throws:       -
-' References:   -
-' Source/date:  Adapted from John Boetsch
-'               Created 06/12/2014 blc; Last modified 06/12/2014 blc.
-' Revisions:    Bonnie Campbell, June 12, 2014 - XX
-' ---------------------------------
-Private Sub imgNPS_DblClick(Cancel As Integer)
-    On Error GoTo Err_Handler
-
-    ' Upon clicking the NPS arrowhead, open the website
-    DoCmd.Hourglass True
-    Application.FollowHyperlink "http://www.nps.gov", , True
-
-Exit_Procedure:
-    DoCmd.Hourglass False
-    Exit Sub
-
-Err_Handler:
-    MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
-    Resume Exit_Procedure
-
-End Sub
-
-' ---------------------------------
-' SUB:     lblNetwork_DblClick
-' Description:  Open I&M network website
-' Parameters:   -
-' Returns:      -
-' Throws:       -
-' References:   -
-' Source/date:  Adapted from John Boetsch
-'               Created 06/12/2014 blc; Last modified 06/12/2014 blc.
-' Revisions:    Bonnie Campbell, June 12, 2014 - XX
-' ---------------------------------
-Private Sub lblNetwork_DblClick(Cancel As Integer)
-    On Error GoTo Err_Handler
-
-    ' Upon clicking the network name, open the website
-    DoCmd.Hourglass True
-    Application.FollowHyperlink "http://science.nature.nps.gov/im/units/ncpn/index.cfm", , True
-
-Exit_Procedure:
-    DoCmd.Hourglass False
-    Exit Sub
-
-Err_Handler:
-    MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
-    Resume Exit_Procedure
-
-End Sub
-
-' ---------------------------------
-' SUB:     lbxLinkedDbs_DblClick
-' Description: Open database reconnection form
-' Parameters:   -
-' Returns:      -
-' Throws:       -
-' References:   -
-' Source/date:  Adapted from John Boetsch
-'               Created 06/12/2014 blc; Last modified 06/12/2014 blc.
-' Revisions:    Bonnie Campbell, June 12, 2014 - XX
-' ---------------------------------
-Private Sub lbxLinkedDbs_DblClick(Cancel As Integer)
-    On Error GoTo Err_Handler
-
-    ' Upon clicking the control, reconnect back end tables
-    DoCmd.OpenForm "frm_Connect_Dbs"
-
-Exit_Procedure:
-    Exit Sub
-
-Err_Handler:
-    MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical
-    Resume Exit_Procedure
-
-End Sub
-
 ' =================================
 '   Main Tab Navigation
 ' =================================
@@ -1636,138 +1365,36 @@ End Sub
 ' Subforms:     fsub_Filter
 ' =================================
 ' ---------------------------------
-' SUB:     btnOutliers_Click
-' Description:  Runs the Outliers QA/QC query & displays results
+' SUB:     btnCreateTgtLists_Click
+' Description:  Create species target lists
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       -
 ' References:   -
-' Source/date:  Bonnie Campbell, June 11, 2014
-' Revisions:    6/17/2014 - BLC - shifted common filter subform code to OpenFilterSubform
+' Source/date:  Bonnie Campbell, April 22, 2015
+' Revisions:    4/22/2015 - BLC - initial version
 ' ---------------------------------
-Private Sub btnOutliers_Click()
+Private Sub btnCreateTgtLists_Click()
     
     'button actions
-    ActionButton_Click btnOutliers
+    ActionButton_Click btnCreateTgtLists
     
 End Sub
 
 ' ---------------------------------
-' SUB:     btnMissingData_Click
-' Description:  Runs the Missing Data QA/QC query & displays results
+' SUB:     btnAddTargetArea_Click
+' Description:  Add new target area(s)
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       -
 ' References:   -
-' Source/date:  Bonnie Campbell, June 17, 2014
-' Revisions:    6/17/2014 - BLC - XX
+' Source/date:  Bonnie Campbell, April 22, 2015
+' Revisions:    4/22/2015 - BLC - initial version
 ' ---------------------------------
-Private Sub btnMissingData_Click()
+Private Sub btnAddTargetArea_Click()
 
     'button actions
-    ActionButton_Click btnMissingData
-    
-End Sub
-
-' ---------------------------------
-' SUB:     btnSuspectValues_Click
-' Description:  Runs the Suspect Data QA/QC query & displays results
-' Parameters:   -
-' Returns:      -
-' Throws:       -
-' References:   -
-' Source/date:  Bonnie Campbell, June 17, 2014
-' Revisions:    6/17/2014 - BLC - XX
-' ---------------------------------
-Private Sub btnSuspectValues_Click()
-
-    'button actions
-    ActionButton_Click btnSuspectValues
-    
-End Sub
-
-' ---------------------------------
-' SUB:     btnSuspectDO_Click
-' Description:  Runs the Suspect DO Data QA/QC query & displays results
-' Parameters:   -
-' Returns:      -
-' Throws:       -
-' References:   -
-' Source/date:  Bonnie Campbell, June 17, 2014
-' Revisions:    6/17/2014 - BLC - XX
-' ---------------------------------
-Private Sub btnSuspectDO_Click()
-
-    'button actions
-    ActionButton_Click btnSuspectDO
-    
-End Sub
-
-' ---------------------------------
-' SUB:     btnSuspectpH_Click
-' Description:  Runs the Suspect pH Data QA/QC query & displays results
-' Parameters:   -
-' Returns:      -
-' Throws:       -
-' References:   -
-' Source/date:  Bonnie Campbell, June 17, 2014
-' Revisions:    6/17/2014 - BLC - XX
-' ---------------------------------
-Private Sub btnSuspectpH_Click()
-
-    'button actions
-    ActionButton_Click btnSuspectpH
-    
-End Sub
-
-' ---------------------------------
-' SUB:     btnSuspectSC_Click
-' Description:  Runs the Suspect SC Data QA/QC query & displays results
-' Parameters:   -
-' Returns:      -
-' Throws:       -
-' References:   -
-' Source/date:  Bonnie Campbell, June 17, 2014
-' Revisions:    6/17/2014 - BLC - XX
-' ---------------------------------
-Private Sub btnSuspectSC_Click()
-    
-    'button actions
-    ActionButton_Click btnSuspectSC
-    
-End Sub
-
-' ---------------------------------
-' SUB:     btnSuspectWT_Click
-' Description:  Runs the Suspect WT Data QA/QC query & displays results
-' Parameters:   -
-' Returns:      -
-' Throws:       -
-' References:   -
-' Source/date:  Bonnie Campbell, June 17, 2014
-' Revisions:    6/17/2014 - BLC - XX
-' ---------------------------------
-Private Sub btnSuspectWT_Click()
-
-    'button actions
-    ActionButton_Click btnSuspectWT
-    
-End Sub
-
-' ---------------------------------
-' SUB:     btnDuplicates_Click
-' Description:  Runs the Duplicates QA/QC query & displays results
-' Parameters:   -
-' Returns:      -
-' Throws:       -
-' References:   -
-' Source/date:  Bonnie Campbell, June 17, 2014
-' Revisions:    6/17/2014 - BLC - XX
-' ---------------------------------
-Private Sub btnDuplicates_Click()
-
-    'button actions
-    ActionButton_Click btnDuplicates
+    ActionButton_Click btnAddTargetArea
     
 End Sub
 
@@ -1816,7 +1443,7 @@ Public Sub OpenFilterSubform(ctrl As Control)
 
 On Error GoTo Err_Handler:
 
-    strCrumbs = tglQAQC.Caption & "|" & lblInsetTitle.Caption & "|" _
+    strCrumbs = tglCreate.Caption & "|" & lblInsetTitle.Caption & "|" _
                     & lblField.Caption & "|" & Replace(ctrl.name, "btn", "")
     
     'Prepare & open filter
@@ -1903,53 +1530,53 @@ End Sub
 ' Subforms:     none
 ' =================================
 ' ---------------------------------
-' SUB:     btnPrecision_Click
-' Description:  Opens the Precision report
+' SUB:     btnCrewSpeciesList_Click
+' Description:  Opens the field crew species target list report
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       -
 ' References:   -
-' Source/date:  Bonnie Campbell, June 17, 2014
-' Revisions:    6/17/2014 - BLC - XX
+' Source/date:  Bonnie Campbell, April 22, 2015
+' Revisions:    4/22/2015 - BLC - initial version
 ' ---------------------------------
-Private Sub btnPrecision_Click()
+Private Sub btnCrewSpeciesList_Click()
 
     'button actions
-    ActionButton_Click btnPrecision
+    ActionButton_Click btnCrewSpeciesList
     
 End Sub
 
 ' ---------------------------------
-' SUB:     btnEfefctiveness_Click
-' Description:  Opens the Effectiveness report
+' SUB:     btnSpeciesListByPark_Click
+' Description:  Opens the species target list by park report
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       -
 ' References:   -
-' Source/date:  Bonnie Campbell, June 17, 2014
-' Revisions:    6/17/2014 - BLC - XX
+' Source/date:  Bonnie Campbell, April 22, 2015
+' Revisions:    4/22/2015 - BLC - initial version
 ' ---------------------------------
-Private Sub btnEffectiveness_Click()
+Private Sub btnSpeciesListByPark_Click()
 
     'button actions
-    ActionButton_Click btnEffectiveness
+    ActionButton_Click btnSpeciesListByPark
     
 End Sub
 
 ' ---------------------------------
-' SUB:     btnBias_Click
-' Description:  Opens the Bias report
+' SUB:     btnTgtListAnnualSummary_Click
+' Description:  Opens the species target list annual summary report
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       -
 ' References:   -
-' Source/date:  Bonnie Campbell, June 17, 2014
-' Revisions:    6/17/2014 - BLC - XX
+' Source/date:  Bonnie Campbell, April 22, 2015
+' Revisions:    4/22/2015 - BLC - initial version
 ' ---------------------------------
-Private Sub btnBias_Click()
+Private Sub btnTgtListAnnualSummary_Click()
 
     'button actions
-    ActionButton_Click btnBias
+    ActionButton_Click btnTgtListAnnualSummary
     
 End Sub
 
