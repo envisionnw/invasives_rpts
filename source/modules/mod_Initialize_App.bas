@@ -15,14 +15,21 @@ Option Explicit
 ' Source/date:   John R. Boetsch, May 2005
 ' Adapted:       Bonnie Campbell, May 2014
 ' Revisions:     JRB, 5/26/2006 - updated gvar names, added gvarConnected
-'                JRB, 7/7/2009 - removed gvarParentForm; added gvarWritePermission,
-'                   gvarHasAccessBE
+'                JRB, 7/7/2009  - removed gvarParentForm; added gvarWritePermission,
+'                                 gvarHasAccessBE
 '                --------------------------
 '                BLC, 6/18/2014 - added public constants WATER_YEAR_START & WATER_YEAR_END
 '                BLC, 7/31/2014 - changed db & user gvars to TempVars & initialized values
 '                BLC, 8/6/2014  - switched order of setting globals & constants before sub
 '                                 to ensure these load upon module being called for initGlobalTempVars
 '                                 merged into mod_Initialize_App
+'                --------------------------
+'               BLC, 4/22/2015 - adapted to generic tools (NCPN Invasives Reporting Tool) by adding
+'                                USER_ACCESS_CONTROL (False - gives users full control in apps w/o controls,
+'                                                     True - relies on user access control settings)
+'                                DB_SYS_TABLES & APP_SYS_TABLES (handle table arrays for the database/
+'                                   application)
+'                                WQ Utilities tool constants removed (WATER_YEAR_START & WATER_YEAR_END)
 ' =================================
 
 ' ---------------------------------
@@ -41,14 +48,40 @@ Public gvarRefContactCtl As Control ' specific contacts control
 
 ' ---------------------------------
 ' CONSTANTS:    global constant values
-' Description:  values setting the water year start and end
+' Description:  values setting application level contants
 ' References:   -
 ' Source/date:  Bonnie Campbell, May 2014
 ' Adapted:      -
-' Revisions:    BLC, 7/31/2014 - XX
+' Revisions:    BLC, 7/31/2014 - initial version (NCPN WQ Utilities Tool, WATER_YEAR_START & WATER_YEAR_END)
+'               BLC, 4/22/2015 - adapted to generic tools (NCPN Invasives Reporting Tool) by adding
+'                                USER_ACCESS_CONTROL (False - gives users full control in apps w/o controls,
+'                                                     True - relies on user access control settings)
+'                                DB_SYS_TABLES & APP_SYS_TABLES (handle table arrays for the database/
+'                                   application)
 ' ---------------------------------
-Public Const WATER_YEAR_START As String = "10/1"
-Public Const WATER_YEAR_END As String = "9/30"
+Public Const USER_ACCESS_CONTROL As Boolean = False 'Boolean flag -> db includes user access control or not
+
+'-----------------------------------------------------------------------
+' Database System Tables
+'-----------------------------------------------------------------------
+'   Array("App_Defaults", "BE_Updates", "Link_Dbs", "Link_Tables")
+'   tsys_App_Defaults -> default application settings
+'   tsys_BE_Updates   -> updates to post to remot back-end copies
+'   tsys_Link_Dbs     -> info about linked back-end dbs
+'   tsys_Link_Tables  -> info about linked tables
+'-----------------------------------------------------------------------
+' Application Backend System Tables
+'-----------------------------------------------------------------------
+'   Array("App_Releases", "Bug_Reports", "Logins", "User_Roles")
+'   tsys_App_Releases -> list of application releases
+'   tsys_Bug_Reports  -> tracking for known issues
+'   tsys_Logins       -> system use monitoring
+'   tsys_User_Roles   -> assign user access priviledges
+'-----------------------------------------------------------------------
+' SEE ALSO >>>> SysTablesExist() function
+'-----------------------------------------------------------------------
+Public Const DB_SYS_TABLES As String = "App_Defaults, Link_Files, Link_Tables"
+Public Const APP_SYS_TABLES As String = ""
 
 ' ---------------------------------
 ' SUB:          initGlobalTempVars
@@ -485,7 +518,11 @@ End Function
 ' References:   -
 ' Source/date:  Bonnie Campbell, July 31, 2014 for NCPN WQ Utilities tool
 ' Adapted:      -
-' Revisions:    BLC, 7/31/2014 - XX
+' Revisions:    BLC, 7/31/2014 - initial version
+'               BLC, 4/22/2015 - shifted default arrays of sys db & app tables to globals
+'                                DB_SYS_TABLES & APP_SYS_TABLES to accommodate & expose settings for
+'                                multiple apps (NCPN Invasives Reporting tool), some that do not
+'                                contain same/all tables
 ' ---------------------------------
 Public Function SysTablesExist(tblType As String) As Boolean
 On Error GoTo Err_Handler:
@@ -503,7 +540,7 @@ Dim missingTable As String
             '   tsys_Link_Dbs     -> info about linked back-end dbs
             '   tsys_Link_Tables  -> info about linked tables
             '-----------------------------------------------------------------------
-            sysTables = Array("App_Defaults", "BE_Updates", "Link_Dbs", "Link_Tables")
+            sysTables = Split(DB_SYS_TABLES, ",")
 
         Case "app"
             ' Confirm certain backend system tables exist --> if not, set connected to false
@@ -513,7 +550,7 @@ Dim missingTable As String
             '   tsys_Logins       -> system use monitoring
             '   tsys_User_Roles   -> assign user access priviledges
             '-----------------------------------------------------------------------
-            sysTables = Array("App_Releases", "Bug_Reports", "Logins", "User_Roles")
+            sysTables = Split(APP_SYS_TABLES, ",")
         Case ""
     End Select
         

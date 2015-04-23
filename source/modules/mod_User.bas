@@ -34,6 +34,8 @@ Public blnUpdateAll As Boolean   ' flag to indicate whether to run all queries
 ' Source/date:  Bonnie Campbell, August, 2014 for NCPN WQ Utilities tool
 ' Adapted:      -
 ' Revisions:    BLC, 8/21/2014 - initial version
+'               BLC, 4/22/2015 - handle global USER_ACCESS_CONTROL setting to enable full access
+'                                for apps w/o user access controls
 ' ---------------------------------
 Public Function getDbUserAccess() As String
 On Error GoTo Err_Handler
@@ -44,16 +46,22 @@ Dim rs As DAO.Recordset
     ' set defaults
     '-------------------------------
 
-    strSQL = "SELECT User_role FROM tsys_User_Roles WHERE User_name = '" & Environ("Username") & "';"
-
-    'fetch User role & set UserAccessLevel
-    Set rs = dbCurrent.OpenRecordset(strSQL)
-    If Not rs.BOF And Not rs.EOF Then
-        'db user role
-        TempVars.item("UserAccessLevel") = CStr(rs!User_role)
+    If USER_ACCESS_CONTROL Then
+    
+        strSQL = "SELECT User_role FROM tsys_User_Roles WHERE User_name = '" & Environ("Username") & "';"
+    
+        'fetch User role & set UserAccessLevel
+        Set rs = dbCurrent.OpenRecordset(strSQL)
+        If Not rs.BOF And Not rs.EOF Then
+            'db user role
+            TempVars.item("UserAccessLevel") = CStr(rs!User_role)
+        Else
+            'default
+            TempVars.item("UserAccessLevel") = "read only"
+        End If
     Else
-        'default
-        TempVars.item("UserAccessLevel") = "read only"
+        'default for apps w/o user access controls
+        TempVars.item("UserAccessLevel") = "admin"
     End If
     
     getDbUserAccess = TempVars.item("UserAccessLevel")
