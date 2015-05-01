@@ -187,12 +187,12 @@ End Function
 Public Function fxnGetLinkFile(Optional ByVal varInitialDir As Variant) As Variant
     On Error GoTo Err_Handler
 
-    Dim strfilter As String
+    Dim strFilter As String
     Dim lngFlags As Long
 
     ' Use the open file dialog to interactively browse to and select the desired file
-    strfilter = adhAddFilterItem(strfilter, "Access 2010 (*.accdb)", "*.accdb")
-    strfilter = adhAddFilterItem(strfilter, "Access (*.mdb)", "*.mdb")
+    strFilter = adhAddFilterItem(strFilter, "Access 2010 (*.accdb)", "*.accdb")
+    strFilter = adhAddFilterItem(strFilter, "Access (*.mdb)", "*.mdb")
     
     lngFlags = adhOFN_HIDEREADONLY Or _
         adhOFN_HIDEREADONLY Or adhOFN_NOCHANGEDIR
@@ -200,7 +200,7 @@ Public Function fxnGetLinkFile(Optional ByVal varInitialDir As Variant) As Varia
     fxnGetLinkFile = adhCommonFileOpenSave( _
         InitialDir:=varInitialDir, _
         OpenFile:=True, _
-        Filter:=strfilter, _
+        Filter:=strFilter, _
         flags:=lngFlags, _
         DialogTitle:="Locate data file")
 
