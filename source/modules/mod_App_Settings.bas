@@ -23,8 +23,19 @@ Option Explicit
 '                                                     True - relies on user access control settings)
 '                                DB_SYS_TABLES & APP_SYS_TABLES (handle table arrays for the database/
 '                                   application)
+'               BLC, 4/30/2015 - add DB_ADMIN_CONTROL flag to handle applications w/o full DbAdmin subform & controls
+'                                add MAIN_APP_FORM constant to handle applications where frm_Switchboard is NOT the main form
+'                                add APP_RELEASE_ID constant to handle application release ID w/o full DbAdmin subfrom & controls
 ' ---------------------------------
-Public Const USER_ACCESS_CONTROL As Boolean = False 'Boolean flag -> db includes user access control or not
+Public Const USER_ACCESS_CONTROL As Boolean = False             'Boolean flag -> db includes user access control or not
+Public Const DB_ADMIN_CONTROL As Boolean = False                'Boolean flag -> db does not include DbAdmin subform & controls
+Public Const MAIN_APP_FORM As String = "frm_Tgt_List_Tool"      'String -> main tabbed form (frm_Switchboard, etc.)
+Public Const APP_RELEASE_ID As String = ""                      'String -> release ID (tsys_App_Release.Release_ID) for current release
+                                                                '          used when db doesn't include full DbAdmin subform & controls, otherwise NULL
+Public Const APP_URL As String = "science.nature.nps.gov/im/units/ncpn/datamanagement.cfm"
+                                                                'String -> website URL for application
+                                                                '          used when db doesn't include full DbAdmin subform & controls, otherwise NULL
+
 
 '-----------------------------------------------------------------------
 ' Database System Tables

@@ -22,16 +22,21 @@ dbByte "DefaultView" ="2"
 dbBinary "GUID" = Begin
     0x24b249451e16af439245930410a20a6d
 End
+dbBoolean "FilterOnLoad" ="0"
+dbBoolean "OrderByOnLoad" ="-1"
+dbBoolean "TotalsRow" ="0"
 Begin
     Begin
         dbText "Name" ="qry_Select_Species_Cover.Unit_Code"
         dbInteger "ColumnWidth" ="1065"
         dbBoolean "ColumnHidden" ="0"
+        dbLong "AggregateType" ="-1"
     End
     Begin
         dbText "Name" ="qry_Select_Species_Cover.Visit_Year"
         dbInteger "ColumnWidth" ="1005"
         dbBoolean "ColumnHidden" ="0"
+        dbLong "AggregateType" ="-1"
     End
 End
 Begin
@@ -42,8 +47,8 @@ Begin
     Bottom =327
     Left =-1
     Top =-1
-    Right =977
-    Bottom =144
+    Right =946
+    Bottom =123
     Left =0
     Top =0
     ColumnsShown =543

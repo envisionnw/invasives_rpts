@@ -196,10 +196,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin ComboBox
@@ -216,7 +216,7 @@ Begin Form
                     TabIndex =1
                     BorderColor =10921638
                     ForeColor =4138256
-                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"8\""
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"10\""
                     Name ="cbxPark"
                     RowSourceType ="Table/Query"
                     RowSource ="SELECT [tlu_Parks].[ParkCode], [tlu_Parks].[ParkName] FROM tlu_Parks ORDER BY [P"

@@ -251,24 +251,29 @@ Public Function fxnVerifyConnections()
         End If
         rst.MoveNext
     Loop
-
-    ' Check the status of individual table links, depending on application settings
-    If FormIsOpen("frmSwitchboard") And blnHasError = False Then
-        If Forms!frm_Switchboard.fsub_DbAdmin.Form.chkVerifyOnStartup Then
-            If TempVars.item("HasAccessBE") = True Then
-                If MsgBox("Would you like all linked table connections to be tested?", _
-                    vbYesNo + vbDefaultButton2, _
-                    "Checking back-end connections ...") = vbNo Then GoTo Proc_Final_Status
-            End If
-            If fxnVerifyLinks = False Then
-                blnHasError = True
-                If strErrMsg <> "" Then strErrMsg = strErrMsg & vbCrLf & vbCrLf
-                strErrMsg = strErrMsg & _
-                    "One or more table connections is not working properly."
+    
+    'For applications with full DbAdmin subform (DB_ADMIN_CONTROL = True) otherwise ignore
+    If DB_ADMIN_CONTROL = True Then
+    
+        ' Check the status of individual table links, depending on application settings
+        If FormIsOpen("frmSwitchboard") And blnHasError = False Then
+            If Forms!frm_Switchboard.fsub_DbAdmin.Form.chkVerifyOnStartup Then
+                If TempVars.item("HasAccessBE") = True Then
+                    If MsgBox("Would you like all linked table connections to be tested?", _
+                        vbYesNo + vbDefaultButton2, _
+                        "Checking back-end connections ...") = vbNo Then GoTo Proc_Final_Status
+                End If
+                If fxnVerifyLinks = False Then
+                    blnHasError = True
+                    If strErrMsg <> "" Then strErrMsg = strErrMsg & vbCrLf & vbCrLf
+                    strErrMsg = strErrMsg & _
+                        "One or more table connections is not working properly."
+                End If
             End If
         End If
-    End If
 
+    End If
+    
 Proc_Final_Status:
     If blnHasError Then
         If strErrMsg <> "" Then strErrMsg = strErrMsg & vbCrLf & vbCrLf
@@ -338,33 +343,39 @@ End Function
 '               BLC, 8/6/2014  - moved switchboard control settings based on user access to setUserAccess
 '                                removed unused varRole
 '               BLC, 8/25/2014 - added setUserAccess "update" flag for refreshing UI settings
+'               BLC, 4/30/2015 - added DB_ADMIN_CONTROL and MAIN_APP_FORM checks for handling apps w/o full Db_Admin subform
+'                                to set strReleaseID and strAddress values
 ' =================================
 Public Function fxnAppSetup()
     On Error GoTo Err_Handler
 
     Dim frm As Form
-    Dim strSysTable As String
-    Dim strAddress As String
-    Dim strUser As String
-    Dim strRelease As String
-    Dim strSQL As String
-    Dim strCaption As String
+    Dim strSysTable As String, strAddress As String, strUser As String, strRelease As String
+    Dim strSQL As String, strCaption As String, strReleaseID As String
 
-    Set frm = Forms!frm_Switchboard
+    Set frm = Forms(MAIN_APP_FORM) 'Forms!frm_Switchboard
     TempVars.item("WritePermission") = False
+    
+    If DB_ADMIN_CONTROL Then
+        strReleaseID = APP_RELEASE_ID
+        strAddress = APP_URL
+    Else
+        strReleaseID = frm!Release_ID
+        strAddress = frm!Web_address
+    End If
     
     ' Check for required system tables
     If SysTablesExist("app") = False Then GoTo Exit_Procedure
 
     ' Confirm that the application version is supported
     Select Case DLookup("Is_supported", "tsys_App_Releases", _
-            "[Release_ID] = """ & frm!Release_ID & """")
+            "[Release_ID] = """ & strReleaseID & """")
       Case 0    ' Application not supported
         If MsgBox("This version of the front-end application is out of date ... " _
             & vbCrLf & " ... a more recent version is available!" _
             & vbCrLf & vbCrLf & "Would you like to download the most recent version now?", _
             vbYesNo, "Database Application Update Available") = vbYes Then
-            strAddress = frm!Web_address
+            
             If IsNull(strAddress) Then
                 MsgBox "Web address not found - contact the Data Manager"
             Else
@@ -379,7 +390,7 @@ Public Function fxnAppSetup()
         If MsgBox("An updated version of the front-end application is available!" _
             & vbCrLf & vbCrLf & "Would you like to download the most recent version now?", _
             vbYesNo, "Database Application Update Available") = vbYes Then
-            strAddress = frm!Web_address
+            
             If IsNull(strAddress) Then
                 MsgBox "Web address not found - contact the Data Manager"
             Else
@@ -397,7 +408,7 @@ Public Function fxnAppSetup()
     setUserAccess frm, "update"
 
     ' Log the user, login time, release number, and application mode in the systems table
-    strRelease = Left(frm!Release_ID, 8) & " / " & TempVars.item("UserAccessLevel")
+    strRelease = Left(strReleaseID, 8) & " / " & TempVars.item("UserAccessLevel")
     If fxnIsODBC("tsys_Logins") Then
         ' Use a pass-through query to test the connection for write privileges
         strSQL = "INSERT INTO dbo.tsys_Logins " & _
@@ -423,10 +434,10 @@ Public Function fxnAppSetup()
     ' If the current front-end release is not listed in the back-end file, run fxn to update
     '   Note: Needed where there are one or more back-end copies at remote locations that
     '   cannot be updated with new release information by the developer
-    If DCount("*", "tsys_App_Releases", "[Release_ID]=""" & frm!Release_ID & """") = 0 Then
+    If DCount("*", "tsys_App_Releases", "[Release_ID]=""" & strReleaseID & """") = 0 Then
         If TempVars.item("WritePermission") Then fxnBEUpdates (True)
         ' Check once more to make sure that the release was added properly - if not notify
-        If DCount("*", "tsys_App_Releases", "[Release_ID]=""" & frm!Release_ID & """") = 0 Then
+        If DCount("*", "tsys_App_Releases", "[Release_ID]=""" & strReleaseID & """") = 0 Then
             MsgBox "Unable to determine the application version." & vbCrLf & vbCrLf & _
                 "Please notify the database administrator.", , "Application error"
             ' Skip the code to set the caption
@@ -450,17 +461,20 @@ Update_Settings:
     ' Update the switchboard settings according to application mode
     setUserAccess frm, "update"
 
-    ' If there is an Access back-end, open the always-open form (to maintain a connection
-    '   to the back-end and avoid unnecessary create/delete/updates to its .ldb lock file)
-    If TempVars.item("HasAccessBE") Then DoCmd.OpenForm "frm_Lock_BE", , , , , acHidden
-
-    ' If there is an Access back-end, make the backups button visible
-    frm!fsub_DbAdmin.Form!cmdBackup.Visible = TempVars.item("HasAccessBE")
-
-    ' Requery the control that shows the linked back-ends
-    frm!lbxLinkedDbs.Requery
+    'if DbAdmin subform is complete, then continue
+    If DB_ADMIN_CONTROL Then
+        ' If there is an Access back-end, open the always-open form (to maintain a connection
+        '   to the back-end and avoid unnecessary create/delete/updates to its .ldb lock file)
+        If TempVars.item("HasAccessBE") Then DoCmd.OpenForm "frm_Lock_BE", , , , , acHidden
     
-    Resume Exit_Procedure
+        ' If there is an Access back-end, make the backups button visible
+        frm!fsub_DbAdmin.Form!cmdBackup.Visible = TempVars.item("HasAccessBE")
+    
+        ' Requery the control that shows the linked back-ends
+        frm!lbxLinkedDbs.Requery
+    
+        Resume Exit_Procedure
+    End If
 
 Err_Handler:
     Select Case Err.Number

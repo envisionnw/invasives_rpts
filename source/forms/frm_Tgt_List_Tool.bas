@@ -9,7 +9,6 @@ Begin Form
     AutoCenter = NotDefault
     NavigationButtons = NotDefault
     AllowDeletions = NotDefault
-    CloseButton = NotDefault
     DividingLines = NotDefault
     AllowAdditions = NotDefault
     DefaultView =0
@@ -24,9 +23,8 @@ Begin Form
     Width =12300
     DatasheetFontHeight =10
     ItemSuffix =178
-    Left =3735
-    Right =16035
-    Bottom =10065
+    Right =12300
+    Bottom =10068
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x80d28b4cb201e340
@@ -187,10 +185,10 @@ Begin Form
                             PressedColor =16772300
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -224,10 +222,10 @@ Begin Form
                             PressedShade =90.0
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -257,10 +255,10 @@ Begin Form
                             PressedColor =16764108
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -290,10 +288,10 @@ Begin Form
                             PressedColor =13434828
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -324,10 +322,10 @@ Begin Form
                             PressedColor =14211288
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Overlaps =1
                         End
                     End
@@ -427,91 +425,40 @@ Begin Form
                     Begin
                         Begin Page
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabCreate"
                             StatusBarText ="Create"
                             ControlTipText ="Click to create lists"
                             Caption ="QA/QC"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Begin
-                                Begin CommandButton
-                                    OverlapFlags =247
-                                    Left =2460
-                                    Top =6795
-                                    Width =2340
-                                    Height =420
-                                    FontSize =11
-                                    ForeColor =16711680
-                                    Name ="btnQAChecks"
-                                    Caption ="Run QA Checks (ALL)"
-                                    StatusBarText ="Run all QA Checks"
-                                    OnClick ="[Event Procedure]"
-                                    FontName ="Calibri"
-                                    ControlTipText ="Run all QA Checks"
-                                    GridlineColor =10921638
-
-                                    LayoutCachedLeft =2460
-                                    LayoutCachedTop =6795
-                                    LayoutCachedWidth =4800
-                                    LayoutCachedHeight =7215
-                                    GridlineThemeColorIndex =1
-                                    GridlineShade =65.0
-                                    BackColor =13434828
-                                    BorderColor =8829910
-                                    ThemeFontIndex =1
-                                    WebImagePaddingLeft =2
-                                    WebImagePaddingTop =2
-                                    WebImagePaddingRight =1
-                                    WebImagePaddingBottom =1
-                                    Overlaps =1
-                                End
                                 Begin Rectangle
                                     BackStyle =1
                                     OverlapFlags =255
-                                    Left =1080
-                                    Top =3015
+                                    Left =2280
+                                    Top =3000
                                     Width =2400
                                     Height =3720
                                     BackColor =8829910
                                     BorderColor =12835293
-                                    Name ="rctInsetLeft_QAQC"
+                                    Name ="rctInsetCtr_Create"
                                     GridlineColor =10921638
-                                    LayoutCachedLeft =1080
-                                    LayoutCachedTop =3015
-                                    LayoutCachedWidth =3480
-                                    LayoutCachedHeight =6735
-                                    BorderThemeColorIndex =3
-                                    BorderShade =90.0
-                                    GridlineThemeColorIndex =1
-                                    GridlineShade =65.0
-                                End
-                                Begin Rectangle
-                                    BackStyle =1
-                                    OverlapFlags =255
-                                    Left =3660
-                                    Top =3015
-                                    Width =2340
-                                    Height =3720
-                                    BackColor =8829910
-                                    BorderColor =12835293
-                                    Name ="rctRightInset"
-                                    GridlineColor =10921638
-                                    LayoutCachedLeft =3660
-                                    LayoutCachedTop =3015
-                                    LayoutCachedWidth =6000
-                                    LayoutCachedHeight =6735
+                                    LayoutCachedLeft =2280
+                                    LayoutCachedTop =3000
+                                    LayoutCachedWidth =4680
+                                    LayoutCachedHeight =6720
                                     BorderThemeColorIndex =3
                                     BorderShade =90.0
                                     GridlineThemeColorIndex =1
@@ -519,8 +466,8 @@ Begin Form
                                 End
                                 Begin Label
                                     OverlapFlags =247
-                                    Left =1080
-                                    Top =3015
+                                    Left =2280
+                                    Top =3000
                                     Width =540
                                     Height =315
                                     FontSize =11
@@ -530,33 +477,10 @@ Begin Form
                                     Caption ="Field"
                                     FontName ="Calibri"
                                     GridlineColor =10921638
-                                    LayoutCachedLeft =1080
-                                    LayoutCachedTop =3015
-                                    LayoutCachedWidth =1620
-                                    LayoutCachedHeight =3330
-                                    ThemeFontIndex =1
-                                    BackThemeColorIndex =1
-                                    BorderThemeColorIndex =1
-                                    GridlineThemeColorIndex =1
-                                    GridlineShade =65.0
-                                End
-                                Begin Label
-                                    OverlapFlags =247
-                                    Left =3660
-                                    Top =3015
-                                    Width =540
-                                    Height =315
-                                    FontSize =11
-                                    FontWeight =700
-                                    BorderColor =16777215
-                                    Name ="lblLab"
-                                    Caption ="Lab"
-                                    FontName ="Calibri"
-                                    GridlineColor =10921638
-                                    LayoutCachedLeft =3660
-                                    LayoutCachedTop =3015
-                                    LayoutCachedWidth =4200
-                                    LayoutCachedHeight =3330
+                                    LayoutCachedLeft =2280
+                                    LayoutCachedTop =3000
+                                    LayoutCachedWidth =2820
+                                    LayoutCachedHeight =3315
                                     ThemeFontIndex =1
                                     BackThemeColorIndex =1
                                     BorderThemeColorIndex =1
@@ -568,8 +492,8 @@ Begin Form
                                     BorderWidth =1
                                     OverlapFlags =247
                                     TextAlign =2
-                                    Left =1080
-                                    Top =3675
+                                    Left =2280
+                                    Top =3660
                                     Width =2400
                                     Height =420
                                     FontSize =11
@@ -579,10 +503,10 @@ Begin Form
                                     FontName ="Calibri"
                                     OnClick ="[Event Procedure]"
                                     ControlTipText ="Create species target list"
-                                    LayoutCachedLeft =1080
-                                    LayoutCachedTop =3675
-                                    LayoutCachedWidth =3480
-                                    LayoutCachedHeight =4095
+                                    LayoutCachedLeft =2280
+                                    LayoutCachedTop =3660
+                                    LayoutCachedWidth =4680
+                                    LayoutCachedHeight =4080
                                     ThemeFontIndex =1
                                 End
                                 Begin Label
@@ -590,8 +514,8 @@ Begin Form
                                     BorderWidth =1
                                     OverlapFlags =247
                                     TextAlign =2
-                                    Left =1080
-                                    Top =4335
+                                    Left =2280
+                                    Top =4320
                                     Width =2399
                                     Height =420
                                     FontSize =11
@@ -601,10 +525,10 @@ Begin Form
                                     FontName ="Calibri"
                                     OnClick ="[Event Procedure]"
                                     ControlTipText ="Add target area"
-                                    LayoutCachedLeft =1080
-                                    LayoutCachedTop =4335
-                                    LayoutCachedWidth =3479
-                                    LayoutCachedHeight =4755
+                                    LayoutCachedLeft =2280
+                                    LayoutCachedTop =4320
+                                    LayoutCachedWidth =4679
+                                    LayoutCachedHeight =4740
                                     ThemeFontIndex =1
                                 End
                             End
@@ -612,22 +536,22 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabView"
                             Caption ="LOGS"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Begin
                                 Begin Rectangle
                                     BackStyle =1
@@ -676,22 +600,22 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabReports"
                             Caption ="REPORTS"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Begin
                                 Begin Rectangle
                                     BackStyle =1
@@ -880,22 +804,22 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabExport"
                             Caption ="EXPORT"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Begin
                                 Begin Rectangle
                                     BackStyle =1
@@ -945,24 +869,24 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabDbAdmin"
                             StatusBarText ="Database Administration"
                             ControlTipText ="Database Administration Tasks"
                             Caption ="DB ADMIN"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Begin
                                 Begin Subform
                                     OverlapFlags =247
@@ -1018,12 +942,64 @@ Begin Form
                     Height =2895
                     TabIndex =2
                     Name ="fsub_Filter"
-                    SourceObject ="Form.fsub_Filter"
+                    SourceObject ="Form.fsub_Select_Park_Year"
 
                     LayoutCachedLeft =6540
                     LayoutCachedTop =3555
                     LayoutCachedWidth =10710
                     LayoutCachedHeight =6450
+                End
+                Begin Label
+                    OverlapFlags =255
+                    Left =840
+                    Top =2640
+                    Width =1632
+                    Height =372
+                    FontSize =14
+                    BorderColor =8355711
+                    ForeColor =8355711
+                    Name ="lblParkSelectionHdr"
+                    Caption ="Park Selection"
+                    FontName ="Calibri"
+                    GridlineColor =10921638
+                    LayoutCachedLeft =840
+                    LayoutCachedTop =2640
+                    LayoutCachedWidth =2472
+                    LayoutCachedHeight =3012
+                    ThemeFontIndex =1
+                    BackThemeColorIndex =1
+                    BorderThemeColorIndex =0
+                    BorderTint =50.0
+                    ForeThemeColorIndex =0
+                    ForeTint =50.0
+                    GridlineThemeColorIndex =1
+                    GridlineShade =65.0
+                End
+                Begin Label
+                    OverlapFlags =255
+                    Left =6420
+                    Top =3120
+                    Width =4452
+                    Height =300
+                    FontSize =11
+                    BorderColor =8355711
+                    ForeColor =8355711
+                    Name ="lblAction"
+                    Caption ="Choose the year for this target list."
+                    FontName ="Calibri"
+                    GridlineColor =10921638
+                    LayoutCachedLeft =6420
+                    LayoutCachedTop =3120
+                    LayoutCachedWidth =10872
+                    LayoutCachedHeight =3420
+                    ThemeFontIndex =1
+                    BackThemeColorIndex =1
+                    BorderThemeColorIndex =0
+                    BorderTint =50.0
+                    ForeThemeColorIndex =0
+                    ForeTint =50.0
+                    GridlineThemeColorIndex =1
+                    GridlineShade =65.0
                 End
             End
         End
@@ -1362,7 +1338,7 @@ End Sub
 ' TAB (PAGE) NAME:    CREATE (tabCreate)
 ' Description:  Create target species lists
 ' Unbound ctls:
-' Subforms:     fsub_Filter
+' Subforms:     fsub_Select_Park_Year
 ' =================================
 ' ---------------------------------
 ' SUB:     btnCreateTgtLists_Click
@@ -1474,8 +1450,8 @@ On Error GoTo Err_Handler:
     'reveal filter subform & clear fields
     With fsub_Filter
         .Visible = True
-        !lbxYear.Value = ""
-        !lbxProjectID.Value = ""
+        !cbxPark.Value = ""
+        !cbxYear.Value = ""
     End With
     
     Me.Repaint
@@ -1487,7 +1463,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - OpenFilterSubform[Form_frm_Switchboard])"
+            "Error encountered (#" & Err.Number & " - OpenFilterSubform[Form_frm_Tgt_List_Tool])"
     End Select
     Resume Exit_Procedure
     

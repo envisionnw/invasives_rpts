@@ -25,13 +25,20 @@ Option Explicit
 Public Function FormIsOpen(strFormName As String) As Boolean
     On Error GoTo Err_Handler
 
-    FormIsOpen = False    ' Default in case of error
+    Dim frm As Form
 
-    If CurrentProject.AllForms(strFormName).IsLoaded = True Then
-        If CurrentProject.AllForms(strFormName).CurrentView = 1 Then
+    FormIsOpen = False    ' Default in case of error
+ 
+    'search for form in Forms collection (all open forms)
+    For Each frm In Forms
+      If frm.name = strFormName Then
+        'check form is in Form view: 0 - Design View, 1 - Form View, 2 - Datasheet View
+        If frm.CurrentView = 1 Then
             FormIsOpen = True
+            'Exit Function
         End If
-    End If
+      End If
+    Next
 
 Exit_Function:
     Exit Function
@@ -65,6 +72,7 @@ Public Function fxnSwitchboardIsOpen() As Boolean
 
     strSwitchboardName = "frm_Switchboard"
 
+    'check for switchboard in all open forms ( AllForms.IsLoaded() )
     If CurrentProject.AllForms(strSwitchboardName).IsLoaded = True Then
         If CurrentProject.AllForms(strSwitchboardName).CurrentView = 1 Then
             fxnSwitchboardIsOpen = True

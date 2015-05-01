@@ -27,57 +27,63 @@ Option Explicit
 ' Revisions:    JRB, 11/21/2008 - added optional parameter to either run all update lines
 '                   (default), or just one where [Is_done]=False
 '               BLC, 4/30/2015  - moved to mod_Db framework module from mod_Custom_Functions
+'                                 added check for BOF & EOF to avoid Error #3021 no current record on rs.MoveLast when no records exist
 ' =================================
 Public Function fxnBEUpdates(Optional ByVal bRunAll As Boolean = True)
     On Error GoTo Err_Handler
 
     Dim db As DAO.Database
-    Dim rst As DAO.Recordset
+    Dim rs As DAO.Recordset
     Dim intNumUpdates As Integer
     Dim varReturn As Variant
     Dim intI As Integer
     Dim strSQL As String
     
     Set db = CurrentDb
-    Set rst = db.OpenRecordset("SELECT tsys_BE_Updates.* FROM tsys_BE_Updates " & _
+    Set rs = db.OpenRecordset("SELECT tsys_BE_Updates.* FROM tsys_BE_Updates " & _
         "ORDER BY tsys_BE_Updates.Update_ID;", dbOpenDynaset)
 
-    ' Counts the number of db update records in the system table
-    rst.MoveLast    ' Need to do this to make the record count accurate
-    intNumUpdates = rst.RecordCount
-    If intNumUpdates = 0 Then    ' No records in the recordset
-        GoTo Exit_Procedure
-    End If
+    ' Check for BOF & EOF to avoid Error # 3021 No current record
+    If Not rs.BOF And rs.EOF Then
 
-    ' First pass to verify the tables in the specified database
-    '   Initialize the system meter to indicate progress
-    varReturn = SysCmd(acSysCmdInitMeter, "Performing database updates", intNumUpdates)
-    intI = 0
-    rst.MoveFirst
-    On Error Resume Next
-    Do Until rst.EOF
-        intI = intI + 1
-        varReturn = SysCmd(acSysCmdUpdateMeter, intI)
-        If bRunAll = True Or rst![Is_done] = False Then
-            DoCmd.SetWarnings False
-            strSQL = rst![SQL_statement]
-            DoCmd.RunSQL strSQL
-            With rst
-                .Edit
-                ![Run_date] = Now()
-                ![Is_done] = True
-                .Update
-            End With
+        ' Counts the number of db update records in the system table
+        rs.MoveLast    ' Need to do this to make the record count accurate
+        intNumUpdates = rs.RecordCount
+        If intNumUpdates = 0 Then    ' No records in the recordset
+            GoTo Exit_Procedure
         End If
-        rst.MoveNext
-    Loop
+    
+        ' First pass to verify the tables in the specified database
+        '   Initialize the system meter to indicate progress
+        varReturn = SysCmd(acSysCmdInitMeter, "Performing database updates", intNumUpdates)
+        intI = 0
+        rs.MoveFirst
+        On Error Resume Next
+        Do Until rs.EOF
+            intI = intI + 1
+            varReturn = SysCmd(acSysCmdUpdateMeter, intI)
+            If bRunAll = True Or rs![Is_done] = False Then
+                DoCmd.SetWarnings False
+                strSQL = rs![SQL_statement]
+                DoCmd.RunSQL strSQL
+                With rs
+                    .Edit
+                    ![Run_date] = Now()
+                    ![Is_done] = True
+                    .Update
+                End With
+            End If
+            rs.MoveNext
+        Loop
+        
+    End If
 
 Exit_Procedure:
     On Error Resume Next
     DoCmd.SetWarnings True
     varReturn = SysCmd(acSysCmdRemoveMeter)
-    rst.Close
-    Set rst = Nothing
+    rs.Close
+    Set rs = Nothing
     Set db = Nothing
     Exit Function
 

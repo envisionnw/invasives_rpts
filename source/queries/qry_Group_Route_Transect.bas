@@ -13,13 +13,13 @@ Begin OutputColumns
     Expression ="tbl_Quadrat_Transect.Transect"
 End
 Begin Joins
-    LeftTable ="tbl_Locations"
-    RightTable ="tbl_Events"
-    Expression ="tbl_Locations.Location_ID = tbl_Events.Location_ID"
-    Flag =2
     LeftTable ="tbl_Events"
     RightTable ="tbl_Quadrat_Transect"
     Expression ="tbl_Events.Event_ID = tbl_Quadrat_Transect.Event_ID"
+    Flag =2
+    LeftTable ="tbl_Locations"
+    RightTable ="tbl_Events"
+    Expression ="tbl_Locations.Location_ID = tbl_Events.Location_ID"
     Flag =2
 End
 Begin Groups
@@ -41,7 +41,16 @@ dbByte "DefaultView" ="2"
 dbBinary "GUID" = Begin
     0xd591ed008dbac04e813b71077ad4a5bf
 End
+dbBoolean "FilterOnLoad" ="0"
+dbBoolean "OrderByOnLoad" ="-1"
+dbBoolean "TotalsRow" ="0"
 Begin
+    Begin
+        dbText "Name" ="Visit_Year"
+        dbBinary "GUID" = Begin
+            0xada3b6c58ac6494eac8374f99bcfd775
+        End
+    End
 End
 Begin
     State =0
@@ -51,8 +60,8 @@ Begin
     Bottom =500
     Left =-1
     Top =-1
-    Right =977
-    Bottom =144
+    Right =946
+    Bottom =123
     Left =0
     Top =0
     ColumnsShown =543
@@ -70,7 +79,7 @@ Begin
         Top =6
         Right =402
         Bottom =120
-        Top =1
+        Top =0
         Name ="tbl_Events"
         Name =""
     End
