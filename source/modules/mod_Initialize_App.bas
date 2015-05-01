@@ -3,11 +3,22 @@ Option Explicit
 
 ' =================================
 ' MODULE:       mod_Initialize_App
+' Level:        Framework module
+' Version:      1.00
 ' Description:  Standard module for setting initial app & database values/settings & global variables
 ' Source/date:  Bonnie Campbell, July 2014
 ' Adapted:      -
 ' Revisions:    BLC, 7/31/2014 - initial version
 '               BLC, 8/6/2014  - merged in mod_Global_Variables (see history below)
+'               BLC, 4/22/2015 - adapted to generic tools (NCPN Invasives Reporting Tool) by adding
+'                                USER_ACCESS_CONTROL (False - gives users full control in apps w/o controls,
+'                                                     True - relies on user access control settings)
+'                                DB_SYS_TABLES & APP_SYS_TABLES (handle table arrays for the database/
+'                                   application)
+'                                WQ Utilities tool constants removed (WATER_YEAR_START & WATER_YEAR_END)
+'               BLC, 4/30/2015 - shifted USER_ACCESS_CONTROL, DB_SYS_TABLES, APP_SYS_TABLES to mod_App_Settings
+'                                since these are application vs. framework specific, added Level & Version #
+'                                added blnRunQueries & blnUpdateAll from mod_User
 ' =================================
 ' HISTORY:
 ' MERGED MODULE: mod_Global_Variables (merged with mod_Initialize_App)
@@ -24,12 +35,6 @@ Option Explicit
 '                                 to ensure these load upon module being called for initGlobalTempVars
 '                                 merged into mod_Initialize_App
 '                --------------------------
-'               BLC, 4/22/2015 - adapted to generic tools (NCPN Invasives Reporting Tool) by adding
-'                                USER_ACCESS_CONTROL (False - gives users full control in apps w/o controls,
-'                                                     True - relies on user access control settings)
-'                                DB_SYS_TABLES & APP_SYS_TABLES (handle table arrays for the database/
-'                                   application)
-'                                WQ Utilities tool constants removed (WATER_YEAR_START & WATER_YEAR_END)
 ' =================================
 
 ' ---------------------------------
@@ -39,12 +44,14 @@ Option Explicit
 ' References:   -
 ' Source/date:  John R. Boetsch, May 2005
 ' Adapted:      Bonnie Campbell, May 2014
-' Revisions:    BLC, 7/31/2014 - XX
+' Revisions:    BLC, 7/31/2014 - initial version
 ' ---------------------------------
 Public gvarRefForm As Form          ' referring form object
 Public gvarRefCtl As Control        ' specific control on referring form
 Public gvarRefTaxonCtl As Control   ' specific taxon control
 Public gvarRefContactCtl As Control ' specific contacts control
+Public blnRunQueries As Boolean     ' flag to indicate whether to run the queries upon opening
+Public blnUpdateAll As Boolean      ' flag to indicate whether to run all queries
 
 ' ---------------------------------
 ' CONSTANTS:    global constant values
@@ -58,30 +65,8 @@ Public gvarRefContactCtl As Control ' specific contacts control
 '                                                     True - relies on user access control settings)
 '                                DB_SYS_TABLES & APP_SYS_TABLES (handle table arrays for the database/
 '                                   application)
+'               BLC, 4/30/2015 - shifted to mod_App_Settings
 ' ---------------------------------
-Public Const USER_ACCESS_CONTROL As Boolean = False 'Boolean flag -> db includes user access control or not
-
-'-----------------------------------------------------------------------
-' Database System Tables
-'-----------------------------------------------------------------------
-'   Array("App_Defaults", "BE_Updates", "Link_Dbs", "Link_Tables")
-'   tsys_App_Defaults -> default application settings
-'   tsys_BE_Updates   -> updates to post to remot back-end copies
-'   tsys_Link_Dbs     -> info about linked back-end dbs
-'   tsys_Link_Tables  -> info about linked tables
-'-----------------------------------------------------------------------
-' Application Backend System Tables
-'-----------------------------------------------------------------------
-'   Array("App_Releases", "Bug_Reports", "Logins", "User_Roles")
-'   tsys_App_Releases -> list of application releases
-'   tsys_Bug_Reports  -> tracking for known issues
-'   tsys_Logins       -> system use monitoring
-'   tsys_User_Roles   -> assign user access priviledges
-'-----------------------------------------------------------------------
-' SEE ALSO >>>> SysTablesExist() function
-'-----------------------------------------------------------------------
-Public Const DB_SYS_TABLES As String = "App_Defaults, Link_Files, Link_Tables"
-Public Const APP_SYS_TABLES As String = ""
 
 ' ---------------------------------
 ' SUB:          initGlobalTempVars
@@ -172,7 +157,7 @@ End Sub
 ' Parameters:   none
 ' Returns:      none
 ' Throws:       none
-' References:   fxnFileExists, fxnSwitchboardIsOpen, fxnTestODBCConnection, fxnVerifyLinks,
+' References:   fxnFileExists, FormIsOpen, fxnTestODBCConnection, fxnVerifyLinks,
 '                   fxnVerifyLinkTableInfo
 ' Source/date:  Susan Huse, fall 2004
 ' Adapted:      Bonnie Campbell, June, 2014 for NCPN WQ Utilities tool
@@ -187,6 +172,7 @@ End Sub
 '                   optional if there is an Access back-end file
 '               BLC, 7/31/2014 - changed gvars to TempVars, shifted to initApp module
 '               BLC, 9/5/2014  - added check for remote (network) backends (IsNetworkFile)
+'               BLC, 4/30/2015 - switched from fxnSwitchboardIsOpen to FormIsOpen(frmSwitchboard)
 ' ---------------------------------
 Public Function fxnVerifyConnections()
     On Error GoTo Err_Handler
@@ -265,24 +251,29 @@ Public Function fxnVerifyConnections()
         End If
         rst.MoveNext
     Loop
-
-    ' Check the status of individual table links, depending on application settings
-    If fxnSwitchboardIsOpen And blnHasError = False Then
-        If Forms!frm_Switchboard.fsub_DbAdmin.Form.chkVerifyOnStartup Then
-            If TempVars.item("HasAccessBE") = True Then
-                If MsgBox("Would you like all linked table connections to be tested?", _
-                    vbYesNo + vbDefaultButton2, _
-                    "Checking back-end connections ...") = vbNo Then GoTo Proc_Final_Status
-            End If
-            If fxnVerifyLinks = False Then
-                blnHasError = True
-                If strErrMsg <> "" Then strErrMsg = strErrMsg & vbCrLf & vbCrLf
-                strErrMsg = strErrMsg & _
-                    "One or more table connections is not working properly."
+    
+    'For applications with full DbAdmin subform (DB_ADMIN_CONTROL = True) otherwise ignore
+    If DB_ADMIN_CONTROL = True Then
+    
+        ' Check the status of individual table links, depending on application settings
+        If FormIsOpen("frmSwitchboard") And blnHasError = False Then
+            If Forms!frm_Switchboard.fsub_DbAdmin.Form.chkVerifyOnStartup Then
+                If TempVars.item("HasAccessBE") = True Then
+                    If MsgBox("Would you like all linked table connections to be tested?", _
+                        vbYesNo + vbDefaultButton2, _
+                        "Checking back-end connections ...") = vbNo Then GoTo Proc_Final_Status
+                End If
+                If fxnVerifyLinks = False Then
+                    blnHasError = True
+                    If strErrMsg <> "" Then strErrMsg = strErrMsg & vbCrLf & vbCrLf
+                    strErrMsg = strErrMsg & _
+                        "One or more table connections is not working properly."
+                End If
             End If
         End If
-    End If
 
+    End If
+    
 Proc_Final_Status:
     If blnHasError Then
         If strErrMsg <> "" Then strErrMsg = strErrMsg & vbCrLf & vbCrLf
@@ -352,33 +343,39 @@ End Function
 '               BLC, 8/6/2014  - moved switchboard control settings based on user access to setUserAccess
 '                                removed unused varRole
 '               BLC, 8/25/2014 - added setUserAccess "update" flag for refreshing UI settings
+'               BLC, 4/30/2015 - added DB_ADMIN_CONTROL and MAIN_APP_FORM checks for handling apps w/o full Db_Admin subform
+'                                to set strReleaseID and strAddress values
 ' =================================
 Public Function fxnAppSetup()
     On Error GoTo Err_Handler
 
     Dim frm As Form
-    Dim strSysTable As String
-    Dim strAddress As String
-    Dim strUser As String
-    Dim strRelease As String
-    Dim strSQL As String
-    Dim strCaption As String
+    Dim strSysTable As String, strAddress As String, strUser As String, strRelease As String
+    Dim strSQL As String, strCaption As String, strReleaseID As String
 
-    Set frm = Forms!frm_Switchboard
+    Set frm = Forms(MAIN_APP_FORM) 'Forms!frm_Switchboard
     TempVars.item("WritePermission") = False
+    
+    If DB_ADMIN_CONTROL Then
+        strReleaseID = APP_RELEASE_ID
+        strAddress = APP_URL
+    Else
+        strReleaseID = frm!Release_ID
+        strAddress = frm!Web_address
+    End If
     
     ' Check for required system tables
     If SysTablesExist("app") = False Then GoTo Exit_Procedure
 
     ' Confirm that the application version is supported
     Select Case DLookup("Is_supported", "tsys_App_Releases", _
-            "[Release_ID] = """ & frm!Release_ID & """")
+            "[Release_ID] = """ & strReleaseID & """")
       Case 0    ' Application not supported
         If MsgBox("This version of the front-end application is out of date ... " _
             & vbCrLf & " ... a more recent version is available!" _
             & vbCrLf & vbCrLf & "Would you like to download the most recent version now?", _
             vbYesNo, "Database Application Update Available") = vbYes Then
-            strAddress = frm!Web_address
+            
             If IsNull(strAddress) Then
                 MsgBox "Web address not found - contact the Data Manager"
             Else
@@ -393,7 +390,7 @@ Public Function fxnAppSetup()
         If MsgBox("An updated version of the front-end application is available!" _
             & vbCrLf & vbCrLf & "Would you like to download the most recent version now?", _
             vbYesNo, "Database Application Update Available") = vbYes Then
-            strAddress = frm!Web_address
+            
             If IsNull(strAddress) Then
                 MsgBox "Web address not found - contact the Data Manager"
             Else
@@ -411,7 +408,7 @@ Public Function fxnAppSetup()
     setUserAccess frm, "update"
 
     ' Log the user, login time, release number, and application mode in the systems table
-    strRelease = Left(frm!Release_ID, 8) & " / " & TempVars.item("UserAccessLevel")
+    strRelease = Left(strReleaseID, 8) & " / " & TempVars.item("UserAccessLevel")
     If fxnIsODBC("tsys_Logins") Then
         ' Use a pass-through query to test the connection for write privileges
         strSQL = "INSERT INTO dbo.tsys_Logins " & _
@@ -437,10 +434,10 @@ Public Function fxnAppSetup()
     ' If the current front-end release is not listed in the back-end file, run fxn to update
     '   Note: Needed where there are one or more back-end copies at remote locations that
     '   cannot be updated with new release information by the developer
-    If DCount("*", "tsys_App_Releases", "[Release_ID]=""" & frm!Release_ID & """") = 0 Then
+    If DCount("*", "tsys_App_Releases", "[Release_ID]=""" & strReleaseID & """") = 0 Then
         If TempVars.item("WritePermission") Then fxnBEUpdates (True)
         ' Check once more to make sure that the release was added properly - if not notify
-        If DCount("*", "tsys_App_Releases", "[Release_ID]=""" & frm!Release_ID & """") = 0 Then
+        If DCount("*", "tsys_App_Releases", "[Release_ID]=""" & strReleaseID & """") = 0 Then
             MsgBox "Unable to determine the application version." & vbCrLf & vbCrLf & _
                 "Please notify the database administrator.", , "Application error"
             ' Skip the code to set the caption
@@ -464,17 +461,20 @@ Update_Settings:
     ' Update the switchboard settings according to application mode
     setUserAccess frm, "update"
 
-    ' If there is an Access back-end, open the always-open form (to maintain a connection
-    '   to the back-end and avoid unnecessary create/delete/updates to its .ldb lock file)
-    If TempVars.item("HasAccessBE") Then DoCmd.OpenForm "frm_Lock_BE", , , , , acHidden
-
-    ' If there is an Access back-end, make the backups button visible
-    frm!fsub_DbAdmin.Form!cmdBackup.Visible = TempVars.item("HasAccessBE")
-
-    ' Requery the control that shows the linked back-ends
-    frm!lbxLinkedDbs.Requery
+    'if DbAdmin subform is complete, then continue
+    If DB_ADMIN_CONTROL Then
+        ' If there is an Access back-end, open the always-open form (to maintain a connection
+        '   to the back-end and avoid unnecessary create/delete/updates to its .ldb lock file)
+        If TempVars.item("HasAccessBE") Then DoCmd.OpenForm "frm_Lock_BE", , , , , acHidden
     
-    Resume Exit_Procedure
+        ' If there is an Access back-end, make the backups button visible
+        frm!fsub_DbAdmin.Form!cmdBackup.Visible = TempVars.item("HasAccessBE")
+    
+        ' Requery the control that shows the linked back-ends
+        frm!lbxLinkedDbs.Requery
+    
+        Resume Exit_Procedure
+    End If
 
 Err_Handler:
     Select Case Err.Number

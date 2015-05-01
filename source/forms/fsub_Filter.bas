@@ -197,6 +197,7 @@ Begin Form
                     QuickStyle =39
                     QuickStyleMask =-513
                     WebImagePaddingTop =1
+                    WebImagePaddingBottom =1
                 End
                 Begin ComboBox
                     OverlapFlags =85

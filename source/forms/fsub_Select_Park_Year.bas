@@ -10,10 +10,13 @@ Begin Form
     DatasheetGridlinesBehavior =3
     GridX =24
     GridY =24
+    Width =4320
     DatasheetFontHeight =11
-    ItemSuffix =16
-    Right =15720
-    Bottom =11760
+    ItemSuffix =14
+    Left =1728
+    Top =3036
+    Right =7668
+    Bottom =6324
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xc1f3db6ed487e440
@@ -136,45 +139,28 @@ Begin Form
             GridlineShade =65.0
         End
         Begin FormHeader
-            Height =2460
+            Height =1920
             Name ="FormHeader"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
             BackThemeColorIndex =1
             Begin
-                Begin Label
-                    OverlapFlags =85
-                    Left =60
-                    Top =60
-                    Width =1776
-                    Height =372
-                    FontSize =14
-                    BorderColor =8355711
-                    ForeColor =8355711
-                    Name ="lblSelectYearHdr"
-                    Caption ="Target List Year"
-                    GridlineColor =10921638
-                    LayoutCachedLeft =60
-                    LayoutCachedTop =60
-                    LayoutCachedWidth =1836
-                    LayoutCachedHeight =432
-                End
                 Begin CommandButton
                     OverlapFlags =85
-                    Left =4380
-                    Top =1740
+                    Left =1920
+                    Top =1320
                     Width =2220
                     ForeColor =16711680
                     Name ="btnContinue"
                     Caption ="Continue >>"
-                    StatusBarText ="Continue to create target list"
+                    StatusBarText ="Continue to choose activities"
                     OnClick ="[Event Procedure]"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =4380
-                    LayoutCachedTop =1740
-                    LayoutCachedWidth =6600
-                    LayoutCachedHeight =2100
+                    LayoutCachedLeft =1920
+                    LayoutCachedTop =1320
+                    LayoutCachedWidth =4140
+                    LayoutCachedHeight =1680
                     ForeThemeColorIndex =-1
                     ForeTint =100.0
                     Gradient =0
@@ -203,17 +189,46 @@ Begin Form
                     Overlaps =1
                 End
                 Begin ComboBox
+                    ColumnHeads = NotDefault
+                    OverlapFlags =85
+                    IMESentenceMode =3
+                    ColumnCount =2
+                    ListWidth =5040
+                    Left =240
+                    Top =240
+                    Width =3480
+                    Height =300
+                    ColumnOrder =0
+                    TabIndex =1
+                    BorderColor =10921638
+                    ForeColor =4138256
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"10\""
+                    Name ="cbxPark"
+                    RowSourceType ="Table/Query"
+                    RowSource ="SELECT [tlu_Parks].[ParkCode], [tlu_Parks].[ParkName] FROM tlu_Parks ORDER BY [P"
+                        "arkName]; "
+                    ColumnWidths ="1080;3960"
+                    OnChange ="[Event Procedure]"
+                    ControlTipText ="Choose a park."
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =240
+                    LayoutCachedTop =240
+                    LayoutCachedWidth =3720
+                    LayoutCachedHeight =540
+                End
+                Begin ComboBox
+                    LimitToList = NotDefault
                     RowSourceTypeInt =1
                     OverlapFlags =85
                     IMESentenceMode =3
                     ColumnCount =2
                     ListWidth =2880
-                    Left =1440
-                    Top =1140
+                    Left =240
+                    Top =780
                     Width =3360
                     Height =300
-                    ColumnOrder =0
-                    TabIndex =1
+                    TabIndex =2
                     BorderColor =10921638
                     ForeColor =4138256
                     Name ="cbxYear"
@@ -222,31 +237,12 @@ Begin Form
                         "2013\";\"2013\""
                     ColumnWidths ="0;1440"
                     DefaultValue ="\"SEL\""
-                    OnChange ="[Event Procedure]"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =1440
-                    LayoutCachedTop =1140
-                    LayoutCachedWidth =4800
-                    LayoutCachedHeight =1440
-                    Begin
-                        Begin Label
-                            OverlapFlags =85
-                            Left =1080
-                            Top =600
-                            Width =4452
-                            Height =300
-                            BorderColor =8355711
-                            ForeColor =8355711
-                            Name ="lblAction"
-                            Caption ="Choose the year for this target list."
-                            GridlineColor =10921638
-                            LayoutCachedLeft =1080
-                            LayoutCachedTop =600
-                            LayoutCachedWidth =5532
-                            LayoutCachedHeight =900
-                        End
-                    End
+                    LayoutCachedLeft =240
+                    LayoutCachedTop =780
+                    LayoutCachedWidth =3600
+                    LayoutCachedHeight =1080
                 End
             End
         End
@@ -259,9 +255,8 @@ Begin Form
             BackThemeColorIndex =1
         End
         Begin FormFooter
-            Height =492
+            Height =0
             Name ="FormFooter"
-            AutoHeight =1
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
             BackThemeColorIndex =1
@@ -277,32 +272,31 @@ Option Compare Database
 Option Explicit
 
 ' =================================
-' MODULE:       Form_frmSelectYear
-' Description:  Action functions & procedures
+' FORM:         Form_fsub_Select_Park_Year
+' Description:  Target species functions & procedures
 '
-' Source/date:  Bonnie Campbell, 2/23/2015
-' Revisions:    BLC - 2/23/2015 - initial version
+' Source/date:  Bonnie Campbell, 2/11/2015
+' Revisions:    BLC - 2/11/2015 - initial version
 ' =================================
 
 ' ---------------------------------
 ' SUB:          Form_Load
-' Description:  Select year form loading processes
+' Description:  XX
 ' Assumptions:  -
-' Parameters:   N/A
-' Returns:      N/A
+' Parameters:   XX - XX
+' Returns:      XX - XX
 ' Throws:       none
 ' References:   none
 ' Source/date:
-' Adapted:      Bonnie Campbell, February 23, 2015 - for NCPN tools
+' Adapted:      Bonnie Campbell, February 12, 2015 - for NCPN tools
 ' Revisions:
-'   BLC - 2/23/2015 - initial version
+'   BLC - 2/12/2015 - initial version
 ' ---------------------------------
 Private Sub Form_Load()
 
 On Error GoTo Err_Handler
     
-    ' close select action form
-    DoCmd.Close acForm, "frmActions"
+    'Initialize
     
 Exit_Sub:
     Exit Sub
@@ -311,27 +305,53 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Form_Load[form_frmSelectYear])"
+            "Error encountered (#" & Err.Number & " - Form_Load[form_fsub_Select_Park_Year])"
     End Select
     Resume Exit_Sub
 End Sub
 
 ' ---------------------------------
-' SUB:          cbxYear_Change
-' Description:  Actions to take when a task action is selected
+' SUB:          cbxPark_Change
+' Description:  Actions to take when a park is selected
 ' Assumptions:  -
 ' Parameters:   N/A
 ' Returns:      N/A
 ' Throws:       none
 ' References:   none
 ' Source/date:
-' Adapted:      Bonnie Campbell, February 23, 2015 - for NCPN tools
+' Adapted:      Bonnie Campbell, February 12, 2015 - for NCPN tools
 ' Revisions:
-'   BLC - 2/23/2015 - initial version
+'   BLC - 2/12/2015 - initial version
 ' ---------------------------------
-Private Sub cbxYear_Change()
+Private Sub cbxPark_Change()
 On Error GoTo Err_Handler
+
+    If cbxPark.ItemsSelected.count > 0 Then
+        'set park
+        TempVars.item("park") = cbxPark.ItemsSelected.item(0)
+        'set year
+        TempVars.item("yr") = cbxYear.ItemsSelected.item(0)
+        
+        'enable the continue button
+'        EnableControl btnContinue, TempVars.item("ctrlAddEnabled"), TempVars.item("textEnabled")
+'        btnContinue.Enabled = True
+    'Else
+        'disable the continue button"
+     '   btnContinue.Enabled = False
+     '   DisableControl btnContinue
+    End If
     
+    If Len(cbxPark.Value) > 0 Then
+        'set park
+        TempVars.item("park") = cbxPark.Value
+        'enable the continue button
+  '      EnableControl btnContinue, TempVars.item("ctrlAddEnabled"), TempVars.item("textEnabled")
+  '      btnContinue.Enabled = True
+    Else
+        'disable the continue button"
+   '     btnContinue.Enabled = False
+   '     DisableControl btnContinue
+    End If
 Exit_Sub:
     Exit Sub
 
@@ -339,49 +359,30 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - cbxYear_Change[Form_frmSelectYear])"
+            "Error encountered (#" & Err.Number & " - cbxPark_Change[Form_frmSelectPark])"
     End Select
     Resume Exit_Sub
 End Sub
 
 ' ---------------------------------
 ' SUB:          btnContinue_Click
-' Description:  Continue to specific actions
+' Description:  Continue to park actions
 ' Assumptions:  -
 ' Parameters:   N/A
 ' Returns:      N/A
 ' Throws:       none
 ' References:   none
 ' Source/date:
-' Adapted:      Bonnie Campbell, February 23, 2015 - for NCPN tools
+' Adapted:      Bonnie Campbell, February 12, 2015 - for NCPN tools
 ' Revisions:
-'   BLC - 2/23/2015 - initial version
+'   BLC - 2/12/2015 - initial version
 ' ---------------------------------
 Private Sub btnContinue_Click()
 On Error GoTo Err_Handler
     
-    Dim frm As String
-    
-    If Len(cbxYear.Value) > 0 Then
+    'open activity list
+    DoCmd.OpenForm "frmActions", acNormal
         
-        'determine the selected action
-        Select Case cbxYear.Value
-            
-            Case "SEL"  'default (non-select option)
-                MsgBox "Please select a task.", vbOKOnly, "Oops! Missing Action"
-                
-                GoTo Exit_Sub
-                
-            Case "2013", "2014", "2015", "2016" 'year options
-                'reference via AllForms to include closed forms
-                frm = "frmTgtSpecies"
-        
-        End Select
-        
-        'open form
-        DoCmd.OpenForm frm, acNormal, , , , , cbxYear.Value
-    End If
-    
 Exit_Sub:
     Exit Sub
     

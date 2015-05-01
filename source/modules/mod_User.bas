@@ -3,12 +3,15 @@ Option Explicit
 
 ' =================================
 ' MODULE:       mod_User
+' Level:        Framework module
+' Version:      1.00
 ' Description:  Access related functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, May 2014
 ' Revisions:    BLC, 6/13/2014 - initial version
 '               BLC, 8/6/2014  - renamed from mod_Access_Utilities to mod_User
 '                                to accommodate additional user functions/subs
+'               BLC, 4/30/2015 - added level & version info, move blnRunQueries & blnUpdateAll to mod_Initialize_App
 ' =================================
 
 ' ---------------------------------
@@ -17,10 +20,10 @@ Option Explicit
 ' References:   -
 ' Source/date:  Bonnie Campbell, August 2014
 ' Adapted:      -
-' Revisions:    BLC, 7/31/2014 - XX
+' Revisions:    BLC, 7/31/2014 - initial version
+'               BLC, 4/30/2015 - moved blnRunQueries & blnUpdateAll to mod_Initialize_App
 ' ---------------------------------
-Public blnRunQueries As Boolean  ' flag to indicate whether to run the queries upon opening
-Public blnUpdateAll As Boolean   ' flag to indicate whether to run all queries
+' N/A
 
 ' ---------------------------------
 ' FUNCTION:     getDbUserAccess
@@ -625,3 +628,33 @@ Err_Handler:
     Resume Exit_Procedure
 
 End Sub
+
+' =================================
+' FUNCTION:     fxnUserName
+' Description:  Returns the current user name
+' Parameters:   none
+' Returns:      string of the user login
+' Throws:       none
+' References:   none
+' Source/date:  John R. Boetsch, 12/31/2009
+' Revisions:    JRB, 12/31/2009 - initial version
+'               BLC, 4/30/2015  - moved from mod_Utilities
+' =================================
+Public Function fxnUserName() As String
+    On Error GoTo Err_Handler
+
+    fxnUserName = "Unknown"
+    fxnUserName = Environ("Username")
+
+Exit_Procedure:
+    Exit Function
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - fxnUserName[mod_User])"
+    End Select
+    Resume Exit_Procedure
+
+End Function

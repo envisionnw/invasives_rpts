@@ -1,6 +1,7 @@
 CREATE TABLE [tsys_Link_Tables] (
   [Link_type] VARCHAR (50),
   [Link_table] VARCHAR (100),
+  [Link_db] VARCHAR (100),
   [Table_type] VARCHAR (50),
   [Description_text] VARCHAR (255),
   [Is_hidden] VARCHAR ,

@@ -28,6 +28,9 @@ dbByte "DefaultView" ="2"
 dbBinary "GUID" = Begin
     0xaeebefd89daa874ab1c5b9ffa7c5ba66
 End
+dbBoolean "FilterOnLoad" ="0"
+dbBoolean "OrderByOnLoad" ="-1"
+dbBoolean "TotalsRow" ="0"
 Begin
 End
 Begin
@@ -38,8 +41,8 @@ Begin
     Bottom =327
     Left =-1
     Top =-1
-    Right =973
-    Bottom =144
+    Right =946
+    Bottom =123
     Left =0
     Top =0
     ColumnsShown =543
@@ -48,7 +51,7 @@ Begin
         Top =6
         Right =134
         Bottom =120
-        Top =15
+        Top =0
         Name ="qry_Select_Species_Cover"
         Name =""
     End
