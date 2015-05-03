@@ -49,24 +49,24 @@ Public Sub GetSQLTemplates(Optional strVersion As String = "")
     
     'prepare dictionary
     Dim dict As New Scripting.Dictionary
-    Dim ary(1 To 4) As String
+    Dim Ary(1 To 4) As String
     Dim i As Integer
     
     'prepare the dictionary key array
-    ary(1) = "context"
-    ary(2) = "template_Name"
-    ary(3) = "SQLstring" 'template
-    ary(4) = "var_list"
+    Ary(1) = "context"
+    Ary(2) = "template_Name"
+    Ary(3) = "SQLstring" 'template
+    Ary(4) = "var_list"
     
     rst.MoveFirst
     Do Until rst.EOF
         'populate the dictionary
-        For i = 1 To UBound(ary)
-            key = ary(i)
-            If (ary(i) = "SQLstring") Then
+        For i = 1 To UBound(Ary)
+            key = Ary(i)
+            If (Ary(i) = "SQLstring") Then
                 Value = rst!template
             Else
-                Value = rst.Fields(ary(i))
+                Value = rst.Fields(Ary(i))
             End If
             If Not dict.Exists(key) Then
                 dict.Add key, Value

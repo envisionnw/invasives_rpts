@@ -130,10 +130,10 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                         End With
                     Case "frm_Set_Defaults"
                         .tbxTimeframe.Locked = False
-                        .tbxTimeframe.BackStyle = 1
+                        .tbxTimeframe.backstyle = 1
                         .tbxProject.Enabled = True
                         .tbxProject.Locked = False
-                        .tbxProject.BackStyle = 1
+                        .tbxProject.backstyle = 1
                         .tbxProject.SpecialEffect = 2
                         .cmdNewUser.Enabled = True
                     Case "frm_Switchboard"
@@ -173,10 +173,10 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                         GoTo Catch_All_Else:
                     Case "frm_Set_Defaults"
                         .tbxTimeframe.Locked = False
-                        .tbxTimeframe.BackStyle = 1
+                        .tbxTimeframe.backstyle = 1
                         .tbxProject.Enabled = False
                         .tbxProject.Locked = True
-                        .tbxProject.BackStyle = 0
+                        .tbxProject.backstyle = 0
                         .tbxProject.SpecialEffect = 0
                         .cmdNewUser.Enabled = True
                     Case "frm_Switchboard"
@@ -212,10 +212,10 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                         GoTo Catch_All_Else:
                     Case "frm_Set_Defaults"
                         .tbxTimeframe.Locked = True
-                        .tbxTimeframe.BackStyle = 0
+                        .tbxTimeframe.backstyle = 0
                         .tbxProject.Enabled = False
                         .tbxProject.Locked = True
-                        .tbxProject.BackStyle = 0
+                        .tbxProject.backstyle = 0
                         .tbxProject.SpecialEffect = 0
                         .cmdNewUser.Enabled = True
                     Case "fsub_DbAdmin"
@@ -244,7 +244,7 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                         .optgScheduledMode.Enabled = True     ' user can enter data for unscheduled locs
                         .cmbYearFilter.Locked = True          ' current year only to minimize confusion
                         .togFilterByYear.Enabled = False
-                        .txtLoc_code.ForeColor = 0            ' black - no direct link to data browser
+                        .txtLoc_code.forecolor = 0            ' black - no direct link to data browser
                         .cmdDeleteRec.Enabled = True
                         .cmdNewLoc.Enabled = True
                         .cmdNewRareObs.Enabled = True
@@ -342,10 +342,10 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                         End If
                     Case "frm_Set_Defaults"
                         .tbxTimeframe.Locked = True
-                        .tbxTimeframe.BackStyle = 0
+                        .tbxTimeframe.backstyle = 0
                         .tbxProject.Enabled = False
                         .tbxProject.Locked = True
-                        .tbxProject.BackStyle = 0
+                        .tbxProject.backstyle = 0
                         .tbxProject.SpecialEffect = 0
                         .cmdNewUser.Enabled = False
                     Case "fsub_DbAdmin"
@@ -359,7 +359,7 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                         .optgScheduledMode.Enabled = False
                         .cmbYearFilter.Locked = False         ' enable seeing multiple years
                         .togFilterByYear.Enabled = True
-                        .txtLoc_code.ForeColor = 0            ' black - no direct link to data browser
+                        .txtLoc_code.forecolor = 0            ' black - no direct link to data browser
                         .cmdDeleteRec.Enabled = False
                         .cmdNewLoc.Enabled = False
                         .cmdNewRareObs.Enabled = False
@@ -446,7 +446,7 @@ Admin_PowerUser:
                 .optgScheduledMode.Enabled = True
                 .cmbYearFilter.Locked = False
                 .togFilterByYear.Enabled = True
-                .txtLoc_code.ForeColor = 16711680     ' blue to indicate link to data browser
+                .txtLoc_code.forecolor = 16711680     ' blue to indicate link to data browser
                 .cmdDeleteRec.Enabled = True
                 .cmdNewLoc.Enabled = True
                 .cmdNewRareObs.Enabled = True

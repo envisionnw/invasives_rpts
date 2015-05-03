@@ -171,7 +171,6 @@ Err_Handler:
 
 End Function
 
-
 ' ---------------------------------
 ' FUNCTION:     GetTempVarIndex
 ' Description:  Retrieves the index of a TempVar item
@@ -185,13 +184,13 @@ End Function
 ' Revisions:    BLC, 9/1/2014 - initial version
 '               BLC, 4/30/2015 - moved from mod_Utilities to mod_Db
 ' ---------------------------------
-Public Function GetTempVarIndex(strItem) As String
+Public Function GetTempVarIndex(stritem) As String
 On Error GoTo Err_Handler
 
 Dim i As Integer
 
     For i = 0 To [TempVars].count - 1
-        If [TempVars].item(i).name = strItem Then
+        If [TempVars].item(i).name = stritem Then
             'fetch the index and exit
             GetTempVarIndex = i
             Exit Function
@@ -209,6 +208,45 @@ Err_Handler:
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
             "Error encountered (#" & Err.Number & " - GetTempVarIndex[mod_Db])"
+    End Select
+    Resume Exit_Function
+End Function
+
+' ---------------------------------
+' FUNCTION:     QueryExists
+' Description:  Determine if a query exists in a database
+' Parameters:   strQueryName - query name(string)
+' Returns:      true - if found (boolean); false - if not found
+' Throws:       -
+' References:   -
+' Source/date:  SOS, 3/20/2010
+'               http://www.access-programmers.co.uk/forums/showthread.php?t=190747
+' Adapted:      Bonnie Campbell, May 1, 2015
+' Revisions:    BLC, 5/1/2015 - initial version
+' ---------------------------------
+Function QueryExists(strQueryName As String) As Boolean
+On Error GoTo Err_Handler
+
+    Dim db As DAO.Database
+    Dim tdf As DAO.QueryDef
+    
+    On Error GoTo Err_Handler
+    Set db = CurrentDb
+    Set tdf = db.QueryDefs(strQueryName)
+    
+    QueryExists = True
+
+Exit_Function:
+    Exit Function
+
+Err_Handler:
+    Select Case Err.Number
+      Case 3265
+        QueryExists = False
+        Resume Exit_Function
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - QueryExists[mod_Db])"
     End Select
     Resume Exit_Function
 End Function

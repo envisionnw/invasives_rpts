@@ -11,6 +11,39 @@ Option Explicit
 ' Revisions:    BLC, 4/30/2015 - initial version
 ' =================================
 
+' ---------------------------------
+'  Forms
+' ---------------------------------
+
+' =================================
+' SUB:          PopulateSubformControl
+' Description:  Set the form for a subform control
+' Parameters:   ctrl - subform control to populate
+'               strSubFormName - name of the subform to use in the control
+' Returns:      -
+' Throws:       none
+' References:   none
+' Source/date:  Bonnie Campbell, 5/1/2015 for NCPN tools
+' Revisions:    BLC, 5/1/2015 - initial version
+' =================================
+Public Sub PopulateSubformControl(ctrl As SubForm, strSubFormName As String)
+    On Error GoTo Err_Handler
+
+    ctrl.SourceObject = Forms(strSubFormName)
+
+Exit_Procedure:
+    Exit Sub
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - FormIsOpen[mod_UI])"
+    End Select
+    Resume Exit_Procedure
+End Sub
+
+
 ' =================================
 ' FUNCTION:     FormIsOpen
 ' Description:  Indicates whether or not the specific form is open in form view
@@ -239,7 +272,7 @@ On Error GoTo Err_Handler:
     End If
     
     With btn
-        If .BackStyle = 1 Then
+        If .backstyle = 1 Then
             GoTo Transparent
         End If
         
@@ -252,8 +285,8 @@ On Error GoTo Err_Handler:
         End If
            
         'change button background to given color
-        .BackStyle = 1 'Normal - required to change color
-        .BackColor = fxnHTMLConvert("#" & strColor)
+        .backstyle = 1 'Normal - required to change color
+        .backcolor = fxnHTMLConvert("#" & strColor)
         .SpecialEffect = intEffect
     End With
     
@@ -261,7 +294,7 @@ Exit_Procedure:
     Exit Sub
 
 Transparent:
-    btn.BackStyle = 0 'Transparent
+    btn.backstyle = 0 'Transparent
     GoTo Exit_Procedure
 
 Err_Handler:
@@ -293,7 +326,7 @@ Dim ctl As Control
     With btn
         'unhighlight only btn
         If blnToggle Then
-            .BackStyle = 0 'transparent
+            .backstyle = 0 'transparent
             .SpecialEffect = 0 'flat
             GoTo Exit_Procedure
         End If
@@ -304,7 +337,7 @@ Dim ctl As Control
             If ctl.name <> btn.name And _
                 ctl.ControlType = acLabel Then
                 With ctl
-                    .BackStyle = 0 'transparent
+                    .backstyle = 0 'transparent
                 End With
             End If
 
@@ -417,9 +450,9 @@ Public Sub PrepareCrumbs(frm As SubForm, aryCrumbs As Variant, Optional separato
             
             'set control position
             If intLastCtrlPosition > frm.Controls(strCtrlName).Parent.Width Then
-                .Left = frm.Controls(strCtrlName).Parent.Width - .Width
+                .left = frm.Controls(strCtrlName).Parent.Width - .Width
             Else
-                .Left = intLastCtrlPosition
+                .left = intLastCtrlPosition
             End If
             
             'set control width
@@ -434,12 +467,12 @@ Public Sub PrepareCrumbs(frm As SubForm, aryCrumbs As Variant, Optional separato
         If (i < UBound(aryCrumbs)) Then
           strCtrlSeparator = "lblSep" & strNum
           With frm.Controls(strCtrlSeparator)
-            .Left = intLastCtrlPosition + intLastCtrlWidth + 10
+            .left = intLastCtrlPosition + intLastCtrlWidth + 10
             .Caption = separator
             .Visible = True
             
             'determine position of next control
-            intLastCtrlPosition = .Left + .Width + 10
+            intLastCtrlPosition = .left + .Width + 10
           End With
         End If
         

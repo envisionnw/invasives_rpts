@@ -850,7 +850,7 @@ Public Function fxnMakeBackup()
             ' Remove the file name from the path
             strPath = fxnParsePath(strDbFile)
             ' Remove the right-most back slash if present
-            If Right(strPath, 1) = "\" Then strPath = Left(strPath, Len(strPath) - 1)
+            If Right(strPath, 1) = "\" Then strPath = left(strPath, Len(strPath) - 1)
             ' Update the backup folder string unless it is already the current folder
             arrFile() = Split(strPath, "\")
             If strBackupFolder <> arrFile(UBound(arrFile)) Then _
@@ -864,7 +864,7 @@ Public Function fxnMakeBackup()
             ' Create the new file string by adding the current file name to the new path
             strNewFile = strPath & "\" & fxnParseFileName(strDbFile)
             ' Remove the current file extension
-            strNewFile = Left(strNewFile, Len(strNewFile) - Len(fxnParseFileExt(strDbFile)))
+            strNewFile = left(strNewFile, Len(strNewFile) - Len(fxnParseFileExt(strDbFile)))
             ' Append the backup date/time
             strNewFile = strNewFile & "_" & strBackupDate
             ' Zip the file to the new destination file name plus the ".zip" extension

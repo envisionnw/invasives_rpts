@@ -12,13 +12,13 @@ Begin Report
     Width =11400
     DatasheetFontHeight =11
     ItemSuffix =46
-    Right =15732
-    Bottom =7248
+    Right =10044
+    Bottom =6144
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
-        0x6a70aa97b48ee440
+        0xab695344b891e440
     End
-    RecordSource ="qryParkTgtSpeciesLists"
+    RecordSource ="qry_Park_Tgt_Species_Lists"
     Caption ="INVASIVE LIST"
     OnOpen ="[Event Procedure]"
     DatasheetFontName ="Calibri"
@@ -101,17 +101,17 @@ Begin Report
                 Begin Label
                     Left =60
                     Top =60
-                    Width =2892
+                    Width =3816
                     Height =528
                     FontSize =20
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblReportHdr"
-                    Caption ="INVASIVES LIST"
+                    Caption ="INVASIVES TARGET LIST"
                     GridlineColor =10921638
                     LayoutCachedLeft =60
                     LayoutCachedTop =60
-                    LayoutCachedWidth =2952
+                    LayoutCachedWidth =3876
                     LayoutCachedHeight =588
                 End
                 Begin TextBox

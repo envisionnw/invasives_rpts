@@ -617,6 +617,6 @@ Attribute VB_Exposed = False
 Option Compare Database
 
 Private Sub Report_Activate()
-  Me!Park_Name = DLookup("[ParkName]", "tlu_Parks", "[ParkCode]= '" & Left(OpenArgs, 4) & "'")
+  Me!Park_Name = DLookup("[ParkName]", "tlu_Parks", "[ParkCode]= '" & left(OpenArgs, 4) & "'")
   Me!Visit_Year = Right(OpenArgs, 4)
 End Sub

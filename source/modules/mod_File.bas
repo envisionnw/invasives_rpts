@@ -282,7 +282,7 @@ Public Function fxnParseFileName(ByVal strFullPath As String) As String
     Dim strTemp As String
 
     Do While (InStr(strFullPath, "\") > 0)
-        strTemp = strTemp & Left(strFullPath, InStr(strFullPath, "\"))
+        strTemp = strTemp & left(strFullPath, InStr(strFullPath, "\"))
         strFullPath = Mid(strFullPath, InStr(strFullPath, "\") + 1)
     Loop
     
@@ -411,7 +411,7 @@ Public Function fxnParsePath(ByVal strFullPath As String) As String
     strFile = arrPath(UBound(arrPath))
 
     ' Path is the full string minus length of the file name
-    fxnParsePath = Left(strFullPath, Len(strFullPath) - Len(arrPath(UBound(arrPath))))
+    fxnParsePath = left(strFullPath, Len(strFullPath) - Len(arrPath(UBound(arrPath))))
 
 Exit_Function:
     Exit Function

@@ -437,7 +437,7 @@ Private Sub cmdBrowse_Click()
     strCurrentDir = Me!txtCurrentPath
 
     ' Clip to indicate just the folder of the current back-end
-    strCurrentDir = Left(strCurrentDir, Len(strCurrentDir) - Len(strCurrentFile) - 1)
+    strCurrentDir = left(strCurrentDir, Len(strCurrentDir) - Len(strCurrentFile) - 1)
 
     ' Select the file, and start the search in the current back-end folder
     varFilePath = fxnGetLinkFile(strCurrentDir)
