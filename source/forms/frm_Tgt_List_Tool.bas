@@ -5,7 +5,6 @@ Begin Form
     RecordSelectors = NotDefault
     MaxButton = NotDefault
     MinButton = NotDefault
-    ControlBox = NotDefault
     AutoCenter = NotDefault
     NavigationButtons = NotDefault
     AllowDeletions = NotDefault
@@ -22,9 +21,11 @@ Begin Form
     GridY =24
     Width =12300
     DatasheetFontHeight =10
-    ItemSuffix =178
-    Right =12300
-    Bottom =10068
+    ItemSuffix =179
+    Left =-48
+    Top =-144
+    Right =12252
+    Bottom =9924
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x80d28b4cb201e340
@@ -336,15 +337,15 @@ Begin Form
                     OldBorderStyle =0
                     OverlapFlags =255
                     Left =480
-                    Top =1815
+                    Top =1800
                     Width =11160
                     Height =6840
                     BackColor =16772300
                     Name ="rctMainTabColor"
                     LayoutCachedLeft =480
-                    LayoutCachedTop =1815
+                    LayoutCachedTop =1800
                     LayoutCachedWidth =11640
-                    LayoutCachedHeight =8655
+                    LayoutCachedHeight =8640
                 End
                 Begin Label
                     OverlapFlags =93
@@ -370,9 +371,9 @@ Begin Form
                     Height =900
                     FontSize =11
                     BorderColor =16777215
-                    ForeColor =16737792
+                    ForeColor =8355711
                     Name ="lblInstructions"
-                    Caption =" "
+                    Caption ="Choose the park and year for your list. Click 'Continue' to prepare your list."
                     FontName ="Calibri"
                     GridlineColor =10921638
                     LayoutCachedLeft =6420
@@ -382,6 +383,8 @@ Begin Form
                     ThemeFontIndex =1
                     BackThemeColorIndex =1
                     BorderThemeColorIndex =1
+                    ForeThemeColorIndex =0
+                    ForeTint =50.0
                     GridlineThemeColorIndex =1
                     GridlineShade =65.0
                 End
@@ -465,30 +468,8 @@ Begin Form
                                     GridlineShade =65.0
                                 End
                                 Begin Label
-                                    OverlapFlags =247
-                                    Left =2280
-                                    Top =3000
-                                    Width =540
-                                    Height =315
-                                    FontSize =11
-                                    FontWeight =700
-                                    BorderColor =16777215
-                                    Name ="lblField"
-                                    Caption ="Field"
-                                    FontName ="Calibri"
-                                    GridlineColor =10921638
-                                    LayoutCachedLeft =2280
-                                    LayoutCachedTop =3000
-                                    LayoutCachedWidth =2820
-                                    LayoutCachedHeight =3315
-                                    ThemeFontIndex =1
-                                    BackThemeColorIndex =1
-                                    BorderThemeColorIndex =1
-                                    GridlineThemeColorIndex =1
-                                    GridlineShade =65.0
-                                End
-                                Begin Label
                                     FontUnderline = NotDefault
+                                    BackStyle =1
                                     BorderWidth =1
                                     OverlapFlags =247
                                     TextAlign =2
@@ -497,6 +478,7 @@ Begin Form
                                     Width =2400
                                     Height =420
                                     FontSize =11
+                                    BackColor =8648143
                                     ForeColor =16711680
                                     Name ="btnCreateTgtLists"
                                     Caption ="Create Target List"
@@ -520,7 +502,7 @@ Begin Form
                                     Height =420
                                     FontSize =11
                                     ForeColor =16711680
-                                    Name ="btnAddTargetArea"
+                                    Name ="btnAddTgtArea"
                                     Caption ="Add Target Area(s)"
                                     FontName ="Calibri"
                                     OnClick ="[Event Procedure]"
@@ -620,64 +602,20 @@ Begin Form
                                 Begin Rectangle
                                     BackStyle =1
                                     OverlapFlags =255
-                                    Left =995
-                                    Top =3860
+                                    Left =2280
+                                    Top =3000
                                     Width =2400
                                     Height =2880
                                     BackColor =8829910
                                     BorderColor =12835293
                                     Name ="rctInsetLeft_Reports"
                                     GridlineColor =10921638
-                                    LayoutCachedLeft =995
-                                    LayoutCachedTop =3860
-                                    LayoutCachedWidth =3395
-                                    LayoutCachedHeight =6740
+                                    LayoutCachedLeft =2280
+                                    LayoutCachedTop =3000
+                                    LayoutCachedWidth =4680
+                                    LayoutCachedHeight =5880
                                     BorderThemeColorIndex =3
                                     BorderShade =90.0
-                                    GridlineThemeColorIndex =1
-                                    GridlineShade =65.0
-                                End
-                                Begin Rectangle
-                                    BackStyle =1
-                                    OverlapFlags =255
-                                    Left =3575
-                                    Top =3860
-                                    Width =2340
-                                    Height =2880
-                                    BackColor =8829910
-                                    BorderColor =12835293
-                                    Name ="rctInsetRight_Reports"
-                                    GridlineColor =10921638
-                                    LayoutCachedLeft =3575
-                                    LayoutCachedTop =3860
-                                    LayoutCachedWidth =5915
-                                    LayoutCachedHeight =6740
-                                    BorderThemeColorIndex =3
-                                    BorderShade =90.0
-                                    GridlineThemeColorIndex =1
-                                    GridlineShade =65.0
-                                End
-                                Begin Label
-                                    OverlapFlags =247
-                                    TextAlign =2
-                                    Left =3600
-                                    Top =3855
-                                    Width =2280
-                                    Height =315
-                                    FontSize =11
-                                    FontWeight =700
-                                    BorderColor =16777215
-                                    Name ="lblRepresentativeness"
-                                    Caption ="Representativeness"
-                                    FontName ="Calibri"
-                                    GridlineColor =10921638
-                                    LayoutCachedLeft =3600
-                                    LayoutCachedTop =3855
-                                    LayoutCachedWidth =5880
-                                    LayoutCachedHeight =4170
-                                    ThemeFontIndex =1
-                                    BackThemeColorIndex =1
-                                    BorderThemeColorIndex =1
                                     GridlineThemeColorIndex =1
                                     GridlineShade =65.0
                                 End
@@ -686,8 +624,8 @@ Begin Form
                                     BorderWidth =1
                                     OverlapFlags =247
                                     TextAlign =2
-                                    Left =1020
-                                    Top =4455
+                                    Left =2305
+                                    Top =3595
                                     Width =2340
                                     Height =420
                                     FontSize =11
@@ -699,10 +637,10 @@ Begin Form
                                     OnClick ="[Event Procedure]"
                                     ShortcutMenuBar ="Run Species List report"
                                     ControlTipText ="Prepare field crew target species list"
-                                    LayoutCachedLeft =1020
-                                    LayoutCachedTop =4455
-                                    LayoutCachedWidth =3360
-                                    LayoutCachedHeight =4875
+                                    LayoutCachedLeft =2305
+                                    LayoutCachedTop =3595
+                                    LayoutCachedWidth =4645
+                                    LayoutCachedHeight =4015
                                     ThemeFontIndex =1
                                 End
                                 Begin Label
@@ -710,8 +648,8 @@ Begin Form
                                     BorderWidth =1
                                     OverlapFlags =247
                                     TextAlign =2
-                                    Left =1020
-                                    Top =4995
+                                    Left =2305
+                                    Top =4135
                                     Width =2340
                                     Height =420
                                     FontSize =11
@@ -723,10 +661,10 @@ Begin Form
                                     OnClick ="[Event Procedure]"
                                     ShortcutMenuBar ="Run target species list by park report"
                                     ControlTipText ="Run target species list by park report"
-                                    LayoutCachedLeft =1020
-                                    LayoutCachedTop =4995
-                                    LayoutCachedWidth =3360
-                                    LayoutCachedHeight =5415
+                                    LayoutCachedLeft =2305
+                                    LayoutCachedTop =4135
+                                    LayoutCachedWidth =4645
+                                    LayoutCachedHeight =4555
                                     ThemeFontIndex =1
                                 End
                                 Begin Label
@@ -734,8 +672,8 @@ Begin Form
                                     BorderWidth =1
                                     OverlapFlags =247
                                     TextAlign =2
-                                    Left =1020
-                                    Top =5535
+                                    Left =2305
+                                    Top =4675
                                     Width =2340
                                     Height =420
                                     FontSize =11
@@ -747,56 +685,10 @@ Begin Form
                                     OnClick ="[Event Procedure]"
                                     ShortcutMenuBar ="Run species list annual summary report"
                                     ControlTipText ="Run species list annual summary report"
-                                    LayoutCachedLeft =1020
-                                    LayoutCachedTop =5535
-                                    LayoutCachedWidth =3360
-                                    LayoutCachedHeight =5955
-                                    ThemeFontIndex =1
-                                End
-                                Begin Label
-                                    FontUnderline = NotDefault
-                                    BorderWidth =1
-                                    OverlapFlags =247
-                                    TextAlign =2
-                                    Left =3720
-                                    Top =4455
-                                    Width =900
-                                    Height =420
-                                    FontSize =11
-                                    TopMargin =72
-                                    ForeColor =16711680
-                                    Name ="btnStage"
-                                    Caption ="Stage"
-                                    FontName ="Calibri"
-                                    OnClick ="[Event Procedure]"
-                                    ControlTipText ="Run Representativeness Stage report"
-                                    LayoutCachedLeft =3720
-                                    LayoutCachedTop =4455
-                                    LayoutCachedWidth =4620
-                                    LayoutCachedHeight =4875
-                                    ThemeFontIndex =1
-                                End
-                                Begin Label
-                                    FontUnderline = NotDefault
-                                    BorderWidth =1
-                                    OverlapFlags =247
-                                    TextAlign =2
-                                    Left =4800
-                                    Top =4455
-                                    Width =915
-                                    Height =420
-                                    FontSize =11
-                                    TopMargin =72
-                                    ForeColor =16711680
-                                    Name ="btnFlow"
-                                    Caption ="Flow"
-                                    FontName ="Calibri"
-                                    OnClick ="[Event Procedure]"
-                                    ControlTipText ="Run Representativeness Flow report"
-                                    LayoutCachedLeft =4800
-                                    LayoutCachedTop =4455
-                                    LayoutCachedWidth =5715
-                                    LayoutCachedHeight =4875
+                                    LayoutCachedLeft =2305
+                                    LayoutCachedTop =4675
+                                    LayoutCachedWidth =4645
+                                    LayoutCachedHeight =5095
                                     ThemeFontIndex =1
                                 End
                             End
@@ -825,7 +717,7 @@ Begin Form
                                     BackStyle =1
                                     OverlapFlags =255
                                     Left =2280
-                                    Top =3975
+                                    Top =3000
                                     Width =2400
                                     Height =2880
                                     BackColor =8829910
@@ -833,9 +725,9 @@ Begin Form
                                     Name ="rctInsetCtr_Export"
                                     GridlineColor =10921638
                                     LayoutCachedLeft =2280
-                                    LayoutCachedTop =3975
+                                    LayoutCachedTop =3000
                                     LayoutCachedWidth =4680
-                                    LayoutCachedHeight =6855
+                                    LayoutCachedHeight =5880
                                     BorderThemeColorIndex =3
                                     BorderShade =90.0
                                     GridlineThemeColorIndex =1
@@ -847,7 +739,7 @@ Begin Form
                                     OverlapFlags =247
                                     TextAlign =2
                                     Left =2280
-                                    Top =4335
+                                    Top =3360
                                     Width =2385
                                     Height =420
                                     FontSize =11
@@ -859,9 +751,9 @@ Begin Form
                                     OnClick ="[Event Procedure]"
                                     ControlTipText ="Export Utah Lab data"
                                     LayoutCachedLeft =2280
-                                    LayoutCachedTop =4335
+                                    LayoutCachedTop =3360
                                     LayoutCachedWidth =4665
-                                    LayoutCachedHeight =4755
+                                    LayoutCachedHeight =3780
                                     ThemeFontIndex =1
                                 End
                             End
@@ -916,11 +808,11 @@ Begin Form
                     Top =2235
                     Width =5100
                     Height =315
-                    FontSize =11
-                    FontWeight =700
+                    FontSize =14
                     BorderColor =16777215
+                    ForeColor =5855577
                     Name ="lblInsetTitle"
-                    Caption ="Create"
+                    Caption ="Create > Species Target Lists"
                     FontName ="Calibri"
                     GridlineColor =10921638
                     LayoutCachedLeft =840
@@ -930,11 +822,12 @@ Begin Form
                     ThemeFontIndex =1
                     BackThemeColorIndex =1
                     BorderThemeColorIndex =1
+                    ForeThemeColorIndex =0
+                    ForeTint =65.0
                     GridlineThemeColorIndex =1
                     GridlineShade =65.0
                 End
                 Begin Subform
-                    Visible = NotDefault
                     OverlapFlags =247
                     Left =6540
                     Top =3555
@@ -951,53 +844,25 @@ Begin Form
                 End
                 Begin Label
                     OverlapFlags =255
-                    Left =840
-                    Top =2640
-                    Width =1632
-                    Height =372
-                    FontSize =14
-                    BorderColor =8355711
-                    ForeColor =8355711
-                    Name ="lblParkSelectionHdr"
-                    Caption ="Park Selection"
-                    FontName ="Calibri"
-                    GridlineColor =10921638
-                    LayoutCachedLeft =840
-                    LayoutCachedTop =2640
-                    LayoutCachedWidth =2472
-                    LayoutCachedHeight =3012
-                    ThemeFontIndex =1
-                    BackThemeColorIndex =1
-                    BorderThemeColorIndex =0
-                    BorderTint =50.0
-                    ForeThemeColorIndex =0
-                    ForeTint =50.0
-                    GridlineThemeColorIndex =1
-                    GridlineShade =65.0
-                End
-                Begin Label
-                    OverlapFlags =255
-                    Left =6420
-                    Top =3120
-                    Width =4452
-                    Height =300
+                    TextAlign =1
+                    Left =2280
+                    Top =3000
+                    Width =2400
+                    Height =315
                     FontSize =11
-                    BorderColor =8355711
-                    ForeColor =8355711
-                    Name ="lblAction"
-                    Caption ="Choose the year for this target list."
+                    FontWeight =700
+                    BorderColor =16777215
+                    Name ="lblField"
+                    Caption ="Field"
                     FontName ="Calibri"
                     GridlineColor =10921638
-                    LayoutCachedLeft =6420
-                    LayoutCachedTop =3120
-                    LayoutCachedWidth =10872
-                    LayoutCachedHeight =3420
+                    LayoutCachedLeft =2280
+                    LayoutCachedTop =3000
+                    LayoutCachedWidth =4680
+                    LayoutCachedHeight =3315
                     ThemeFontIndex =1
                     BackThemeColorIndex =1
-                    BorderThemeColorIndex =0
-                    BorderTint =50.0
-                    ForeThemeColorIndex =0
-                    ForeTint =50.0
+                    BorderThemeColorIndex =1
                     GridlineThemeColorIndex =1
                     GridlineShade =65.0
                 End
@@ -1037,6 +902,10 @@ Option Explicit
 '   it may be a good idea to do global find/replace; when adding or removing controls, more
 '   careful searching may be necessary.
 ' ********************************************************************************************
+
+' =================================
+'   Properties
+' =================================
 
 ' =================================
 '   Main Target List Tool Form Functionality
@@ -1172,7 +1041,7 @@ On Error GoTo Quit_procedure
                     '   name is found
                     Do
                         intCount = intCount + 1
-                        strNewFile = Left(strOrigFile, Len(strOrigFile) - Len(strFileExt)) _
+                        strNewFile = left(strOrigFile, Len(strOrigFile) - Len(strFileExt)) _
                             & "_" & CStr(intCount) & strFileExt
                     Loop Until fxnFileExists(strNewFile) = False
                     DBEngine.CompactDatabase strOrigFile, strNewFile
@@ -1225,6 +1094,10 @@ Private Sub Form_Close()
 
     'log user exit
     logUserAction Me
+
+    'refocus on main menu
+    Forms("frm_Main_Menu").SetFocus
+    DoCmd.Restore
 
 Exit_Procedure:
     DoCmd.SetWarnings True
@@ -1279,7 +1152,7 @@ Dim blnLeftInsetHide As Boolean
     Select Case optGrpTabs.Value
         Case 1 'Create
             strTab = "tabCreate"
-            strAction = "qry"
+            strAction = "tbl"
             lngTabColor = fxnHTMLConvert("#CCECFF") 'lt blue CCECFF RGB(204,236,255) 13430015
         Case 2 'View
             strTab = "tabView"
@@ -1298,8 +1171,8 @@ Dim blnLeftInsetHide As Boolean
             blnLeftInsetHide = True
     End Select
     
-    'identify action type (qry = query, rpt = report, exp = export)
-    If IsNull(TempVars.item("action")) Then
+    'identify action type (qry = query, rpt = report, exp = export, tbl = table)
+     If IsNull(TempVars.item("action")) Then
         TempVars.Add "action", strAction
     Else
         TempVars.item("action") = strAction
@@ -1327,7 +1200,7 @@ Dim blnLeftInsetHide As Boolean
     PopulateInsetTitle Me!lblInsetTitle, Replace(strTab, "tab", "")
     
     'set tab color
-    rctMainTabColor.BackColor = lngTabColor
+    rctMainTabColor.backcolor = lngTabColor
     
 End Sub
 
@@ -1358,7 +1231,7 @@ Private Sub btnCreateTgtLists_Click()
 End Sub
 
 ' ---------------------------------
-' SUB:     btnAddTargetArea_Click
+' SUB:     btnAddTgtArea_Click
 ' Description:  Add new target area(s)
 ' Parameters:   -
 ' Returns:      -
@@ -1367,11 +1240,13 @@ End Sub
 ' Source/date:  Bonnie Campbell, April 22, 2015
 ' Revisions:    4/22/2015 - BLC - initial version
 ' ---------------------------------
-Private Sub btnAddTargetArea_Click()
-
-    'button actions
-    ActionButton_Click btnAddTargetArea
+Private Sub btnAddTgtArea_Click()
     
+    'button actions
+    ActionButton_Click btnAddTgtArea, "frm_Tgt_Areas"
+    
+    fsub_Filter.Visible = False
+       
 End Sub
 
 ' ---------------------------------
@@ -1410,14 +1285,15 @@ End Sub
 ' Throws:       -
 ' References:   -
 ' Source/date:  Bonnie Campbell, June 17, 2014
-' Revisions:    6/17/2014 - BLC - XX
+' Revisions:    BLC - 6/17/2014 - initial version
+'               BLC - 5/1/2015  - handled alternate fsub_Filter subform control source forms
 ' ---------------------------------
 Public Sub OpenFilterSubform(ctrl As Control)
         
+On Error GoTo Err_Handler:
+    
     'set breadcrumb hidden values
     Dim strCrumbs As String
-
-On Error GoTo Err_Handler:
 
     strCrumbs = tglCreate.Caption & "|" & lblInsetTitle.Caption & "|" _
                     & lblField.Caption & "|" & Replace(ctrl.name, "btn", "")
@@ -1431,14 +1307,14 @@ On Error GoTo Err_Handler:
     'PrepareCrumbs Me.fsub_Filter, aryCrumbs
     
     'set & pass variables
-    Dim strAnalysis As String
-    'strAnalysis = Replace(ActiveControl.Name, "btn", "")
-    strAnalysis = Replace(ctrl.name, "btn", "")
+    Dim strAction As String
+    strAction = Replace(ctrl.name, "btn", "")
+    
     'check for existence, add analysis tempvar if needed
     If IsNull(TempVars.item("analysis")) Then
-        TempVars.item("analysis") = strAnalysis
+        TempVars.item("analysis") = strAction
     Else
-        TempVars.Add "analysis", strAnalysis
+        TempVars.Add "analysis", strAction
     End If
     
     'update title & make visible
@@ -1447,11 +1323,29 @@ On Error GoTo Err_Handler:
     'update instructions & make visible
     PopulateInstructions Me!lblInstructions, TempVars.item("analysis")
 
+    'set fsub_Filter subform
+    Select Case TempVars.item("action")
+        Case "tbl"
+            fsub_Filter.SourceObject = "fsub_Select_Park_Year"
+        Case "rpt"
+            Select Case TempVars.item("rpt")
+                Case "CrewSpeciesList", "SpeciesListByPark"
+                    fsub_Filter.SourceObject = "fsub_Select_Tgt_Lists"
+                Case "TgtListAnnualSummary"
+                    fsub_Filter.SourceObject = "fsub_Select_Year"
+            End Select
+    End Select
+
     'reveal filter subform & clear fields
     With fsub_Filter
         .Visible = True
-        !cbxPark.Value = ""
-        !cbxYear.Value = ""
+        Select Case fsub_Filter.SourceObject
+            Case "fsub_Select_Park_Year"
+                !cbxPark.Value = ""
+                !cbxYear.Value = ""
+            Case "fsub_Select_Tgt_Lists"
+            Case "fsub_Select_Year"
+        End Select
     End With
     
     Me.Repaint
@@ -1517,6 +1411,8 @@ End Sub
 ' ---------------------------------
 Private Sub btnCrewSpeciesList_Click()
 
+    TempVars.item("rpt") = "CrewSpeciesList"
+
     'button actions
     ActionButton_Click btnCrewSpeciesList
     
@@ -1534,6 +1430,8 @@ End Sub
 ' ---------------------------------
 Private Sub btnSpeciesListByPark_Click()
 
+    TempVars.item("rpt") = "SpeciesListByPark"
+    
     'button actions
     ActionButton_Click btnSpeciesListByPark
     
@@ -1550,6 +1448,8 @@ End Sub
 ' Revisions:    4/22/2015 - BLC - initial version
 ' ---------------------------------
 Private Sub btnTgtListAnnualSummary_Click()
+
+    TempVars.item("rpt") = "TgtListAnnualSummary"
 
     'button actions
     ActionButton_Click btnTgtListAnnualSummary

@@ -107,7 +107,7 @@ Function adhCommonFileOpenSave( _
     If IsMissing(OpenFile) Then OpenFile = True
 
     ' Allocate string space for the returned string.
-    strFilename = Left(fileName & String(256, 0), 256)
+    strFilename = left(fileName & String(256, 0), 256)
     strFileTitle = String(256, 0)
 
     ' Set up the data structure before you call the function
@@ -216,17 +216,17 @@ End Function
 ' Revisions:    John R. Boetsch, May 17, 2006 - documentation and error-trapping
 ' =================================
 
-Function adhTrimNull(ByVal strItem As String) As String
+Function adhTrimNull(ByVal stritem As String) As String
     On Error GoTo Err_Handler
 
     Dim intPos As Integer
 
-    intPos = InStr(strItem, vbNullChar)
+    intPos = InStr(stritem, vbNullChar)
     If intPos > 0 Then
         ' If the Null character is present, trim the string
-        adhTrimNull = Left(strItem, intPos - 1)
+        adhTrimNull = left(stritem, intPos - 1)
     Else
-        adhTrimNull = strItem
+        adhTrimNull = stritem
     End If
 
 Exit_Procedure:

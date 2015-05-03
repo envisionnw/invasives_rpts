@@ -127,11 +127,13 @@ On Error GoTo Err_Handler:
     Application.SetOption "Default Font Size", 9
     Application.SetOption "Auto Compact", True
 
-    ' Turn off options (only apparent after the next time app is opened)
-    CurrentDb.Properties("AllowFullMenus") = False
-    CurrentDb.Properties("AllowShortcutMenus") = False
-    CurrentDb.Properties("AllowBuiltInToolbars") = False
-
+    If DEV_MODE = False Then
+        ' Turn off options (only apparent after the next time app is opened)
+        CurrentDb.Properties("AllowFullMenus") = False
+        CurrentDb.Properties("AllowShortcutMenus") = False
+        CurrentDb.Properties("AllowBuiltInToolbars") = False
+    End If
+    
     'Check for missing tables
     If SysTablesExist("db") = False Then Exit Sub
 
@@ -408,7 +410,7 @@ Public Function fxnAppSetup()
     setUserAccess frm, "update"
 
     ' Log the user, login time, release number, and application mode in the systems table
-    strRelease = Left(strReleaseID, 8) & " / " & TempVars.item("UserAccessLevel")
+    strRelease = left(strReleaseID, 8) & " / " & TempVars.item("UserAccessLevel")
     If fxnIsODBC("tsys_Logins") Then
         ' Use a pass-through query to test the connection for write privileges
         strSQL = "INSERT INTO dbo.tsys_Logins " & _

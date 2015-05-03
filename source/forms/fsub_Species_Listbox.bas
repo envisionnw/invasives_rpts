@@ -13,10 +13,10 @@ Begin Form
     Width =9480
     DatasheetFontHeight =11
     ItemSuffix =15
-    Left =420
-    Top =1080
-    Right =4110
-    Bottom =5100
+    Left =912
+    Top =2796
+    Right =4608
+    Bottom =6552
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x6036d90f9c8ae440
@@ -298,12 +298,13 @@ Option Compare Database
 Option Explicit
 
 ' =================================
-' MODULE:       Form_sfrmSpeciesListbox
+' MODULE:       Form_fsub_Species_Listbox
 ' Description:  Species selction functions & procedures
 '               and for lists which exceed standard listbox capacity
 '
 ' Source/date:  Bonnie Campbell, 2/18/2015
 ' Revisions:    BLC - 2/18/2015 - initial version
+'               BLC, 5/1/2015 - renamed from sfrmSpeciesListbox to fsub_Species_Listbox
 ' =================================
 
 '=================================================================
@@ -329,9 +330,7 @@ Private Sub Form_Load()
 On Error GoTo Err_Handler
 
     'initial data fill
-    'fillList Forms("frmTgtSpecies"), Me, Forms("frmTgtSpecies")!lbxTgtSpecies
-   ' fillList Me.Parent, Me.Parent!sfrmSpeciesListbox, Forms("frmTgtSpecies")!lbxTgtSpecies
-    fillList Me.Parent, Me.Parent.Controls("sfrmSpeciesListbox"), Forms("frmTgtSpecies")!lbxTgtSpecies
+    fillList Me.Parent, Me.Parent.Controls("fsub_Species_Listbox"), Forms("frm_Tgt_Species")!lbxTgtSpecies
 
 Exit_Sub:
     Exit Sub
@@ -340,7 +339,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Form_Load[Form_sfrmSpeciesListbox])"
+            "Error encountered (#" & Err.Number & " - Form_Load[Form_fsub_Species_Listbox])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -375,7 +374,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Form_Current[Form_sfrmSpeciesListbox])"
+            "Error encountered (#" & Err.Number & " - Form_Current[Form_fsub_Species_Listbox])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -400,13 +399,13 @@ On Error GoTo Err_Handler
 
     'set selected record backcolor
     If Me.tbxMasterCode = curID Then
-        Me.Detail.BackColor = lngYelLime
-        Me.tbxCode.BackColor = lngYelLime
+        Me.Detail.backcolor = lngYelLime
+        Me.tbxCode.backcolor = lngYelLime
         'Me.tbxSpecies.backcolor = lngYelLime
-        Me.tbxMasterCode.BackColor = lngYelLime
+        Me.tbxMasterCode.backcolor = lngYelLime
         
     Else
-        Me.Detail.BackColor = lngWhite
+        Me.Detail.backcolor = lngWhite
         'Me.tbxCode.backcolor = lngWhite
     End If
        
@@ -417,7 +416,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Detail_Paint[Form_sfrmSpeciesListbox])"
+            "Error encountered (#" & Err.Number & " - Detail_Paint[Form_fsub_Species_Listbox])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -448,7 +447,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - tbxCode_Click[Form_sfrmSpeciesListbox])"
+            "Error encountered (#" & Err.Number & " - tbxCode_Click[Form_fsub_Species_Listbox])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -479,7 +478,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - tbxSpecies_Click[Form_sfrmSpeciesListbox])"
+            "Error encountered (#" & Err.Number & " - tbxSpecies_Click[Form_fsub_Species_Listbox])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -510,7 +509,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - tbxMasterCode_Click[Form_sfrmSpeciesListbox])"
+            "Error encountered (#" & Err.Number & " - tbxMasterCode_Click[Form_fsub_Species_Listbox])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -540,23 +539,23 @@ On Error GoTo Err_Handler
     item = tbxCode & ";" & tbxSpecies & ";" & tbxMasterCode
     
     'check listbox for duplicate & skip if already present (col 0 vs 2)
-    If IsListDuplicate(Forms("frmTgtSpecies").Controls("lbxTgtSpecies"), 2, tbxMasterCode) Then
+    If IsListDuplicate(Forms("frm_Tgt_Species").Controls("lbxTgtSpecies"), 2, tbxMasterCode) Then
         'duplicate, so exit
         GoTo Exit_Sub
     End If
 
-    Set lbx = Forms("frmTgtSpecies").Controls("lbxTgtSpecies")
+    Set lbx = Forms("frm_Tgt_Species").Controls("lbxTgtSpecies")
     
     With lbx
         'add item if not duplicate
         .AddItem item
     
         'update target species count
-        Forms("frmTgtSpecies").Controls("lblTgtSpeciesCount").Caption = .ListCount - 1 & " species"
+        Forms("frm_Tgt_Species").Controls("lblTgtSpeciesCount").Caption = .ListCount - 1 & " species"
         
         'return to the species list
-        DoCmd.Minimize
-        Forms("frmTgtSpecies").SetFocus
+'        DoCmd.Minimize
+'        Forms("frm_Tgt_Species").SetFocus
     End With
     
 Exit_Sub:
@@ -566,7 +565,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - tbxCode_DblClick[Form_sfrmSpeciesListbox])"
+            "Error encountered (#" & Err.Number & " - tbxCode_DblClick[Form_fsub_Species_Listbox])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -618,7 +617,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - tbxSpecies_DblClick[Form_sfrmSpeciesListbox])"
+            "Error encountered (#" & Err.Number & " - tbxSpecies_DblClick[Form_fsub_Species_Listbox])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -651,7 +650,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Form_KeyDown[Form_sfrmSpeciesListbox])"
+            "Error encountered (#" & Err.Number & " - Form_KeyDown[Form_fsub_Species_Listbox])"
     End Select
     Resume Exit_Sub
 End Sub

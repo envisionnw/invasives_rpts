@@ -13,8 +13,8 @@ Begin Form
     Width =16342
     DatasheetFontHeight =11
     ItemSuffix =24
-    Right =15720
-    Bottom =11760
+    Right =10275
+    Bottom =11175
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x06c7dc6ed487e440
@@ -297,10 +297,10 @@ Begin Form
                     PressedColor =9592887
                     HoverForeColor =4210752
                     PressedForeColor =4210752
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =3
-                    WebImagePaddingBottom =3
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                 End
                 Begin Label
                     OverlapFlags =85
@@ -544,7 +544,7 @@ Option Compare Database
 Option Explicit
 
 ' =================================
-' MODULE:       Form_frmTgtSpeciesList
+' MODULE:       Form_frm_Tgt_Species_List
 ' Description:  Target species functions & procedures
 '
 ' Source/date:  Bonnie Campbell, 2/11/2015
@@ -562,8 +562,9 @@ Option Explicit
 ' Source/date:
 ' Adapted:      Bonnie Campbell, February 11, 2015 - for NCPN tools
 ' Revisions:
-'   BLC - 2/11/2015 - initial version
+'   BLC, 2/11/2015 - initial version
+'   BLC, 4/30/2015 - integrated into Invasives Reporting tool & updated form naming
 ' ---------------------------------
 Private Sub lblAddTgtArea_Click()
-    DoCmd.OpenForm "frmTgtAreas", acNormal
+    DoCmd.OpenForm "frm_Tgt_Areas", acNormal
 End Sub

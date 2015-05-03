@@ -14,10 +14,10 @@ Begin Form
     Width =13584
     DatasheetFontHeight =11
     ItemSuffix =63
-    Left =3225
+    Left =3960
     Top =2415
-    Right =18945
-    Bottom =14175
+    Right =14235
+    Bottom =13260
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x72574db34b86e440
@@ -593,10 +593,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                 End
                 Begin Label
                     Visible = NotDefault
@@ -1071,7 +1071,7 @@ Private Sub Form_Load()
 On Error GoTo Err_Handler
     
     'set form caller
-    TempVars.item("originForm") = Forms!frmSpeciesSearch.OpenArgs
+    TempVars.item("originForm") = Forms!frm_Species_Search.OpenArgs
     
     Initialize
        
@@ -1092,7 +1092,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Form_Load[form_frmSpeciesSearch])"
+            "Error encountered (#" & Err.Number & " - Form_Load[form_frm_Species_Search])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1135,7 +1135,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - tbxSearchFor_LostFocus[Form_frmSpeciesSearch])"
+            "Error encountered (#" & Err.Number & " - tbxSearchFor_LostFocus[form_frm_Species_Search])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1173,7 +1173,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - cbxCO_Click[form_frmSpeciesSearch])"
+            "Error encountered (#" & Err.Number & " - cbxCO_Click[form_frm_Species_Search])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1211,7 +1211,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - cbxUT_Click[form_frmSpeciesSearch])"
+            "Error encountered (#" & Err.Number & " - cbxUT_Click[form_frm_Species_Search])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1249,7 +1249,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - cbxWY_Click[form_frmSpeciesSearch])"
+            "Error encountered (#" & Err.Number & " - cbxWY_Click[form_frm_Species_Search])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1287,7 +1287,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - cbxITIS_Click[form_frmSpeciesSearch])"
+            "Error encountered (#" & Err.Number & " - cbxITIS_Click[form_frm_Species_Search])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1323,7 +1323,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - cbxCO_Click[form_frmSpeciesSearch])"
+            "Error encountered (#" & Err.Number & " - cbxCO_Click[form_frm_Species_Search])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1361,7 +1361,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - cbxAddToList[form_frmSpeciesSearch])"
+            "Error encountered (#" & Err.Number & " - cbxAddToList[form_frm_Species_Search])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1394,7 +1394,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - cbxRemoveFromList[form_frmSpeciesSearch])"
+            "Error encountered (#" & Err.Number & " - cbxRemoveFromList[form_frm_Species_Search])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1427,19 +1427,19 @@ On Error GoTo Err_Handler
     item = tbxResultCode & ";" & tbxUTSpecies & ";" & tbxMasterSpecies
     
     'iterate through listbox (use .Column(x,i) vs .ListIndex(i) which results in error 451 property let not defined, property get...)
-    If IsListDuplicate(Forms("frmTgtSpecies").Controls("lbxTgtSpecies"), 2, tbxMasterSpecies) Then
+    If IsListDuplicate(Forms("frm_Tgt_Species").Controls("lbxTgtSpecies"), 2, tbxMasterSpecies) Then
         'duplicate, so exit
         GoTo Exit_Sub
     End If
     
-    Set lbx = Forms("frmTgtSpecies").Controls("lbxTgtSpecies")
+    Set lbx = Forms("frm_Tgt_Species").Controls("lbxTgtSpecies")
     
     With lbx
         'add item if not duplicate
         .AddItem item
     
         'update target species count
-        Forms("frmTgtSpecies").Controls("lblTgtSpeciesCount").Caption = .ListCount - 1 & " species"
+        Forms("frm_Tgt_Species").Controls("lblTgtSpeciesCount").Caption = .ListCount - 1 & " species"
 
     End With
     
@@ -1461,7 +1461,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - tbxResultCode_DblClick[form_frmSpeciesSearch])"
+            "Error encountered (#" & Err.Number & " - tbxResultCode_DblClick[form_frm_Species_Search])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1618,7 +1618,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - btnSearch_Click[form_frmSpeciesSearch])"
+            "Error encountered (#" & Err.Number & " - btnSearch_Click[form_frm_Species_Search])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1655,7 +1655,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - btnSearch_Click[form_frmSpeciesSearch])"
+            "Error encountered (#" & Err.Number & " - btnSearch_Click[form_frm_Species_Search])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1815,7 +1815,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - btnSearch_Click[form_frmSpeciesSearch])"
+            "Error encountered (#" & Err.Number & " - btnSearch_Click[form_frm_Species_Search])"
     End Select
     Resume Exit_Sub
 End Sub

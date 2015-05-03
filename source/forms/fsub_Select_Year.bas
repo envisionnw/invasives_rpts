@@ -10,18 +10,18 @@ Begin Form
     DatasheetGridlinesBehavior =3
     GridX =24
     GridY =24
-    Width =4320
+    Width =3960
     DatasheetFontHeight =11
-    ItemSuffix =15
-    Left =8592
+    ItemSuffix =14
+    Left =6624
     Top =3936
-    Right =12744
-    Bottom =6564
+    Right =10776
+    Bottom =6816
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
-        0xc1f3db6ed487e440
+        0x2cb45f3fbd91e440
     End
-    RecordSource ="tbl_Target_Areas"
+    RecordSource ="qry_Park_Tgt_Species_Lists"
     DatasheetFontName ="Calibri"
     PrtMip = Begin
         0x6801000068010000680100006801000000000000201c0000e010000001000000 ,
@@ -147,8 +147,8 @@ Begin Form
             Begin
                 Begin CommandButton
                     OverlapFlags =85
-                    Left =1800
-                    Top =1440
+                    Left =1440
+                    Top =1140
                     Width =2220
                     ForeColor =16711680
                     Name ="btnContinue"
@@ -157,10 +157,10 @@ Begin Form
                     OnClick ="[Event Procedure]"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =1800
-                    LayoutCachedTop =1440
-                    LayoutCachedWidth =4020
-                    LayoutCachedHeight =1800
+                    LayoutCachedLeft =1440
+                    LayoutCachedTop =1140
+                    LayoutCachedWidth =3660
+                    LayoutCachedHeight =1500
                     ForeThemeColorIndex =-1
                     ForeTint =100.0
                     Gradient =0
@@ -189,84 +189,36 @@ Begin Form
                     Overlaps =1
                 End
                 Begin ComboBox
-                    ColumnHeads = NotDefault
-                    OverlapFlags =93
-                    IMESentenceMode =3
-                    ColumnCount =2
-                    ListWidth =5040
-                    Left =300
-                    Top =360
-                    Width =2160
-                    Height =300
-                    ColumnOrder =1
-                    TabIndex =1
-                    BorderColor =10921638
-                    ForeColor =4138256
-                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"10\""
-                    Name ="cbxPark"
-                    RowSourceType ="Table/Query"
-                    RowSource ="SELECT tlu_Parks.ParkCode, tlu_Parks.ParkName FROM tlu_Parks WHERE tlu_Parks.Par"
-                        "kCode IN ('BLCA','CARE','COLM','CURE','DINO','FOBU','GOSP','ZION') ORDER BY tlu_"
-                        "Parks.[ParkName];"
-                    ColumnWidths ="1080;3960"
-                    OnChange ="[Event Procedure]"
-                    ControlTipText ="Choose a park."
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =300
-                    LayoutCachedTop =360
-                    LayoutCachedWidth =2460
-                    LayoutCachedHeight =660
-                End
-                Begin ComboBox
                     LimitToList = NotDefault
                     RowSourceTypeInt =1
-                    OverlapFlags =93
+                    OverlapFlags =85
                     IMESentenceMode =3
                     ColumnCount =2
                     ListWidth =2880
-                    Left =300
-                    Top =960
-                    Width =2220
+                    Left =480
+                    Top =540
+                    Width =1980
                     Height =300
                     ColumnOrder =0
-                    TabIndex =2
+                    TabIndex =1
                     BorderColor =10921638
                     ForeColor =4138256
                     Name ="cbxYear"
                     RowSourceType ="Value List"
-                    RowSource ="\"SEL\";\"Select Year\";\"2016\";\"2016\";\"2015\";\"2015\";\"2014\";\"2014\";\""
-                        "2013\";\"2013\""
                     ColumnWidths ="0;1440"
                     DefaultValue ="\"SEL\""
                     OnChange ="[Event Procedure]"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =300
-                    LayoutCachedTop =960
-                    LayoutCachedWidth =2520
-                    LayoutCachedHeight =1260
+                    LayoutCachedLeft =480
+                    LayoutCachedTop =540
+                    LayoutCachedWidth =2460
+                    LayoutCachedHeight =840
                 End
                 Begin Label
-                    OverlapFlags =247
-                    Left =60
-                    Top =60
-                    Width =1176
-                    Height =314
-                    BorderColor =8355711
-                    ForeColor =8355711
-                    Name ="lblPark"
-                    Caption ="Park"
-                    GridlineColor =10921638
-                    LayoutCachedLeft =60
-                    LayoutCachedTop =60
-                    LayoutCachedWidth =1236
-                    LayoutCachedHeight =374
-                End
-                Begin Label
-                    OverlapFlags =247
-                    Left =60
-                    Top =660
+                    OverlapFlags =85
+                    Left =120
+                    Top =120
                     Width =1176
                     Height =314
                     BorderColor =8355711
@@ -274,10 +226,10 @@ Begin Form
                     Name ="lblYear"
                     Caption ="Year"
                     GridlineColor =10921638
-                    LayoutCachedLeft =60
-                    LayoutCachedTop =660
-                    LayoutCachedWidth =1236
-                    LayoutCachedHeight =974
+                    LayoutCachedLeft =120
+                    LayoutCachedTop =120
+                    LayoutCachedWidth =1296
+                    LayoutCachedHeight =434
                 End
             End
         End
@@ -307,11 +259,11 @@ Option Compare Database
 Option Explicit
 
 ' =================================
-' FORM:         Form_fsub_Select_Park_Year
+' FORM:         Form_fsub_Select_Year
 ' Description:  Target species functions & procedures
 '
-' Source/date:  Bonnie Campbell, 2/11/2015
-' Revisions:    BLC - 2/11/2015 - initial version
+' Source/date:  Bonnie Campbell, 5/1/2015
+' Revisions:    BLC - 5/1/2015 - initial version
 ' =================================
 
 ' ---------------------------------
@@ -325,25 +277,36 @@ Option Explicit
 ' Source/date:
 ' Adapted:      Bonnie Campbell, February 12, 2015 - for NCPN tools
 ' Revisions:
-'   BLC - 2/12/2015 - initial version
+'   BLC - 5/1/2015 - initial version
 ' ---------------------------------
 Private Sub Form_Load()
 
 On Error GoTo Err_Handler
-    Dim i As Integer, iYear As Integer
-    Dim strValueList As String
+    Dim db As DAO.Database
+    Dim rs As DAO.Recordset
+    Dim strSQL As String, strValueList As String
+    Dim i As Integer, count As Integer
     
     Initialize
     
     'prepare value list
+    strSQL = "SELECT DISTINCT TgtYear FROM qry_Park_Tgt_Species_Lists ORDER BY TgtYear DESC;"
+    
+    'fetch data
+    Set db = CurrentDb
+    Set rs = db.OpenRecordset(strSQL)
+
     strValueList = "'SEL';'Select Year';"
 
-    iYear = Year(Now()) + 2
-
-    For i = 1 To 6
-        strValueList = strValueList & "'" & iYear & "';'" & iYear & "';"
-        iYear = iYear - 1
-    Next
+    If Not rs.BOF And Not rs.EOF Then
+        rs.MoveLast
+        count = rs.RecordCount
+        rs.MoveFirst
+        For i = 0 To count - 1
+            strValueList = strValueList & "'" & rs("TgtYear") & "';'" & rs("TgtYear") & "';"
+            rs.MoveNext
+        Next
+    End If
     
     cbxYear.RowSource = strValueList
     cbxYear.Value = "SEL"
@@ -355,46 +318,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Form_Load[form_fsub_Select_Park_Year])"
-    End Select
-    Resume Exit_Sub
-End Sub
-
-' ---------------------------------
-' SUB:          cbxPark_Change
-' Description:  Actions to take when a park is selected
-' Assumptions:  -
-' Parameters:   N/A
-' Returns:      N/A
-' Throws:       none
-' References:   none
-' Source/date:
-' Adapted:      Bonnie Campbell, February 12, 2015 - for NCPN tools
-' Revisions:
-'   BLC - 2/12/2015 - initial version
-' ---------------------------------
-Private Sub cbxPark_Change()
-On Error GoTo Err_Handler
-    
-    If Len(cbxPark.Value) > 0 Then
-        'set park
-        TempVars.item("park") = Trim(cbxPark.Value)
-        'enable the continue button
-  '      EnableControl btnContinue, TempVars.item("ctrlAddEnabled"), TempVars.item("textEnabled")
-  '      btnContinue.Enabled = True
-    Else
-        'disable the continue button"
-   '     btnContinue.Enabled = False
-   '     DisableControl btnContinue
-    End If
-Exit_Sub:
-    Exit Sub
-
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - cbxPark_Change[form_fsub_Select_Park_Year])"
+            "Error encountered (#" & Err.Number & " - Form_Load[form_fsub_Select_Year])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -408,9 +332,9 @@ End Sub
 ' Throws:       none
 ' References:   none
 ' Source/date:
-' Adapted:      Bonnie Campbell, February 23, 2015 - for NCPN tools
+' Adapted:      Bonnie Campbell, May 1, 2015 - for NCPN tools
 ' Revisions:
-'   BLC - 2/23/2015 - initial version
+'   BLC - 5/1/2015 - initial version
 ' ---------------------------------
 Private Sub cbxYear_Change()
 On Error GoTo Err_Handler
@@ -427,7 +351,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - cbxYear_Change[form_fsub_Select_Park_Year])"
+            "Error encountered (#" & Err.Number & " - cbxYear_Change[form_fsub_Select_Year])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -449,8 +373,10 @@ End Sub
 Private Sub btnContinue_Click()
 On Error GoTo Err_Handler
        
-    'open target species list
-    DoCmd.OpenForm "frm_Tgt_Species", acNormal, , , , , TempVars.item("TgtYear")
+    TempVars.item("TgtYear") = cbxYear.Value
+    
+    'open report
+    DoCmd.OpenReport "rpt_Tgt_Species_List_Annual_Summary", acViewReport, "TgtYear=" & CInt(TempVars.item("TgtYear"))
         
 Exit_Sub:
     Exit Sub
@@ -459,7 +385,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - btnContinue_Click[form_fsub_Select_Park_Year])"
+            "Error encountered (#" & Err.Number & " - btnContinue_Click[form_fsub_Select_Year])"
     End Select
     Resume Exit_Sub
 End Sub

@@ -12,12 +12,14 @@ Begin Form
     Width =10935
     DatasheetFontHeight =11
     ItemSuffix =28
-    Right =15975
-    Bottom =11760
+    Top =600
+    Right =11184
+    Bottom =6648
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x72574db34b86e440
     End
+    Caption ="Create Target Species List"
     OnClose ="[Event Procedure]"
     DatasheetFontName ="Calibri"
     PrtMip = Begin
@@ -194,8 +196,8 @@ Begin Form
                     Height =4032
                     TabIndex =1
                     BorderColor =10921638
-                    Name ="sfrmSpeciesListbox"
-                    SourceObject ="Form.sfrmSpeciesListbox"
+                    Name ="fsub_Species_Listbox"
+                    SourceObject ="Form.fsub_Species_Listbox"
                     GridlineColor =10921638
 
                     LayoutCachedLeft =420
@@ -661,11 +663,12 @@ Option Compare Database
 Option Explicit
 
 ' =================================
-' MODULE:       Form_frmTgtSpecies
+' MODULE:       Form_frm_Tgt_Species
 ' Description:  Species selction functions & procedures
 '
 ' Source/date:  Bonnie Campbell, 2/9/2015
-' Revisions:    BLC - 2/9/2015 - initial version
+' Revisions:    BLC, 2/9/2015 - initial version
+'               BLC, 4/30/2015 - integrated into Invasives Reporting tool
 ' =================================
 
 '=================================================================
@@ -778,22 +781,22 @@ End Property
 ' Source/date:
 ' Adapted:      Bonnie Campbell, February 9, 2015 - for NCPN tools
 ' Revisions:
-'   BLC - 2/9/2015 - initial version
+'   BLC, 2/9/2015 - initial version
+'   BLC, 5/1/2015 - integrated into Invasives Reporting tool, removed frmSelectYear closure since that form
+'                   is no longer needed, added check for species number to ensure >= 0
 ' ---------------------------------
 Private Sub Form_Load()
 
 On Error GoTo Err_Handler
+    Dim intSpecies As Integer
     
     Initialize
-    
-    ' close select park form
-    DoCmd.Close acForm, "frmSelectYear"
-    
+       
     'set state
     TempVars.item("state") = getParkState(TempVars.item("park"))
     
     'set year
-    TempVars.item("tgtYear") = Form.OpenArgs
+    TempVars.item("TgtYear") = Form.OpenArgs
     
     'prep headers
     lblParkHdr.Caption = TempVars.item("park")
@@ -809,7 +812,12 @@ On Error GoTo Err_Handler
     'Enable move items lbls (or not)
     
     'Set counts
-    lblTgtSpeciesCount.Caption = lbxTgtSpecies.ListCount - 1 & " species"
+    intSpecies = 0
+    If lbxTgtSpecies.ListCount > 0 Then
+        intSpecies = lbxTgtSpecies.ListCount - 1
+    End If
+    
+    lblTgtSpeciesCount.Caption = intSpecies & " species"
     
     DisableControl btnAdd
     DisableControl btnRemove
@@ -821,7 +829,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Form_Load[Form_frmTgtSpecies])"
+            "Error encountered (#" & Err.Number & " - Form_Load[Form_frm_Tgt_Species])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -838,13 +846,22 @@ End Sub
 ' Adapted:      Bonnie Campbell, March 5, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 3/5/2015 - initial version
+'   BLC - 5/1/2015 - added check for no species to prevent # = -1
 ' ---------------------------------
 Private Sub Form_Activate()
 
 On Error GoTo Err_Handler
+    Dim intSpecies As Integer
 
+    intSpecies = 0
+    
+    'if species count < 0 set = 0
+    If lbxTgtSpecies.ListCount > 0 Then
+        intSpecies = lbxTgtSpecies.ListCount - 1
+    End If
+    
     'set species count
-    lblTgtSpeciesCount.Caption = lbxTgtSpecies.ListCount - 1 & " species"
+    lblTgtSpeciesCount.Caption = intSpecies & " species"
     
 Exit_Sub:
     Exit Sub
@@ -853,30 +870,31 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Form_Activate[Form_frmTgtSpecies])"
+            "Error encountered (#" & Err.Number & " - Form_Activate[Form_frm_Tgt_Species])"
     End Select
     Resume Exit_Sub
 End Sub
 
 ' ---------------------------------
 ' SUB:          btnLoad_Click
-' Description:  XX
+' Description:  Load list from previous year
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   none
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
 ' Adapted:      Bonnie Campbell, March 5, 2015 - for NCPN tools
 ' Revisions:
-'   BLC - 3/5/2015 - initial version
+'   BLC, 3/5/2015 - initial version
+'   BLC, 5/1/2015 - updated frmSelectList to frm_Select_List to conform to standards
 ' ---------------------------------
 Private Sub btnLoad_Click()
 
 On Error GoTo Err_Handler
 
     'open tgt species list form
-    DoCmd.OpenForm "frmSelectList", acNormal, , , , acWindowNormal, Me.name
+    DoCmd.OpenForm "frm_Select_List", acNormal, , , , acWindowNormal, Me.name
 
 Exit_Sub:
     Exit Sub
@@ -885,7 +903,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - btnLoad_Click[Form_frmTgtSpecies])"
+            "Error encountered (#" & Err.Number & " - btnLoad_Click[Form_frm_Tgt_Species])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -916,7 +934,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - btnReset_Click[Form_frmTgtSpecies])"
+            "Error encountered (#" & Err.Number & " - btnReset_Click[Form_frm_Tgt_Species])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -943,7 +961,7 @@ On Error GoTo Err_Handler
     
    'check for selected items --> if present, enable btnRemove
     If lbxTgtSpecies.ItemsSelected.count > 0 Then
-        If btnRemove.BackColor <> TempVars.item("ctrlRemoveEnabled") Then
+        If btnRemove.backcolor <> TempVars.item("ctrlRemoveEnabled") Then
             EnableControl btnRemove, TempVars.item("ctrlRemoveEnabled"), TempVars.item("textEnabled")
         End If
     Else
@@ -957,7 +975,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - lbxTgtSpecies_Click[Form_frmTgtSpecies])"
+            "Error encountered (#" & Err.Number & " - lbxTgtSpecies_Click[Form_frm_Tgt_Species])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -990,7 +1008,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - lbxTgtSpecies_DblClick[Form_frmTgtSpecies])"
+            "Error encountered (#" & Err.Number & " - lbxTgtSpecies_DblClick[Form_frm_Tgt_Species])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1012,7 +1030,7 @@ Private Sub lbxTgtSpecies_KeyUp(KeyCode As Integer, Shift As Integer)
 On Error GoTo Err_Handler
 
 '    If lbxSpecies.ItemsSelected.Count > 0 And lblRemove.backcolor <> TempVars.item("ctrlRemoveEnabled") Then
-    If btnRemove.BackColor <> TempVars.item("ctrlRemoveEnabled") Then
+    If btnRemove.backcolor <> TempVars.item("ctrlRemoveEnabled") Then
         EnableControl btnRemove, TempVars.item("ctrlRemoveEnabled"), TempVars.item("textEnabled")
     End If
     
@@ -1023,7 +1041,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - lbxTgtSpecies_KeyUp[Form_frmTgtSpecies])"
+            "Error encountered (#" & Err.Number & " - lbxTgtSpecies_KeyUp[Form_frm_Tgt_Species])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1046,10 +1064,10 @@ On Error GoTo Err_Handler
     
     'ignore if 'disabled'
     'If lblAdd.backcolor = lngGray Then GoTo Exit_Sub
-    If btnAdd.BackColor = lngGray Then GoTo Exit_Sub
+    If btnAdd.backcolor = lngGray Then GoTo Exit_Sub
     
     'MoveSingleItem Me, "lbxSpecies", "lbxTgtSpecies"
-    MoveSingleItem Me, "sfrmSpeciesListbox", "lbxTgtSpecies"
+    MoveSingleItem Me, "fsub_Species_Listbox", "lbxTgtSpecies"
 
 Exit_Sub:
     Exit Sub
@@ -1058,7 +1076,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - btnAdd_Click[Form_frmTgtSpecies])"
+            "Error encountered (#" & Err.Number & " - btnAdd_Click[Form_frm_Tgt_Species])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1080,10 +1098,10 @@ Private Sub btnRemove_Click()
 On Error GoTo Err_Handler
     
     'ignore if 'disabled'
-    If btnRemove.BackColor = TempVars.item("ctrlDisabled") Then GoTo Exit_Sub
+    If btnRemove.backcolor = TempVars.item("ctrlDisabled") Then GoTo Exit_Sub
     
     'MoveSingleItem Me, "lbxTgtSpecies", "lbxSpecies"
-    MoveSingleItem Me, "lbxTgtSpecies", "sfrmSpeciesListbox"
+    MoveSingleItem Me, "lbxTgtSpecies", "fsub_Species_Listbox"
     
 Exit_Sub:
     Exit Sub
@@ -1092,7 +1110,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - btnRemove_Click[Form_frmTgtSpecies])"
+            "Error encountered (#" & Err.Number & " - btnRemove_Click[Form_frm_Tgt_Species])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1130,7 +1148,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - btnAddAll_Click[Form_frmTgtSpecies])"
+            "Error encountered (#" & Err.Number & " - btnAddAll_Click[Form_frm_Tgt_Species])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1158,7 +1176,7 @@ On Error GoTo Err_Handler
     Set rs = db.OpenRecordset(TempVars.item("strSQL"))
     
     'MoveAllItems Me, "lbxTgtSpecies", "lbxSpecies"
-    MoveAllItems Me, "lbxTgtSpecies", "sfrmSpeciesListbox"
+    MoveAllItems Me, "lbxTgtSpecies", "fsub_Species_Listbox"
 
 Exit_Sub:
     Exit Sub
@@ -1167,7 +1185,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - btnRemoveAll_Click[Form_frmTgtSpecies])"
+            "Error encountered (#" & Err.Number & " - btnRemoveAll_Click[Form_frm_Tgt_Species])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1206,8 +1224,8 @@ On Error GoTo Err_Handler
        ' ---------------------------------------------------
         strSQL = "SELECT * FROM tbl_Target_Species " & _
                  "WHERE Master_PLANT_Code_FK = '" & strMasterCode & _
-                 " ' AND Park_Code = '" & TempVars.item("park") & _
-                 " ' AND Target_Year = " & TempVars.item("TgtYear") & ";"
+                 "' AND Park_Code = '" & TempVars.item("park") & _
+                 "' AND Target_Year = " & TempVars.item("TgtYear") & ";"
         
         Dim db As DAO.Database
         Dim rs As DAO.Recordset
@@ -1241,13 +1259,15 @@ On Error GoTo Err_Handler
         
     Next
 
-        'clear temp QueryDef
-        CurrentDb.QueryDefs.Delete "tempTgtSpecies"
-
+        ' check for temp query & clear if it exists
+        If QueryExists("tempTgtSpecies") Then
+            CurrentDb.QueryDefs.Delete "tempTgtSpecies"
+        End If
+        
         'open target list
         Dim qdf As QueryDef
         
-        Set qdf = CurrentDb.QueryDefs("qryTgtSpeciesList")
+        Set qdf = CurrentDb.QueryDefs("qry_Tgt_Species_List")
         
         'qdf.Parameters("park") = TempVars.item("park")
         'qdf.Parameters("tgtYear") = CInt(TempVars.item("tgtYear"))
@@ -1267,7 +1287,7 @@ On Error GoTo Err_Handler
         
         'replace values
         strSQL = Replace(strSQL, "(park)", "('" & TempVars.item("park") & "')")
-        strSQL = Replace(strSQL, "(tgtYear)", "(" & TempVars.item("tgtYear") & ")")
+        strSQL = Replace(strSQL, "(tgtYear)", "(" & TempVars.item("TgtYear") & ")")
         
         'DoCmd.OpenQuery "qryTgtSpeciesList", acViewNormal, acReadOnly
         'DoCmd.RunSQL strSQL <=== NO! not on a SELECT...
@@ -1286,6 +1306,9 @@ On Error GoTo Err_Handler
     'reset status bar
     varReturn = SysCmd(acSysCmdSetStatus, " ")
 
+    'close form
+    DoCmd.Close acForm, Me.name
+
 Exit_Sub:
     Exit Sub
 
@@ -1293,7 +1316,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - btnSaveList_Click[Form_frmTgtSpecies])"
+            "Error encountered (#" & Err.Number & " - btnSaveList_Click[Form_frm_Tgt_Species])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1310,7 +1333,8 @@ End Sub
 ' Source/date:
 ' Adapted:      Bonnie Campbell, March 3, 2015 - for NCPN tools
 ' Revisions:
-'   BLC - 3/3/2015 - initial version
+'   BLC, 3/3/2015  - initial version
+'   BLC, 4/30/2015 - integrated into Invasives Reporting tool & updated form naming
 ' ---------------------------------
 Private Sub btnSearch_Click()
 On Error GoTo Err_Handler
@@ -1319,8 +1343,8 @@ On Error GoTo Err_Handler
     originForm = Me.name
     
     'open species search form
-    DoCmd.OpenForm "frmSpeciesSearch", acNormal, , , , acWindowNormal, originForm
-    If Forms("frmSpeciesSearch").Minimized Then DoCmd.Restore
+    DoCmd.OpenForm "frm_Species_Search", acNormal, , , , acWindowNormal, originForm
+    If Forms("frm_Species_Search").Minimized Then DoCmd.Restore
 
 Exit_Sub:
     Exit Sub
@@ -1329,7 +1353,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - btnSearch_Click[Form_frmTgtSpecies])"
+            "Error encountered (#" & Err.Number & " - btnSearch_Click[Form_frm_Tgt_Species])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1347,6 +1371,7 @@ End Sub
 ' Revisions:
 '   BLC - 2/23/2015 - initial version
 '   BLC - 3/4/2015  - closed species search form
+'   BLC, 4/30/2015 - integrated into Invasives Reporting tool & updated form naming
 ' ---------------------------------
 Private Sub Form_Close()
 On Error GoTo Err_Handler
@@ -1356,7 +1381,7 @@ On Error GoTo Err_Handler
     TempVars.Remove ("state")
 
     'close frmSpeciesSearch if open
-    DoCmd.Close acForm, "frmSpeciesSearch"
+    DoCmd.Close acForm, "frm_Species_Search"
 
 Exit_Sub:
     Exit Sub
@@ -1365,7 +1390,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Form_Close[Form_frmTgtSpecies])"
+            "Error encountered (#" & Err.Number & " - Form_Close[Form_frm_Tgt_Species])"
     End Select
     Resume Exit_Sub
 End Sub

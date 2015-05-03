@@ -270,8 +270,11 @@ Option Explicit
 Private Sub btnLaunchTgtTool_Click()
 On Error GoTo Err_Handler
 
-    DoCmd.OpenForm "frm_Tgt_List_Tool", acNormal
+    'minimize main form
+    DoCmd.Minimize
 
+    DoCmd.OpenForm "frm_Tgt_List_Tool", acNormal
+    
 Exit_Procedure:
     Exit Sub
 

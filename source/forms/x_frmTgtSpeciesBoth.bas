@@ -672,7 +672,7 @@ On Error GoTo Err_Handler
 
     'check for selected items --> if present, enable lblAdd
     If lbxSpecies.ItemsSelected.count > 0 Then
-        If lblAdd.BackColor <> TempVars.item("ctrlAddEnabled") Then
+        If lblAdd.backcolor <> TempVars.item("ctrlAddEnabled") Then
             EnableControl lblAdd, TempVars.item("ctrlAddEnabled"), TempVars.item("textEnabled")
         End If
     Else
@@ -739,7 +739,7 @@ End Sub
 Private Sub lbxSpecies_KeyUp(KeyCode As Integer, Shift As Integer)
 On Error GoTo Err_Handler
 
-    If lbxSpecies.ItemsSelected.count > 0 And lblAdd.BackColor <> TempVars.item("ctrlAddEnabled") Then
+    If lbxSpecies.ItemsSelected.count > 0 And lblAdd.backcolor <> TempVars.item("ctrlAddEnabled") Then
         EnableControl lblAdd, TempVars.item("ctrlAddEnabled"), TempVars.item("textEnabled")
     End If
     
@@ -782,7 +782,7 @@ On Error GoTo Err_Handler
 
     'check for selected items --> if present, enable lblRemove
     If lbxTgtSpecies.ItemsSelected.count > 0 Then
-        If lblRemove.BackColor <> TempVars.item("ctrlRemoveEnabled") Then
+        If lblRemove.backcolor <> TempVars.item("ctrlRemoveEnabled") Then
             EnableControl lblRemove, TempVars.item("ctrlRemoveEnabled"), TempVars.item("textEnabled")
         End If
     Else
@@ -848,7 +848,7 @@ End Sub
 Private Sub lbxTgtSpecies_KeyUp(KeyCode As Integer, Shift As Integer)
 On Error GoTo Err_Handler
 
-    If lbxSpecies.ItemsSelected.count > 0 And lblRemove.BackColor <> TempVars.item("ctrlRemoveEnabled") Then
+    If lbxSpecies.ItemsSelected.count > 0 And lblRemove.backcolor <> TempVars.item("ctrlRemoveEnabled") Then
         EnableControl lblRemove, TempVars.item("ctrlRemoveEnabled"), TempVars.item("textEnabled")
     End If
     
@@ -881,7 +881,7 @@ Private Sub lblAdd_Click()
 On Error GoTo Err_Handler
     
     'ignore if 'disabled'
-    If lblAdd.BackColor = lngGray Then GoTo Exit_Sub
+    If lblAdd.backcolor = lngGray Then GoTo Exit_Sub
     
     MoveSingleItem Me, "lbxSpecies", "lbxTgtSpecies"
 
@@ -914,7 +914,7 @@ Private Sub lblRemove_Click()
 On Error GoTo Err_Handler
     
     'ignore if 'disabled'
-    If lblRemove.BackColor = TempVars.item("ctrlDisabled") Then GoTo Exit_Sub
+    If lblRemove.backcolor = TempVars.item("ctrlDisabled") Then GoTo Exit_Sub
     
     MoveSingleItem Me, "lbxTgtSpecies", "lbxSpecies"
     

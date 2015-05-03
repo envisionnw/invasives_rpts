@@ -9,16 +9,18 @@ Begin Report
     DatasheetGridlinesBehavior =3
     GridX =24
     GridY =24
-    Width =15780
+    Width =15839
     DatasheetFontHeight =11
-    ItemSuffix =122
-    Right =15732
-    Bottom =7248
+    ItemSuffix =124
+    Left =84
+    Top =-132
+    Right =16008
+    Bottom =8220
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
-        0x7e55692d998fe440
+        0xbdcb1e56bd91e440
     End
-    RecordSource ="qryTgtSpeciesListAnnualSummary"
+    RecordSource ="qry_Tgt_Species_List_Annual_Summary"
     Caption ="INVASIVE LIST"
     OnOpen ="[Event Procedure]"
     DatasheetFontName ="Calibri"
@@ -27,7 +29,7 @@ Begin Report
         0x010000006801000000000000a10700000100000001000000
     End
     OnLoad ="[Event Procedure]"
-    FilterOnLoad =0
+    FilterOnLoad =255
     FitToPage =1
     DisplayOnSharePointSite =1
     AllowLayoutView =0
@@ -102,17 +104,17 @@ Begin Report
                 Begin Label
                     Left =60
                     Top =60
-                    Width =2892
+                    Width =3912
                     Height =528
                     FontSize =20
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblReportHdr"
-                    Caption ="INVASIVES LIST"
+                    Caption ="INVASIVES TARGET LIST"
                     GridlineColor =10921638
                     LayoutCachedLeft =60
                     LayoutCachedTop =60
-                    LayoutCachedWidth =2952
+                    LayoutCachedWidth =3972
                     LayoutCachedHeight =588
                 End
                 Begin TextBox
@@ -120,21 +122,21 @@ Begin Report
                     TextAlign =3
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =13380
-                    Width =2340
-                    Height =540
+                    Left =11040
+                    Width =4680
+                    Height =528
                     ColumnOrder =0
                     FontSize =20
                     BorderColor =10921638
                     ForeColor =8355711
                     Name ="tbxYear"
-                    ControlSource ="=[TgtYear]"
+                    ControlSource ="=TempVars(\"TgtYear\")+\" ANNUAL SUMMARY\""
                     StatusBarText ="Park and year for list"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =13380
+                    LayoutCachedLeft =11040
                     LayoutCachedWidth =15720
-                    LayoutCachedHeight =540
+                    LayoutCachedHeight =528
                     ForeTint =50.0
                 End
             End
@@ -513,7 +515,7 @@ Begin Report
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxListName"
-                    ControlSource ="=IIf([Page]>1,\"Invasives List for \" & [tbxYear],\"\")"
+                    ControlSource ="=IIf([Page]>1,\"Invasives List for \" & TempVars(\"TgtYear\"),\"\")"
                     GridlineColor =10921638
 
                     LayoutCachedLeft =6360
@@ -524,7 +526,7 @@ Begin Report
         End
         Begin Section
             KeepTogether = NotDefault
-            Height =490
+            Height =2040
             OnFormat ="[Event Procedure]"
             Name ="Detail"
             AlternateBackColor =15921906
@@ -532,6 +534,28 @@ Begin Report
             AlternateBackShade =95.0
             BackThemeColorIndex =1
             Begin
+                Begin TextBox
+                    OldBorderStyle =0
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =1380
+                    Top =60
+                    Width =1980
+                    Height =312
+                    FontSize =9
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbl_Target_Species.Target_Year"
+                    ControlSource ="utah_species"
+                    StatusBarText ="Year (4-digit)"
+                    EventProcPrefix ="tbl_Target_Species_Target_Year"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =1380
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =3360
+                    LayoutCachedHeight =372
+                End
                 Begin TextBox
                     Visible = NotDefault
                     DecimalPlaces =0
@@ -725,14 +749,13 @@ Begin Report
                     LayoutCachedHeight =360
                 End
                 Begin TextBox
-                    Visible = NotDefault
                     DecimalPlaces =0
                     RunningSum =2
                     OldBorderStyle =0
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =1860
-                    Top =60
+                    Left =1920
+                    Top =480
                     Width =660
                     Height =300
                     FontSize =9
@@ -743,18 +766,17 @@ Begin Report
                     ControlSource ="=CountInString([ParkPriorities],1)"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =1860
-                    LayoutCachedTop =60
-                    LayoutCachedWidth =2520
-                    LayoutCachedHeight =360
+                    LayoutCachedLeft =1920
+                    LayoutCachedTop =480
+                    LayoutCachedWidth =2580
+                    LayoutCachedHeight =780
                 End
                 Begin TextBox
-                    Visible = NotDefault
                     OldBorderStyle =0
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =4980
-                    Top =60
+                    Left =5040
+                    Top =540
                     Width =5280
                     Height =300
                     FontSize =9
@@ -765,14 +787,16 @@ Begin Report
                     ControlSource ="ParkPriorities"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =4980
-                    LayoutCachedTop =60
-                    LayoutCachedWidth =10260
-                    LayoutCachedHeight =360
+                    LayoutCachedLeft =5040
+                    LayoutCachedTop =540
+                    LayoutCachedWidth =10320
+                    LayoutCachedHeight =840
                 End
                 Begin TextBox
                     OldBorderStyle =0
                     IMESentenceMode =3
+                    Left =60
+                    Top =1320
                     Width =15779
                     Height =490
                     TabIndex =22
@@ -781,8 +805,10 @@ Begin Report
                     Name ="tbxDetail"
                     GridlineColor =10921638
 
-                    LayoutCachedWidth =15779
-                    LayoutCachedHeight =490
+                    LayoutCachedLeft =60
+                    LayoutCachedTop =1320
+                    LayoutCachedWidth =15839
+                    LayoutCachedHeight =1810
                 End
                 Begin TextBox
                     OldBorderStyle =0
@@ -805,28 +831,6 @@ Begin Report
                     LayoutCachedLeft =7200
                     LayoutCachedTop =60
                     LayoutCachedWidth =9180
-                    LayoutCachedHeight =372
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =1380
-                    Top =60
-                    Width =1980
-                    Height =312
-                    FontSize =9
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbl_Target_Species.Target_Year"
-                    ControlSource ="utah_species"
-                    StatusBarText ="Year (4-digit)"
-                    EventProcPrefix ="tbl_Target_Species_Target_Year"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =1380
-                    LayoutCachedTop =60
-                    LayoutCachedWidth =3360
                     LayoutCachedHeight =372
                 End
                 Begin TextBox

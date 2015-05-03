@@ -33,7 +33,11 @@ Public Sub PopulateInsetTitle(ctrl As Control, strContext As String)
     
     Select Case strContext
         Case "Create" ' Create main
-            strTitle = "Create Species Target Lists"
+            strTitle = "Choose what you'd like to create"
+        Case "CreateTgtLists" ' Create species target lists
+            strTitle = "Create > Species Target Lists"
+        Case "AddTgtArea" ' Add target areas
+            strTitle = "Create > Add Target Area"
         Case "Outliers", "MissingData", "SuspectValues", "SuspectDO", "SuspectpH", "SuspectSC", "SuspectWT", "Duplicates"  ' QA/QC > Outliers etc.
             strContext = Replace(Replace(strContext, "Suspect", "Suspect "), "Missing", "Missing ")
             strTitle = "Data Validation > " & strContext
@@ -43,6 +47,12 @@ Public Sub PopulateInsetTitle(ctrl As Control, strContext As String)
             strTitle = "Data Modifications"
         Case "Reports" ' Reports main
             strTitle = "Reports"
+        Case "CrewSpeciesList" ' Reports > Field Crew Species List
+            strTitle = "Reports > Field Crew Species List"
+        Case "SpeciesListByPark" ' Reports > Species List By Park
+            strTitle = "Reports > Species List By Park"
+        Case "TgtListAnnualSummary" ' Reports > Annual Species List Summary
+            strTitle = "Reports > Annual Species List Summary"
         Case "Precision", "Effectiveness", "Bias", "Stage", "Flow" ' Reports > Precision etc.
             strTitle = "Reports > " & strContext
         Case "Export" ' Export main
@@ -84,7 +94,11 @@ Public Sub PopulateInstructions(ctrl As Control, strContext As String)
     
     Select Case strContext
         Case "Create" ' Create main
-            strInstructions = "Choose the analysis you would like to run."
+            strInstructions = "Choose what you would like to create."
+        Case "CreateTgtLists" ' Create > Species Target Lists
+            strInstructions = "Choose the park and year for your list. Click 'Continue' to prepare your list."
+        Case "AddTgtArea" ' Create > Add Target Area
+            strInstructions = "" '"Choose the park and year for your target area. Click 'Continue' to create your area."
         Case "Outliers", "MissingData", "SuspectValues", "SuspectDO", "SuspectpH", "SuspectSC", "SuspectWT", "Duplicates" ' QA/QC main
             strInstructions = "Complete the fields to define the data set or subset you are validating. " _
                     & "Leave the fields blank if you are validating all data. Click 'Run' to validate."
@@ -93,6 +107,12 @@ Public Sub PopulateInstructions(ctrl As Control, strContext As String)
                     & "Be as complete as possible to aid others in tracing data changes."
         Case "Reports" ' Reports main
             strInstructions = "Choose the report you would like to run."
+        Case "CrewSpeciesList" ' Reports > Field Crew Species List
+            strInstructions = "Choose the park and year for your list. Click 'Continue' to prepare your report."
+        Case "SpeciesListByPark" ' Reports > Species List By Park
+            strInstructions = "Choose the park and year for your list. Click 'Continue' to prepare your report."
+        Case "TgtListAnnualSummary"
+            strInstructions = "Choose the year(s) for your list. Click 'Continue' to prepare your report."
         Case "Precision", "Effectiveness", "Bias", "Stage", "Flow" ' Reports > Precision etc.
             strInstructions = "Complete the fields to define the data set or subset you are reporting. " _
                     & "Leave the fields blank if you are reporting on all data. Click 'Run' to validate."
@@ -112,4 +132,44 @@ Public Sub PopulateInstructions(ctrl As Control, strContext As String)
         End If
     End If
     
+End Sub
+
+' ---------------------------------
+' SUB:          Initialize
+' Description:  initialize application values
+' Assumptions:  -
+' Parameters:   N/A
+' Returns:      N/A
+' Throws:       none
+' References:   none
+' Source/date:
+' Adapted:      Bonnie Campbell, February 6, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 2/6/2015  - initial version
+'   BLC - 2/19/2015 - added dynamic getParkState() & standard error handling
+'   BLC - 3/4/2015  - shifted colors to mod_Color, removed setting of park, state, tgtYear TempVars
+' ---------------------------------
+Public Sub Initialize()
+On Error GoTo Err_Handler
+
+    '------------------------
+    'set standard variables
+    '------------------------
+    'std control colors
+    TempVars.Add "ctrlDisabled", lngLtGray
+    TempVars.Add "ctrlAddEnabled", lngLime
+    TempVars.Add "ctrlRemoveEnabled", lngLtOrange
+    TempVars.Add "textEnabled", lngBlue
+    TempVars.Add "textDisabled", lngGray
+
+Exit_Sub:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - Initialize[mod_Init])"
+    End Select
+    Resume Exit_Sub
 End Sub

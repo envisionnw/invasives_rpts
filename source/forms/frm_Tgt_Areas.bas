@@ -11,8 +11,8 @@ Begin Form
     GridY =24
     DatasheetFontHeight =11
     ItemSuffix =12
-    Right =14508
-    Bottom =9408
+    Right =10272
+    Bottom =8556
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xc1f3db6ed487e440
@@ -135,7 +135,7 @@ Begin Form
             GridlineShade =65.0
         End
         Begin FormHeader
-            Height =3372
+            Height =3375
             Name ="FormHeader"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -635,8 +635,8 @@ Option Compare Database
 Option Explicit
 
 ' =================================
-' MODULE:       Form_frmTgtSpeciesList
-' Description:  Target species functions & procedures
+' MODULE:       Form_frm_Tgt_Areas
+' Description:  Target area functions & procedures
 '
 ' Source/date:  Bonnie Campbell, 2/11/2015
 ' Revisions:    BLC - 2/11/2015 - initial version
@@ -674,7 +674,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Form_Load[form_frmTgtAreas])"
+            "Error encountered (#" & Err.Number & " - Form_Load[form_frm_Tgt_Areas])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -712,7 +712,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - tbxTgtArea_Change[Form_frmTgtAreas])"
+            "Error encountered (#" & Err.Number & " - tbxTgtArea_Change[form_frm_Tgt_Areas])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -750,7 +750,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - tbxTgtArea_LostFocus[Form_frmTgtAreas])"
+            "Error encountered (#" & Err.Number & " - tbxTgtArea_LostFocus[form_frm_Tgt_Areas])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -789,7 +789,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - tbxTgtArea_LostFocus[Form_frmTgtAreas])"
+            "Error encountered (#" & Err.Number & " - tbxTgtArea_LostFocus[form_frm_Tgt_Areas])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -832,7 +832,7 @@ On Error GoTo Err_Handler
     End If
     
     'refresh form
-    DoCmd.OpenForm "frmTgtAreas", acNormal
+    DoCmd.OpenForm "frm_Tgt_Areas", acNormal
     
 Exit_Sub:
     Exit Sub
@@ -841,7 +841,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - lblAddTgtArea_Click[Form_frmTgtAreas])"
+            "Error encountered (#" & Err.Number & " - lblAddTgtArea_Click[form_frm_Tgt_Areas])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -886,7 +886,7 @@ On Error GoTo Err_Handler
     'refresh the target area list
     'Form.Refresh
     'refresh form
-    DoCmd.OpenForm "frmTgtAreas", acNormal
+    DoCmd.OpenForm "frm_Tgt_Areas", acNormal
     
 Exit_Sub:
     Exit Sub
@@ -895,7 +895,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - btnAddTgtArea_Click[Form_frmTgtAreas])"
+            "Error encountered (#" & Err.Number & " - btnAddTgtArea_Click[form_frm_Tgt_Areas])"
     End Select
     Resume Exit_Sub
 End Sub

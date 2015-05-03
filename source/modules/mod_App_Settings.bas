@@ -26,6 +26,7 @@ Option Explicit
 '               BLC, 4/30/2015 - add DB_ADMIN_CONTROL flag to handle applications w/o full DbAdmin subform & controls
 '                                add MAIN_APP_FORM constant to handle applications where frm_Switchboard is NOT the main form
 '                                add APP_RELEASE_ID constant to handle application release ID w/o full DbAdmin subfrom & controls
+'               BLC, 5/1/2015  - add DEV_MODE constant to enable menus typically off during use
 ' ---------------------------------
 Public Const USER_ACCESS_CONTROL As Boolean = False             'Boolean flag -> db includes user access control or not
 Public Const DB_ADMIN_CONTROL As Boolean = False                'Boolean flag -> db does not include DbAdmin subform & controls
@@ -35,7 +36,7 @@ Public Const APP_RELEASE_ID As String = ""                      'String -> relea
 Public Const APP_URL As String = "science.nature.nps.gov/im/units/ncpn/datamanagement.cfm"
                                                                 'String -> website URL for application
                                                                 '          used when db doesn't include full DbAdmin subform & controls, otherwise NULL
-
+Public Const DEV_MODE As Boolean = True                         'Boolean flag -> enable menus when typically they'd be OFF
 
 '-----------------------------------------------------------------------
 ' Database System Tables

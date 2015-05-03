@@ -204,7 +204,7 @@ Public Function GetPath(ByVal strFilePath As String) As String
 Dim strTemp As String
 
 Do While (InStr(strFilePath, "\") > 0)
-    strTemp = strTemp & Left(strFilePath, InStr(strFilePath, "\"))
+    strTemp = strTemp & left(strFilePath, InStr(strFilePath, "\"))
     strFilePath = Mid(strFilePath, InStr(strFilePath, "\") + 1)
 Loop
 
@@ -258,7 +258,7 @@ For intI = 1 To Len(strIn)
                     strOut = strOut & " " & Mid(strIn, intI, 1)
                 End If
             Case 1  'first letter
-                strOut = UCase(Left(strIn, 1))
+                strOut = UCase(left(strIn, 1))
             Case Len(strIn) 'last letter
                 'if the previous letter was a capital, don't put a space
                 If IsCap(Mid(strIn, intI - 1, 1)) Then
@@ -294,7 +294,7 @@ Function ReplaceString_TSB(strTextIn As String, strFind As String, strReplace As
   intPos = InStr(1, strTmp, strFind, intCaseSensitive)
   
   Do While intPos > 0
-    strTmp = Left$(strTmp, intPos - 1) & strReplace & Mid$(strTmp, intPos + Len(strFind))
+    strTmp = left$(strTmp, intPos - 1) & strReplace & Mid$(strTmp, intPos + Len(strFind))
     intPos = InStr(intPos + Len(strReplace), strTmp, strFind, intCaseSensitive)
   Loop
 
@@ -304,7 +304,7 @@ End Function
 
 Public Function ReplaceListItem(strList As String, strFind As String, strReplace As String, strDelimiter As String, booCaseSensitive As Boolean, booTrim As Boolean) As String
 
-Dim strItem As String
+Dim stritem As String
 Dim intCompare As Integer
 Dim strResult As String
 Dim strChar As String
@@ -320,19 +320,19 @@ If booTrim Then strFind = Trim(strFind)
 Do Until InStr(strList, strDelimiter) = 0
     'Get each item in the list
     If booTrim Then
-        strItem = Trim(Left(strList, InStr(strList, strDelimiter) - 1))
+        stritem = Trim(left(strList, InStr(strList, strDelimiter) - 1))
     Else
-        strItem = Left(strList, InStr(strList, strDelimiter) - 1)
+        stritem = left(strList, InStr(strList, strDelimiter) - 1)
     End If
         
     strList = Mid(strList, InStr(strList, strDelimiter) + 1)
 
     'Compare the item to the string we wish to replace
-    If StrComp(strItem, strFind, intCompare) = 0 Then
+    If StrComp(stritem, strFind, intCompare) = 0 Then
         'If they're the same, then replace the item
         strResult = strResult & strReplace & strDelimiter
     Else
-        strResult = strResult & strItem & strDelimiter
+        strResult = strResult & stritem & strDelimiter
     End If
 Loop
 
@@ -346,12 +346,12 @@ Loop
 
 'Clean up the semicolons
     'First eliminate any leading semicolons
-    Do Until Left(strResult, 1) <> strDelimiter
+    Do Until left(strResult, 1) <> strDelimiter
         strResult = Mid(strResult, 2)
     Loop
     'Next eliminate any trailing semicolons
     Do Until Right(strResult, 1) <> strDelimiter
-        strResult = Left(strResult, Len(strResult) - 1)
+        strResult = left(strResult, Len(strResult) - 1)
     Loop
     'Finally, eliminate grouped semicolons in the list
     For intI = 1 To Len(strResult)
@@ -426,14 +426,14 @@ Do
         booLastWord = True
         strWord = Trim(strIn)
     Else
-        strWord = Left(strIn, InStr(strIn, " ") - 1)
+        strWord = left(strIn, InStr(strIn, " ") - 1)
         strIn = Mid(strIn, InStr(strIn, " ") + 1)
     End If
         Select Case strWord
             Case "id", "tsn", "nps"
                 strWord = UCase(strWord)
             Case Else
-                strWord = UCase(Left(strWord, 1)) & Mid(strWord, 2)
+                strWord = UCase(left(strWord, 1)) & Mid(strWord, 2)
         End Select
     strWorking = strWorking & " " & strWord
 Loop Until booLastWord
@@ -472,7 +472,7 @@ Public Function GetFileName(ByVal strFilePath As String) As String
 Dim strTemp As String
 
 Do While (InStr(strFilePath, "\") > 0)
-    strTemp = strTemp & Left(strFilePath, InStr(strFilePath, "\"))
+    strTemp = strTemp & left(strFilePath, InStr(strFilePath, "\"))
     strFilePath = Mid(strFilePath, InStr(strFilePath, "\") + 1)
 Loop
 
@@ -500,7 +500,7 @@ End Function
 
 Public Function ListCompareRemove(strListMain As String, ByVal strListToKeep As String, strDelimiter As String) As String
 
-Dim strItem As String
+Dim stritem As String
 Dim intI As Integer
 Dim strNewList As String
 
@@ -508,7 +508,7 @@ If Not Right(strListToKeep, 1) = strDelimiter Then
     strListToKeep = strListToKeep & strDelimiter
 End If
 
-If Not Left(strListToKeep, 1) = strDelimiter Then
+If Not left(strListToKeep, 1) = strDelimiter Then
     strListToKeep = strDelimiter & strListToKeep
 End If
 
@@ -517,11 +517,11 @@ If Not Right(strListMain, 1) = strDelimiter Then
 End If
 
 Do Until InStr(strListMain, strDelimiter) = 0
-    strItem = strDelimiter & Trim(Left(strListMain, InStr(strListMain, strDelimiter)))
+    stritem = strDelimiter & Trim(left(strListMain, InStr(strListMain, strDelimiter)))
     strListMain = Mid(strListMain, InStr(strListMain, strDelimiter) + 1)
 
-    If InStr(strListToKeep, strItem) > 0 Then
-        strNewList = strNewList & Mid(strItem, 2)
+    If InStr(strListToKeep, stritem) > 0 Then
+        strNewList = strNewList & Mid(stritem, 2)
     End If
 Loop
 
@@ -539,12 +539,12 @@ Dim booSemi As Boolean
 Dim intI As Integer
 
     'First eliminate any leading delimiters
-    Do Until Left(strList, 1) <> strDelimiter
+    Do Until left(strList, 1) <> strDelimiter
         strList = Mid(strList, 2)
     Loop
     'Next eliminate any trailing delimiters
     Do Until Right(strList, 1) <> strDelimiter
-        strList = Left(strList, Len(strList) - 1)
+        strList = left(strList, Len(strList) - 1)
     Loop
     'Finally, eliminate grouped delimiters in the list
     For intI = 1 To Len(strList)
@@ -567,16 +567,16 @@ End Function
 Public Function ListCompare(strListMain As String, ByVal strListToRemove As String, strDelimiter As String) As String
 
 'Compares two semicolon-delimited lists and eliminates items from strListMain that are in strListToRemove
-Dim strItem As String
+Dim stritem As String
 Dim intI As Integer
 Dim strNewList As String
 
 Do Until InStr(strListToRemove, strDelimiter) = 0
-    strItem = Trim(Left(strListToRemove, InStr(strListToRemove, strDelimiter) - 1))
+    stritem = Trim(left(strListToRemove, InStr(strListToRemove, strDelimiter) - 1))
     strListToRemove = Mid(strListToRemove, InStr(strListToRemove, strDelimiter) + 1)
 
     'Remove the item from inside the body of the Main List
-    strListMain = ReplaceListItem(strListMain, strItem, "", strDelimiter, False, True)
+    strListMain = ReplaceListItem(strListMain, stritem, "", strDelimiter, False, True)
 Loop
 
     'Do the last item in the list
@@ -620,7 +620,7 @@ Dim tdf As TableDef
 Set db = CurrentDb
 
 For Each tdf In db.tabledefs
-    If Not Left(tdf.name, 4) = "MSys" Then
+    If Not left(tdf.name, 4) = "MSys" Then
         Debug.Print tdf.name & ": " & tdf.RecordCount
     End If
 Next
@@ -716,7 +716,7 @@ Function GetLastWord_TSB(strIn As String, strRest As String, chrDelimit As Strin
     strRest = ""
   Else
     GetLastWord_TSB = Mid$(strTmp, intP)
-    strRest = Trim$(Left$(strTmp, intP - 1))
+    strRest = Trim$(left$(strTmp, intP - 1))
   End If
 
 End Function
@@ -762,7 +762,7 @@ Do
     bytCount = bytCount + 1
     intDelimPos = InStr(strRemainder, strDelimiter)
     If intDelimPos > 0 Then
-        strOutput = strOutput & strDelimiter & Left(strRemainder, intDelimPos - 1)
+        strOutput = strOutput & strDelimiter & left(strRemainder, intDelimPos - 1)
         strRemainder = Mid(strRemainder, intDelimPos + 1)
     Else
         If Len(strRemainder) > 0 Then
@@ -790,7 +790,7 @@ Set db = CurrentDb
 
 If IsMissing(varFileType) Then
     For Each tdf In db.tabledefs
-        If Not Left(tdf.name, 4) = "MSys" Then
+        If Not left(tdf.name, 4) = "MSys" Then
             Debug.Print "Table: " & tdf.name
             For Each idx In tdf.Indexes
                 Debug.Print vbTab & "Index: " & idx.name
@@ -950,7 +950,7 @@ Do Until InStr(strWorking, strCharStart) = 0 Or InStr(strWorking, strCharEnd) = 
         End Select
     Loop Until intParenEnd > 0
     
-    strWorking = Left(strWorking, intParenStart - 1) & Mid(strWorking, intParenEnd + 1)
+    strWorking = left(strWorking, intParenStart - 1) & Mid(strWorking, intParenEnd + 1)
 Loop
 
 EliminateDataBetweenChars = strWorking
@@ -1051,7 +1051,7 @@ Dim DirName As String, FName As String, Ext As String
   For i = Len(fullPath) To 1 Step -1
     If Mid$(fullPath, i, 1) = "\" Then
       f = Mid$(fullPath, i + 1)
-      DirName = Left$(fullPath, i)
+      DirName = left$(fullPath, i)
       Found = True
       Exit For
     End If
@@ -1067,7 +1067,7 @@ Dim DirName As String, FName As String, Ext As String
   Else
     i = InStr(f, ".")
     If i > 0 Then
-      FName = Left$(f, i - 1)
+      FName = left$(f, i - 1)
       Ext = Mid$(f, i)
     Else
       FName = f
