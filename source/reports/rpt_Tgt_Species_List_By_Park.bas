@@ -3,6 +3,7 @@ VersionRequired =20
 Begin Report
     LayoutForPrint = NotDefault
     DividingLines = NotDefault
+    FilterOn = NotDefault
     DateGrouping =1
     GrpKeepTogether =1
     PictureAlignment =2
@@ -12,11 +13,11 @@ Begin Report
     Width =11400
     DatasheetFontHeight =11
     ItemSuffix =43
-    Left =-2712
     Top =540
-    Right =9972
-    Bottom =7428
+    Right =11760
+    Bottom =8772
     DatasheetGridlinesColor =14806254
+    Filter ="TgtList IN ('BLCA-2015','BRCA-2015')"
     RecSrcDt = Begin
         0xbe76e03db891e440
     End
@@ -34,6 +35,7 @@ Begin Report
     AllowLayoutView =0
     DatasheetAlternateBackColor =15921906
     DatasheetGridlinesColor12 =0
+    RibbonName ="Export"
     FitToScreen =1
     DatasheetBackThemeColorIndex =1
     BorderThemeColorIndex =3
@@ -141,7 +143,6 @@ Begin Report
                     BorderColor =10921638
                     ForeColor =8355711
                     Name ="tbxYear"
-                    ControlSource ="=[Park] & \" - \" & [TgtYear] & [tbxSumParkPriority]"
                     StatusBarText ="Park and year for list"
                     GridlineColor =10921638
 

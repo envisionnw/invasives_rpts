@@ -3,6 +3,7 @@ VersionRequired =20
 Begin Report
     LayoutForPrint = NotDefault
     DividingLines = NotDefault
+    FilterOn = NotDefault
     DateGrouping =1
     GrpKeepTogether =1
     PictureAlignment =2
@@ -11,12 +12,12 @@ Begin Report
     GridY =24
     Width =15839
     DatasheetFontHeight =11
-    ItemSuffix =124
+    ItemSuffix =125
     Left =84
-    Top =-132
-    Right =16008
-    Bottom =8220
+    Right =15924
+    Bottom =7536
     DatasheetGridlinesColor =14806254
+    Filter ="TgtYear=2015"
     RecSrcDt = Begin
         0xbdcb1e56bd91e440
     End
@@ -35,6 +36,7 @@ Begin Report
     AllowLayoutView =0
     DatasheetAlternateBackColor =15921906
     DatasheetGridlinesColor12 =0
+    RibbonName ="Export"
     FitToScreen =1
     DatasheetBackThemeColorIndex =1
     BorderThemeColorIndex =3
@@ -526,7 +528,7 @@ Begin Report
         End
         Begin Section
             KeepTogether = NotDefault
-            Height =2040
+            Height =490
             OnFormat ="[Event Procedure]"
             Name ="Detail"
             AlternateBackColor =15921906
@@ -534,6 +536,89 @@ Begin Report
             AlternateBackShade =95.0
             BackThemeColorIndex =1
             Begin
+                Begin TextBox
+                    OldBorderStyle =0
+                    IMESentenceMode =3
+                    Left =60
+                    Width =15779
+                    Height =490
+                    TabIndex =22
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxDetail"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =60
+                    LayoutCachedWidth =15839
+                    LayoutCachedHeight =490
+                End
+                Begin TextBox
+                    Visible = NotDefault
+                    OldBorderStyle =0
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =5040
+                    Top =120
+                    Width =5280
+                    Height =300
+                    FontSize =9
+                    TabIndex =12
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxAll"
+                    ControlSource ="ParkPriorities"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =5040
+                    LayoutCachedTop =120
+                    LayoutCachedWidth =10320
+                    LayoutCachedHeight =420
+                End
+                Begin TextBox
+                    Visible = NotDefault
+                    DecimalPlaces =0
+                    RunningSum =2
+                    OldBorderStyle =0
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =1920
+                    Top =60
+                    Width =660
+                    Height =300
+                    FontSize =9
+                    TabIndex =14
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxRunSumPri1"
+                    ControlSource ="=CountInString([ParkPriorities],1)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =1920
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =2580
+                    LayoutCachedHeight =360
+                End
+                Begin TextBox
+                    Visible = NotDefault
+                    OldBorderStyle =0
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Top =60
+                    Width =1320
+                    Height =312
+                    FontSize =9
+                    TabIndex =25
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxTgtYr"
+                    ControlSource ="TgtYear"
+                    StatusBarText ="Target Species name (ITIS species name from tlu_NCPN_Plants.Master_Species)"
+                    GridlineColor =10921638
+
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =1320
+                    LayoutCachedHeight =372
+                End
                 Begin TextBox
                     OldBorderStyle =0
                     BackStyle =0
@@ -747,68 +832,6 @@ Begin Report
                     LayoutCachedTop =60
                     LayoutCachedWidth =2820
                     LayoutCachedHeight =360
-                End
-                Begin TextBox
-                    DecimalPlaces =0
-                    RunningSum =2
-                    OldBorderStyle =0
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =1920
-                    Top =480
-                    Width =660
-                    Height =300
-                    FontSize =9
-                    TabIndex =14
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxRunSumPri1"
-                    ControlSource ="=CountInString([ParkPriorities],1)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =1920
-                    LayoutCachedTop =480
-                    LayoutCachedWidth =2580
-                    LayoutCachedHeight =780
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =5040
-                    Top =540
-                    Width =5280
-                    Height =300
-                    FontSize =9
-                    TabIndex =12
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxAll"
-                    ControlSource ="ParkPriorities"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =5040
-                    LayoutCachedTop =540
-                    LayoutCachedWidth =10320
-                    LayoutCachedHeight =840
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    IMESentenceMode =3
-                    Left =60
-                    Top =1320
-                    Width =15779
-                    Height =490
-                    TabIndex =22
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxDetail"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =60
-                    LayoutCachedTop =1320
-                    LayoutCachedWidth =15839
-                    LayoutCachedHeight =1810
                 End
                 Begin TextBox
                     OldBorderStyle =0

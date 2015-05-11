@@ -12,9 +12,9 @@ Begin Form
     Width =10935
     DatasheetFontHeight =11
     ItemSuffix =28
-    Top =600
-    Right =11184
-    Bottom =6648
+    Top =1392
+    Right =4668
+    Bottom =7440
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x72574db34b86e440
@@ -136,11 +136,7 @@ Begin Form
                     BorderColor =10921638
                     Name ="lbxTgtSpecies"
                     RowSourceType ="Value List"
-                    RowSource ="Code;Species;'';'';ABIES;Abies sp.;'';'';ABILAS;Abies lasiocarpa;'';'';ABRNAN;Ab"
-                        "ronia nana;'';'';ABRONIA;Abronia sp.;'';'';ABUTHE;Abutilon theophrasti;'';'';ACA"
-                        "MPTOPAPPUS;Acamptopappus sp.;'';'';ARTARB;Artemisia arbuscula;'';'';BROTEC;Bromu"
-                        "s tectorum;'';'';ELEPARISHII;Eleocharis parishii;'';'';LUPPAR;Lupinus parvifloru"
-                        "s;'';'';STIARI;Achnatherum aridum;'';''"
+                    RowSource ="Code;Species;Master_PLANT_Code;'';ABIES;Abies sp.;ABIES;''"
                     ColumnWidths ="1440;2520;720;14"
                     OnDblClick ="[Event Procedure]"
                     OnKeyUp ="[Event Procedure]"
@@ -181,7 +177,7 @@ Begin Form
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblParkHdr"
-                    Caption ="BLCA"
+                    Caption ="COLM"
                     GridlineColor =10921638
                     LayoutCachedLeft =60
                     LayoutCachedTop =60
@@ -235,7 +231,7 @@ Begin Form
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblTgtSpeciesCount"
-                    Caption ="11 species"
+                    Caption ="1 species"
                     ControlTipText ="Number of species in the current list"
                     GridlineColor =10921638
                     LayoutCachedLeft =8340
@@ -275,7 +271,7 @@ Begin Form
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblYear"
-                    Caption ="Target Species List for "
+                    Caption ="Target Species List for 2014"
                     GridlineColor =10921638
                     LayoutCachedLeft =2880
                     LayoutCachedTop =120
@@ -463,6 +459,7 @@ Begin Form
                     Overlaps =1
                 End
                 Begin CommandButton
+                    Enabled = NotDefault
                     OverlapFlags =85
                     Left =4740
                     Top =1200
@@ -584,16 +581,16 @@ Begin Form
                     BorderColor =0
                     BorderThemeColorIndex =-1
                     BorderTint =100.0
-                    HoverColor =3407769
+                    HoverColor =0
                     HoverThemeColorIndex =-1
                     HoverTint =100.0
-                    PressedColor =52224
+                    PressedColor =0
                     PressedThemeColorIndex =-1
                     PressedShade =100.0
-                    HoverForeColor =2375487
+                    HoverForeColor =0
                     HoverForeThemeColorIndex =-1
                     HoverForeTint =100.0
-                    PressedForeColor =6750156
+                    PressedForeColor =0
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
                     WebImagePaddingLeft =3
@@ -629,7 +626,7 @@ Begin Form
                     BackThemeColorIndex =-1
                     BackTint =100.0
                     OldBorderStyle =0
-                    BorderColor =52377
+                    BorderColor =8224125
                     BorderThemeColorIndex =-1
                     BorderTint =100.0
                     HoverColor =3407769
@@ -766,6 +763,8 @@ Public Property Let Minimized(IsMin As Boolean)
      End If
 End Property
 
+'Public WithEvents sfrm As Access.Form
+
 '=================================================================
 '  Subroutines & Functions
 '=================================================================
@@ -810,15 +809,19 @@ On Error GoTo Err_Handler
      fillList Me, lbxTgtSpecies
 
     'Enable move items lbls (or not)
+    btnAddAll.Enabled = False
     
     'Set counts
-    intSpecies = 0
-    If lbxTgtSpecies.ListCount > 0 Then
-        intSpecies = lbxTgtSpecies.ListCount - 1
-    End If
+'    intSpecies = 0
+'    If lbxTgtSpecies.ListCount > 0 Then
+'        intSpecies = lbxTgtSpecies.ListCount - 1
+'    End If
     
-    lblTgtSpeciesCount.Caption = intSpecies & " species"
+'    lblTgtSpeciesCount.Caption = intSpecies & " species"
     
+    lblTgtSpeciesCount.Caption = GetListCount(lbxTgtSpecies, True) & " species"
+    
+    DisableControl btnAddAll
     DisableControl btnAdd
     DisableControl btnRemove
     
@@ -847,21 +850,14 @@ End Sub
 ' Revisions:
 '   BLC - 3/5/2015 - initial version
 '   BLC - 5/1/2015 - added check for no species to prevent # = -1
+'   BLC - 5/10/2015 - revised to include generic count function
 ' ---------------------------------
 Private Sub Form_Activate()
 
 On Error GoTo Err_Handler
-    Dim intSpecies As Integer
-
-    intSpecies = 0
-    
-    'if species count < 0 set = 0
-    If lbxTgtSpecies.ListCount > 0 Then
-        intSpecies = lbxTgtSpecies.ListCount - 1
-    End If
     
     'set species count
-    lblTgtSpeciesCount.Caption = intSpecies & " species"
+    lblTgtSpeciesCount.Caption = GetListCount(lbxTgtSpecies, True) & " species"
     
 Exit_Sub:
     Exit Sub
@@ -953,6 +949,7 @@ End Sub
 ' Adapted:      Bonnie Campbell, February 6, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/6/2015 - initial version
+'   BLC - 5/10/2015 - added species count update
 ' ---------------------------------
 Private Sub lbxTgtSpecies_Click()
 On Error GoTo Err_Handler
@@ -967,6 +964,9 @@ On Error GoTo Err_Handler
     Else
         DisableControl btnRemove
     End If
+    
+    'set species count
+    lblTgtSpeciesCount.Caption = GetListCount(lbxTgtSpecies, True) & " species"
     
 Exit_Sub:
     Exit Sub
@@ -992,15 +992,20 @@ End Sub
 ' Adapted:      Bonnie Campbell, February 9, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/9/2015 - initial version
+'   BLC - 5/10/2015 - changed from MoveSingleItem to RemoveSelectedItems to handle
+'                     removing species versus populating them back to the original species list
+'                     added count update
 ' ---------------------------------
 Private Sub lbxTgtSpecies_DblClick(Cancel As Integer)
     
 On Error GoTo Err_Handler
 
-    'MoveSingleItem Me, "lbxTgtSpecies", "lbxSpecies"
-    'MoveSingleItem Me, "sfrmSpeciesListbox", "lbxSpecies"
-    MoveSingleItem Me, "lbxTgtSpecies", "lbxTgtSpecies"
-    
+    'MoveSingleItem Me, "lbxTgtSpecies", "lbxTgtSpecies"
+    RemoveSelectedItems "lbxTgtSpecies"
+
+    'set species count
+    lblTgtSpeciesCount.Caption = GetListCount(lbxTgtSpecies, True) & " species"
+
 Exit_Sub:
     Exit Sub
 
@@ -1058,6 +1063,7 @@ End Sub
 ' Adapted:      Bonnie Campbell, March 3, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 3/3/2015 - initial version
+'   BLC - 5/10/2015 - added update for species count
 ' ---------------------------------
 Private Sub btnAdd_Click()
 On Error GoTo Err_Handler
@@ -1068,6 +1074,9 @@ On Error GoTo Err_Handler
     
     'MoveSingleItem Me, "lbxSpecies", "lbxTgtSpecies"
     MoveSingleItem Me, "fsub_Species_Listbox", "lbxTgtSpecies"
+
+    'update count
+    lblTgtSpeciesCount.Caption = GetListCount(lbxTgtSpecies, True) & " species"
 
 Exit_Sub:
     Exit Sub
@@ -1093,6 +1102,9 @@ End Sub
 ' Adapted:      Bonnie Campbell, March 3, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 3/3/2015 - initial version
+'   BLC - 5/10/2015 - changed from MoveSingleItem to RemoveSelectedItems to handle
+'                     removing species from list vs. adding back to original list
+'                     added update for species count
 ' ---------------------------------
 Private Sub btnRemove_Click()
 On Error GoTo Err_Handler
@@ -1100,8 +1112,12 @@ On Error GoTo Err_Handler
     'ignore if 'disabled'
     If btnRemove.backcolor = TempVars.item("ctrlDisabled") Then GoTo Exit_Sub
     
-    'MoveSingleItem Me, "lbxTgtSpecies", "lbxSpecies"
-    MoveSingleItem Me, "lbxTgtSpecies", "fsub_Species_Listbox"
+    'MoveSingleItem Me, "lbxTgtSpecies", "fsub_Species_Listbox"
+    RemoveSelectedItems lbxTgtSpecies
+    
+    'update count
+    lblTgtSpeciesCount.Caption = GetListCount(lbxTgtSpecies, True) & " species"
+
     
 Exit_Sub:
     Exit Sub
@@ -1127,6 +1143,7 @@ End Sub
 ' Adapted:      Bonnie Campbell, March 3, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 3/3/2015 - initial version
+'   BLC - 5/10/2015 - added update for species count
 ' ---------------------------------
 Private Sub btnAddAll_Click()
 On Error GoTo Err_Handler
@@ -1140,6 +1157,9 @@ On Error GoTo Err_Handler
     
     'MoveAllItems Me, "lbxSpecies", "lbxTgtSpecies"
     MoveAllItems Me, "", "lbxTgtSpecies"
+
+    'update count
+    lblTgtSpeciesCount.Caption = GetListCount(lbxTgtSpecies, True) & " species"
 
 Exit_Sub:
     Exit Sub
@@ -1165,18 +1185,21 @@ End Sub
 ' Adapted:      Bonnie Campbell, March 3, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 3/3/2015 - initial version
+'   BLC - 5/10/2015 - changed from MoveAllItems to Form_Load to handle
+'                     removing all species vs. moving them to original listbox
 ' ---------------------------------
 Private Sub btnRemoveAll_Click()
 On Error GoTo Err_Handler
-    Dim db As DAO.Database
-    Dim rs As DAO.Recordset
+'    Dim db As DAO.Database
+'    Dim rs As DAO.Recordset
     
     'fetch recordset
-    Set db = CurrentDb
-    Set rs = db.OpenRecordset(TempVars.item("strSQL"))
+'    Set db = CurrentDb
+'    Set rs = db.OpenRecordset(TempVars.item("strSQL"))
     
-    'MoveAllItems Me, "lbxTgtSpecies", "lbxSpecies"
-    MoveAllItems Me, "lbxTgtSpecies", "fsub_Species_Listbox"
+    'MoveAllItems Me, "lbxTgtSpecies", "fsub_Species_Listbox"
+    'go back to initial state
+    Form_Load
 
 Exit_Sub:
     Exit Sub

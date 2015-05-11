@@ -2324,7 +2324,7 @@ Private Sub Form_Open(Cancel As Integer)
     If TempVars.item("HasAccessBE") Then DoCmd.OpenForm "frm_Lock_BE", , , , , acHidden
 
     ' If there is an Access back-end, make the backups button visible
-    Me!cmdBackup.Visible = TempVars.item("HasAccessBE")
+    Me!cmdBackup.visible = TempVars.item("HasAccessBE")
 
 End Sub
 

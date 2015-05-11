@@ -22,10 +22,9 @@ Begin Form
     Width =12300
     DatasheetFontHeight =10
     ItemSuffix =179
-    Left =-48
-    Top =-144
-    Right =12252
-    Bottom =9924
+    Left =3876
+    Right =16176
+    Bottom =10068
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x80d28b4cb201e340
@@ -940,7 +939,7 @@ On Error GoTo Err_Handler
     optGrpTabs.Value = 1 'Create
     
     Me.optGrpTabs_Click
-    Me!fsub_Filter.Visible = False
+    Me!fsub_Filter.visible = False
     
 Exit_Sub:
     DoCmd.SetWarnings True
@@ -1165,6 +1164,7 @@ Dim blnLeftInsetHide As Boolean
             strTab = "tabExport"
             strAction = "exp"
             lngTabColor = fxnHTMLConvert("#CCFFCC") 'lt green CCFFCC RGB(204,255,204) 13434828
+            'Application.LoadCustomUI "Export", GetRibbonXML("Export")
         Case 5 'DB Admin
             strTab = "tabDbAdmin"
             lngTabColor = fxnHTMLConvert("#D8D8D8") 'lt gray D8D8D8 RGB(216,216,216) 14211288
@@ -1185,12 +1185,12 @@ Dim blnLeftInsetHide As Boolean
     buttonUnHighlight Me!lblInstructions
     
     'hide filter
-    Me.Controls.item("fsub_Filter").Visible = False
+    Me.Controls.item("fsub_Filter").visible = False
     
     'unhide left inset rectangle
-    Me.Controls.item("rctLeftInset").Visible = True
+    Me.Controls.item("rctLeftInset").visible = True
     If blnLeftInsetHide Then
-        Me.Controls.item("rctLeftInset").Visible = False
+        Me.Controls.item("rctLeftInset").visible = False
     End If
     
     'hide all tabs & unhide current tab
@@ -1245,7 +1245,7 @@ Private Sub btnAddTgtArea_Click()
     'button actions
     ActionButton_Click btnAddTgtArea, "frm_Tgt_Areas"
     
-    fsub_Filter.Visible = False
+    fsub_Filter.visible = False
        
 End Sub
 
@@ -1338,7 +1338,7 @@ On Error GoTo Err_Handler:
 
     'reveal filter subform & clear fields
     With fsub_Filter
-        .Visible = True
+        .visible = True
         Select Case fsub_Filter.SourceObject
             Case "fsub_Select_Park_Year"
                 !cbxPark.Value = ""
@@ -1453,40 +1453,6 @@ Private Sub btnTgtListAnnualSummary_Click()
 
     'button actions
     ActionButton_Click btnTgtListAnnualSummary
-    
-End Sub
-
-' ---------------------------------
-' SUB:     btnStage_Click
-' Description:  Opens the Bias report
-' Parameters:   -
-' Returns:      -
-' Throws:       -
-' References:   -
-' Source/date:  Bonnie Campbell, June 17, 2014
-' Revisions:    6/17/2014 - BLC - XX
-' ---------------------------------
-Private Sub btnStage_Click()
-
-    'button actions
-    ActionButton_Click btnStage
-    
-End Sub
-
-' ---------------------------------
-' SUB:     btnFlow_Click
-' Description:  Opens the Flow report
-' Parameters:   -
-' Returns:      -
-' Throws:       -
-' References:   -
-' Source/date:  Bonnie Campbell, June 17, 2014
-' Revisions:    6/17/2014 - BLC - XX
-' ---------------------------------
-Private Sub btnFlow_Click()
-
-    'button actions
-    ActionButton_Click btnFlow
     
 End Sub
 

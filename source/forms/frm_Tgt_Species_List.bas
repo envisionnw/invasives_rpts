@@ -13,8 +13,8 @@ Begin Form
     Width =16342
     DatasheetFontHeight =11
     ItemSuffix =24
-    Right =10275
-    Bottom =11175
+    Right =10272
+    Bottom =8556
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x06c7dc6ed487e440
@@ -297,10 +297,10 @@ Begin Form
                     PressedColor =9592887
                     HoverForeColor =4210752
                     PressedForeColor =4210752
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =3
+                    WebImagePaddingBottom =3
                 End
                 Begin Label
                     OverlapFlags =85

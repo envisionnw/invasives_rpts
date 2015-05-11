@@ -256,7 +256,7 @@ Dim ctrl As Control
 
             'check tag
             If ctrl.tag = ctrlTag Then
-                ctrl.Visible = visibility
+                ctrl.visible = visibility
             End If
 
         Next
@@ -265,7 +265,7 @@ Dim ctrl As Control
 
         'check tag
         If oCtrl.tag = ctrlTag Then
-                oCtrl.Visible = visibility
+                oCtrl.visible = visibility
         End If
 
     End If

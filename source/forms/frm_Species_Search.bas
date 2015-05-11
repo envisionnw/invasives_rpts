@@ -1591,9 +1591,9 @@ On Error GoTo Err_Handler
         rs.MoveFirst
         
         'hide no records
-        lblNoRecords.Visible = False
+        lblNoRecords.visible = False
     Else
-        lblNoRecords.Visible = True
+        lblNoRecords.visible = True
     End If
         
     'set # species found
@@ -1787,12 +1787,12 @@ On Error GoTo Err_Handler
         'set # species found
         lblSpeciesFound.Caption = count & " species found"
 '        lblSpeciesFound.Visible = True
-        lblNoRecords.Visible = False
+        lblNoRecords.visible = False
         
         'resize form (height only)
         
     Else
-        lblSpeciesFound.Visible = False
+        lblSpeciesFound.visible = False
 '        lblNoRecords.Visible = True
     End If
         

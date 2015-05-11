@@ -13,13 +13,13 @@ Begin Form
     Width =9480
     DatasheetFontHeight =11
     ItemSuffix =15
-    Left =912
-    Top =2796
-    Right =4608
-    Bottom =6552
+    Left =-5964
+    Top =2952
+    Right =-2268
+    Bottom =6972
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
-        0x6036d90f9c8ae440
+        0xac2ea674d792e440
     End
     RecordSource ="SELECT Switch(tlu_NCPN_Plants.LU_Code Is Null,\" \",tlu_NCPN_Plants.LU_Code<>\"\""
         ",tlu_NCPN_Plants.LU_Code) AS Code, tlu_NCPN_Plants.Master_Species AS Species, tl"
@@ -527,8 +527,9 @@ End Sub
 ' Revisions:
 '   BLC - 2/19/2015 - initial version
 '   BLC - 2/23/2015 - added lblTgtSpeciesCount update
+'   BLC - 5/10/2015 - exposed event as Public to allow calls from main form
 ' ---------------------------------
-Private Sub tbxCode_DblClick(Cancel As Integer)
+Public Sub tbxCode_DblClick(Cancel As Integer)
 On Error GoTo Err_Handler
     Dim item As String
     Dim lbx As ListBox

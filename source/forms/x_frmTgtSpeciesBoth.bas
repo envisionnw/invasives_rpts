@@ -586,8 +586,8 @@ On Error GoTo Err_Handler
 
     'Enable move items lbls (or not)
     If lbxSpecies.ListCount > 0 Then
-        lblAddAll.Visible = True
-        lblRemoveAll.Visible = True
+        lblAddAll.visible = True
+        lblRemoveAll.visible = True
     End If
     
     'Set counts

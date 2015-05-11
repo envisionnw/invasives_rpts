@@ -371,7 +371,7 @@ Public Function fxnOpenExcelFile(ByVal strPath As String)
 
     ' Open the file
     With objExcel
-        .Visible = True
+        .visible = True
         .Workbooks.Open (strPath)
     End With
     

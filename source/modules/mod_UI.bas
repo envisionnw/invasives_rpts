@@ -218,9 +218,9 @@ On Error GoTo Err_Handler
     
     For Each pg In ctrl.Pages
         If pg.name = strTabName Then
-            ctrl.Pages(pg.name).Visible = True
+            ctrl.Pages(pg.name).visible = True
         Else
-            ctrl.Pages(pg.name).Visible = False
+            ctrl.Pages(pg.name).visible = False
         End If
     Next pg
     
@@ -469,7 +469,7 @@ Public Sub PrepareCrumbs(frm As SubForm, aryCrumbs As Variant, Optional separato
           With frm.Controls(strCtrlSeparator)
             .left = intLastCtrlPosition + intLastCtrlWidth + 10
             .Caption = separator
-            .Visible = True
+            .visible = True
             
             'determine position of next control
             intLastCtrlPosition = .left + .Width + 10
@@ -537,6 +537,80 @@ Err_Handler:
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
             "Error encountered (#" & Err.Number & " - findParentForm[mod_UI])"
+    End Select
+    Resume Exit_Procedure
+End Sub
+
+' =================================
+' SUB:          GetRibbonXML
+' Description:  gets ribbon UI XML specified, if found
+' Assumes:      USysRibbon table exists
+' Parameters:   ribbon - name of the ribbon to retrieve, RibbonName in USysRibbon (string)
+' Returns:      XML of the specified ribbon
+' Throws:       none
+' References:   none
+' Source/date:  -
+' Revisions:    BLC, 5/10/2015 - initial version
+' =================================
+Public Function GetRibbonXML(strRibbon As String) As String
+On Error GoTo Err_Handler
+    
+    Dim rs As DAO.Recordset
+    Dim strSQL As String, strXML As String
+    
+    strSQL = "SELECT RibbonXML FROM USysRibbons WHERE RibbonName = '" & strRibbon & "';"
+    strXML = ""
+    
+    Set rs = CurrentDb.OpenRecordset(strSQL)
+    If Not (rs.BOF And rs.EOF) Then
+        strXML = rs!RibbonXML
+    End If
+    
+    GetRibbonXML = strXML
+Exit_Function:
+    Exit Function
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - GetRibbonXML[mod_UI])"
+    End Select
+    Resume Exit_Function
+End Function
+
+' =================================
+' SUB:          GetRibbonVisibility
+' Description:
+' Parameters:   ctrl - office ribbon control (IRibbonControl object)
+'               visible - true (boolean)
+' Returns:      -
+' Throws:       none
+' References:   none
+' Source/date:  Adapted from http://www.access-programmers.co.uk/forums/showthread.php?t=246015
+'               by Mark K., 4/26/2013.
+' Revisions:    BLC, 5/10/2015 - initial version
+' =================================
+Public Sub GetRibbonVisibility(ctrl As Office.IRibbonControl, ByRef visible)
+On Error GoTo Err_Handler
+
+    Select Case ctrl.id
+        Case "tabExports"
+            visible = True
+            TempVars.AddItem("ribbon") = True
+        Case Else
+            visible = False
+            TempVars.AddItem("ribbon") = False
+    End Select
+
+Exit_Procedure:
+    Exit Sub
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - GetRibbonVisibility[mod_UI])"
     End Select
     Resume Exit_Procedure
 End Sub

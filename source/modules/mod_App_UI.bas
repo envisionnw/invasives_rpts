@@ -67,7 +67,7 @@ Public Sub PopulateInsetTitle(ctrl As Control, strContext As String)
     If ctrl.ControlType = acLabel Then
         ctrl.Caption = strTitle
         If strContext <> "DbAdmin" Then
-            ctrl.Visible = True
+            ctrl.visible = True
         End If
     End If
 End Sub
@@ -128,7 +128,7 @@ Public Sub PopulateInstructions(ctrl As Control, strContext As String)
     If ctrl.ControlType = acLabel Then
         ctrl.Caption = strInstructions
         If strContext <> "DbAdmin" Then
-            ctrl.Visible = True
+            ctrl.visible = True
         End If
     End If
     

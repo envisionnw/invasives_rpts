@@ -32,6 +32,7 @@ Begin Report
     AllowLayoutView =0
     DatasheetAlternateBackColor =15921906
     DatasheetGridlinesColor12 =0
+    RibbonName ="Export"
     FitToScreen =1
     DatasheetBackThemeColorIndex =1
     BorderThemeColorIndex =3
