@@ -13,9 +13,9 @@ Begin Form
     Width =9480
     DatasheetFontHeight =11
     ItemSuffix =15
-    Left =-5964
+    Left =552
     Top =2952
-    Right =-2268
+    Right =4248
     Bottom =6972
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
@@ -596,19 +596,19 @@ On Error GoTo Err_Handler
     item = tbxCode & ";" & tbxSpecies & ";" & tbxMasterCode
     
     'check listbox for duplicate & skip if already present
-    If IsListDuplicate(Forms("frmTgtSpecies").Controls("lbxTgtSpecies"), 2, tbxMasterCode) Then
+    If IsListDuplicate(Forms("frm_Tgt_Species").Controls("lbxTgtSpecies"), 2, tbxMasterCode) Then
         'duplicate, so exit
         GoTo Exit_Sub
     End If
 
-    Set lbx = Forms("frmTgtSpecies").Controls("lbxTgtSpecies")
+    Set lbx = Forms("frm_Tgt_Species").Controls("lbxTgtSpecies")
     
     With lbx
         'add item if not duplicate
         .AddItem item
     
         'update target species count
-        Forms("frmTgtSpecies").Controls("lblTgtSpeciesCount").Caption = .ListCount - 1 & " species"
+        Forms("frm_Tgt_Species").Controls("lblTgtSpeciesCount").Caption = .ListCount - 1 & " species"
     End With
     
 Exit_Sub:

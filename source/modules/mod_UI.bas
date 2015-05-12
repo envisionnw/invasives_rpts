@@ -632,3 +632,39 @@ Public Function fxnHTMLConvert(strHTML As String) As Long
     Rem converts a HTML color code number such as #D8B190 to an RGB value.
     fxnHTMLConvert = RGB(CInt("&H" & Mid(strHTML, 2, 2)), CInt("&H" & Mid(strHTML, 4, 2)), CInt("&H" & Mid(strHTML, 6, 2)))
 End Function
+
+' =================================
+' FUNCTION:     ControlExists
+' Description:  determines if a control exists in a form
+' Parameters:   ctlName - control to check for (string)
+'               frm - form to check on (form)
+' Returns:      boolean - true if control exists, false if not
+' Throws:       none
+' References:   none
+' Source/date:  Adapted from http://www.tek-tips.com/viewthread.cfm?qid=1029435
+'               by VBslammer, 3/22/2005.
+' Revisions:    BLC, 5/12/2015 - initial version
+' =================================
+Function ControlExists(ByRef ctlName As String, ByRef frm As Form) As Boolean
+On Error GoTo Err_Handler
+  Dim ctl As Control
+  
+  For Each ctl In frm.Controls
+    If ctl.name = ctlName Then
+      ControlExists = True
+      Exit For
+    End If
+  Next ctl
+  
+
+Exit_Function:
+    Exit Function
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - ControlExists[mod_UI])"
+    End Select
+    Resume Exit_Function
+End Function

@@ -12,9 +12,10 @@ Begin Form
     Width =10935
     DatasheetFontHeight =11
     ItemSuffix =28
-    Top =1392
-    Right =4668
-    Bottom =7440
+    Left =9108
+    Top =540
+    Right =20292
+    Bottom =6588
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x72574db34b86e440
@@ -1001,7 +1002,7 @@ Private Sub lbxTgtSpecies_DblClick(Cancel As Integer)
 On Error GoTo Err_Handler
 
     'MoveSingleItem Me, "lbxTgtSpecies", "lbxTgtSpecies"
-    RemoveSelectedItems "lbxTgtSpecies"
+    RemoveSelectedItems lbxTgtSpecies
 
     'set species count
     lblTgtSpeciesCount.Caption = GetListCount(lbxTgtSpecies, True) & " species"
