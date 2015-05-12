@@ -595,7 +595,7 @@ Public Sub GetRibbonVisibility(ctrl As Office.IRibbonControl, ByRef visible)
 On Error GoTo Err_Handler
 
     Select Case ctrl.id
-        Case "tabExports"
+        Case "tabExportOptions"
             visible = True
             TempVars.AddItem("ribbon") = True
         Case Else

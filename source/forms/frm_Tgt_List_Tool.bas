@@ -22,8 +22,8 @@ Begin Form
     Width =12300
     DatasheetFontHeight =10
     ItemSuffix =179
-    Left =3876
-    Right =16176
+    Left =2436
+    Right =14736
     Bottom =10068
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
@@ -1164,7 +1164,7 @@ Dim blnLeftInsetHide As Boolean
             strTab = "tabExport"
             strAction = "exp"
             lngTabColor = fxnHTMLConvert("#CCFFCC") 'lt green CCFFCC RGB(204,255,204) 13434828
-            'Application.LoadCustomUI "Export", GetRibbonXML("Export")
+            'Application.LoadCustomUI "tabExportOptions", GetRibbonXML("Export")
         Case 5 'DB Admin
             strTab = "tabDbAdmin"
             lngTabColor = fxnHTMLConvert("#D8D8D8") 'lt gray D8D8D8 RGB(216,216,216) 14211288
