@@ -15,7 +15,7 @@ Begin Report
     ItemSuffix =43
     Top =540
     Right =11760
-    Bottom =8772
+    Bottom =9024
     DatasheetGridlinesColor =14806254
     Filter ="TgtList IN ('BLCA-2015','BRCA-2015')"
     RecSrcDt = Begin
@@ -100,6 +100,9 @@ Begin Report
             ControlSource ="TgtYear"
         End
         Begin BreakLevel
+            ControlSource ="Family"
+        End
+        Begin BreakLevel
             ControlSource ="Species_Name"
         End
         Begin FormHeader
@@ -116,7 +119,7 @@ Begin Report
                 Begin Label
                     Left =60
                     Top =60
-                    Width =3816
+                    Width =4260
                     Height =528
                     FontSize =20
                     BorderColor =8355711
@@ -126,7 +129,7 @@ Begin Report
                     GridlineColor =10921638
                     LayoutCachedLeft =60
                     LayoutCachedTop =60
-                    LayoutCachedWidth =3876
+                    LayoutCachedWidth =4320
                     LayoutCachedHeight =588
                 End
                 Begin TextBox

@@ -91,6 +91,9 @@ Begin Report
             GridlineShade =65.0
         End
         Begin BreakLevel
+            ControlSource ="Family"
+        End
+        Begin BreakLevel
             ControlSource ="Species_Name"
         End
         Begin FormHeader
@@ -106,7 +109,7 @@ Begin Report
                 Begin Label
                     Left =60
                     Top =60
-                    Width =3912
+                    Width =4260
                     Height =528
                     FontSize =20
                     BorderColor =8355711
@@ -116,7 +119,7 @@ Begin Report
                     GridlineColor =10921638
                     LayoutCachedLeft =60
                     LayoutCachedTop =60
-                    LayoutCachedWidth =3972
+                    LayoutCachedWidth =4320
                     LayoutCachedHeight =588
                 End
                 Begin TextBox

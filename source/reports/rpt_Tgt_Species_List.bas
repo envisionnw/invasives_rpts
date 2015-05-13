@@ -12,9 +12,10 @@ Begin Report
     Width =11400
     DatasheetFontHeight =11
     ItemSuffix =46
-    Right =10044
-    Bottom =6144
+    Right =13608
+    Bottom =6396
     DatasheetGridlinesColor =14806254
+    OrderBy ="Family, "
     RecSrcDt = Begin
         0xab695344b891e440
     End
@@ -85,6 +86,9 @@ Begin Report
             ForeTint =75.0
             GridlineThemeColorIndex =1
             GridlineShade =65.0
+        End
+        Begin BreakLevel
+            ControlSource ="Family"
         End
         Begin BreakLevel
             ControlSource ="Species_Name"
@@ -757,6 +761,7 @@ On Error GoTo Err_Handler
         Me.OrderBy = Me.OpenArgs
     End If
     
+    Me.OrderBy = "Family, "
     'set the background color if tbxPriority = "Transect Only" or a Target_Area vs. Priority #
     'use conditional formatting for tbxDetail:
     '   [tbxPriority] = "Transect Only"  >>  ltLime
