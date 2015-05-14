@@ -13,11 +13,10 @@ Begin Report
     Width =15480
     DatasheetFontHeight =11
     ItemSuffix =125
-    Left =84
-    Right =15924
-    Bottom =7536
+    Right =15648
+    Bottom =8028
     DatasheetGridlinesColor =14806254
-    Filter ="TgtYear=2013"
+    Filter ="TgtYear=2017"
     RecSrcDt = Begin
         0xbdcb1e56bd91e440
     End
@@ -359,7 +358,7 @@ Begin Report
                 Begin Label
                     Vertical = NotDefault
                     TextAlign =3
-                    Left =9960
+                    Left =10020
                     Top =600
                     Width =300
                     Height =660
@@ -370,15 +369,15 @@ Begin Report
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
-                    LayoutCachedLeft =9960
+                    LayoutCachedLeft =10020
                     LayoutCachedTop =600
-                    LayoutCachedWidth =10260
+                    LayoutCachedWidth =10320
                     LayoutCachedHeight =1260
                 End
                 Begin Label
                     Vertical = NotDefault
                     TextAlign =3
-                    Left =10500
+                    Left =10620
                     Top =600
                     Width =300
                     Height =660
@@ -389,15 +388,15 @@ Begin Report
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
-                    LayoutCachedLeft =10500
+                    LayoutCachedLeft =10620
                     LayoutCachedTop =600
-                    LayoutCachedWidth =10800
+                    LayoutCachedWidth =10920
                     LayoutCachedHeight =1260
                 End
                 Begin Label
                     Vertical = NotDefault
                     TextAlign =3
-                    Left =11028
+                    Left =11208
                     Top =600
                     Width =300
                     Height =660
@@ -408,15 +407,15 @@ Begin Report
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
-                    LayoutCachedLeft =11028
+                    LayoutCachedLeft =11208
                     LayoutCachedTop =600
-                    LayoutCachedWidth =11328
+                    LayoutCachedWidth =11508
                     LayoutCachedHeight =1260
                 End
                 Begin Label
                     Vertical = NotDefault
                     TextAlign =3
-                    Left =11580
+                    Left =11820
                     Top =600
                     Width =300
                     Height =660
@@ -427,15 +426,15 @@ Begin Report
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
-                    LayoutCachedLeft =11580
+                    LayoutCachedLeft =11820
                     LayoutCachedTop =600
-                    LayoutCachedWidth =11880
+                    LayoutCachedWidth =12120
                     LayoutCachedHeight =1260
                 End
                 Begin Label
                     Vertical = NotDefault
                     TextAlign =3
-                    Left =12060
+                    Left =12480
                     Top =600
                     Width =300
                     Height =660
@@ -446,15 +445,15 @@ Begin Report
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
-                    LayoutCachedLeft =12060
+                    LayoutCachedLeft =12480
                     LayoutCachedTop =600
-                    LayoutCachedWidth =12360
+                    LayoutCachedWidth =12780
                     LayoutCachedHeight =1260
                 End
                 Begin Label
                     Vertical = NotDefault
                     TextAlign =3
-                    Left =12600
+                    Left =13080
                     Top =600
                     Width =300
                     Height =660
@@ -465,15 +464,15 @@ Begin Report
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
-                    LayoutCachedLeft =12600
+                    LayoutCachedLeft =13080
                     LayoutCachedTop =600
-                    LayoutCachedWidth =12900
+                    LayoutCachedWidth =13380
                     LayoutCachedHeight =1260
                 End
                 Begin Label
                     Vertical = NotDefault
                     TextAlign =3
-                    Left =13140
+                    Left =13740
                     Top =600
                     Width =300
                     Height =660
@@ -484,14 +483,14 @@ Begin Report
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
-                    LayoutCachedLeft =13140
+                    LayoutCachedLeft =13740
                     LayoutCachedTop =600
-                    LayoutCachedWidth =13440
+                    LayoutCachedWidth =14040
                     LayoutCachedHeight =1260
                 End
                 Begin Label
                     TextAlign =2
-                    Left =13620
+                    Left =14340
                     Top =660
                     Width =840
                     Height =540
@@ -503,9 +502,9 @@ Begin Report
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
-                    LayoutCachedLeft =13620
+                    LayoutCachedLeft =14340
                     LayoutCachedTop =660
-                    LayoutCachedWidth =14460
+                    LayoutCachedWidth =15180
                     LayoutCachedHeight =1200
                 End
                 Begin TextBox
@@ -558,7 +557,7 @@ Begin Report
                     OldBorderStyle =0
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =13440
+                    Left =14160
                     Width =660
                     Height =300
                     FontSize =9
@@ -570,8 +569,8 @@ Begin Report
                     StatusBarText ="Park priority"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =13440
-                    LayoutCachedWidth =14100
+                    LayoutCachedLeft =14160
+                    LayoutCachedWidth =14820
                     LayoutCachedHeight =300
                 End
                 Begin TextBox
@@ -579,9 +578,9 @@ Begin Report
                     OldBorderStyle =0
                     TextAlign =2
                     IMESentenceMode =3
-                    Left =12960
+                    Left =13560
                     Top =24
-                    Width =655
+                    Width =677
                     Height =432
                     FontSize =9
                     TabIndex =12
@@ -603,9 +602,9 @@ Begin Report
                     End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =12960
+                    LayoutCachedLeft =13560
                     LayoutCachedTop =24
-                    LayoutCachedWidth =13615
+                    LayoutCachedWidth =14237
                     LayoutCachedHeight =456
                     ConditionalFormat14 = Begin
                         0x01000100000001000000000000000100000000000000ccffff005b0000002800 ,
@@ -623,9 +622,9 @@ Begin Report
                     OldBorderStyle =0
                     TextAlign =2
                     IMESentenceMode =3
-                    Left =12420
+                    Left =12900
                     Top =24
-                    Width =655
+                    Width =677
                     Height =432
                     FontSize =9
                     TabIndex =14
@@ -647,9 +646,9 @@ Begin Report
                     End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =12420
+                    LayoutCachedLeft =12900
                     LayoutCachedTop =24
-                    LayoutCachedWidth =13075
+                    LayoutCachedWidth =13577
                     LayoutCachedHeight =456
                     ConditionalFormat14 = Begin
                         0x01000100000001000000000000000100000000000000ccffff005b0000002800 ,
@@ -667,9 +666,9 @@ Begin Report
                     OldBorderStyle =0
                     TextAlign =2
                     IMESentenceMode =3
-                    Left =12000
+                    Left =12300
                     Top =24
-                    Width =655
+                    Width =677
                     Height =432
                     FontSize =9
                     TabIndex =15
@@ -691,9 +690,9 @@ Begin Report
                     End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =12000
+                    LayoutCachedLeft =12300
                     LayoutCachedTop =24
-                    LayoutCachedWidth =12655
+                    LayoutCachedWidth =12977
                     LayoutCachedHeight =456
                     ConditionalFormat14 = Begin
                         0x01000100000001000000000000000100000000000000ccffff005b0000002800 ,
@@ -711,9 +710,9 @@ Begin Report
                     OldBorderStyle =0
                     TextAlign =2
                     IMESentenceMode =3
-                    Left =11400
+                    Left =11640
                     Top =24
-                    Width =655
+                    Width =677
                     Height =432
                     FontSize =9
                     TabIndex =16
@@ -735,9 +734,9 @@ Begin Report
                     End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =11400
+                    LayoutCachedLeft =11640
                     LayoutCachedTop =24
-                    LayoutCachedWidth =12055
+                    LayoutCachedWidth =12317
                     LayoutCachedHeight =456
                     ConditionalFormat14 = Begin
                         0x01000100000001000000000000000100000000000000ccffff005b0000002800 ,
@@ -755,9 +754,9 @@ Begin Report
                     OldBorderStyle =0
                     TextAlign =2
                     IMESentenceMode =3
-                    Left =10860
+                    Left =11040
                     Top =24
-                    Width =655
+                    Width =677
                     Height =432
                     FontSize =9
                     TabIndex =17
@@ -779,9 +778,9 @@ Begin Report
                     End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =10860
+                    LayoutCachedLeft =11040
                     LayoutCachedTop =24
-                    LayoutCachedWidth =11515
+                    LayoutCachedWidth =11717
                     LayoutCachedHeight =456
                     ConditionalFormat14 = Begin
                         0x01000100000001000000000000000100000000000000ccffff005b0000002800 ,
@@ -799,9 +798,9 @@ Begin Report
                     OldBorderStyle =0
                     TextAlign =2
                     IMESentenceMode =3
-                    Left =10320
+                    Left =10440
                     Top =24
-                    Width =655
+                    Width =677
                     Height =432
                     FontSize =9
                     TabIndex =18
@@ -823,9 +822,9 @@ Begin Report
                     End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =10320
+                    LayoutCachedLeft =10440
                     LayoutCachedTop =24
-                    LayoutCachedWidth =10975
+                    LayoutCachedWidth =11117
                     LayoutCachedHeight =456
                     ConditionalFormat14 = Begin
                         0x01000100000001000000000000000100000000000000ccffff005b0000002800 ,
@@ -843,9 +842,9 @@ Begin Report
                     OldBorderStyle =0
                     TextAlign =2
                     IMESentenceMode =3
-                    Left =9780
+                    Left =9840
                     Top =24
-                    Width =655
+                    Width =677
                     Height =432
                     FontSize =9
                     TabIndex =19
@@ -867,9 +866,9 @@ Begin Report
                     End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =9780
+                    LayoutCachedLeft =9840
                     LayoutCachedTop =24
-                    LayoutCachedWidth =10435
+                    LayoutCachedWidth =10517
                     LayoutCachedHeight =456
                     ConditionalFormat14 = Begin
                         0x01000100000001000000000000000100000000000000ccffff005b0000002800 ,
@@ -889,7 +888,7 @@ Begin Report
                     IMESentenceMode =3
                     Left =9240
                     Top =24
-                    Width =655
+                    Width =677
                     Height =432
                     FontSize =9
                     TabIndex =20
@@ -913,7 +912,7 @@ Begin Report
 
                     LayoutCachedLeft =9240
                     LayoutCachedTop =24
-                    LayoutCachedWidth =9895
+                    LayoutCachedWidth =9917
                     LayoutCachedHeight =456
                     ConditionalFormat14 = Begin
                         0x01000100000001000000000000000100000000000000ccffff005b0000002800 ,
@@ -1394,7 +1393,7 @@ Begin Report
                     TextAlign =2
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =9960
+                    Left =10020
                     Top =60
                     Width =300
                     Height =300
@@ -1407,9 +1406,9 @@ Begin Report
                     StatusBarText ="Total # priority 1 (CARE)"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =9960
+                    LayoutCachedLeft =10020
                     LayoutCachedTop =60
-                    LayoutCachedWidth =10260
+                    LayoutCachedWidth =10320
                     LayoutCachedHeight =360
                 End
                 Begin TextBox
@@ -1418,7 +1417,7 @@ Begin Report
                     TextAlign =2
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =10500
+                    Left =10620
                     Top =60
                     Width =300
                     Height =300
@@ -1431,9 +1430,9 @@ Begin Report
                     StatusBarText ="Total # priority 1 (COLM)"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =10500
+                    LayoutCachedLeft =10620
                     LayoutCachedTop =60
-                    LayoutCachedWidth =10800
+                    LayoutCachedWidth =10920
                     LayoutCachedHeight =360
                 End
                 Begin TextBox
@@ -1442,7 +1441,7 @@ Begin Report
                     TextAlign =2
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =11040
+                    Left =11220
                     Top =60
                     Width =300
                     Height =300
@@ -1455,9 +1454,9 @@ Begin Report
                     StatusBarText ="Total # priority 1 (CURE)"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =11040
+                    LayoutCachedLeft =11220
                     LayoutCachedTop =60
-                    LayoutCachedWidth =11340
+                    LayoutCachedWidth =11520
                     LayoutCachedHeight =360
                 End
                 Begin TextBox
@@ -1466,7 +1465,7 @@ Begin Report
                     TextAlign =2
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =11580
+                    Left =11820
                     Top =60
                     Width =300
                     Height =300
@@ -1479,9 +1478,9 @@ Begin Report
                     StatusBarText ="Total # priority 1 (DINO)"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =11580
+                    LayoutCachedLeft =11820
                     LayoutCachedTop =60
-                    LayoutCachedWidth =11880
+                    LayoutCachedWidth =12120
                     LayoutCachedHeight =360
                 End
                 Begin TextBox
@@ -1490,7 +1489,7 @@ Begin Report
                     TextAlign =2
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =12120
+                    Left =12420
                     Top =60
                     Width =300
                     Height =300
@@ -1503,9 +1502,9 @@ Begin Report
                     StatusBarText ="Total # priority 1 (FOBU)"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =12120
+                    LayoutCachedLeft =12420
                     LayoutCachedTop =60
-                    LayoutCachedWidth =12420
+                    LayoutCachedWidth =12720
                     LayoutCachedHeight =360
                 End
                 Begin TextBox
@@ -1514,7 +1513,7 @@ Begin Report
                     TextAlign =2
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =12600
+                    Left =13080
                     Top =60
                     Width =300
                     Height =300
@@ -1527,9 +1526,9 @@ Begin Report
                     StatusBarText ="Total # priority 1 (GOSP)"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =12600
+                    LayoutCachedLeft =13080
                     LayoutCachedTop =60
-                    LayoutCachedWidth =12900
+                    LayoutCachedWidth =13380
                     LayoutCachedHeight =360
                 End
                 Begin TextBox
@@ -1538,7 +1537,7 @@ Begin Report
                     TextAlign =2
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =13140
+                    Left =13740
                     Top =60
                     Width =300
                     Height =270
@@ -1551,9 +1550,9 @@ Begin Report
                     StatusBarText ="Total # priority 1 (ZION)"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =13140
+                    LayoutCachedLeft =13740
                     LayoutCachedTop =60
-                    LayoutCachedWidth =13440
+                    LayoutCachedWidth =14040
                     LayoutCachedHeight =330
                 End
                 Begin Label
@@ -1627,7 +1626,7 @@ Begin Report
                     TextAlign =2
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =9960
+                    Left =10020
                     Top =420
                     Width =300
                     Height =300
@@ -1653,9 +1652,9 @@ Begin Report
                     End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =9960
+                    LayoutCachedLeft =10020
                     LayoutCachedTop =420
-                    LayoutCachedWidth =10260
+                    LayoutCachedWidth =10320
                     LayoutCachedHeight =720
                     ConditionalFormat14 = Begin
                         0x01000100000001000000000000000100000000000000ccffff00650000004900 ,
@@ -1674,7 +1673,7 @@ Begin Report
                     TextAlign =2
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =10500
+                    Left =10620
                     Top =420
                     Width =300
                     Height =300
@@ -1700,9 +1699,9 @@ Begin Report
                     End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =10500
+                    LayoutCachedLeft =10620
                     LayoutCachedTop =420
-                    LayoutCachedWidth =10800
+                    LayoutCachedWidth =10920
                     LayoutCachedHeight =720
                     ConditionalFormat14 = Begin
                         0x01000100000001000000000000000100000000000000ccffff00650000004900 ,
@@ -1721,7 +1720,7 @@ Begin Report
                     TextAlign =2
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =11040
+                    Left =11220
                     Top =420
                     Width =300
                     Height =300
@@ -1747,9 +1746,9 @@ Begin Report
                     End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =11040
+                    LayoutCachedLeft =11220
                     LayoutCachedTop =420
-                    LayoutCachedWidth =11340
+                    LayoutCachedWidth =11520
                     LayoutCachedHeight =720
                     ConditionalFormat14 = Begin
                         0x01000100000001000000000000000100000000000000ccffff00650000004900 ,
@@ -1768,7 +1767,7 @@ Begin Report
                     TextAlign =2
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =11580
+                    Left =11820
                     Top =420
                     Width =300
                     Height =300
@@ -1794,9 +1793,9 @@ Begin Report
                     End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =11580
+                    LayoutCachedLeft =11820
                     LayoutCachedTop =420
-                    LayoutCachedWidth =11880
+                    LayoutCachedWidth =12120
                     LayoutCachedHeight =720
                     ConditionalFormat14 = Begin
                         0x01000100000001000000000000000100000000000000ccffff00650000004900 ,
@@ -1815,7 +1814,7 @@ Begin Report
                     TextAlign =2
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =12120
+                    Left =12420
                     Top =420
                     Width =300
                     Height =300
@@ -1841,9 +1840,9 @@ Begin Report
                     End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =12120
+                    LayoutCachedLeft =12420
                     LayoutCachedTop =420
-                    LayoutCachedWidth =12420
+                    LayoutCachedWidth =12720
                     LayoutCachedHeight =720
                     ConditionalFormat14 = Begin
                         0x01000100000001000000000000000100000000000000ccffff00650000004900 ,
@@ -1862,7 +1861,7 @@ Begin Report
                     TextAlign =2
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =12600
+                    Left =13080
                     Top =420
                     Width =300
                     Height =300
@@ -1888,9 +1887,9 @@ Begin Report
                     End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =12600
+                    LayoutCachedLeft =13080
                     LayoutCachedTop =420
-                    LayoutCachedWidth =12900
+                    LayoutCachedWidth =13380
                     LayoutCachedHeight =720
                     ConditionalFormat14 = Begin
                         0x01000100000001000000000000000100000000000000ccffff00650000004900 ,
@@ -1910,7 +1909,7 @@ Begin Report
                     TextAlign =2
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =13140
+                    Left =13740
                     Top =420
                     Width =300
                     Height =270
@@ -1936,9 +1935,9 @@ Begin Report
                     End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =13140
+                    LayoutCachedLeft =13740
                     LayoutCachedTop =420
-                    LayoutCachedWidth =13440
+                    LayoutCachedWidth =14040
                     LayoutCachedHeight =690
                     ConditionalFormat14 = Begin
                         0x01000100000001000000000000000100000000000000ccffff00650000004900 ,
@@ -1986,7 +1985,7 @@ Option Compare Database
 Option Explicit
 
 ' =================================
-' MODULE:       Report_rptTgtSpeciesListAnnual
+' MODULE:       Report_rpt_Tgt_Species_List_Annual
 ' Description:  Load species list to target species list functions and routines
 '
 ' Source/date:  Bonnie Campbell, 4/7/2015
@@ -1997,7 +1996,7 @@ Option Explicit
 ' SUB:          Report_Open
 ' Description:  Actions for when report opens
 ' Assumptions:  -
-' Parameters:   XX - XX
+' Parameters:   -
 ' Returns:      N/A
 ' Throws:       none
 ' References:   none
@@ -2037,7 +2036,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Report_Open[Report_rptTgtSpeciesListAnnual])"
+            "Error encountered (#" & Err.Number & " - Report_Open[Report_rpt_Tgt_Species_List_Annual])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -2046,7 +2045,7 @@ End Sub
 ' SUB:          Report_Load
 ' Description:  Actions for when report is loaded
 ' Assumptions:  -
-' Parameters:   XX - XX
+' Parameters:   -
 ' Returns:      N/A
 ' Throws:       none
 ' References:   none
@@ -2067,7 +2066,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Report_Load[Report_rptTgtSpeciesListAnnual])"
+            "Error encountered (#" & Err.Number & " - Report_Load[Report_rpt_Tgt_Species_List_Annual])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -2097,7 +2096,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Detail_Format[Report_rptTgtSpeciesListAnnual])"
+            "Error encountered (#" & Err.Number & " - Detail_Format[Report_rpt_Tgt_Species_List_Annual])"
     End Select
     Resume Exit_Sub
 End Sub

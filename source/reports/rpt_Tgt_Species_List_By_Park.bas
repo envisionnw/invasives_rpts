@@ -15,9 +15,9 @@ Begin Report
     ItemSuffix =43
     Top =540
     Right =11760
-    Bottom =9024
+    Bottom =8316
     DatasheetGridlinesColor =14806254
-    Filter ="TgtList IN ('BLCA-2015','BRCA-2015')"
+    Filter ="TgtList IN ('COLM-2015','COLM-2016','COLM-2017','DINO-2015','FOBU-2013')"
     RecSrcDt = Begin
         0xbe76e03db891e440
     End
@@ -91,7 +91,7 @@ Begin Report
         End
         Begin BreakLevel
             GroupHeader = NotDefault
-            ControlSource ="Park"
+            ControlSource ="TgtList"
         End
         Begin BreakLevel
             ControlSource ="Park"
@@ -516,7 +516,7 @@ Begin Report
         End
         Begin Section
             KeepTogether = NotDefault
-            Height =420
+            Height =418
             Name ="Detail"
             AlternateBackColor =15921906
             AlternateBackThemeColorIndex =1
@@ -528,7 +528,7 @@ Begin Report
                     IMESentenceMode =3
                     Width =11400
                     Height =418
-                    TabIndex =6
+                    TabIndex =5
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxDetail"
@@ -698,7 +698,7 @@ Begin Report
                     Width =1800
                     Height =312
                     FontSize =9
-                    TabIndex =5
+                    TabIndex =6
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxFamily"
@@ -881,8 +881,8 @@ Option Compare Database
 Option Explicit
 
 ' =================================
-' MODULE:       Form_frmLoadList
-' Description:  Load species list to target species list functions and routines
+' MODULE:       rpt_Tgt_Species_List_By_Park
+' Description:  Target species lists reported by park
 '
 ' Source/date:  Bonnie Campbell, 3/5/2015
 ' Revisions:    BLC - 3/5/2015 - initial version
@@ -892,7 +892,7 @@ Option Explicit
 ' SUB:          Report_Open
 ' Description:  Actions for when reports open
 ' Assumptions:  -
-' Parameters:   XX - XX
+' Parameters:   -
 ' Returns:      N/A
 ' Throws:       none
 ' References:   none
@@ -921,13 +921,7 @@ On Error GoTo Err_Handler
         'set orderby
         Me.OrderBy = Me.OpenArgs
     End If
-    
-    'set the background color if tbxPriority = "Transect Only" or a Target_Area vs. Priority #
-    'use conditional formatting for tbxDetail:
-    '   [tbxPriority] = "Transect Only"  >>  ltLime
-    '   (Not IsNumeric[tbxPriority])) And ([tbxPriority] <> "Transect Only") >> ltYellow
         
-    
 Exit_Sub:
     Exit Sub
     
@@ -935,7 +929,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Report_Open[Report_rptTgtSpeciesList])"
+            "Error encountered (#" & Err.Number & " - Report_Open[Report_rpt_Tgt_Species_List_By_Park])"
     End Select
     Resume Exit_Sub
 End Sub

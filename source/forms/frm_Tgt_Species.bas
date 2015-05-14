@@ -12,10 +12,10 @@ Begin Form
     Width =10935
     DatasheetFontHeight =11
     ItemSuffix =28
-    Left =9108
-    Top =540
-    Right =20292
-    Bottom =6588
+    Left =4020
+    Top =1992
+    Right =14952
+    Bottom =8040
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x72574db34b86e440
@@ -126,10 +126,10 @@ Begin Form
                     OverlapFlags =85
                     MultiSelect =2
                     IMESentenceMode =3
-                    ColumnCount =4
+                    ColumnCount =3
                     Left =5760
                     Top =1080
-                    Width =3960
+                    Width =4320
                     Height =4032
                     FontSize =10
                     BoundColumn =2
@@ -137,8 +137,11 @@ Begin Form
                     BorderColor =10921638
                     Name ="lbxTgtSpecies"
                     RowSourceType ="Value List"
-                    RowSource ="Code;Species;Master_PLANT_Code;'';ABIES;Abies sp.;ABIES;''"
-                    ColumnWidths ="1440;2520;720;14"
+                    RowSource ="Code;Species;;;ABRONIA;Abronia sp.;;;ACAMPTOPAPPUS;Acamptopappus sp.;;;ARTARB;Ar"
+                        "temisia arbuscula;;;ERICOMPOSITUS;Erigeron compositus;;;STIARI;Achnatherum aridu"
+                        "m;;;ACAMPTOPAPPUS;Acamptopappus sp.;ACAMP;;ERICOMPOSITUS;Erigeron compositus;ERC"
+                        "O4;;ERICER;Eriogonum cernuum;ERCE;"
+                    ColumnWidths ="1440;2520;720"
                     OnDblClick ="[Event Procedure]"
                     OnKeyUp ="[Event Procedure]"
                     OnClick ="[Event Procedure]"
@@ -147,7 +150,7 @@ Begin Form
 
                     LayoutCachedLeft =5760
                     LayoutCachedTop =1080
-                    LayoutCachedWidth =9720
+                    LayoutCachedWidth =10080
                     LayoutCachedHeight =5112
                     Begin
                         Begin Label
@@ -178,7 +181,7 @@ Begin Form
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblParkHdr"
-                    Caption ="COLM"
+                    Caption ="CURE"
                     GridlineColor =10921638
                     LayoutCachedLeft =60
                     LayoutCachedTop =60
@@ -232,7 +235,7 @@ Begin Form
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblTgtSpeciesCount"
-                    Caption ="1 species"
+                    Caption ="8 species"
                     ControlTipText ="Number of species in the current list"
                     GridlineColor =10921638
                     LayoutCachedLeft =8340
@@ -272,7 +275,7 @@ Begin Form
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblYear"
-                    Caption ="Target Species List for 2014"
+                    Caption ="Target Species List for "
                     GridlineColor =10921638
                     LayoutCachedLeft =2880
                     LayoutCachedTop =120
@@ -423,7 +426,7 @@ Begin Form
                     TabIndex =5
                     ForeColor =16711680
                     Name ="btnReset"
-                    Caption ="Reset Lists"
+                    Caption ="Reset List"
                     StatusBarText ="Reset lists to their original state"
                     OnClick ="[Event Procedure]"
                     GridlineColor =10921638
@@ -468,7 +471,7 @@ Begin Form
                     Height =480
                     FontWeight =600
                     TabIndex =6
-                    ForeColor =16711680
+                    ForeColor =8224125
                     Name ="btnAddAll"
                     Caption =">>"
                     StatusBarText ="Reset lists to their original state"
@@ -482,10 +485,10 @@ Begin Form
                     ForeThemeColorIndex =-1
                     ForeTint =100.0
                     Gradient =0
-                    BackColor =6750156
+                    BackColor =13882323
                     BackThemeColorIndex =-1
                     BackTint =100.0
-                    BorderColor =52377
+                    BorderColor =8224125
                     BorderThemeColorIndex =-1
                     BorderTint =100.0
                     HoverColor =3407769
@@ -531,19 +534,19 @@ Begin Form
                     BackColor =52479
                     BackThemeColorIndex =-1
                     BackTint =100.0
-                    BorderColor =52377
+                    BorderColor =0
                     BorderThemeColorIndex =-1
                     BorderTint =100.0
-                    HoverColor =3407769
+                    HoverColor =0
                     HoverThemeColorIndex =-1
                     HoverTint =100.0
-                    PressedColor =52224
+                    PressedColor =0
                     PressedThemeColorIndex =-1
                     PressedShade =100.0
-                    HoverForeColor =2375487
+                    HoverForeColor =0
                     HoverForeThemeColorIndex =-1
                     HoverForeTint =100.0
-                    PressedForeColor =6750156
+                    PressedForeColor =0
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
                     WebImagePaddingLeft =3
@@ -608,7 +611,7 @@ Begin Form
                     Height =480
                     FontWeight =600
                     TabIndex =9
-                    ForeColor =8224125
+                    ForeColor =16711680
                     Name ="btnAdd"
                     Caption =">"
                     StatusBarText ="Remove all"
@@ -623,11 +626,11 @@ Begin Form
                     ForeThemeColorIndex =-1
                     ForeTint =100.0
                     Gradient =0
-                    BackColor =13882323
+                    BackColor =6750156
                     BackThemeColorIndex =-1
                     BackTint =100.0
                     OldBorderStyle =0
-                    BorderColor =8224125
+                    BorderColor =52377
                     BorderThemeColorIndex =-1
                     BorderTint =100.0
                     HoverColor =3407769
@@ -772,10 +775,10 @@ End Property
 
 ' ---------------------------------
 ' SUB:          Form_Load
-' Description:  XX
+' Description:  Form loading actions
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   -
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -784,6 +787,8 @@ End Property
 '   BLC, 2/9/2015 - initial version
 '   BLC, 5/1/2015 - integrated into Invasives Reporting tool, removed frmSelectYear closure since that form
 '                   is no longer needed, added check for species number to ensure >= 0
+'   BLC, 5/13/2015 - disabled Remove All button to start & recaptioned btnReset to "Reset List" vs. "Reset Lists"
+'                    set btnAdd to enabled to start vs disabled
 ' ---------------------------------
 Private Sub Form_Load()
 
@@ -813,18 +818,15 @@ On Error GoTo Err_Handler
     btnAddAll.Enabled = False
     
     'Set counts
-'    intSpecies = 0
-'    If lbxTgtSpecies.ListCount > 0 Then
-'        intSpecies = lbxTgtSpecies.ListCount - 1
-'    End If
-    
-'    lblTgtSpeciesCount.Caption = intSpecies & " species"
-    
     lblTgtSpeciesCount.Caption = GetListCount(lbxTgtSpecies, True) & " species"
     
+    'Set Reset button label (reset list vs. lists)
+    btnReset.Caption = "Reset List"
+    
     DisableControl btnAddAll
-    DisableControl btnAdd
+    EnableControl btnAdd, lngLtLime, lngBlue, lngDkLime, lngBrtLime, lngLtGreen, lngDkGray, lngLtLime
     DisableControl btnRemove
+    DisableControl btnRemoveAll
     
 Exit_Sub:
     Exit Sub
@@ -951,6 +953,7 @@ End Sub
 ' Revisions:
 '   BLC - 2/6/2015 - initial version
 '   BLC - 5/10/2015 - added species count update
+'   BLC - 5/13/2015 - revised to use global constants vs. tempvars for enabled control
 ' ---------------------------------
 Private Sub lbxTgtSpecies_Click()
 On Error GoTo Err_Handler
@@ -959,8 +962,9 @@ On Error GoTo Err_Handler
     
    'check for selected items --> if present, enable btnRemove
     If lbxTgtSpecies.ItemsSelected.count > 0 Then
-        If btnRemove.backcolor <> TempVars.item("ctrlRemoveEnabled") Then
-            EnableControl btnRemove, TempVars.item("ctrlRemoveEnabled"), TempVars.item("textEnabled")
+        If btnRemove.backcolor <> CTRL_REMOVE_ENABLED Then
+            EnableControl btnRemove, CTRL_REMOVE_ENABLED, TEXT_ENABLED
+            EnableControl btnRemoveAll, CTRL_REMOVE_ENABLED, TEXT_ENABLED
         End If
     Else
         DisableControl btnRemove
@@ -1031,13 +1035,15 @@ End Sub
 ' Adapted:      Bonnie Campbell, February 6, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/6/2015 - initial version
+'   BLC - 5/13/2015 - revised to use global constants vs. tempvars for enabled control
 ' ---------------------------------
 Private Sub lbxTgtSpecies_KeyUp(KeyCode As Integer, Shift As Integer)
 On Error GoTo Err_Handler
 
 '    If lbxSpecies.ItemsSelected.Count > 0 And lblRemove.backcolor <> TempVars.item("ctrlRemoveEnabled") Then
-    If btnRemove.backcolor <> TempVars.item("ctrlRemoveEnabled") Then
-        EnableControl btnRemove, TempVars.item("ctrlRemoveEnabled"), TempVars.item("textEnabled")
+    If btnRemove.backcolor <> CTRL_REMOVE_ENABLED Then
+        EnableControl btnRemove, CTRL_REMOVE_ENABLED, TEXT_ENABLED
+        EnableControl btnRemoveAll, CTRL_REMOVE_ENABLED, TEXT_ENABLED
     End If
     
 Exit_Sub:
@@ -1106,19 +1112,28 @@ End Sub
 '   BLC - 5/10/2015 - changed from MoveSingleItem to RemoveSelectedItems to handle
 '                     removing species from list vs. adding back to original list
 '                     added update for species count
+'   BLC - 5/13/2015 - revised to use global constants vs. tempvars for disabled control
+'                     disabled btnRemove, btnRemoveAll when target species count = 0
 ' ---------------------------------
 Private Sub btnRemove_Click()
 On Error GoTo Err_Handler
     
     'ignore if 'disabled'
-    If btnRemove.backcolor = TempVars.item("ctrlDisabled") Then GoTo Exit_Sub
+    If btnRemove.backcolor = CTRL_DISABLED Then GoTo Exit_Sub
     
     'MoveSingleItem Me, "lbxTgtSpecies", "fsub_Species_Listbox"
     RemoveSelectedItems lbxTgtSpecies
     
     'update count
-    lblTgtSpeciesCount.Caption = GetListCount(lbxTgtSpecies, True) & " species"
-
+    Dim iCount As Integer
+    iCount = GetListCount(lbxTgtSpecies, True)
+    lblTgtSpeciesCount.Caption = iCount & " species"
+    
+    'turn off Remove buttons if iCount = 0
+    If iCount = 0 Then
+        DisableControl btnRemove
+        DisableControl btnRemoveAll
+    End If
     
 Exit_Sub:
     Exit Sub
@@ -1191,12 +1206,6 @@ End Sub
 ' ---------------------------------
 Private Sub btnRemoveAll_Click()
 On Error GoTo Err_Handler
-'    Dim db As DAO.Database
-'    Dim rs As DAO.Recordset
-    
-    'fetch recordset
-'    Set db = CurrentDb
-'    Set rs = db.OpenRecordset(TempVars.item("strSQL"))
     
     'MoveAllItems Me, "lbxTgtSpecies", "fsub_Species_Listbox"
     'go back to initial state
@@ -1226,12 +1235,13 @@ End Sub
 ' Adapted:      Bonnie Campbell, March 3, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 3/3/2015 - initial version
+'   BLC - 5/13/2015 - added LU code and fixed MasterCode bug which substituted LU_Code as Master_Code from tlu_NPCN_Plants
 ' ---------------------------------
 Private Sub btnSaveList_Click()
 On Error GoTo Err_Handler
 
     Dim iRow As Integer, i As Integer
-    Dim strMasterCode As String, strSpecies As String, strSQL As String, strInsert As String
+    Dim strMasterCode As String, strSpecies As String, strLUCode As String, strSQL As String, strInsert As String
     Dim varReturn As Variant
     
     'start @ row 1 (headers = row 0)
@@ -1240,8 +1250,9 @@ On Error GoTo Err_Handler
        ' ---------------------------------------------------
        '  NOTE: listbox column MUST have a non-zero width to retrieve its value
        ' ---------------------------------------------------
-        strMasterCode = lbxTgtSpecies.Column(0, iRow) 'column 0 = Master_PLANT_Code
+        strMasterCode = lbxTgtSpecies.Column(0, iRow) 'column 0 = LU_Code was Master_PLANT_Code
         strSpecies = lbxTgtSpecies.Column(1, iRow) 'column 1 = Species name
+        strLUCode = lbxTgtSpecies.Column(2, iRow) 'column 2 = Master_PLANT_Code
         
        ' ---------------------------------------------------
        '  Check if item exists in tbl_TgtSpecies for Park, Year, Species combo
@@ -1264,11 +1275,12 @@ On Error GoTo Err_Handler
             
             'prepare SQL
             strSQL = "INSERT INTO tbl_Target_Species" _
-                    & "(Master_Plant_Code_FK, Park_Code, Target_Year, Species_Name)" _
+                    & "(Master_Plant_Code_FK, Park_Code, Target_Year, Species_Name, LU_Code)" _
                     & "VALUES "
     
             'prepare insert value
-            strInsert = "('" & strMasterCode & "','" & TempVars.item("park") & "'," & TempVars.item("tgtYear") & ",'" & strSpecies & "');"
+            strInsert = "('" & strMasterCode & "','" & TempVars.item("park") & "'," _
+                        & TempVars.item("tgtYear") & ",'" & strSpecies & "','" & strLUCode & "');"
             
             'add comma if more than one row to insert
             'If (lbxTgtSpecies.ListCount - 1) > 1 And iRow < (lbxTgtSpecies.ListCount - 1) Then strInsert = strInsert & ","
@@ -1303,7 +1315,7 @@ On Error GoTo Err_Handler
         
         strSQL = "SELECT tbl_Target_Species.Park_Code AS Park, " & _
                  "tbl_Target_Species.Target_Year AS TgtYear, " & _
-                 "Master_Plant_Code_FK, Species_Name, Priority, Transect_Only, Target_Area_ID " & _
+                 "Master_Plant_Code_FK, Species_Name, LU_Code, Priority, Transect_Only, Target_Area_ID " & _
                  "FROM tbl_Target_Species " & _
                  "WHERE (((tbl_Target_Species.Target_Year) = CInt(tgtYear)) " & _
                  "And ((LCase([tbl_Target_Species].[Park_Code])) = LCase(park))) " & _

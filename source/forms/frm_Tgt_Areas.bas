@@ -691,13 +691,14 @@ End Sub
 ' Adapted:      Bonnie Campbell, February 12, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/12/2015 - initial version
+'   BLC - 5/13/2015 - revised to use global constants vs. tempvars for enabled control
 ' ---------------------------------
 Private Sub tbxTgtArea_Change()
 On Error GoTo Err_Handler
     
     If Len(tbxTgtArea.Value) > 0 Then
         'enable the search "button"
-        EnableControl btnAddTgtArea, TempVars.item("ctrlAddEnabled"), TempVars.item("textEnabled")
+        EnableControl btnAddTgtArea, CTRL_ADD_ENABLED, TEXT_ENABLED
         btnAddTgtArea.Enabled = True
     Else
         'disable the search "button"

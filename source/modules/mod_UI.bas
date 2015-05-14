@@ -214,7 +214,7 @@ End Function
 Public Sub tabPageUnhide(ctrl As TabControl, strTabName As String)
 On Error GoTo Err_Handler
 
-    Dim pg As page
+    Dim pg As Page
     
     For Each pg In ctrl.Pages
         If pg.name = strTabName Then

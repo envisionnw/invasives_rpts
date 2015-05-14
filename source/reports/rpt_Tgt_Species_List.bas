@@ -3,6 +3,7 @@ VersionRequired =20
 Begin Report
     LayoutForPrint = NotDefault
     DividingLines = NotDefault
+    OrderByOn = NotDefault
     DateGrouping =1
     GrpKeepTogether =1
     PictureAlignment =2
@@ -720,8 +721,8 @@ Option Compare Database
 Option Explicit
 
 ' =================================
-' MODULE:       Form_frmLoadList
-' Description:  Load species list to target species list functions and routines
+' MODULE:       rpt_Tgt_Species_List
+' Description:  Target species list crew report functions and routines
 '
 ' Source/date:  Bonnie Campbell, 3/5/2015
 ' Revisions:    BLC - 3/5/2015 - initial version
@@ -731,7 +732,7 @@ Option Explicit
 ' SUB:          Report_Open
 ' Description:  Actions for when reports open
 ' Assumptions:  -
-' Parameters:   XX - XX
+' Parameters:   -
 ' Returns:      N/A
 ' Throws:       none
 ' References:   none
@@ -760,13 +761,7 @@ On Error GoTo Err_Handler
         'set orderby
         Me.OrderBy = Me.OpenArgs
     End If
-    
-    Me.OrderBy = "Family, "
-    'set the background color if tbxPriority = "Transect Only" or a Target_Area vs. Priority #
-    'use conditional formatting for tbxDetail:
-    '   [tbxPriority] = "Transect Only"  >>  ltLime
-    '   (Not IsNumeric[tbxPriority])) And ([tbxPriority] <> "Transect Only") >> ltYellow
-    
+        
 Exit_Sub:
     Exit Sub
     

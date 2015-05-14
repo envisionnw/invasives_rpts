@@ -22,9 +22,10 @@ Begin Form
     Width =12300
     DatasheetFontHeight =10
     ItemSuffix =182
-    Left =3876
-    Right =16176
-    Bottom =10068
+    Left =4020
+    Top =-792
+    Right =16320
+    Bottom =9276
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x80d28b4cb201e340
@@ -1260,6 +1261,7 @@ End Sub
 ' Revisions:    BLC - 6/17/2014 - initial version
 '               BLC - 5/1/2015  - handled alternate fsub_Filter subform control source forms
 '               BLC - 5/12/2015  - adapted for unused tabs
+'               BLC - 5/13/2015 - fixed so "Select Year" is displayed initially for cbxYear
 ' ---------------------------------
 Public Sub OpenFilterSubform(ctrl As Control)
         
@@ -1321,7 +1323,7 @@ On Error GoTo Err_Handler:
         Select Case fsub_Filter.SourceObject
             Case "fsub_Select_Park_Year"
                 !cbxPark.Value = ""
-                !cbxYear.Value = ""
+                !cbxYear.Value = "SEL"
             Case "fsub_Select_Tgt_Lists"
             Case "fsub_Select_Year"
         End Select

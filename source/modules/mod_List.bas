@@ -601,8 +601,8 @@ End Sub
 ' SUB:          RemoveListDupes
 ' Description:  Remove listbox duplicate values
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   lbx - listbox to check
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -612,6 +612,7 @@ End Sub
 ' Revisions:
 '   BLC - 3/5/2015 - initial version
 '   BLC - 5/10/2015 - moved to mod_List from mod_Lists
+'   BLC - 5/13/2015 - commented out SortList due to bug which removes headers & values
 ' ---------------------------------
 Public Sub RemoveListDupes(lbx As ListBox)
 
@@ -621,7 +622,7 @@ On Error GoTo Err_Handler
     Dim lastItem As String
     
     'sort listbox
-    SortList lbx
+ '   SortList lbx
     
     count = lbx.ListCount
 
@@ -654,10 +655,10 @@ End Sub
 
 ' ---------------------------------
 ' SUB:          SortList
-' Description:  XX
+' Description:  Sorts the listbox item rows alphabetically
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   lbx - listbox to sort
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -673,10 +674,16 @@ Public Sub SortList(lbx As ListBox) ', orderCol As Integer)
 On Error GoTo Err_Handler
   
   Dim strTemp As String
-  Dim i As Integer
+  Dim i As Integer, iHdr As Integer
   Dim j As Integer
   
-  For i = 0 To lbx.ListCount - 1
+  'skip first row if lbx has headers
+  iHdr = 0
+  If Len(TempVars.item("lbxHdr")) > 0 Then
+    iHdr = 1
+  End If
+  
+  For i = iHdr To lbx.ListCount - 1
     For j = i + 1 To lbx.ListCount - 1
       If lbx.ItemData(i) > lbx.ItemData(j) Then
         strTemp = lbx.ItemData(i)

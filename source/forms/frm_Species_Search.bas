@@ -15,9 +15,9 @@ Begin Form
     DatasheetFontHeight =11
     ItemSuffix =63
     Left =3960
-    Top =2415
-    Right =14235
-    Bottom =13260
+    Top =2412
+    Right =17544
+    Bottom =8592
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x72574db34b86e440
@@ -593,10 +593,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                 End
                 Begin Label
                     Visible = NotDefault
@@ -1109,6 +1109,7 @@ End Sub
 ' Adapted:      Bonnie Campbell, February 10, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/10/2015 - initial version
+'   BLC - 5/13/2015 - revised to use global constants vs. tempvars for enabled control
 ' ---------------------------------
 Private Sub tbxSearchFor_LostFocus()
 On Error GoTo Err_Handler
@@ -1118,7 +1119,7 @@ On Error GoTo Err_Handler
         If Len(TempVars.item("speciestype")) > 0 Then
             'enable the search "button"
             btnSearch.Enabled = True
-            EnableControl btnSearch, TempVars.item("ctrlAddEnabled"), TempVars.item("textEnabled")
+            EnableControl btnSearch, CTRL_ADD_ENABLED, TEXT_ENABLED
         Else
             MsgBox "Please choose at least one species list to search.", vbOKOnly, "Oops! Missing Species List to Search"
         End If
@@ -1142,10 +1143,10 @@ End Sub
 
 ' ---------------------------------
 ' SUB:          cbxCO_Click
-' Description:  XX
+' Description:  actions on checkbox click
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   -
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -1180,10 +1181,10 @@ End Sub
 
 ' ---------------------------------
 ' SUB:          cbxUT_Click
-' Description:  XX
+' Description:  actions on checkbox click
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   -
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -1218,10 +1219,10 @@ End Sub
 
 ' ---------------------------------
 ' SUB:          cbxWY_Click
-' Description:  XX
+' Description:  actions on checkbox click
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   -
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -1256,10 +1257,10 @@ End Sub
 
 ' ---------------------------------
 ' SUB:          cbxITIS_Click
-' Description:  XX
+' Description:  actions on checkbox click
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   -
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -1294,10 +1295,10 @@ End Sub
 
 ' ---------------------------------
 ' SUB:          cbxCommon_Click
-' Description:  XX
+' Description:  actions on checkbox click
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   -
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -1484,6 +1485,9 @@ End Sub
 '   BLC - 2/7/2015  - initial version
 '   BLC - 2/20/2015 - added header highlighting
 '   BLC - 2/23/2015 - fixed duplicate results (SELECT DISTINCT...)
+'   BLC - 5/13/2015 - revised to use global constants vs. tempvars for enabled control
+'   BLC - 5/14/2015 - revised to leave checkbox list intact to avoid error message @ choosing a species type
+'                     when checkbox was left checked
 ' ---------------------------------
 Private Sub btnSearch_Click()
 On Error GoTo Err_Handler
@@ -1503,7 +1507,7 @@ On Error GoTo Err_Handler
     If Len(TempVars.item("speciestype")) > 0 Then
         'enable the search "button"
         btnSearch.Enabled = True
-        EnableControl btnSearch, TempVars.item("ctrlAddEnabled"), TempVars.item("textEnabled")
+        EnableControl btnSearch, CTRL_ADD_ENABLED, TEXT_ENABLED
     Else
         MsgBox "Please choose at least one species list to search.", vbOKOnly, "Oops! Missing Species List to Search"
         GoTo Exit_Sub
@@ -1609,7 +1613,8 @@ On Error GoTo Err_Handler
     'clear fields
     ClearFields Me
     
-    TempVars.item("speciestype") = ""
+    'leave last selections for checkboxes (don't clear TempVars.item("speciestype"))
+    ' TempVars.item("speciestype") = ""
 
 Exit_Sub:
     Exit Sub
@@ -1624,7 +1629,7 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:          btnSearch_Click
+' SUB:          btnSearch_Enter
 ' Description:  Search for the name or portion of a name in the species/common names listed & return a result list
 ' Assumptions:
 ' Note:         Returns all species/common names from tlu_NCPN_Plants that contain the search string.
@@ -1655,7 +1660,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - btnSearch_Click[form_frm_Species_Search])"
+            "Error encountered (#" & Err.Number & " - btnSearch_Enter[form_frm_Species_Search])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1678,6 +1683,7 @@ End Sub
 '   BLC - 2/7/2015  - initial version
 '   BLC - 2/20/2015 - added header highlighting
 '   BLC - 2/23/2015 - fixed duplicate results (SELECT DISTINCT...)
+'   BLC - 5/13/2015 - revised to use global constants vs. tempvars for enabled control
 ' ---------------------------------
 Public Sub SpeciesSearch()
 On Error GoTo Err_Handler
@@ -1697,7 +1703,7 @@ On Error GoTo Err_Handler
     If Len(TempVars.item("speciestype")) > 0 Then
         'enable the search "button"
         btnSearch.Enabled = True
-        EnableControl btnSearch, TempVars.item("ctrlAddEnabled"), TempVars.item("textEnabled")
+        EnableControl btnSearch, CTRL_ADD_ENABLED, TEXT_ENABLED
     Else
         MsgBox "Please choose at least one species list to search.", vbOKOnly, "Oops! Missing Species List to Search"
         GoTo Exit_Sub

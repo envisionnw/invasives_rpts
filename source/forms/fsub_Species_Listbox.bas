@@ -13,13 +13,13 @@ Begin Form
     Width =9480
     DatasheetFontHeight =11
     ItemSuffix =15
-    Left =552
-    Top =2952
-    Right =4248
-    Bottom =6972
+    Left =4572
+    Top =3552
+    Right =8268
+    Bottom =7572
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
-        0xac2ea674d792e440
+        0x74be3bc33793e440
     End
     RecordSource ="SELECT Switch(tlu_NCPN_Plants.LU_Code Is Null,\" \",tlu_NCPN_Plants.LU_Code<>\"\""
         ",tlu_NCPN_Plants.LU_Code) AS Code, tlu_NCPN_Plants.Master_Species AS Species, tl"
@@ -595,8 +595,8 @@ On Error GoTo Err_Handler
     'prepare item for listbox value
     item = tbxCode & ";" & tbxSpecies & ";" & tbxMasterCode
     
-    'check listbox for duplicate & skip if already present
-    If IsListDuplicate(Forms("frm_Tgt_Species").Controls("lbxTgtSpecies"), 2, tbxMasterCode) Then
+    'check listbox for duplicate & skip if already present was col 2
+    If IsListDuplicate(Forms("frm_Tgt_Species").Controls("lbxTgtSpecies"), 0, tbxMasterCode) Then
         'duplicate, so exit
         GoTo Exit_Sub
     End If
