@@ -13,9 +13,9 @@ Begin Form
     Width =4320
     DatasheetFontHeight =11
     ItemSuffix =15
-    Left =8592
+    Left =8736
     Top =3936
-    Right =12744
+    Right =12888
     Bottom =6564
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
@@ -347,7 +347,7 @@ On Error GoTo Err_Handler
     
     cbxYear.RowSource = strValueList
     cbxYear.Value = "SEL"
-    
+        
 Exit_Sub:
     Exit Sub
     
@@ -445,9 +445,14 @@ End Sub
 ' Revisions:
 '   BLC, 2/12/2015 - initial version
 '   BLC, 5/1/2015  - switched from frmActions to launching popup frm_Tgt_Species form for Invasive Species Reporting tool
+'   BLC, 5/10/2015 - cleared park & year cbx values to prevent NULL errors & force user to re-select park before clicking continue
 ' ---------------------------------
 Private Sub btnContinue_Click()
 On Error GoTo Err_Handler
+       
+    'clear year & park (prevents NULL errors & click continue if values aren't set)
+    cbxYear.Value = "SEL"
+    cbxPark.Value = ""
        
     'open target species list
     DoCmd.OpenForm "frm_Tgt_Species", acNormal, , , , , TempVars.item("TgtYear")

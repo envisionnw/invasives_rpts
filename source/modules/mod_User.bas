@@ -263,7 +263,7 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                         .optgFormMode.Enabled = True
                         .subLookupTables.Locked = True
                     Case "frm_QA_Tools"
-                        .pgDataTables.Visible = False
+                        .pgDataTables.visible = False
                         .cmdDesignView.Enabled = False
                         .optgScope.Enabled = False
                         .cmbTimeframe.Enabled = True
@@ -380,7 +380,7 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                     Case "fsub_Events_Browser"
                         .cmdEdit.Caption = "View"               ' Set button caption
                     Case "frm_QA_Tools"
-                        .pgDataTables.Visible = False
+                        .pgDataTables.visible = False
                         .cmdDesignView.Enabled = False
                         .optgScope.Enabled = False
                         .cmbTimeframe.Enabled = True
@@ -471,7 +471,7 @@ Admin_PowerUser:
                 .subSchedule.Form.AllowEdits = True
                 .cmdAutoPopulate.Enabled = True
             Case "frm_QA_Tool"
-                .pgDataTables.Visible = True
+                .pgDataTables.visible = True
                 .cmdDesignView.Enabled = True
                 .optgScope.Enabled = True
                 .cmbTimeframe.Enabled = True

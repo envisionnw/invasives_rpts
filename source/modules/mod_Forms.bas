@@ -92,8 +92,8 @@ End Function
 ' SUB:          ClearFields
 ' Description:  initialize application values
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   frm - Form whose fields should be cleared
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:  Bonnie Campbell, February 20, 2015 - for NCPN tools
@@ -256,7 +256,7 @@ Dim ctrl As Control
 
             'check tag
             If ctrl.tag = ctrlTag Then
-                ctrl.Visible = visibility
+                ctrl.visible = visibility
             End If
 
         Next
@@ -265,7 +265,7 @@ Dim ctrl As Control
 
         'check tag
         If oCtrl.tag = ctrlTag Then
-                oCtrl.Visible = visibility
+                oCtrl.visible = visibility
         End If
 
     End If

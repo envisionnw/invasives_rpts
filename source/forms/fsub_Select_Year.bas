@@ -13,9 +13,9 @@ Begin Form
     Width =3960
     DatasheetFontHeight =11
     ItemSuffix =14
-    Left =6624
+    Left =8736
     Top =3936
-    Right =10776
+    Right =12888
     Bottom =6816
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
@@ -376,7 +376,7 @@ On Error GoTo Err_Handler
     TempVars.item("TgtYear") = cbxYear.Value
     
     'open report
-    DoCmd.OpenReport "rpt_Tgt_Species_List_Annual_Summary", acViewReport, "TgtYear=" & CInt(TempVars.item("TgtYear"))
+    DoCmd.OpenReport "rpt_Tgt_Species_List_Annual_Summary", acViewReport, , "TgtYear=" & CInt(TempVars.item("TgtYear"))
         
 Exit_Sub:
     Exit Sub

@@ -12,8 +12,8 @@ Begin Form
     GridY =24
     DatasheetFontHeight =11
     ItemSuffix =22
-    Right =7455
-    Bottom =4125
+    Right =7452
+    Bottom =4128
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xc1f3db6ed487e440
@@ -213,10 +213,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin ListBox
@@ -456,6 +456,7 @@ End Sub
 ' Adapted:      Bonnie Campbell, March 5, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 3/5/2015 - initial version
+'   BLC - 5/13/2015 - added LU_Code to values retrieved from tbl_Tgt_Species
 ' ---------------------------------
 Private Sub btnLoadList_Click()
 On Error GoTo Err_Handler
@@ -472,7 +473,7 @@ On Error GoTo Err_Handler
     If Len(Replace(strWhere, "WHERE", "")) = 0 Then strWhere = ""
     
     'build SQL statement
-    strSQL = "SELECT DISTINCT Master_Plant_Code_FK AS Code, Species_Name AS Species " _
+    strSQL = "SELECT DISTINCT Master_Plant_Code_FK AS Code, Species_Name AS Species, LU_Code AS LUCode " _
             & "FROM tbl_Target_Species " _
             & strWhere & ";"
     

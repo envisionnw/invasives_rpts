@@ -27,6 +27,7 @@ Option Explicit
 '                                add MAIN_APP_FORM constant to handle applications where frm_Switchboard is NOT the main form
 '                                add APP_RELEASE_ID constant to handle application release ID w/o full DbAdmin subfrom & controls
 '               BLC, 5/1/2015  - add DEV_MODE constant to enable menus typically off during use
+'               BLC, 5/13/2015 - shifted UI enable/disabled colors from TempVars set in initialize (mod_App_UI) to constants
 ' ---------------------------------
 Public Const USER_ACCESS_CONTROL As Boolean = False             'Boolean flag -> db includes user access control or not
 Public Const DB_ADMIN_CONTROL As Boolean = False                'Boolean flag -> db does not include DbAdmin subform & controls
@@ -59,3 +60,13 @@ Public Const DEV_MODE As Boolean = True                         'Boolean flag ->
 '-----------------------------------------------------------------------
 Public Const DB_SYS_TABLES As String = "App_Defaults, Link_Files, Link_Tables"
 Public Const APP_SYS_TABLES As String = ""
+
+'-----------------------------------------------------------------------
+' User Interface Colors
+'-----------------------------------------------------------------------
+'std control colors
+Public Const CTRL_DISABLED As Long = lngLtGray
+Public Const CTRL_ADD_ENABLED As Long = lngLime
+Public Const CTRL_REMOVE_ENABLED As Long = lngLtOrange
+Public Const TEXT_ENABLED As Long = lngBlue
+Public Const TEXT_DISABLED As Long = lngGray

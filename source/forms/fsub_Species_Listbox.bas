@@ -13,13 +13,13 @@ Begin Form
     Width =9480
     DatasheetFontHeight =11
     ItemSuffix =15
-    Left =912
-    Top =2796
-    Right =4608
-    Bottom =6552
+    Left =4572
+    Top =3552
+    Right =8268
+    Bottom =7572
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
-        0x6036d90f9c8ae440
+        0x74be3bc33793e440
     End
     RecordSource ="SELECT Switch(tlu_NCPN_Plants.LU_Code Is Null,\" \",tlu_NCPN_Plants.LU_Code<>\"\""
         ",tlu_NCPN_Plants.LU_Code) AS Code, tlu_NCPN_Plants.Master_Species AS Species, tl"
@@ -527,8 +527,9 @@ End Sub
 ' Revisions:
 '   BLC - 2/19/2015 - initial version
 '   BLC - 2/23/2015 - added lblTgtSpeciesCount update
+'   BLC - 5/10/2015 - exposed event as Public to allow calls from main form
 ' ---------------------------------
-Private Sub tbxCode_DblClick(Cancel As Integer)
+Public Sub tbxCode_DblClick(Cancel As Integer)
 On Error GoTo Err_Handler
     Dim item As String
     Dim lbx As ListBox
@@ -594,20 +595,20 @@ On Error GoTo Err_Handler
     'prepare item for listbox value
     item = tbxCode & ";" & tbxSpecies & ";" & tbxMasterCode
     
-    'check listbox for duplicate & skip if already present
-    If IsListDuplicate(Forms("frmTgtSpecies").Controls("lbxTgtSpecies"), 2, tbxMasterCode) Then
+    'check listbox for duplicate & skip if already present was col 2
+    If IsListDuplicate(Forms("frm_Tgt_Species").Controls("lbxTgtSpecies"), 0, tbxMasterCode) Then
         'duplicate, so exit
         GoTo Exit_Sub
     End If
 
-    Set lbx = Forms("frmTgtSpecies").Controls("lbxTgtSpecies")
+    Set lbx = Forms("frm_Tgt_Species").Controls("lbxTgtSpecies")
     
     With lbx
         'add item if not duplicate
         .AddItem item
     
         'update target species count
-        Forms("frmTgtSpecies").Controls("lblTgtSpeciesCount").Caption = .ListCount - 1 & " species"
+        Forms("frm_Tgt_Species").Controls("lblTgtSpeciesCount").Caption = .ListCount - 1 & " species"
     End With
     
 Exit_Sub:

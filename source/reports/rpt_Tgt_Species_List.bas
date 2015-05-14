@@ -3,6 +3,7 @@ VersionRequired =20
 Begin Report
     LayoutForPrint = NotDefault
     DividingLines = NotDefault
+    OrderByOn = NotDefault
     DateGrouping =1
     GrpKeepTogether =1
     PictureAlignment =2
@@ -12,9 +13,10 @@ Begin Report
     Width =11400
     DatasheetFontHeight =11
     ItemSuffix =46
-    Right =10044
-    Bottom =6144
+    Right =13608
+    Bottom =6396
     DatasheetGridlinesColor =14806254
+    OrderBy ="Family, "
     RecSrcDt = Begin
         0xab695344b891e440
     End
@@ -32,6 +34,7 @@ Begin Report
     AllowLayoutView =0
     DatasheetAlternateBackColor =15921906
     DatasheetGridlinesColor12 =0
+    RibbonName ="Export"
     FitToScreen =1
     DatasheetBackThemeColorIndex =1
     BorderThemeColorIndex =3
@@ -84,6 +87,9 @@ Begin Report
             ForeTint =75.0
             GridlineThemeColorIndex =1
             GridlineShade =65.0
+        End
+        Begin BreakLevel
+            ControlSource ="Family"
         End
         Begin BreakLevel
             ControlSource ="Species_Name"
@@ -715,8 +721,8 @@ Option Compare Database
 Option Explicit
 
 ' =================================
-' MODULE:       Form_frmLoadList
-' Description:  Load species list to target species list functions and routines
+' MODULE:       rpt_Tgt_Species_List
+' Description:  Target species list crew report functions and routines
 '
 ' Source/date:  Bonnie Campbell, 3/5/2015
 ' Revisions:    BLC - 3/5/2015 - initial version
@@ -726,7 +732,7 @@ Option Explicit
 ' SUB:          Report_Open
 ' Description:  Actions for when reports open
 ' Assumptions:  -
-' Parameters:   XX - XX
+' Parameters:   -
 ' Returns:      N/A
 ' Throws:       none
 ' References:   none
@@ -755,12 +761,7 @@ On Error GoTo Err_Handler
         'set orderby
         Me.OrderBy = Me.OpenArgs
     End If
-    
-    'set the background color if tbxPriority = "Transect Only" or a Target_Area vs. Priority #
-    'use conditional formatting for tbxDetail:
-    '   [tbxPriority] = "Transect Only"  >>  ltLime
-    '   (Not IsNumeric[tbxPriority])) And ([tbxPriority] <> "Transect Only") >> ltYellow
-    
+        
 Exit_Sub:
     Exit Sub
     

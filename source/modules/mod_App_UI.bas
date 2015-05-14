@@ -44,7 +44,7 @@ Public Sub PopulateInsetTitle(ctrl As Control, strContext As String)
         Case "Data Validation" ' QA/QC analysis project selection
             strTitle = "Data Validation > Field > Duplicates (NFV)" '<<<<< Make this so it ties back to the selected analysis
         Case "View" ' View main
-            strTitle = "Data Modifications"
+            strTitle = "View"
         Case "Reports" ' Reports main
             strTitle = "Reports"
         Case "CrewSpeciesList" ' Reports > Field Crew Species List
@@ -67,7 +67,7 @@ Public Sub PopulateInsetTitle(ctrl As Control, strContext As String)
     If ctrl.ControlType = acLabel Then
         ctrl.Caption = strTitle
         If strContext <> "DbAdmin" Then
-            ctrl.Visible = True
+            ctrl.visible = True
         End If
     End If
 End Sub
@@ -103,8 +103,9 @@ Public Sub PopulateInstructions(ctrl As Control, strContext As String)
             strInstructions = "Complete the fields to define the data set or subset you are validating. " _
                     & "Leave the fields blank if you are validating all data. Click 'Run' to validate."
         Case "View" ' View main
-            strInstructions = "Log your modifications to data within the edit log. " _
-                    & "Be as complete as possible to aid others in tracing data changes."
+            strInstructions = "The view menu is currently not in use for this application."
+            'strInstructions = "Log your modifications to data within the edit log. " _
+            '        & "Be as complete as possible to aid others in tracing data changes."
         Case "Reports" ' Reports main
             strInstructions = "Choose the report you would like to run."
         Case "CrewSpeciesList" ' Reports > Field Crew Species List
@@ -117,18 +118,19 @@ Public Sub PopulateInstructions(ctrl As Control, strContext As String)
             strInstructions = "Complete the fields to define the data set or subset you are reporting. " _
                     & "Leave the fields blank if you are reporting on all data. Click 'Run' to validate."
         Case "Export" ' Export main
-            strInstructions = "Choose the export you would like to run."
+            strInstructions = "After opening a report from the report tab, use the Export menu above in the application menu to export reports to your desired format."
         Case "UtahLab" ' Exports > Utah Lab etc.
             strInstructions = "Choose the export you would like to run."
         Case "DbAdmin" ' DB Admin main
-            strInstructions = ""
+            strInstructions = "The database administration tab is currently not in use for this application."
+            'strInstructions = ""
     End Select
     
     'populate caption & display instructions
     If ctrl.ControlType = acLabel Then
         ctrl.Caption = strInstructions
         If strContext <> "DbAdmin" Then
-            ctrl.Visible = True
+            ctrl.visible = True
         End If
     End If
     
@@ -148,19 +150,11 @@ End Sub
 '   BLC - 2/6/2015  - initial version
 '   BLC - 2/19/2015 - added dynamic getParkState() & standard error handling
 '   BLC - 3/4/2015  - shifted colors to mod_Color, removed setting of park, state, tgtYear TempVars
+'   BLC - 5/13/2015 - removed colors to
 ' ---------------------------------
 Public Sub Initialize()
 On Error GoTo Err_Handler
 
-    '------------------------
-    'set standard variables
-    '------------------------
-    'std control colors
-    TempVars.Add "ctrlDisabled", lngLtGray
-    TempVars.Add "ctrlAddEnabled", lngLime
-    TempVars.Add "ctrlRemoveEnabled", lngLtOrange
-    TempVars.Add "textEnabled", lngBlue
-    TempVars.Add "textDisabled", lngGray
 
 Exit_Sub:
     Exit Sub

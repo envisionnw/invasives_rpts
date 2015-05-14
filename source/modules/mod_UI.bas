@@ -214,13 +214,13 @@ End Function
 Public Sub tabPageUnhide(ctrl As TabControl, strTabName As String)
 On Error GoTo Err_Handler
 
-    Dim pg As page
+    Dim pg As Page
     
     For Each pg In ctrl.Pages
         If pg.name = strTabName Then
-            ctrl.Pages(pg.name).Visible = True
+            ctrl.Pages(pg.name).visible = True
         Else
-            ctrl.Pages(pg.name).Visible = False
+            ctrl.Pages(pg.name).visible = False
         End If
     Next pg
     
@@ -469,7 +469,7 @@ Public Sub PrepareCrumbs(frm As SubForm, aryCrumbs As Variant, Optional separato
           With frm.Controls(strCtrlSeparator)
             .left = intLastCtrlPosition + intLastCtrlWidth + 10
             .Caption = separator
-            .Visible = True
+            .visible = True
             
             'determine position of next control
             intLastCtrlPosition = .left + .Width + 10
@@ -542,6 +542,80 @@ Err_Handler:
 End Sub
 
 ' =================================
+' SUB:          GetRibbonXML
+' Description:  gets ribbon UI XML specified, if found
+' Assumes:      USysRibbon table exists
+' Parameters:   ribbon - name of the ribbon to retrieve, RibbonName in USysRibbon (string)
+' Returns:      XML of the specified ribbon
+' Throws:       none
+' References:   none
+' Source/date:  -
+' Revisions:    BLC, 5/10/2015 - initial version
+' =================================
+Public Function GetRibbonXML(strRibbon As String) As String
+On Error GoTo Err_Handler
+    
+    Dim rs As DAO.Recordset
+    Dim strSQL As String, strXML As String
+    
+    strSQL = "SELECT RibbonXML FROM USysRibbons WHERE RibbonName = '" & strRibbon & "';"
+    strXML = ""
+    
+    Set rs = CurrentDb.OpenRecordset(strSQL)
+    If Not (rs.BOF And rs.EOF) Then
+        strXML = rs!RibbonXML
+    End If
+    
+    GetRibbonXML = strXML
+Exit_Function:
+    Exit Function
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - GetRibbonXML[mod_UI])"
+    End Select
+    Resume Exit_Function
+End Function
+
+' =================================
+' SUB:          GetRibbonVisibility
+' Description:
+' Parameters:   ctrl - office ribbon control (IRibbonControl object)
+'               visible - true (boolean)
+' Returns:      -
+' Throws:       none
+' References:   none
+' Source/date:  Adapted from http://www.access-programmers.co.uk/forums/showthread.php?t=246015
+'               by Mark K., 4/26/2013.
+' Revisions:    BLC, 5/10/2015 - initial version
+' =================================
+Public Sub GetRibbonVisibility(ctrl As Office.IRibbonControl, ByRef visible)
+On Error GoTo Err_Handler
+
+    Select Case ctrl.id
+        Case "tabExportOptions"
+            visible = True
+            TempVars.AddItem("ribbon") = True
+        Case Else
+            visible = False
+            TempVars.AddItem("ribbon") = False
+    End Select
+
+Exit_Procedure:
+    Exit Sub
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - GetRibbonVisibility[mod_UI])"
+    End Select
+    Resume Exit_Procedure
+End Sub
+
+' =================================
 ' FUNCTION:     fxnHTMLConvert
 ' Description:  converts HTML string value for color to RGB which can be used for control colors
 ' Parameters:   strHTML - HTML color (make sure you include # otherwise the color won't match)
@@ -557,4 +631,40 @@ End Sub
 Public Function fxnHTMLConvert(strHTML As String) As Long
     Rem converts a HTML color code number such as #D8B190 to an RGB value.
     fxnHTMLConvert = RGB(CInt("&H" & Mid(strHTML, 2, 2)), CInt("&H" & Mid(strHTML, 4, 2)), CInt("&H" & Mid(strHTML, 6, 2)))
+End Function
+
+' =================================
+' FUNCTION:     ControlExists
+' Description:  determines if a control exists in a form
+' Parameters:   ctlName - control to check for (string)
+'               frm - form to check on (form)
+' Returns:      boolean - true if control exists, false if not
+' Throws:       none
+' References:   none
+' Source/date:  Adapted from http://www.tek-tips.com/viewthread.cfm?qid=1029435
+'               by VBslammer, 3/22/2005.
+' Revisions:    BLC, 5/12/2015 - initial version
+' =================================
+Function ControlExists(ByRef ctlName As String, ByRef frm As Form) As Boolean
+On Error GoTo Err_Handler
+  Dim ctl As Control
+  
+  For Each ctl In frm.Controls
+    If ctl.name = ctlName Then
+      ControlExists = True
+      Exit For
+    End If
+  Next ctl
+  
+
+Exit_Function:
+    Exit Function
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - ControlExists[mod_UI])"
+    End Select
+    Resume Exit_Function
 End Function

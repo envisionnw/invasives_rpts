@@ -21,11 +21,11 @@ Begin Form
     GridY =24
     Width =12300
     DatasheetFontHeight =10
-    ItemSuffix =179
-    Left =-48
-    Top =-144
-    Right =12252
-    Bottom =9924
+    ItemSuffix =182
+    Left =4020
+    Top =-792
+    Right =16320
+    Bottom =9276
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x80d28b4cb201e340
@@ -231,45 +231,12 @@ Begin Form
                         End
                         Begin ToggleButton
                             OverlapFlags =87
-                            Left =4020
-                            Top =1425
-                            Width =1740
-                            Height =480
-                            FontWeight =700
-                            TabIndex =2
-                            OptionValue =3
-                            ForeColor =6250335
-                            Name ="tglReports"
-                            StatusBarText ="Report options"
-                            Caption ="REPORTS"
-                            ControlTipText ="Report options"
-
-                            LayoutCachedLeft =4020
-                            LayoutCachedTop =1425
-                            LayoutCachedWidth =5760
-                            LayoutCachedHeight =1905
-                            UseTheme =1
-                            Shape =2
-                            BackColor =16764108
-                            OldBorderStyle =0
-                            HoverColor =10092492
-                            PressedColor =16764108
-                            HoverForeColor =9974127
-                            PressedForeColor =0
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
-                            Overlaps =1
-                        End
-                        Begin ToggleButton
-                            OverlapFlags =87
                             Left =5760
                             Top =1425
                             Width =1740
                             Height =480
                             FontWeight =700
-                            TabIndex =3
+                            TabIndex =2
                             OptionValue =4
                             ForeColor =6250335
                             Name ="tglExport"
@@ -302,7 +269,7 @@ Begin Form
                             Width =1740
                             Height =480
                             FontWeight =700
-                            TabIndex =4
+                            TabIndex =3
                             OptionValue =5
                             ForeColor =6250335
                             Name ="tglDbAdmin"
@@ -321,6 +288,39 @@ Begin Form
                             OldBorderStyle =0
                             HoverColor =10092492
                             PressedColor =14211288
+                            HoverForeColor =9974127
+                            PressedForeColor =0
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
+                            Overlaps =1
+                        End
+                        Begin ToggleButton
+                            OverlapFlags =87
+                            Left =4020
+                            Top =1425
+                            Width =1740
+                            Height =480
+                            FontWeight =700
+                            TabIndex =4
+                            OptionValue =3
+                            ForeColor =6250335
+                            Name ="tglReports"
+                            StatusBarText ="Report options"
+                            Caption ="REPORTS"
+                            ControlTipText ="Report options"
+
+                            LayoutCachedLeft =4020
+                            LayoutCachedTop =1425
+                            LayoutCachedWidth =5760
+                            LayoutCachedHeight =1905
+                            UseTheme =1
+                            Shape =2
+                            BackColor =16764108
+                            OldBorderStyle =0
+                            HoverColor =10092492
+                            PressedColor =16764108
                             HoverForeColor =9974127
                             PressedForeColor =0
                             WebImagePaddingLeft =3
@@ -569,7 +569,6 @@ Begin Form
                                     Name ="btnEditLog"
                                     Caption ="Edit Log"
                                     FontName ="Calibri"
-                                    OnClick ="[Event Procedure]"
                                     ControlTipText ="Open edit log"
                                     LayoutCachedLeft =2205
                                     LayoutCachedTop =4455
@@ -712,51 +711,6 @@ Begin Form
                             WebImagePaddingTop =3
                             WebImagePaddingRight =3
                             WebImagePaddingBottom =3
-                            Begin
-                                Begin Rectangle
-                                    BackStyle =1
-                                    OverlapFlags =255
-                                    Left =2280
-                                    Top =3000
-                                    Width =2400
-                                    Height =2880
-                                    BackColor =8829910
-                                    BorderColor =12835293
-                                    Name ="rctInsetCtr_Export"
-                                    GridlineColor =10921638
-                                    LayoutCachedLeft =2280
-                                    LayoutCachedTop =3000
-                                    LayoutCachedWidth =4680
-                                    LayoutCachedHeight =5880
-                                    BorderThemeColorIndex =3
-                                    BorderShade =90.0
-                                    GridlineThemeColorIndex =1
-                                    GridlineShade =65.0
-                                End
-                                Begin Label
-                                    FontUnderline = NotDefault
-                                    BorderWidth =1
-                                    OverlapFlags =247
-                                    TextAlign =2
-                                    Left =2280
-                                    Top =3360
-                                    Width =2385
-                                    Height =420
-                                    FontSize =11
-                                    TopMargin =72
-                                    ForeColor =16711680
-                                    Name ="btnUtahLab"
-                                    Caption ="Utah Lab"
-                                    FontName ="Calibri"
-                                    OnClick ="[Event Procedure]"
-                                    ControlTipText ="Export Utah Lab data"
-                                    LayoutCachedLeft =2280
-                                    LayoutCachedTop =3360
-                                    LayoutCachedWidth =4665
-                                    LayoutCachedHeight =3780
-                                    ThemeFontIndex =1
-                                End
-                            End
                         End
                         Begin Page
                             Visible = NotDefault
@@ -797,6 +751,22 @@ Begin Form
                                     LayoutCachedTop =2775
                                     LayoutCachedWidth =11520
                                     LayoutCachedHeight =8115
+                                End
+                                Begin Label
+                                    BackStyle =1
+                                    OverlapFlags =255
+                                    Left =600
+                                    Top =2640
+                                    Width =10980
+                                    Height =5640
+                                    BackColor =12566463
+                                    Name ="lblCover"
+                                    LayoutCachedLeft =600
+                                    LayoutCachedTop =2640
+                                    LayoutCachedWidth =11580
+                                    LayoutCachedHeight =8280
+                                    BackThemeColorIndex =1
+                                    BackShade =75.0
                                 End
                             End
                         End
@@ -841,30 +811,6 @@ Begin Form
                     LayoutCachedTop =3555
                     LayoutCachedWidth =10710
                     LayoutCachedHeight =6450
-                End
-                Begin Label
-                    OverlapFlags =255
-                    TextAlign =1
-                    Left =2280
-                    Top =3000
-                    Width =2400
-                    Height =315
-                    FontSize =11
-                    FontWeight =700
-                    BorderColor =16777215
-                    Name ="lblField"
-                    Caption ="Field"
-                    FontName ="Calibri"
-                    GridlineColor =10921638
-                    LayoutCachedLeft =2280
-                    LayoutCachedTop =3000
-                    LayoutCachedWidth =4680
-                    LayoutCachedHeight =3315
-                    ThemeFontIndex =1
-                    BackThemeColorIndex =1
-                    BorderThemeColorIndex =1
-                    GridlineThemeColorIndex =1
-                    GridlineShade =65.0
                 End
             End
         End
@@ -940,7 +886,7 @@ On Error GoTo Err_Handler
     optGrpTabs.Value = 1 'Create
     
     Me.optGrpTabs_Click
-    Me!fsub_Filter.Visible = False
+    Me!fsub_Filter.visible = False
     
 Exit_Sub:
     DoCmd.SetWarnings True
@@ -1139,6 +1085,7 @@ End Sub
 '               BLC, 4/21/2015 - Adapted for NCPN Invasives Reports - Species Target List tool
 ' =================================
 Public Sub optGrpTabs_Click()
+On Error GoTo Err_Handler
 
 Dim strTab As String, strAction As String
 Dim lngTabColor As Long
@@ -1157,6 +1104,8 @@ Dim blnLeftInsetHide As Boolean
         Case 2 'View
             strTab = "tabView"
             lngTabColor = RGB(221, 217, 195) 'tan DDD9C3 RGB(221,217,195) 14539203
+            lblCover.backcolor = lngTabColor
+            lblCover.visible = True
         Case 3 'Reports
             strTab = "tabReports"
             strAction = "rpt"
@@ -1165,10 +1114,16 @@ Dim blnLeftInsetHide As Boolean
             strTab = "tabExport"
             strAction = "exp"
             lngTabColor = fxnHTMLConvert("#CCFFCC") 'lt green CCFFCC RGB(204,255,204) 13434828
+            'Application.LoadCustomUI "tabExportOptions", GetRibbonXML("Export")
+            'update instructions & make visible
+            PopulateInstructions Me!lblInstructions, "Export"
+            Me!lblInstructions.visible = True
         Case 5 'DB Admin
             strTab = "tabDbAdmin"
             lngTabColor = fxnHTMLConvert("#D8D8D8") 'lt gray D8D8D8 RGB(216,216,216) 14211288
             blnLeftInsetHide = True
+            lblCover.backcolor = lngTabColor
+            lblCover.visible = True
     End Select
     
     'identify action type (qry = query, rpt = report, exp = export, tbl = table)
@@ -1179,18 +1134,26 @@ Dim blnLeftInsetHide As Boolean
     End If
     
     'clear instructions
-    Me!lblInstructions.Caption = " "
+    If Not strTab = "tabExport" Then
+        Me!lblInstructions.Caption = " "
+    End If
     
     'uncolor label buttons
     buttonUnHighlight Me!lblInstructions
     
     'hide filter
-    Me.Controls.item("fsub_Filter").Visible = False
+    Me.Controls.item("fsub_Filter").visible = False
     
     'unhide left inset rectangle
-    Me.Controls.item("rctLeftInset").Visible = True
+    Me.Controls.item("rctLeftInset").visible = True
     If blnLeftInsetHide Then
-        Me.Controls.item("rctLeftInset").Visible = False
+        Me.Controls.item("rctLeftInset").visible = False
+    End If
+    
+    'keep tabs hidden
+    If strTab = "tabView" Or strTab = "tabDbAdmin" Then
+        MsgBox "Sorry, this tab is not active for this application.", vbInformation, "Tab Inactive"
+        GoTo Exit_Sub
     End If
     
     'hide all tabs & unhide current tab
@@ -1202,6 +1165,16 @@ Dim blnLeftInsetHide As Boolean
     'set tab color
     rctMainTabColor.backcolor = lngTabColor
     
+Exit_Sub:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - Initialize[mod_Init])"
+    End Select
+    Resume Exit_Sub
 End Sub
 
 ' =================================
@@ -1245,7 +1218,7 @@ Private Sub btnAddTgtArea_Click()
     'button actions
     ActionButton_Click btnAddTgtArea, "frm_Tgt_Areas"
     
-    fsub_Filter.Visible = False
+    fsub_Filter.visible = False
        
 End Sub
 
@@ -1287,16 +1260,24 @@ End Sub
 ' Source/date:  Bonnie Campbell, June 17, 2014
 ' Revisions:    BLC - 6/17/2014 - initial version
 '               BLC - 5/1/2015  - handled alternate fsub_Filter subform control source forms
+'               BLC - 5/12/2015  - adapted for unused tabs
+'               BLC - 5/13/2015 - fixed so "Select Year" is displayed initially for cbxYear
 ' ---------------------------------
 Public Sub OpenFilterSubform(ctrl As Control)
         
 On Error GoTo Err_Handler:
     
     'set breadcrumb hidden values
-    Dim strCrumbs As String
+    Dim strCrumbs As String, strField As String
+    strField = ""
+    'If ControlExists("lblField", fsub_Filter) Then
+        'strField = lblField.Caption & "|"
+    'End If
 
     strCrumbs = tglCreate.Caption & "|" & lblInsetTitle.Caption & "|" _
-                    & lblField.Caption & "|" & Replace(ctrl.name, "btn", "")
+                    & strField & Replace(ctrl.name, "btn", "")
+                    
+                    '& lblField.Caption & "|" & Replace(ctrl.name, "btn", "")
     
     'Prepare & open filter
     'DoCmd.OpenForm ("fsub_Filter"), , , , , , strCrumbs
@@ -1338,15 +1319,20 @@ On Error GoTo Err_Handler:
 
     'reveal filter subform & clear fields
     With fsub_Filter
-        .Visible = True
+        .visible = True
         Select Case fsub_Filter.SourceObject
             Case "fsub_Select_Park_Year"
                 !cbxPark.Value = ""
-                !cbxYear.Value = ""
+                !cbxYear.Value = "SEL"
             Case "fsub_Select_Tgt_Lists"
             Case "fsub_Select_Year"
         End Select
     End With
+    
+    'hide filter subform for unused tabs
+    If strAction = "DbAdmin" Or strAction = "View" Then
+        lblCover.visible = True
+    End If
     
     Me.Repaint
 
@@ -1372,23 +1358,7 @@ End Sub
 ' Unbound ctls:
 ' Subforms:     none
 ' =================================
-
-' ---------------------------------
-' SUB:     btnEditLog_Click
-' Description:  Opens the Edit Log for modifying data
-' Parameters:   -
-' Returns:      -
-' Throws:       -
-' References:   -
-' Source/date:  Bonnie Campbell, June 17, 2014
-' Revisions:    6/17/2014 - BLC - XX
-' ---------------------------------
-Private Sub btnEditLog_Click()
-
-    'button actions
-    ActionButton_Click btnEditLog, "frm_Edit_Log" 'reference form via main form
-    
-End Sub
+'  see instructions
 
 ' =================================
 '   Reports Tab Functionality
@@ -1456,40 +1426,6 @@ Private Sub btnTgtListAnnualSummary_Click()
     
 End Sub
 
-' ---------------------------------
-' SUB:     btnStage_Click
-' Description:  Opens the Bias report
-' Parameters:   -
-' Returns:      -
-' Throws:       -
-' References:   -
-' Source/date:  Bonnie Campbell, June 17, 2014
-' Revisions:    6/17/2014 - BLC - XX
-' ---------------------------------
-Private Sub btnStage_Click()
-
-    'button actions
-    ActionButton_Click btnStage
-    
-End Sub
-
-' ---------------------------------
-' SUB:     btnFlow_Click
-' Description:  Opens the Flow report
-' Parameters:   -
-' Returns:      -
-' Throws:       -
-' References:   -
-' Source/date:  Bonnie Campbell, June 17, 2014
-' Revisions:    6/17/2014 - BLC - XX
-' ---------------------------------
-Private Sub btnFlow_Click()
-
-    'button actions
-    ActionButton_Click btnFlow
-    
-End Sub
-
 ' =================================
 '   Export Tab Functionality
 ' =================================
@@ -1499,23 +1435,7 @@ End Sub
 ' Unbound ctls:
 ' Subforms:     none
 ' =================================
-
-' ---------------------------------
-' SUB:     btnUtahLab_Click
-' Description:  Opens the Utah Lab export
-' Parameters:   -
-' Returns:      -
-' Throws:       -
-' References:   -
-' Source/date:  Bonnie Campbell, June 17, 2014
-' Revisions:    6/17/2014 - BLC - XX
-' ---------------------------------
-Private Sub btnUtahLab_Click()
-
-    'button actions
-    ActionButton_Click btnUtahLab
-    
-End Sub
+'  see instructions
 
 ' =================================
 '   DbAdmin Tab Functionality
