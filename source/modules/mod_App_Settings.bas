@@ -70,3 +70,5 @@ Public Const CTRL_ADD_ENABLED As Long = lngLime
 Public Const CTRL_REMOVE_ENABLED As Long = lngLtOrange
 Public Const TEXT_ENABLED As Long = lngBlue
 Public Const TEXT_DISABLED As Long = lngGray
+
+Public Const PROGRESS_BAR As Long = lngLime

@@ -10,22 +10,23 @@ Begin Report
     DatasheetGridlinesBehavior =3
     GridX =24
     GridY =24
-    Width =15480
+    Width =15264
     DatasheetFontHeight =11
     ItemSuffix =125
-    Right =15648
-    Bottom =8028
+    Top =984
+    Right =16176
+    Bottom =9000
     DatasheetGridlinesColor =14806254
-    Filter ="TgtYear=2017"
+    Filter ="TgtYear=2008"
     RecSrcDt = Begin
-        0xbdcb1e56bd91e440
+        0x1ce102e55493e440
     End
     RecordSource ="qry_Tgt_Species_List_Annual_Summary"
     Caption ="INVASIVE LIST"
     OnOpen ="[Event Procedure]"
     DatasheetFontName ="Calibri"
     PrtMip = Begin
-        0xa8000000630100001e0100006d01000000000000df3d0000ea01000001000000 ,
+        0xa8000000630100001e0100006d01000000000000a03b0000ea01000001000000 ,
         0x010000006801000000000000a10700000100000001000000
     End
     OnLoad ="[Event Procedure]"
@@ -126,7 +127,7 @@ Begin Report
                     TextAlign =3
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =10620
+                    Left =10380
                     Width =4680
                     Height =528
                     ColumnOrder =0
@@ -138,8 +139,8 @@ Begin Report
                     StatusBarText ="Park and year for list"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =10620
-                    LayoutCachedWidth =15300
+                    LayoutCachedLeft =10380
+                    LayoutCachedWidth =15060
                     LayoutCachedHeight =528
                     ForeTint =50.0
                 End
@@ -154,13 +155,13 @@ Begin Report
             Begin
                 Begin Rectangle
                     OldBorderStyle =0
-                    Width =15480
+                    Width =15264
                     Height =480
                     BackColor =15849926
                     BorderColor =10921638
                     Name ="rectPageHdr"
                     GridlineColor =10921638
-                    LayoutCachedWidth =15480
+                    LayoutCachedWidth =15264
                     LayoutCachedHeight =480
                     BackThemeColorIndex =2
                     BackTint =20.0
@@ -287,11 +288,11 @@ Begin Report
                 Begin Line
                     BorderWidth =2
                     Top =1320
-                    Width =15480
+                    Width =15264
                     Name ="lnHeader"
                     GridlineColor =10921638
                     LayoutCachedTop =1320
-                    LayoutCachedWidth =15480
+                    LayoutCachedWidth =15264
                     LayoutCachedHeight =1320
                 End
                 Begin TextBox
@@ -320,7 +321,7 @@ Begin Report
                     TextAlign =3
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =10320
+                    Left =10080
                     Top =60
                     Width =5040
                     Height =312
@@ -331,9 +332,9 @@ Begin Report
                     ControlSource ="=\"Page \" & [Page] & \" of \" & [Pages]"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =10320
+                    LayoutCachedLeft =10080
                     LayoutCachedTop =60
-                    LayoutCachedWidth =15360
+                    LayoutCachedWidth =15120
                     LayoutCachedHeight =372
                 End
                 Begin Label
@@ -541,7 +542,7 @@ Begin Report
                 Begin TextBox
                     OldBorderStyle =0
                     IMESentenceMode =3
-                    Width =15480
+                    Width =15264
                     Height =490
                     TabIndex =3
                     BorderColor =10921638
@@ -549,7 +550,7 @@ Begin Report
                     Name ="tbxDetail"
                     GridlineColor =10921638
 
-                    LayoutCachedWidth =15480
+                    LayoutCachedWidth =15264
                     LayoutCachedHeight =490
                 End
                 Begin TextBox
@@ -582,7 +583,7 @@ Begin Report
                     Top =24
                     Width =677
                     Height =432
-                    FontSize =9
+                    FontSize =7
                     TabIndex =12
                     BorderColor =10921638
                     ForeColor =4210752
@@ -626,7 +627,7 @@ Begin Report
                     Top =24
                     Width =677
                     Height =432
-                    FontSize =9
+                    FontSize =7
                     TabIndex =14
                     BorderColor =10921638
                     ForeColor =4210752
@@ -670,7 +671,7 @@ Begin Report
                     Top =24
                     Width =677
                     Height =432
-                    FontSize =9
+                    FontSize =7
                     TabIndex =15
                     BorderColor =10921638
                     ForeColor =4210752
@@ -714,7 +715,7 @@ Begin Report
                     Top =24
                     Width =677
                     Height =432
-                    FontSize =9
+                    FontSize =7
                     TabIndex =16
                     BorderColor =10921638
                     ForeColor =4210752
@@ -758,7 +759,7 @@ Begin Report
                     Top =24
                     Width =677
                     Height =432
-                    FontSize =9
+                    FontSize =7
                     TabIndex =17
                     BorderColor =10921638
                     ForeColor =4210752
@@ -802,7 +803,7 @@ Begin Report
                     Top =24
                     Width =677
                     Height =432
-                    FontSize =9
+                    FontSize =7
                     TabIndex =18
                     BorderColor =10921638
                     ForeColor =4210752
@@ -846,7 +847,7 @@ Begin Report
                     Top =24
                     Width =677
                     Height =432
-                    FontSize =9
+                    FontSize =7
                     TabIndex =19
                     BorderColor =10921638
                     ForeColor =4210752
@@ -890,7 +891,7 @@ Begin Report
                     Top =24
                     Width =677
                     Height =432
-                    FontSize =9
+                    FontSize =7
                     TabIndex =20
                     BorderColor =10921638
                     ForeColor =4210752
@@ -1358,10 +1359,10 @@ Begin Report
                 End
                 Begin Line
                     BorderWidth =2
-                    Width =15480
+                    Width =15264
                     Name ="lnPageFooter"
                     GridlineColor =10921638
-                    LayoutCachedWidth =15480
+                    LayoutCachedWidth =15264
                 End
                 Begin TextBox
                     DecimalPlaces =0
@@ -2012,6 +2013,8 @@ On Error GoTo Err_Handler
 
 'Dim ParkPriorities As Variant
 
+DoCmd.OpenForm "frm_ProgressBar", acNormal
+
     If Len(Me.OpenArgs) > 0 Then
         ' Bob Larsen, January 28, 2012
         ' https://social.msdn.microsoft.com/Forums/office/en-US/3e126484-112f-4854-a5c0-2e9ef48e02bc/how-to-change-recordsource-for-a-report-with-vba?forum=accessdev
@@ -2027,8 +2030,10 @@ On Error GoTo Err_Handler
         'set orderby
         Me.OrderBy = Me.OpenArgs
     End If
-    
-    
+    'sPercentage
+    Forms("frm_ProgressBar").Increment 20, "Preparing report..."
+    DoCmd.Close acForm, "frm_ProgressBar"
+
 Exit_Sub:
     Exit Sub
     

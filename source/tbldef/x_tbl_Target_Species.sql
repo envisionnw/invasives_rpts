@@ -1,4 +1,4 @@
-CREATE TABLE [tbl_Target_Species] (
+CREATE TABLE [x_tbl_Target_Species] (
   [Tgt_Species_ID] AUTOINCREMENT,
   [Master_Plant_Code_FK] VARCHAR (20),
   [Park_Code] VARCHAR (4),
@@ -7,5 +7,6 @@ CREATE TABLE [tbl_Target_Species] (
   [LU_Code] VARCHAR (20),
   [Priority] SHORT ,
   [Transect_Only] BYTE ,
-  [Target_Area_ID] SHORT 
+  [Target_Area_ID] SHORT ,
+  [Comments] VARCHAR (255)
 )
