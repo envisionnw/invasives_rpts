@@ -12,6 +12,113 @@ Option Explicit
 ' =================================
 
 ' ---------------------------------
+'  Ribbon
+' ---------------------------------
+' =================================
+' SUB:          GetRibbonXML
+' Description:  gets ribbon UI XML specified, if found
+' Assumes:      USysRibbon table exists
+' Parameters:   ribbon - name of the ribbon to retrieve, RibbonName in USysRibbon (string)
+' Returns:      XML of the specified ribbon
+' Throws:       none
+' References:   none
+' Source/date:  -
+' Revisions:    BLC, 5/10/2015 - initial version
+' =================================
+Public Function GetRibbonXML(strRibbon As String) As String
+On Error GoTo Err_Handler
+    
+    Dim rs As DAO.Recordset
+    Dim strSQL As String, strXML As String
+    
+    strSQL = "SELECT RibbonXML FROM USysRibbons WHERE RibbonName = '" & strRibbon & "';"
+    strXML = ""
+    
+    Set rs = CurrentDb.OpenRecordset(strSQL)
+    If Not (rs.BOF And rs.EOF) Then
+        strXML = rs!RibbonXML
+    End If
+    
+    GetRibbonXML = strXML
+Exit_Function:
+    Exit Function
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - GetRibbonXML[mod_UI])"
+    End Select
+    Resume Exit_Function
+End Function
+
+' =================================
+' SUB:          RibbonOnLoad
+' Description:  Callback function for ribbon customization
+' Parameters:   ribbon - office ribbon control (IRibbonUI object)
+' Returns:      -
+' Throws:       none
+' References:   none
+' Source/date:  Adapted from http://www.experts-exchange.com/Database/MS_Access/Q_28470268.html
+'               by Christian, 7/7/2014.
+' Revisions:    BLC, 5/17/2015 - initial version
+' =================================
+Public objRibbon  As IRibbonUI
+Public Sub RibbonOnLoad(ribbon As Office.IRibbonUI)
+On Error GoTo Err_Handler
+Dim prv_Ribbon As IRibbonUI
+
+    Set prv_Ribbon = ribbon
+
+Exit_Procedure:
+    Exit Sub
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - RibbonOnLoad[mod_UI])"
+    End Select
+    Resume Exit_Procedure
+End Sub
+
+' =================================
+' SUB:          GetRibbonVisibility
+' Description:
+' Parameters:   ctrl - office ribbon control (IRibbonControl object)
+'               visible - true (boolean)
+' Returns:      -
+' Throws:       none
+' References:   none
+' Source/date:  Adapted from http://www.access-programmers.co.uk/forums/showthread.php?t=246015
+'               by Mark K., 4/26/2013.
+' Revisions:    BLC, 5/10/2015 - initial version
+' =================================
+Public Sub GetRibbonVisibility(ctrl As Office.IRibbonControl, ByRef visible)
+On Error GoTo Err_Handler
+
+    Select Case ctrl.Id
+        Case "tabExportOptions"
+            visible = True
+            TempVars.Add "ribbon", True
+        Case Else
+            visible = False
+            TempVars.Add "ribbon", False
+    End Select
+    
+Exit_Procedure:
+    Exit Sub
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - GetRibbonVisibility[mod_UI])"
+    End Select
+    Resume Exit_Procedure
+End Sub
+
+' ---------------------------------
 '  Forms
 ' ---------------------------------
 
@@ -42,7 +149,6 @@ Err_Handler:
     End Select
     Resume Exit_Procedure
 End Sub
-
 
 ' =================================
 ' FUNCTION:     FormIsOpen
@@ -165,26 +271,86 @@ Err_Handler:
     Resume Exit_Function
 End Function
 
-' =================================
-' FUNCTION:     fxnHideObject
-' Description:  Changes the hidden property of an object to hide / show in the database window
-' Parameters:   strObjectName - name of the object (string)
-'               blnHide - True to hide, False to show (default True)
-'               varType - object type (default acTable)
-' Returns:      none
+' ---------------------------------
+' SUB:          repaintParentForm
+' Description:  Repaints the control's parent(or grandparent or great grandparent...) form
+' Parameters:   ctl - control whose parent form you're looking to repaint
+' Returns:      -
 ' Throws:       none
 ' References:   none
-' Source/date:  John R. Boetsch, 6/25/2009
-' Revisions:    JRB, 6/25/2009 - initial version
-'               BLC, 4/30/2015 - move from mod_Utilities to mod_UI
+' Source/date:  Bonnie Campbell August, 2014 - NCPN tools
+' Adapted:      -
+' Revisions:    BLC, 8/20/2014 - initial version
+'               BLC, 4/30/2015 - moved from mod_Common_UI to mod_UI
+' ---------------------------------
+Public Sub repaintParentForm(ctl As Control)
+On Error GoTo Err_Handler:
+Dim parentControl As Object
+        
+    Set parentControl = ctl.Parent
+    
+    Do Until parentControl Is Nothing
+      
+        If TypeName(parentControl.name) = "String" Then
+            'form? -> refresh the display
+            If getAccessObjectType(parentControl.name) = -32768 Then
+                parentControl.Repaint
+                Exit Do
+            End If
+            Set parentControl = parentControl.Parent
+        Else
+            'form? -> refresh the display
+            If CurrentProject.AllForms(parentControl.name).IsLoaded Then
+                parentControl.Repaint
+                Exit Do
+            End If
+        End If
+    Loop
+    
+Exit_Procedure:
+    Exit Sub
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - repaintParentForm[mod_UI])"
+    End Select
+    Resume Exit_Procedure
+End Sub
+
+' ---------------------------------
+'  Reports
+' ---------------------------------
+
 ' =================================
-Public Function fxnHideObject(strObjectName As String, _
-    Optional blnHide As Boolean = True, Optional varType As Variant = acTable)
+' FUNCTION:     ReportIsLoaded
+' Description:  Returns whether the specified report is loaded
+' Parameters:   strReportName - string for the name of the report to check
+' Returns:      True if the specified report is open, False if not
+' Throws:       none
+' References:   none
+' Source/date:  Bonnie Campbell - 5/17/2015 - for NCPN tools
+' Revisions:    BLC, 5/17/2015 - initial version
+' =================================
+Public Function ReportIsLoaded(ByVal strReportName As String) As Boolean
+On Error GoTo Err_Handler
+ 
+    ' Possible states returned by SysCmd & CurrentView
+    Const cObjStateClosed = 0
+    Const cDesignView = 0
+    Const cPrintView = 5
+    Const cReportView = 6
+    Const cLayoutView = 7
 
-    On Error GoTo Err_Handler
-
-    SetHiddenAttribute varType, strObjectName, blnHide
-
+    ' check current state - not open or nonexistent, design, print, layout, or report view
+    If SysCmd(acSysCmdGetObjectState, acReport, strReportName) <> cObjStateClosed Then
+        ' check current view, return True if open and not in design view
+        If Reports(strReportName).CurrentView <> cDesignView Then
+            ReportIsLoaded = True
+        End If
+    End If
+    
 Exit_Function:
     Exit Function
 
@@ -192,11 +358,14 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnHideObject[mod_UI])"
+            "Error encountered (#" & Err.Number & " - ReportIsLoaded[mod_UI])"
     End Select
     Resume Exit_Function
 End Function
 
+' ---------------------------------
+'  Tabs
+' ---------------------------------
 
 ' =================================
 ' SUB:          tabPageUnhide
@@ -235,6 +404,78 @@ Err_Handler:
     End Select
     Resume Exit_Procedure
 End Sub
+
+' ---------------------------------
+'  Controls
+' ---------------------------------
+
+' =================================
+' FUNCTION:     fxnHideObject
+' Description:  Changes the hidden property of an object to hide / show in the database window
+' Parameters:   strObjectName - name of the object (string)
+'               blnHide - True to hide, False to show (default True)
+'               varType - object type (default acTable)
+' Returns:      none
+' Throws:       none
+' References:   none
+' Source/date:  John R. Boetsch, 6/25/2009
+' Revisions:    JRB, 6/25/2009 - initial version
+'               BLC, 4/30/2015 - move from mod_Utilities to mod_UI
+' =================================
+Public Function fxnHideObject(strObjectName As String, _
+    Optional blnHide As Boolean = True, Optional varType As Variant = acTable)
+
+    On Error GoTo Err_Handler
+
+    SetHiddenAttribute varType, strObjectName, blnHide
+
+Exit_Function:
+    Exit Function
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - fxnHideObject[mod_UI])"
+    End Select
+    Resume Exit_Function
+End Function
+
+' =================================
+' FUNCTION:     ControlExists
+' Description:  determines if a control exists in a form
+' Parameters:   ctlName - control to check for (string)
+'               frm - form to check on (form)
+' Returns:      boolean - true if control exists, false if not
+' Throws:       none
+' References:   none
+' Source/date:  Adapted from http://www.tek-tips.com/viewthread.cfm?qid=1029435
+'               by VBslammer, 3/22/2005.
+' Revisions:    BLC, 5/12/2015 - initial version
+' =================================
+Function ControlExists(ByRef ctlName As String, ByRef frm As Form) As Boolean
+On Error GoTo Err_Handler
+  Dim ctl As Control
+  
+  For Each ctl In frm.Controls
+    If ctl.name = ctlName Then
+      ControlExists = True
+      Exit For
+    End If
+  Next ctl
+  
+
+Exit_Function:
+    Exit Function
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - ControlExists[mod_UI])"
+    End Select
+    Resume Exit_Function
+End Function
 
 ' ---------------------------------
 ' SUB:          buttonHighlight
@@ -358,6 +599,10 @@ Err_Handler:
     End Select
     Resume Exit_Procedure
 End Sub
+
+' ---------------------------------
+'  Text
+' ---------------------------------
 
 ' =================================
 ' FUNCTION:     fxnCrumbsToArray
@@ -492,179 +737,3 @@ Err_Handler:
     End Select
     Resume Exit_Procedure
 End Sub
-
-' ---------------------------------
-' SUB:          repaintParentForm
-' Description:  Repaints the control's parent(or grandparent or great grandparent...) form
-' Parameters:   ctl - control whose parent form you're looking to repaint
-' Returns:      -
-' Throws:       none
-' References:   none
-' Source/date:  Bonnie Campbell August, 2014 - NCPN tools
-' Adapted:      -
-' Revisions:    BLC, 8/20/2014 - initial version
-'               BLC, 4/30/2015 - moved from mod_Common_UI to mod_UI
-' ---------------------------------
-Public Sub repaintParentForm(ctl As Control)
-On Error GoTo Err_Handler:
-Dim parentControl As Object
-        
-    Set parentControl = ctl.Parent
-    
-    Do Until parentControl Is Nothing
-      
-        If TypeName(parentControl.name) = "String" Then
-            'form? -> refresh the display
-            If getAccessObjectType(parentControl.name) = -32768 Then
-                parentControl.Repaint
-                Exit Do
-            End If
-            Set parentControl = parentControl.Parent
-        Else
-            'form? -> refresh the display
-            If CurrentProject.AllForms(parentControl.name).IsLoaded Then
-                parentControl.Repaint
-                Exit Do
-            End If
-        End If
-    Loop
-    
-Exit_Procedure:
-    Exit Sub
-
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - findParentForm[mod_UI])"
-    End Select
-    Resume Exit_Procedure
-End Sub
-
-' =================================
-' SUB:          GetRibbonXML
-' Description:  gets ribbon UI XML specified, if found
-' Assumes:      USysRibbon table exists
-' Parameters:   ribbon - name of the ribbon to retrieve, RibbonName in USysRibbon (string)
-' Returns:      XML of the specified ribbon
-' Throws:       none
-' References:   none
-' Source/date:  -
-' Revisions:    BLC, 5/10/2015 - initial version
-' =================================
-Public Function GetRibbonXML(strRibbon As String) As String
-On Error GoTo Err_Handler
-    
-    Dim rs As DAO.Recordset
-    Dim strSQL As String, strXML As String
-    
-    strSQL = "SELECT RibbonXML FROM USysRibbons WHERE RibbonName = '" & strRibbon & "';"
-    strXML = ""
-    
-    Set rs = CurrentDb.OpenRecordset(strSQL)
-    If Not (rs.BOF And rs.EOF) Then
-        strXML = rs!RibbonXML
-    End If
-    
-    GetRibbonXML = strXML
-Exit_Function:
-    Exit Function
-
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - GetRibbonXML[mod_UI])"
-    End Select
-    Resume Exit_Function
-End Function
-
-' =================================
-' SUB:          GetRibbonVisibility
-' Description:
-' Parameters:   ctrl - office ribbon control (IRibbonControl object)
-'               visible - true (boolean)
-' Returns:      -
-' Throws:       none
-' References:   none
-' Source/date:  Adapted from http://www.access-programmers.co.uk/forums/showthread.php?t=246015
-'               by Mark K., 4/26/2013.
-' Revisions:    BLC, 5/10/2015 - initial version
-' =================================
-Public Sub GetRibbonVisibility(ctrl As Office.IRibbonControl, ByRef visible)
-On Error GoTo Err_Handler
-
-    Select Case ctrl.id
-        Case "tabExportOptions"
-            visible = True
-            TempVars.AddItem("ribbon") = True
-        Case Else
-            visible = False
-            TempVars.AddItem("ribbon") = False
-    End Select
-
-Exit_Procedure:
-    Exit Sub
-
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - GetRibbonVisibility[mod_UI])"
-    End Select
-    Resume Exit_Procedure
-End Sub
-
-' =================================
-' FUNCTION:     fxnHTMLConvert
-' Description:  converts HTML string value for color to RGB which can be used for control colors
-' Parameters:   strHTML - HTML color (make sure you include # otherwise the color won't match)
-' Returns:      HTML color as long
-' Throws:       none
-' References:   none
-' Source/date:  Adapted from http://www.access-programmers.co.uk/forums/showthread.php?t=193353
-'               by Steve R., 5/21/2010.
-'               Created 05/12/2014 blc; Last modified 05/12/2014 blc.
-' Revisions:    BLC, 5/12/2014 - initial version
-'               BLC, 4/30/2015 - moved from mod_Common_UI to mod_UI
-' =================================
-Public Function fxnHTMLConvert(strHTML As String) As Long
-    Rem converts a HTML color code number such as #D8B190 to an RGB value.
-    fxnHTMLConvert = RGB(CInt("&H" & Mid(strHTML, 2, 2)), CInt("&H" & Mid(strHTML, 4, 2)), CInt("&H" & Mid(strHTML, 6, 2)))
-End Function
-
-' =================================
-' FUNCTION:     ControlExists
-' Description:  determines if a control exists in a form
-' Parameters:   ctlName - control to check for (string)
-'               frm - form to check on (form)
-' Returns:      boolean - true if control exists, false if not
-' Throws:       none
-' References:   none
-' Source/date:  Adapted from http://www.tek-tips.com/viewthread.cfm?qid=1029435
-'               by VBslammer, 3/22/2005.
-' Revisions:    BLC, 5/12/2015 - initial version
-' =================================
-Function ControlExists(ByRef ctlName As String, ByRef frm As Form) As Boolean
-On Error GoTo Err_Handler
-  Dim ctl As Control
-  
-  For Each ctl In frm.Controls
-    If ctl.name = ctlName Then
-      ControlExists = True
-      Exit For
-    End If
-  Next ctl
-  
-
-Exit_Function:
-    Exit Function
-
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - ControlExists[mod_UI])"
-    End Select
-    Resume Exit_Function
-End Function
