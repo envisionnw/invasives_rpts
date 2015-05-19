@@ -26,7 +26,7 @@ Option Explicit
 ' ---------------------------------
 
 ' ---------------------------------
-' FUNCTION:     fxnUpdateQAResults
+' FUNCTION:     UpdateQAResults
 ' Description:  Updates the data validation results table
 '
 '   This function requires that the database contain tbl_QA_Results with the
@@ -74,7 +74,7 @@ Option Explicit
 '                   filter criteria)
 ' Returns:      none
 ' Throws:       none
-' References:   fxnChangeDelimiter
+' References:   ChangeDelimiter
 ' Source/date:  John R. Boetsch, 2006 February
 ' Revisions:    JRB, 3/9/2006 - added a line to handle nulls for query descriptions
 '               JRB, 5/9/2006 - added function call to clean the query expression string
@@ -210,12 +210,12 @@ Public Function UpdateQAResults(Optional blnUpdateAll As Boolean = True, _
                 strQDesc = " - none defined - "         ' Default in case of error
                 strQDesc = qdf.Properties("Description")    ' Query description
                 ' Clean up any double-quotes in the description and change to single quotes
-                strQDesc = fxnChangeDelimiter(strQDesc)
+                strQDesc = ChangeDelimiter(strQDesc)
                 strQExp = " - none defined - "          ' Default in case of error
                 strQExp = DLookup("Expression", "qsys_QA_query_expressions", "[Name]=""" & _
                     strQName & """")
                 ' Clean up any double-quotes in the expression and change to single quotes
-                strQExp = fxnChangeDelimiter(strQExp)
+                strQExp = ChangeDelimiter(strQExp)
 
                 If strQResult = "0" And strQType <> "3" Then
                     ' If the number of records is zero and the query type is not 'information'
@@ -293,7 +293,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnUpdateQAResults)"
+            "Error encountered (#" & Err.Number & " - UpdateQAResults[mod_QA])"
     End Select
     Resume Exit_Procedure
 

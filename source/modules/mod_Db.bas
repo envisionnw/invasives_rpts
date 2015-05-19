@@ -12,7 +12,7 @@ Option Explicit
 ' =================================
 
 ' =================================
-' FUNCTION:     fxnBEUpdates
+' FUNCTION:     BEUpdates
 ' Description:  Runs SQL statement updates from the systems table tsys_BE_Updates. Such
 '               updates are sometimes necessary when there is a remote copy of the back-end
 '               file that the developer cannot access, but which needs to be updated to
@@ -28,8 +28,9 @@ Option Explicit
 '                   (default), or just one where [Is_done]=False
 '               BLC, 4/30/2015  - moved to mod_Db framework module from mod_Custom_Functions
 '                                 added check for BOF & EOF to avoid Error #3021 no current record on rs.MoveLast when no records exist
+'               BLC, 5/18/2015 - renamed & removed fxn prefix
 ' =================================
-Public Function fxnBEUpdates(Optional ByVal bRunAll As Boolean = True)
+Public Function BEUpdates(Optional ByVal bRunAll As Boolean = True)
     On Error GoTo Err_Handler
 
     Dim db As DAO.Database
@@ -92,10 +93,10 @@ Err_Handler:
       Case 3061   ' Bad parameters for the SQL string
         MsgBox "Error #" & Err.Number & ":  SQL syntax error. Please notify the " & _
             "database administrator before using this application.", vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnBEUpdates[mod_Db])"
+            "Error encountered (#" & Err.Number & " - BEUpdates[mod_Db])"
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnBEUpdates[mod_Db])"
+            "Error encountered (#" & Err.Number & " - BEUpdates[mod_Db])"
     End Select
     Resume Exit_Procedure
 
@@ -142,7 +143,7 @@ Err_Handler:
 End Function
 
 ' =================================
-' FUNCTION:     fxnTableExists
+' FUNCTION:     TableExists
 ' Description:  Returns whether the specified table exists in the current database collection
 ' Parameters:   strTableName - string for the name of the table to check
 ' Returns:      True if the specified table exists in the master systems table, or False
@@ -151,11 +152,12 @@ End Function
 ' Source/date:  John R. Boetsch, 6/29/2009
 ' Revisions:    JRB, 6/29/2009 - initial version
 '               BLC, 4/30/2015 - moved from mod_Utilities
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
-Public Function fxnTableExists(ByVal strTableName As String) As Boolean
+Public Function TableExists(ByVal strTableName As String) As Boolean
     On Error GoTo Err_Handler
 
-    fxnTableExists = DCount("*", "MSysObjects", "(([Type] In (1,4,6)) AND ([Name]=""" & _
+    TableExists = DCount("*", "MSysObjects", "(([Type] In (1,4,6)) AND ([Name]=""" & _
         strTableName & """))")
 
 Exit_Function:
@@ -165,7 +167,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnTableExists[mod_Db])"
+            "Error encountered (#" & Err.Number & " - TableExists[mod_Db])"
     End Select
     Resume Exit_Function
 

@@ -630,7 +630,7 @@ Err_Handler:
 End Sub
 
 ' =================================
-' FUNCTION:     fxnUserName
+' FUNCTION:     UserName
 ' Description:  Returns the current user name
 ' Parameters:   none
 ' Returns:      string of the user login
@@ -639,12 +639,13 @@ End Sub
 ' Source/date:  John R. Boetsch, 12/31/2009
 ' Revisions:    JRB, 12/31/2009 - initial version
 '               BLC, 4/30/2015  - moved from mod_Utilities
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
-Public Function fxnUserName() As String
+Public Function UserName() As String
     On Error GoTo Err_Handler
 
-    fxnUserName = "Unknown"
-    fxnUserName = Environ("Username")
+    UserName = "Unknown"
+    UserName = Environ("Username")
 
 Exit_Procedure:
     Exit Function
@@ -653,7 +654,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnUserName[mod_User])"
+            "Error encountered (#" & Err.Number & " - UserName[mod_User])"
     End Select
     Resume Exit_Procedure
 

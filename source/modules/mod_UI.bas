@@ -192,7 +192,7 @@ Err_Handler:
 End Function
 
 ' =================================
-' FUNCTION:     fxnSwitchboardIsOpen
+' FUNCTION:     SwitchboardIsOpen
 ' Description:  Indicates whether or not the switchboard form is open in form view
 ' Parameters:   none
 ' Returns:      True or False
@@ -201,11 +201,12 @@ End Function
 ' Source/date:  John R. Boetsch, 5/5/2006
 ' Revisions:    JRB, 5/5/2006 - initial version
 '               BLC, 4/30/2015  - moved to mod_Db framework module from mod_Custom_Functions
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
-Public Function fxnSwitchboardIsOpen() As Boolean
+Public Function SwitchboardIsOpen() As Boolean
     On Error GoTo Err_Handler
 
-    fxnSwitchboardIsOpen = False    ' Default in case of error
+    SwitchboardIsOpen = False    ' Default in case of error
 
     Dim strSwitchboardName As String
 
@@ -214,7 +215,7 @@ Public Function fxnSwitchboardIsOpen() As Boolean
     'check for switchboard in all open forms ( AllForms.IsLoaded() )
     If CurrentProject.AllForms(strSwitchboardName).IsLoaded = True Then
         If CurrentProject.AllForms(strSwitchboardName).CurrentView = 1 Then
-            fxnSwitchboardIsOpen = True
+            SwitchboardIsOpen = True
         End If
     End If
 
@@ -225,13 +226,13 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnSwitchboardIsOpen[mod_UI])"
+            "Error encountered (#" & Err.Number & " - SwitchboardIsOpen[mod_UI])"
     End Select
     Resume Exit_Function
 End Function
 
 ' =================================
-' FUNCTION:     fxnFormIsLoaded
+' FUNCTION:     FormIsLoaded
 ' Description:  Returns whether the specified form is loaded in Form or Datasheet view
 ' Parameters:   strFormName - string for the name of the form to check
 ' Returns:      True if the specified form is open in Form view or Datasheet view
@@ -240,22 +241,23 @@ End Function
 ' Source/date:  From Northwind sample database, date unknown
 ' Revisions:    John R. Boetsch, 6/17/2009 - error trapping, documentation
 '               BLC, 4/30/2015 - moved from mod_Utilities to mod_UI
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
-Public Function fxnFormIsLoaded(ByVal strFormName As String) As Integer
+Public Function FormIsLoaded(ByVal strFormName As String) As Integer
     On Error GoTo Err_Handler
  
     ' These variables are used to test the return values of the SysCmd function
     '  and the CurrentView property of the requested form.
-    Const conObjStateClosed = 0
-    Const conDesignView = 0
+    Const cObjStateClosed = 0
+    Const cDesignView = 0
 
     ' Use the SysCmd function to check the current state of the requested form.
     '  Possible states: not open or nonexistent, open, new, or changed but not saved
-    If SysCmd(acSysCmdGetObjectState, acForm, strFormName) <> conObjStateClosed Then
+    If SysCmd(acSysCmdGetObjectState, acForm, strFormName) <> cObjStateClosed Then
         ' Checks for the current view of the requested form, assuming the previous statement
         '   found it to be open ... return True if open and not in design view
-        If Forms(strFormName).CurrentView <> conDesignView Then
-            fxnFormIsLoaded = True
+        If Forms(strFormName).CurrentView <> cDesignView Then
+            FormIsLoaded = True
         End If
     End If
     
@@ -266,7 +268,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnFormIsLoaded[mod_UI])"
+            "Error encountered (#" & Err.Number & " - FormIsLoaded[mod_UI])"
     End Select
     Resume Exit_Function
 End Function
@@ -410,7 +412,7 @@ End Sub
 ' ---------------------------------
 
 ' =================================
-' FUNCTION:     fxnHideObject
+' FUNCTION:     HideObject
 ' Description:  Changes the hidden property of an object to hide / show in the database window
 ' Parameters:   strObjectName - name of the object (string)
 '               blnHide - True to hide, False to show (default True)
@@ -421,8 +423,9 @@ End Sub
 ' Source/date:  John R. Boetsch, 6/25/2009
 ' Revisions:    JRB, 6/25/2009 - initial version
 '               BLC, 4/30/2015 - move from mod_Utilities to mod_UI
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
-Public Function fxnHideObject(strObjectName As String, _
+Public Function HideObject(strObjectName As String, _
     Optional blnHide As Boolean = True, Optional varType As Variant = acTable)
 
     On Error GoTo Err_Handler
@@ -436,7 +439,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnHideObject[mod_UI])"
+            "Error encountered (#" & Err.Number & " - HideObject[mod_UI])"
     End Select
     Resume Exit_Function
 End Function
@@ -527,7 +530,7 @@ On Error GoTo Err_Handler:
            
         'change button background to given color
         .backstyle = 1 'Normal - required to change color
-        .backcolor = fxnHTMLConvert("#" & strColor)
+        .backcolor = HTMLConvert("#" & strColor)
         .SpecialEffect = intEffect
     End With
     
@@ -605,7 +608,7 @@ End Sub
 ' ---------------------------------
 
 ' =================================
-' FUNCTION:     fxnCrumbsToArray
+' FUNCTION:     CrumbsToArray
 ' Description:  Prepares breadcrumb elements from Me.OpenArgs values
 ' Parameters:   strCrumbs - Me.OpenArgs values from form open subs
 '               delimiter - delimiter used for separating string values, default = | (pipe)
@@ -616,8 +619,9 @@ End Sub
 '               Created 06/12/2014 blc; Last modified 06/12/2014 blc.
 ' Revisions:    BLC, 6/12/2014 - initial version
 '               BLC, 4/30/2015 - moved from mod_Common_UI to mod_UI
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
-Public Function fxnCrumbsToArray(strCrumbs As String, Optional delimiter = "|")
+Public Function CrumbsToArray(strCrumbs As String, Optional delimiter = "|")
 
 On Error GoTo Err_Handler
 
@@ -630,7 +634,7 @@ On Error GoTo Err_Handler
         
     End If
 
-    fxnCrumbsToArray = aryCrumbs
+    CrumbsToArray = aryCrumbs
     
 Exit_Procedure:
     Exit Function
@@ -639,7 +643,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnCrumbsToArray[mod_UI])"
+            "Error encountered (#" & Err.Number & " - CrumbsToArray[mod_UI])"
     End Select
     Resume Exit_Procedure
 End Function

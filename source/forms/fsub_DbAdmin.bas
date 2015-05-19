@@ -19,10 +19,10 @@ Begin Form
     Width =10320
     DatasheetFontHeight =9
     ItemSuffix =27
-    Left =1845
-    Top =4395
-    Right =12645
-    Bottom =9735
+    Left =3804
+    Top =3144
+    Right =14604
+    Bottom =8484
     DatasheetGridlinesColor =15062992
     RecSrcDt = Begin
         0x3438fc614e6fe440
@@ -207,10 +207,10 @@ Begin Form
                             LayoutCachedTop =435
                             LayoutCachedWidth =3150
                             LayoutCachedHeight =4185
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Begin
                                 Begin Rectangle
                                     OverlapFlags =223
@@ -254,10 +254,10 @@ Begin Form
                                     BorderThemeColorIndex =-1
                                     BorderShade =100.0
                                     ThemeFontIndex =-1
-                                    WebImagePaddingLeft =2
-                                    WebImagePaddingTop =2
-                                    WebImagePaddingRight =1
-                                    WebImagePaddingBottom =1
+                                    WebImagePaddingLeft =3
+                                    WebImagePaddingTop =3
+                                    WebImagePaddingRight =2
+                                    WebImagePaddingBottom =2
                                     Overlaps =1
                                 End
                                 Begin Label
@@ -798,10 +798,10 @@ Begin Form
                             LayoutCachedTop =435
                             LayoutCachedWidth =3150
                             LayoutCachedHeight =4185
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Begin
                                 Begin ComboBox
                                     LimitToList = NotDefault
@@ -1081,10 +1081,10 @@ Begin Form
                                     BorderThemeColorIndex =-1
                                     BorderShade =100.0
                                     ThemeFontIndex =-1
-                                    WebImagePaddingLeft =2
-                                    WebImagePaddingTop =2
-                                    WebImagePaddingRight =1
-                                    WebImagePaddingBottom =1
+                                    WebImagePaddingLeft =3
+                                    WebImagePaddingTop =3
+                                    WebImagePaddingRight =2
+                                    WebImagePaddingBottom =2
                                     Overlaps =1
                                 End
                                 Begin CommandButton
@@ -1113,10 +1113,10 @@ Begin Form
                                     BorderThemeColorIndex =-1
                                     BorderShade =100.0
                                     ThemeFontIndex =-1
-                                    WebImagePaddingLeft =2
-                                    WebImagePaddingTop =2
-                                    WebImagePaddingRight =1
-                                    WebImagePaddingBottom =1
+                                    WebImagePaddingLeft =3
+                                    WebImagePaddingTop =3
+                                    WebImagePaddingRight =2
+                                    WebImagePaddingBottom =2
                                     Overlaps =1
                                 End
                             End
@@ -1135,10 +1135,10 @@ Begin Form
                             LayoutCachedTop =435
                             LayoutCachedWidth =3150
                             LayoutCachedHeight =4185
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Begin
                                 Begin CheckBox
                                     SpecialEffect =2
@@ -1347,10 +1347,10 @@ Begin Form
                                     BorderThemeColorIndex =-1
                                     BorderShade =100.0
                                     ThemeFontIndex =-1
-                                    WebImagePaddingLeft =2
-                                    WebImagePaddingTop =2
-                                    WebImagePaddingRight =1
-                                    WebImagePaddingBottom =1
+                                    WebImagePaddingLeft =3
+                                    WebImagePaddingTop =3
+                                    WebImagePaddingRight =2
+                                    WebImagePaddingBottom =2
                                     Overlaps =1
                                 End
                                 Begin CommandButton
@@ -1380,10 +1380,10 @@ Begin Form
                                     BorderThemeColorIndex =-1
                                     BorderShade =100.0
                                     ThemeFontIndex =-1
-                                    WebImagePaddingLeft =2
-                                    WebImagePaddingTop =2
-                                    WebImagePaddingRight =1
-                                    WebImagePaddingBottom =1
+                                    WebImagePaddingLeft =3
+                                    WebImagePaddingTop =3
+                                    WebImagePaddingRight =2
+                                    WebImagePaddingBottom =2
                                     Overlaps =1
                                 End
                             End
@@ -1419,10 +1419,10 @@ Begin Form
                     BorderThemeColorIndex =-1
                     BorderShade =100.0
                     ThemeFontIndex =-1
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -1452,10 +1452,10 @@ Begin Form
                     BorderThemeColorIndex =-1
                     BorderShade =100.0
                     ThemeFontIndex =-1
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -1485,10 +1485,10 @@ Begin Form
                     BorderThemeColorIndex =-1
                     BorderShade =100.0
                     ThemeFontIndex =-1
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -1520,10 +1520,10 @@ Begin Form
                     BorderThemeColorIndex =-1
                     BorderShade =100.0
                     ThemeFontIndex =-1
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -1555,10 +1555,10 @@ Begin Form
                     BorderThemeColorIndex =-1
                     BorderShade =100.0
                     ThemeFontIndex =-1
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -1590,10 +1590,10 @@ Begin Form
                     BorderThemeColorIndex =-1
                     BorderShade =100.0
                     ThemeFontIndex =-1
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin Line
@@ -1639,10 +1639,10 @@ Begin Form
                     BorderThemeColorIndex =-1
                     BorderShade =100.0
                     ThemeFontIndex =-1
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin Label
@@ -1747,10 +1747,10 @@ Begin Form
                     BorderThemeColorIndex =-1
                     BorderShade =100.0
                     ThemeFontIndex =-1
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -1782,10 +1782,10 @@ Begin Form
                     BorderThemeColorIndex =-1
                     BorderShade =100.0
                     ThemeFontIndex =-1
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -1815,10 +1815,10 @@ Begin Form
                     BorderThemeColorIndex =-1
                     BorderShade =100.0
                     ThemeFontIndex =-1
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -1848,10 +1848,10 @@ Begin Form
                     BorderThemeColorIndex =-1
                     BorderShade =100.0
                     ThemeFontIndex =-1
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -1881,10 +1881,10 @@ Begin Form
                     BorderThemeColorIndex =-1
                     BorderShade =100.0
                     ThemeFontIndex =-1
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin Line
@@ -1958,10 +1958,10 @@ Begin Form
                     BorderThemeColorIndex =-1
                     BorderShade =100.0
                     ThemeFontIndex =-1
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -1993,10 +1993,10 @@ Begin Form
                     BorderThemeColorIndex =-1
                     BorderShade =100.0
                     ThemeFontIndex =-1
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -2026,10 +2026,10 @@ Begin Form
                     BorderThemeColorIndex =-1
                     BorderShade =100.0
                     ThemeFontIndex =-1
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -2062,10 +2062,10 @@ Begin Form
                     BorderThemeColorIndex =-1
                     BorderShade =100.0
                     ThemeFontIndex =-1
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -2097,10 +2097,10 @@ Begin Form
                     BorderThemeColorIndex =-1
                     BorderShade =100.0
                     ThemeFontIndex =-1
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -2132,10 +2132,10 @@ Begin Form
                     BorderThemeColorIndex =-1
                     BorderShade =100.0
                     ThemeFontIndex =-1
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin Label
@@ -2192,10 +2192,10 @@ Begin Form
                     BorderThemeColorIndex =-1
                     BorderShade =100.0
                     ThemeFontIndex =-1
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -2227,10 +2227,10 @@ Begin Form
                     BorderThemeColorIndex =-1
                     BorderShade =100.0
                     ThemeFontIndex =-1
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                 End
                 Begin Label
                     OverlapFlags =85
@@ -2452,7 +2452,7 @@ Private Sub cmdBackup_Click()
             vbExclamation, "No backup made"
         GoTo Exit_Procedure
     Else
-        Call fxnMakeBackup
+        Call MakeBackup
     End If
 
 Exit_Procedure:
@@ -2686,7 +2686,7 @@ Private Sub cmdEnter_Click()
     If TempVars.item("Connected") Then
         ' Prompt to make a backup, depending on application settings
         '   Note:  only relevant for Access back-end files
-        If Me.chkBackupOnStartup And TempVars.item("HasAccessBE") Then fxnMakeBackup
+        If Me.chkBackupOnStartup And TempVars.item("HasAccessBE") Then MakeBackup
         DoCmd.OpenForm "frm_Set_Defaults", , , , , , 1
     Else
         MsgBox "The back-end connections must be fixed first", vbOKOnly, _
@@ -3077,7 +3077,7 @@ Private Sub cmdTaskListRpt_Click()
                 CStr(Format(Now(), "yyyymmdd")) & ".snp"
         End If
         ' Open the save file dialog and update to the actual name given by the user
-        strSaveFile = fxnSaveFile(strInitFile, "Snapshot Viewer (*.snp)", "*.snp")
+        strSaveFile = SaveFile(strInitFile, "Snapshot Viewer (*.snp)", "*.snp")
         DoCmd.OutputTo acOutputReport, strRptName, acFormatSNP, strSaveFile, True
         MsgBox "File saved to:" & vbCrLf & vbCrLf & strSaveFile
     End If
@@ -3184,7 +3184,7 @@ Private Sub cmdSpeciesListRpt_Click()
                 CStr(Format(Now(), "yyyymmdd")) & ".snp"
         End If
         ' Open the save file dialog and update to the actual name given by the user
-        strSaveFile = fxnSaveFile(strInitFile, "Snapshot Viewer (*.snp)", "*.snp")
+        strSaveFile = SaveFile(strInitFile, "Snapshot Viewer (*.snp)", "*.snp")
         DoCmd.OutputTo acOutputReport, strRptName, acFormatSNP, strSaveFile, True
         MsgBox "File saved to:" & vbCrLf & vbCrLf & strSaveFile
     End If
@@ -3286,7 +3286,7 @@ Private Sub cmdNavReport_Click()
                 CStr(Format(Now(), "yyyymmdd")) & ".snp"
         End If
         ' Open the save file dialog and update to the actual name given by the user
-        strSaveFile = fxnSaveFile(strInitFile, "Snapshot Viewer (*.snp)", "*.snp")
+        strSaveFile = SaveFile(strInitFile, "Snapshot Viewer (*.snp)", "*.snp")
         DoCmd.OutputTo acOutputReport, strRptName, acFormatSNP, strSaveFile, True
         MsgBox "File saved to:" & vbCrLf & vbCrLf & strSaveFile
     End If
@@ -3373,7 +3373,7 @@ Private Sub cmdQAReport_Click()
                 CStr(Format(Now(), "yyyymmdd_hhnnss")) & ".snp"
         End If
         ' Open the save file dialog and update to the actual name given by the user
-        strSaveFile = fxnSaveFile(strInitFile, "Snapshot Viewer (*.snp)", "*.snp")
+        strSaveFile = SaveFile(strInitFile, "Snapshot Viewer (*.snp)", "*.snp")
         DoCmd.OutputTo acOutputReport, strRptName, acFormatSNP, strSaveFile, True
         MsgBox "File saved to:" & vbCrLf & vbCrLf & strSaveFile
     End If
@@ -3456,7 +3456,7 @@ Private Sub cmdNavCoords_Click()
         strInitFile = Application.CurrentProject.Path & "\" & _
             strQryName & "_" & CStr(Format(Now(), "yyyymmdd")) & ".xls"
         ' Open the save file dialog and update to the actual name given by the user
-        strSaveFile = fxnSaveFile(strInitFile, "Microsoft Excel (*.xls)", "*.xls")
+        strSaveFile = SaveFile(strInitFile, "Microsoft Excel (*.xls)", "*.xls")
         DoCmd.OutputTo acOutputQuery, strQryName, acFormatXLS, strSaveFile, True
         MsgBox "File saved to:" & vbCrLf & vbCrLf & strSaveFile
     End If

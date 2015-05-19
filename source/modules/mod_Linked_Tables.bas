@@ -16,7 +16,7 @@ Option Explicit
 ' =================================
 
 ' =================================
-' FUNCTION:     fxnCheckLink
+' FUNCTION:     CheckLink
 ' Description:  Checks the status of the link for the specified table
 ' Parameters:   strTableName - name of the table to check
 ' Returns:      True (valid link) or False
@@ -26,8 +26,9 @@ Option Explicit
 '               Copyright 1997.  All Rights Reserved
 '               Created 09/13/94 pel; Last modified 07/10/96 pel.
 ' Revisions:    John R. Boetsch, May 17, 2006 - updated documentation, added error traps
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
-Public Function fxnCheckLink(strTableName As String) As Boolean
+Public Function CheckLink(strTableName As String) As Boolean
     On Error GoTo Err_Handler
 
     Dim varRet As Variant
@@ -37,9 +38,9 @@ Public Function fxnCheckLink(strTableName As String) As Boolean
     ' the first field in the table, the link must be bad.
     varRet = CurrentDb.tabledefs(strTableName).Fields(0).name
     If Err <> 0 Then
-        fxnCheckLink = False
+        CheckLink = False
     Else
-        fxnCheckLink = True
+        CheckLink = True
     End If
     
 Exit_Procedure:
@@ -49,23 +50,24 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnCheckLink)"
+            "Error encountered (#" & Err.Number & " - CheckLink[mod_Linked_Tables])"
     End Select
     Resume Exit_Procedure
 
 End Function
 
 ' =================================
-' FUNCTION:     fxnIsODBC
+' FUNCTION:     IsODBC
 ' Description:  Determine whether the input table is connected by ODBC
 ' Parameters:   strTableName - string for the table name
 ' Returns:      True (if table object in collection and ODBC) or False
 ' Throws:       none
 ' References:   none
 ' Source/date:  John R. Boetsch, 6/24/2009
-' Revisions:    <name, date, desc - add lines as you go>
+' Revisions:    JRB, 6/24/2009 - initial version
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
-Public Function fxnIsODBC(strTableName As String) As Boolean
+Public Function IsODBC(strTableName As String) As Boolean
     On Error GoTo Err_Handler
 
     Dim strCriteria As String
@@ -73,10 +75,10 @@ Public Function fxnIsODBC(strTableName As String) As Boolean
     strCriteria = "(([Name])=""" & strTableName & """) AND (([Type]) In (1, 4, 6))"
     If DLookup("Type", "MSysObjects", strCriteria) = 4 Then
         ' ODBC connection
-        fxnIsODBC = True
+        IsODBC = True
     Else
         ' Native table or linked Access table
-        fxnIsODBC = False
+        IsODBC = False
     End If
 
 Exit_Procedure:
@@ -86,30 +88,31 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnIsODBC)"
+            "Error encountered (#" & Err.Number & " - IsODBC[mod_Linked_Tables])"
     End Select
     Resume Exit_Procedure
 
 End Function
 
 ' =================================
-' FUNCTION:     fxnLinkedDatabase
+' FUNCTION:     LinkedDatabase
 ' Description:  Returns the database file path (Access) or the database name (ODBC) for
 '                   a linked table name
 ' Parameters:   strTableName - the name of the linked table
 ' Returns:      database name for the linked table, or empty string ("") if none
 ' Throws:       none
-' References:   fxnParseConnectionStr
+' References:   ParseConnectionStr
 ' Source/date:  John R. Boetsch, 6/24/2009
-' Revisions:    <name, date, desc - add lines as you go>
+' Revisions:    JRB, 6/24/2009 - initial version
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
-Public Function fxnLinkedDatabase(ByVal strTableName As String) As String
+Public Function LinkedDatabase(ByVal strTableName As String) As String
     On Error GoTo Err_Handler
 
     Dim strTemp As String
 
-    strTemp = fxnParseConnectionStr(CurrentDb.tabledefs(strTableName).Connect)
-    fxnLinkedDatabase = strTemp
+    strTemp = ParseConnectionStr(CurrentDb.tabledefs(strTableName).Connect)
+    LinkedDatabase = strTemp
 
 Exit_Procedure:
     Exit Function
@@ -118,17 +121,17 @@ Err_Handler:
     Select Case Err.Number
       Case 3265
         MsgBox "The table '" & strTableName & "' was not found in the front-end.", _
-            vbCritical, "Error encountered (#" & Err.Number & " - fxnCheckLink)"
+            vbCritical, "Error encountered (#" & Err.Number & " - LinkedDatabase[mod_Linked_Tables])"
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnLinkedDatabase)"
+            "Error encountered (#" & Err.Number & " - LinkedDatabase[mod_Linked_Tables])"
     End Select
     Resume Exit_Procedure
 
 End Function
 
 ' =================================
-' FUNCTION:     fxnParseConnectionStr
+' FUNCTION:     ParseConnectionStr
 ' Description:  Return the specified portion of the linked table connection string
 ' Parameters:   strConnStr - linked table connection string
 '               strComponent - optional string to specify the portion to return
@@ -140,9 +143,10 @@ End Function
 ' Throws:       none
 ' References:   none
 ' Source/date:  John R. Boetsch, 6/24/2009
-' Revisions:    <name, date, desc - add lines as you go>
+' Revisions:    JRB, 6/24/2009 - initial version
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
-Public Function fxnParseConnectionStr(strConnStr As String, _
+Public Function ParseConnectionStr(strConnStr As String, _
     Optional strComponent As String = "DATABASE=", _
     Optional strDelimiter As String = ";", _
     Optional blnIsFound As Boolean = False) As String
@@ -166,10 +170,10 @@ Public Function fxnParseConnectionStr(strConnStr As String, _
             ' There is a delimiter following the desired string
             varStartPos = varStartPos + Len(strComponent)
             varLength = varEndPos - varStartPos
-            fxnParseConnectionStr = Mid(strConnStr, varStartPos, varLength)
+            ParseConnectionStr = Mid(strConnStr, varStartPos, varLength)
         Else
             varLength = Len(strConnStr) - varStartPos + 1 - Len(strComponent)
-            fxnParseConnectionStr = Right(strConnStr, varLength)
+            ParseConnectionStr = Right(strConnStr, varLength)
         End If
     End If
     
@@ -180,14 +184,14 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnParseConnectionStr)"
+            "Error encountered (#" & Err.Number & " - ParseConnectionStr[mod_Linked_Tables])"
     End Select
     Resume Exit_Procedure
 
 End Function
 
 ' =================================
-' FUNCTION:     fxnTestODBCConnection
+' FUNCTION:     TestODBCConnection
 ' Description:  Uses a pass-through query to test an ODBC connection and to trap ODBC errors
 ' Parameters:   strTableName - the name of the linked table
 '               strConnStr - optional linked table connection string
@@ -195,18 +199,19 @@ End Function
 '               blnRetErrMsg - optional flag to show error msg if the test fails (default=True)
 ' Returns:      True if the connection returns records, otherwise False
 ' Throws:       none
-' References:   fxnParseConnectionStr
+' References:   ParseConnectionStr
 ' Source/date:  John R. Boetsch, 6/24/2009 (adapted from http://support.microsoft.com/kb/210319)
-' Revisions:    <name, date, desc - add lines as you go>
+' Revisions:    JRB, 6/24/2009 - initial version
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
-Function fxnTestODBCConnection(strTableName As String, _
+Function TestODBCConnection(strTableName As String, _
     Optional ByVal strConnStr As String, _
     Optional varSQL As Variant, _
     Optional blnRetErrMsg As Boolean = True) As Boolean
 
     On Error GoTo Err_Handler
 
-    fxnTestODBCConnection = False   ' Default in case of error
+    TestODBCConnection = False   ' Default in case of error
 
     Dim db As DAO.Database
     Dim qdf As DAO.QueryDef
@@ -218,7 +223,7 @@ Function fxnTestODBCConnection(strTableName As String, _
 
     ' If no revised connection string was passed, use the current connection string
     If strConnStr = "" Then strConnStr = CurrentDb.tabledefs(strTableName).Connect
-    strDbName = fxnParseConnectionStr(strConnStr)
+    strDbName = ParseConnectionStr(strConnStr)
 
     ' Update the connection string for the pass-through query, set to not return records
     qdf.Connect = strConnStr
@@ -232,7 +237,7 @@ Function fxnTestODBCConnection(strTableName As String, _
     qdf.Execute
 
     ' Set to true (if no errors)
-    fxnTestODBCConnection = True
+    TestODBCConnection = True
 
 Exit_Procedure:
     On Error Resume Next
@@ -246,26 +251,26 @@ Err_Handler:
         If blnRetErrMsg Then _
         MsgBox "Cannot connect to the specified database/table:" & vbCrLf & vbCrLf & _
             "  Db: " & strDbName & vbCrLf & "  Table: " & strTableName, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnTestODBCConnection)"
+            "Error encountered (#" & Err.Number & " - TestODBCConnection[mod_Linked_Tables])"
       Case 3146, 208  ' Connection failed
         If blnRetErrMsg Then _
         MsgBox "Cannot find the table in the specified database:" & vbCrLf & vbCrLf & _
             "  Db: " & strDbName & vbCrLf & "  Table: " & strTableName, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnTestODBCConnection)"
+            "Error encountered (#" & Err.Number & " - TestODBCConnection[mod_Linked_Tables])"
       Case 3305       ' Invalid pass-through connection string
         MsgBox "Invalid pass-through query connection string ..." & vbCrLf & _
             strTableName & " may not be an ODBC-linked table.", vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnTestODBCConnection)"
+            "Error encountered (#" & Err.Number & " - TestODBCConnection[mod_Linked_Tables])"
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnTestODBCConnection)"
+            "Error encountered (#" & Err.Number & " - TestODBCConnection[mod_Linked_Tables])"
     End Select
     Resume Exit_Procedure
 
 End Function
 
 ' =================================
-' FUNCTION:     fxnRefreshLinks
+' FUNCTION:     RefreshLinks
 ' Description:  Updates the link to the specified back-end database tables after first
 '               verifying that the tables exist in the specified link file
 ' Parameters:   strDbName - name of the database to refresh
@@ -273,7 +278,7 @@ End Function
 '               blnIsODBC - flag to indicate that the back-end is ODBC (default = False)
 ' Returns:      True (successfully relinked) or False
 ' Throws:       none
-' References:   fxnParseConnectionStr, fxnTestODBCConnection
+' References:   ParseConnectionStr, TestODBCConnection
 ' Source/date:  Susan Huse, fall 2004 and Mark A. Wotawa, 02/08/2000
 ' Revisions:    John R. Boetsch, 5/22/2006 - combined verify and refresh functions
 '                   for table links, fixed meter increment problem updated documentation
@@ -283,6 +288,7 @@ End Function
 '               JRB, 12/30/2009 - updated to use the popup progress meter form
 '               -------------------------------------------------------------------------
 '               BLC, 4/30/2015 - moved to mod_Linked_Tables from mod_Custom_Functions & renamed RefreshLinks
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
 Public Function RefreshLinks(strDbName As String, ByVal strNewConnStr As String, _
     Optional ByVal blnIsODBC As Boolean = False) As Boolean
@@ -323,7 +329,7 @@ Public Function RefreshLinks(strDbName As String, ByVal strNewConnStr As String,
     If blnIsODBC = False Then   ' Access back-end
         ' Opens the target database and the current system table containing the list
         '   of tables for refreshing links
-        varFileName = fxnParseConnectionStr(strNewConnStr)
+        varFileName = ParseConnectionStr(strNewConnStr)
         Set dbGet = DBEngine.OpenDatabase(varFileName)
 
         ' First pass to verify the tables in the new back-end database (avoids partial updates)
@@ -406,7 +412,7 @@ Debug.Print strTable
             frm!txtProgress = strProgress
             frm.Repaint
             strTable = rst![Link_table]
-            If fxnTestODBCConnection(strTable, strNewConnStr) = False Then GoTo Exit_Procedure
+            If TestODBCConnection(strTable, strNewConnStr) = False Then GoTo Exit_Procedure
             rst.MoveNext
         Loop
 
@@ -432,7 +438,7 @@ Debug.Print strTable
             ' Update and refresh the table connection
             Set tdf = db.tabledefs(strTable)
             ' Use test again to trap errors
-            If fxnTestODBCConnection(strTable, strNewConnStr) = True Then
+            If TestODBCConnection(strTable, strNewConnStr) = True Then
                 tdf.Connect = strNewConnStr
                 tdf.RefreshLink
             Else
@@ -502,7 +508,7 @@ Err_Handler:
 End Function
 
 ' =================================
-' FUNCTION:     fxnVerifyLinkTableInfo
+' FUNCTION:     VerifyLinkTableInfo
 ' Description:  Verifies that the information in tsys_Link_Dbs and tsys_Link_Tables is
 '                   complete and matches that in MSysObjects
 ' Parameters:   none
@@ -513,8 +519,9 @@ End Function
 ' Revisions:    JRB, 7/27/2009 - added a do loop to update missing table descriptions
 '               -------------------------------------------------------------------------
 '               BLC, 4/30/2015 - moved to mod_Linked_Tables from mod_Custom_Functions
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
-Public Function fxnVerifyLinkTableInfo() As Boolean
+Public Function VerifyLinkTableInfo() As Boolean
     On Error GoTo Err_Handler
 
     Dim db As DAO.Database
@@ -534,7 +541,7 @@ Public Function fxnVerifyLinkTableInfo() As Boolean
     If intNRecs = 0 Then    ' No linked tables in the recordset
         MsgBox "There are no linked tables found in the systems tables." & _
             vbCrLf & "Please contact the database administrator before " & _
-            "using this application.", vbCritical, "Application error (fxnVerifyLinkTableInfo[mod_Linked_Tables])"
+            "using this application.", vbCritical, "Application error (VerifyLinkTableInfo[mod_Linked_Tables])"
         GoTo Exit_Procedure
     End If
 
@@ -635,10 +642,10 @@ Public Function fxnVerifyLinkTableInfo() As Boolean
             "correct information about the linked back-end" & vbCrLf & _
             "databases and tables before the application can" & vbCrLf & _
             "be used." & vbCrLf & vbCrLf & "Please contact the database administrator.", _
-            vbCritical, "Application error (fxnVerifyLinkTableInfo[mod_Linked_Tables])"
+            vbCritical, "Application error (VerifyLinkTableInfo[mod_Linked_Tables])"
     End If
 
-    fxnVerifyLinkTableInfo = Not blnHasError
+    VerifyLinkTableInfo = Not blnHasError
 
 Exit_Procedure:
     On Error Resume Next
@@ -654,39 +661,40 @@ Err_Handler:
       Case 3135, 3061, 3078  ' Problem with SQL syntax, or ref to nonexistent object, etc.
         MsgBox "Error #" & Err.Number & ":  SQL syntax error. Please notify the " & _
             "database administrator before using this application.", vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnVerifyLinkTableInfo)"
+            "Error encountered (#" & Err.Number & " - VerifyLinkTableInfo[mod_Linked_Tables])"
       Case 3011, 7874   ' System table not found
          MsgBox "Error #" & Err.Number & ":  Missing a system table. Please notify the " & _
             "database administrator before using this application.", vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnVerifyLinkTableInfo)"
+            "Error encountered (#" & Err.Number & " - VerifyLinkTableInfo[mod_Linked_Tables])"
       Case 3265     ' Field name in the system table improperly specified
         MsgBox "Error #" & Err.Number & ":  System table field not found." & _
             vbCrLf & "Please notify the database administrator before using " & _
             "this application.", vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnVerifyLinkTableInfo)"
+            "Error encountered (#" & Err.Number & " - VerifyLinkTableInfo[mod_Linked_Tables])"
       Case 3270     ' Property not found (TableDefs description)
         Resume Next
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnVerifyLinkTableInfo)"
+            "Error encountered (#" & Err.Number & " - VerifyLinkTableInfo[mod_Linked_Tables])"
     End Select
     Resume Exit_Procedure
 
 End Function
 
 ' =================================
-' FUNCTION:     fxnVerifyLinks
+' FUNCTION:     VerifyLinks
 ' Description:  Loops through all of the linked tables to verify valid links
 ' Parameters:   none
 ' Returns:      True (no link errors) or False
 ' Throws:       none
-' References:   fxnCheckLink
+' References:   CheckLink
 ' Source/date:  John R. Boetsch, May 24, 2006
 ' Revisions:    JRB, 7/8/2009 - simplified recordset and error traps
 '               JRB, 10/8/2009 - changed progress meter message
 '               JRB, 12/30/2009 - updated to use the popup progress meter form
 '               -------------------------------------------------------------------------
 '               BLC, 4/30/2015 - moved to mod_Linked_Tables from mod_Custom_Functions & renamed VerifyLinks
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
 Public Function VerifyLinks() As Boolean
     On Error GoTo Err_Handler
@@ -742,7 +750,7 @@ Public Function VerifyLinks() As Boolean
         frm.Repaint
         strLinkTableName = rst![name]
         ' Make sure the linked table opens properly
-        If fxnCheckLink(strLinkTableName) = False Then
+        If CheckLink(strLinkTableName) = False Then
             ' Unable to open a linked table (not a critical error)
             MsgBox "Unable to open the following table:" & vbCrLf & vbCrLf & _
                 strLinkTableName, vbExclamation, "Broken table links"
@@ -780,13 +788,13 @@ Err_Handler:
 End Function
 
 ' =================================
-' FUNCTION:     fxnMakeBackup
+' FUNCTION:     MakeBackup
 ' Description:  Creates a backup of linked Access back-end database files
 ' Parameters:   none
 ' Returns:      none
 ' Throws:       none
-' References:   fxnCreateFolder, fxnFolderExists, fxnParsePath, fxnParseFileName,
-'                   fxnParseFileExt, fxnSaveFile, fxnZipFiles, fxnFileExists, fxnPause
+' References:   CreateFolder, FolderExists, ParsePath, ParseFileName,
+'                   ParseFileExt, SaveFile, ZipFiles, FileExists, Pause
 ' Source/date:  Susan Huse, fall 2004
 ' Revisions:    John R. Boetsch, May 2005 - minor revisions and documentation
 '               JRB, 5/16/2006 - updated documentation, error traps; modified date/time
@@ -799,8 +807,9 @@ End Function
 '                   before large back-end files are fully zipped
 '               -------------------------------------------------------------------------
 '               BLC, 4/30/2015 - moved to mod_Linked_Tables from mod_Custom_Functions
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
-Public Function fxnMakeBackup()
+Public Function MakeBackup()
     On Error GoTo Err_Handler
 
     ' Prompt the user to confirm before backing up ... if no, exit function
@@ -848,7 +857,7 @@ Public Function fxnMakeBackup()
             DLookup("[Backups]", "tsys_Link_Dbs", "[File_path]=""" & strDbFile & """") Then
 
             ' Remove the file name from the path
-            strPath = fxnParsePath(strDbFile)
+            strPath = ParsePath(strDbFile)
             ' Remove the right-most back slash if present
             If Right(strPath, 1) = "\" Then strPath = left(strPath, Len(strPath) - 1)
             ' Update the backup folder string unless it is already the current folder
@@ -856,30 +865,30 @@ Public Function fxnMakeBackup()
             If strBackupFolder <> arrFile(UBound(arrFile)) Then _
                 strPath = strPath & "\" & strBackupFolder
             ' Verify the existence of the backup folder (and create it if needed)
-            If fxnFolderExists(strPath) = False Then fxnCreateFolder (strPath)
-            If fxnFolderExists(strPath) = False Then
+            If FolderExists(strPath) = False Then CreateFolder (strPath)
+            If FolderExists(strPath) = False Then
                 MsgBox "Unable to find/create the backup folder.", , "No Backup Made"
                 GoTo Exit_Procedure
             End If
             ' Create the new file string by adding the current file name to the new path
-            strNewFile = strPath & "\" & fxnParseFileName(strDbFile)
+            strNewFile = strPath & "\" & ParseFileName(strDbFile)
             ' Remove the current file extension
-            strNewFile = left(strNewFile, Len(strNewFile) - Len(fxnParseFileExt(strDbFile)))
+            strNewFile = left(strNewFile, Len(strNewFile) - Len(ParseFileExt(strDbFile)))
             ' Append the backup date/time
             strNewFile = strNewFile & "_" & strBackupDate
             ' Zip the file to the new destination file name plus the ".zip" extension
-            blnZipped = fxnZipFiles(strDbFile, strNewFile & ".zip")
+            blnZipped = ZipFiles(strDbFile, strNewFile & ".zip")
             If blnZipped Then
                 Dim intCounter As Integer
                 intCounter = 0
-                Call fxnPause(1000)
+                Call Pause(1000)
                 Do While intCounter < 120
                     intCounter = intCounter + 1
-                    If fxnFileExists(strNewFile & ".zip") Then
+                    If FileExists(strNewFile & ".zip") Then
                         Exit Do
                     Else
                         ' Pause for 1000 ms before trying again
-                        Call fxnPause(1000)
+                        Call Pause(1000)
                     End If
                 Loop
                 MsgBox "Backup file successfully created: " & vbCrLf & vbCrLf & _
@@ -887,7 +896,7 @@ Public Function fxnMakeBackup()
             Else
                 ' Zip operation unsuccessful, so try to make an outright copy
                 ' Open the save file dialog and update to the actual name given by the user
-                varCopyFile = fxnSaveFile(strNewFile, _
+                varCopyFile = SaveFile(strNewFile, _
                     "Microsoft Access (*.mdb, *.accdb)", "*.mdb;*.accdb")
                 If IsNull(varCopyFile) Then
                     ' User canceled save operation
@@ -916,7 +925,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnMakeBackup)"
+            "Error encountered (#" & Err.Number & " - MakeBackup[mod_Linked_Tables])"
     End Select
     Resume Exit_Procedure
 

@@ -89,7 +89,7 @@ Err_Handler:
 End Function
 
 ' =================================
-' FUNCTION:     fxnHTMLConvert
+' FUNCTION:     HTMLConvert
 ' Description:  converts HTML string value for color to RGB which can be used for control colors
 ' Parameters:   strHTML - HTML color (make sure you include # otherwise the color won't match)
 ' Returns:      HTML color as long
@@ -101,12 +101,13 @@ End Function
 ' Revisions:    BLC, 5/12/2014 - initial version
 '               BLC, 4/30/2015 - moved from mod_Common_UI to mod_UI
 '               BLC, 5/17/2015 - moved from mod_UI to mod_Color & added error handling
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
-Public Function fxnHTMLConvert(strHTML As String) As Long
+Public Function HTMLConvert(strHTML As String) As Long
 On Error GoTo Err_Handler
     
     Rem converts a HTML color code number such as #D8B190 to an RGB value.
-    fxnHTMLConvert = RGB(CInt("&H" & Mid(strHTML, 2, 2)), CInt("&H" & Mid(strHTML, 4, 2)), CInt("&H" & Mid(strHTML, 6, 2)))
+    HTMLConvert = RGB(CInt("&H" & Mid(strHTML, 2, 2)), CInt("&H" & Mid(strHTML, 4, 2)), CInt("&H" & Mid(strHTML, 6, 2)))
 
 Exit_Function:
     Exit Function
@@ -115,7 +116,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - ConvertLongToRGB[mod_Color])"
+            "Error encountered (#" & Err.Number & " - HTMLConvert[mod_Color])"
     End Select
     Resume Exit_Function
 End Function

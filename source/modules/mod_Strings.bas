@@ -12,7 +12,7 @@ Option Explicit
 ' =================================
 
 ' =================================
-' FUNCTION:     fxnReplaceString
+' FUNCTION:     ReplaceString
 ' Description:  Replaces a substring in a string with another
 ' Parameters:   strTextIn - string to work on
 '               strFind - string to find
@@ -24,8 +24,9 @@ Option Explicit
 ' Source/date:  Simon Kingston, date unknown
 ' Revisions:    John R. Boetsch, 5/17/2006 - error trapping, documentation
 '               BLC, 4/30/2015 - moved from mod_Utilities
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
-Public Function fxnReplaceString(strTextIn As String, strFind As String, _
+Public Function ReplaceString(strTextIn As String, strFind As String, _
     strReplace As String, Optional fCaseSensitive As Boolean = False) As String
 
     On Error GoTo Err_Handler
@@ -45,7 +46,7 @@ Public Function fxnReplaceString(strTextIn As String, strFind As String, _
         intPos = InStr(intPos + Len(strReplace), strTemp, strFind, intCaseSensitive)
     Loop
 
-    fxnReplaceString = strTemp
+    ReplaceString = strTemp
 
 Exit_Function:
     Exit Function
@@ -54,13 +55,13 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnReplaceString[mod_Strings])"
+            "Error encountered (#" & Err.Number & " - ReplaceString[mod_Strings])"
     End Select
     Resume Exit_Function
 End Function
 
 ' =================================
-' FUNCTION:     fxnChangeDelimiter
+' FUNCTION:     ChangeDelimiter
 ' Description:  Replaces delimiters in an input string; default is to change double-quotes
 '               to single quotes
 ' Parameters:   strInputText - string to work on
@@ -68,12 +69,13 @@ End Function
 '               strNewDelimiter - desired replacement delimiter (default: single-quote)
 ' Returns:      modified string
 ' Throws:       none
-' References:   fxnReplaceString
+' References:   ReplaceString
 ' Source/date:  John R. Boetsch, 5/17/2006
 ' Revisions:    JRB, 5/17/2006
 '               BLC, 4/30/2015 - moved from mod_Utilities
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
-Public Function fxnChangeDelimiter(strInputText As String, _
+Public Function ChangeDelimiter(strInputText As String, _
     Optional strCurrDelimiter As String = """", _
     Optional strNewDelimiter As String = "'") As String
 
@@ -82,8 +84,8 @@ Public Function fxnChangeDelimiter(strInputText As String, _
     Dim strTemp As String
     
     ' Call the replace string function, specifying the delimiter and no case-sensitive search
-    strTemp = fxnReplaceString(strInputText, strCurrDelimiter, strNewDelimiter)
-    fxnChangeDelimiter = strTemp
+    strTemp = ReplaceString(strInputText, strCurrDelimiter, strNewDelimiter)
+    ChangeDelimiter = strTemp
 
 Exit_Function:
     Exit Function
@@ -92,7 +94,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnChangeDelimiter[mod_Strings])"
+            "Error encountered (#" & Err.Number & " - ChangeDelimiter[mod_Strings])"
     End Select
     Resume Exit_Function
 End Function

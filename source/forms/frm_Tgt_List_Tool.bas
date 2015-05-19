@@ -22,10 +22,9 @@ Begin Form
     Width =12300
     DatasheetFontHeight =10
     ItemSuffix =182
-    Left =4020
-    Top =-792
-    Right =16320
-    Bottom =9276
+    Left =3060
+    Right =15360
+    Bottom =10068
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x80d28b4cb201e340
@@ -831,8 +830,8 @@ Option Explicit
 ' Data access:  edit only, no additions, moving between records or deletions
 ' Pages:        pgDefaults, pgAbout, pgSettings
 ' Functions:    none
-' References:   fxnAppSetup, fxnDeleteFile, fxnFileExists, fxnMakeBackup, fxnParseFileExt,
-'                   fxnSaveFile, fxnTableExists, fxnVerifyConnections
+' References:   AppSetup, DeleteFile, FileExists, MakeBackup, ParseFileExt,
+'                   SaveFile, TableExists, VerifyConnections
 ' Source/date:  John R. Boetsch, May 24, 2006
 ' Adapted/date: Bonnie L. Campbell, April 21, 2015 from frm_Switchboard (WQ Utilities tool)
 '               --------------------------------------------------------------------------------------
@@ -957,7 +956,7 @@ Private Sub cmdExit_Click()
 
     ' Prompt for backups, depending on application settings
     '   Note:  only relevant for Access back-end files
-    If TempVars.item("Connected") And TempVars.item("HasAccessBE") And Me.chkBackupOnExit Then fxnMakeBackup
+    If TempVars.item("Connected") And TempVars.item("HasAccessBE") And Me.chkBackupOnExit Then MakeBackup
 
     ' Compact and repair back-end database prior to exit, depending on
     '   default settings and on whether there is a valid link to the database
@@ -980,8 +979,8 @@ On Error GoTo Quit_procedure
             ' Check for empty string or non-existent file first
             If IsNull(rst![file_path]) = False Then
                 strOrigFile = rst![file_path]
-                strFileExt = fxnParseFileExt(strOrigFile)
-                If fxnFileExists(strOrigFile) Then
+                strFileExt = ParseFileExt(strOrigFile)
+                If FileExists(strOrigFile) Then
                     intCount = 0
                     ' If needed, loop through temporary name alternatives until an unused
                     '   name is found
@@ -989,11 +988,11 @@ On Error GoTo Quit_procedure
                         intCount = intCount + 1
                         strNewFile = left(strOrigFile, Len(strOrigFile) - Len(strFileExt)) _
                             & "_" & CStr(intCount) & strFileExt
-                    Loop Until fxnFileExists(strNewFile) = False
+                    Loop Until FileExists(strNewFile) = False
                     DBEngine.CompactDatabase strOrigFile, strNewFile
                     ' If successful deleting the original, uncompacted file then rename
                     '   the compacted file to the original name
-                    If fxnDeleteFile(strOrigFile) Then Name strNewFile As strOrigFile
+                    If DeleteFile(strOrigFile) Then Name strNewFile As strOrigFile
                 End If
             End If
             rst.MoveNext
@@ -1092,7 +1091,7 @@ Dim lngTabColor As Long
 Dim blnLeftInsetHide As Boolean
 
     'default
-    lngTabColor = fxnHTMLConvert("#FFFFFF") 'white
+    lngTabColor = HTMLConvert("#FFFFFF") 'white
     strAction = ""
     
     'identify current tab
@@ -1100,7 +1099,7 @@ Dim blnLeftInsetHide As Boolean
         Case 1 'Create
             strTab = "tabCreate"
             strAction = "tbl"
-            lngTabColor = fxnHTMLConvert("#CCECFF") 'lt blue CCECFF RGB(204,236,255) 13430015
+            lngTabColor = HTMLConvert("#CCECFF") 'lt blue CCECFF RGB(204,236,255) 13430015
         Case 2 'View
             strTab = "tabView"
             lngTabColor = RGB(221, 217, 195) 'tan DDD9C3 RGB(221,217,195) 14539203
@@ -1109,18 +1108,18 @@ Dim blnLeftInsetHide As Boolean
         Case 3 'Reports
             strTab = "tabReports"
             strAction = "rpt"
-            lngTabColor = fxnHTMLConvert("#CCCCFF") 'lt purple CCCCFF RGB(204,187,255) 13417471
+            lngTabColor = HTMLConvert("#CCCCFF") 'lt purple CCCCFF RGB(204,187,255) 13417471
         Case 4 'Exports
             strTab = "tabExport"
             strAction = "exp"
-            lngTabColor = fxnHTMLConvert("#CCFFCC") 'lt green CCFFCC RGB(204,255,204) 13434828
+            lngTabColor = HTMLConvert("#CCFFCC") 'lt green CCFFCC RGB(204,255,204) 13434828
             'Application.LoadCustomUI "tabExportOptions", GetRibbonXML("Export")
             'update instructions & make visible
             PopulateInstructions Me!lblInstructions, "Export"
             Me!lblInstructions.visible = True
         Case 5 'DB Admin
             strTab = "tabDbAdmin"
-            lngTabColor = fxnHTMLConvert("#D8D8D8") 'lt gray D8D8D8 RGB(216,216,216) 14211288
+            lngTabColor = HTMLConvert("#D8D8D8") 'lt gray D8D8D8 RGB(216,216,216) 14211288
             blnLeftInsetHide = True
             lblCover.backcolor = lngTabColor
             lblCover.visible = True
@@ -1284,7 +1283,7 @@ On Error GoTo Err_Handler:
     
     'breadcrumbs
     Dim aryCrumbs As Variant
-    aryCrumbs = fxnCrumbsToArray(strCrumbs)
+    aryCrumbs = CrumbsToArray(strCrumbs)
     'PrepareCrumbs Me.fsub_Filter, aryCrumbs
     
     'set & pass variables

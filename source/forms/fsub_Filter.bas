@@ -323,7 +323,7 @@ Private Sub Form_Open(Cancel As Integer)
     'MsgBox Me.OpenArgs, vbCritical, "crumbs"
     'Dim aryCrumbs As Variant
     
-    'aryCrumbs = fxnCrumbsToArray(Me.OpenArgs)
+    'aryCrumbs = CrumbsToArray(Me.OpenArgs)
 
     
 End Sub

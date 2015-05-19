@@ -390,7 +390,7 @@ Option Explicit
 ' Data access:  edit only, no additions, moving between records, or deletions
 ' Pages:        none
 ' Functions:    none
-' References:   fxnGetLinkFile, fxnRefreshLinks, fxnSwitchboardIsOpen
+' References:   GetLinkFile, RefreshLinks, SwitchboardIsOpen
 ' Source/date:  Susan Huse, MonitoringSM.mdb v 7/28/2004
 ' Revisions:    John R. Boetsch, May 2005 - minor edits
 ' Revisions:    JRB, May 24, 2006 - documentation, added error trapping, fixed specification
@@ -440,7 +440,7 @@ Private Sub cmdBrowse_Click()
     strCurrentDir = left(strCurrentDir, Len(strCurrentDir) - Len(strCurrentFile) - 1)
 
     ' Select the file, and start the search in the current back-end folder
-    varFilePath = fxnGetLinkFile(strCurrentDir)
+    varFilePath = GetLinkFile(strCurrentDir)
 
     ' Exit if the user didn't specify a file
     If IsNull(varFilePath) Then GoTo Exit_Procedure
@@ -513,7 +513,7 @@ Private Sub cmdUpdateLinks_Click()
             strSysTable & "![Link_type] = '" & strLinkName & "'"
 
         ' Verify the file and update the links to the selected file
-        If fxnRefreshLinks(strSQL, strFilePath) = False Then
+        If RefreshLinks(strSQL, strFilePath) = False Then
             ' An error was encountered
             MsgBox "Links to this file were not updated or only partially updated", _
                 vbExclamation, strLinkName

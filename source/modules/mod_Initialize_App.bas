@@ -138,8 +138,8 @@ On Error GoTo Err_Handler:
     If SysTablesExist("db") = False Then Exit Sub
 
     ' Verify the back-end database connections, and run the setup function if okay
-    fxnVerifyConnections
-    If TempVars.item("Connected") Then fxnAppSetup
+    VerifyConnections
+    If TempVars.item("Connected") Then AppSetup
 
 Exit_Procedure:
     Exit Sub
@@ -154,13 +154,13 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' FUNCTION:     fxnVerifyConnections
+' FUNCTION:     VerifyConnections
 ' Description:  Checks the status of back-end connections
 ' Parameters:   none
 ' Returns:      none
 ' Throws:       none
-' References:   fxnFileExists, FormIsOpen, fxnTestODBCConnection, fxnVerifyLinks,
-'                   fxnVerifyLinkTableInfo
+' References:   FileExists, FormIsOpen, TestODBCConnection, VerifyLinks,
+'                   VerifyLinkTableInfo
 ' Source/date:  Susan Huse, fall 2004
 ' Adapted:      Bonnie Campbell, June, 2014 for NCPN WQ Utilities tool
 ' Revisions:    John R. Boetsch, May 2005 - minor revisions and documentation
@@ -175,8 +175,9 @@ End Sub
 '               BLC, 7/31/2014 - changed gvars to TempVars, shifted to initApp module
 '               BLC, 9/5/2014  - added check for remote (network) backends (IsNetworkFile)
 '               BLC, 4/30/2015 - switched from fxnSwitchboardIsOpen to FormIsOpen(frmSwitchboard)
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' ---------------------------------
-Public Function fxnVerifyConnections()
+Public Function VerifyConnections()
     On Error GoTo Err_Handler
 
     Dim db As DAO.Database
@@ -196,7 +197,7 @@ Public Function fxnVerifyConnections()
     blnHasError = False             ' Flag to indicate error status
 
     ' Check the information in the application tables, exit if there is a problem
-    If fxnVerifyLinkTableInfo = False Then GoTo Exit_Procedure
+    If VerifyLinkTableInfo = False Then GoTo Exit_Procedure
 
     ' Set the recordset to the system table
     Set rst = db.OpenRecordset(strSysTable, dbOpenTable, dbReadOnly)
@@ -210,7 +211,7 @@ Public Function fxnVerifyConnections()
                 ' Test the first table in the list for this back-end to test the connection
                 strTable = DFirst("[Link_table]", "tsys_Link_Tables", _
                     "[Link_db]=""" & strDbName & """")
-                If fxnTestODBCConnection(strTable, , , False) = False Then
+                If TestODBCConnection(strTable, , , False) = False Then
                     blnHasError = True
                     If strErrMsg <> "" Then strErrMsg = strErrMsg & vbCrLf & vbCrLf
                     strErrMsg = strErrMsg & _
@@ -229,7 +230,7 @@ Public Function fxnVerifyConnections()
             TempVars.item("HasAccessBE") = True
             If Not IsNull(rst![file_path]) Then
                 strDbPath = rst![file_path]
-                If fxnFileExists(strDbPath) = False Then
+                If FileExists(strDbPath) = False Then
                     ' Cannot find the file
                     blnHasError = True
                     If strErrMsg <> "" Then strErrMsg = strErrMsg & vbCrLf & vbCrLf
@@ -265,7 +266,7 @@ Public Function fxnVerifyConnections()
                         vbYesNo + vbDefaultButton2, _
                         "Checking back-end connections ...") = vbNo Then GoTo Proc_Final_Status
                 End If
-                If fxnVerifyLinks = False Then
+                If VerifyLinks = False Then
                     blnHasError = True
                     If strErrMsg <> "" Then strErrMsg = strErrMsg & vbCrLf & vbCrLf
                     strErrMsg = strErrMsg & _
@@ -306,33 +307,33 @@ Err_Handler:
       Case 3135, 3061, 3078  ' Problem with SQL syntax, or ref to nonexistent object, etc.
         MsgBox "Error #" & Err.Number & ":  SQL syntax error. Please notify the " & _
             "database administrator before using this application.", vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnVerifyConnections)"
+            "Error encountered (#" & Err.Number & " - VerifyConnections[mod_Initialize_App])"
       Case 3011, 7874   ' System table not found
          MsgBox "Error #" & Err.Number & ":  Missing a system table. Please notify the " & _
             "database administrator before using this application.", vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnVerifyConnections)"
+            "Error encountered (#" & Err.Number & " - VerifyConnections)"
       Case 3265   ' Field name in the system table improperly specified
         MsgBox "Error #" & Err.Number & ":  System table field not found." & _
             vbCrLf & "Please notify the database administrator before using " & _
             "this application.", vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnVerifyConnections)"
+            "Error encountered (#" & Err.Number & " - VerifyConnections)"
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnVerifyConnections)"
+            "Error encountered (#" & Err.Number & " - VerifyConnections)"
     End Select
     Resume Exit_Procedure
 End Function
 
 ' =================================
-' FUNCTION:     fxnAppSetup
+' FUNCTION:     AppSetup
 ' Description:  Confirms required tables, determines if application version is current, and
 '                   reset the switchboard / application mode based on user privileges upon
 '                   first opening the application and just after relinking the back-end dbs
 ' Parameters:   none
 ' Returns:      none
 ' Throws:       none
-' References:   fxnBEUpdates, fxnIsODBC, fxnLinkedDatabase, fxnTableExists,
-'                   fxnTestODBCConnection
+' References:   BEUpdates, IsODBC, LinkedDatabase, TableExists,
+'                   TestODBCConnection
 ' Source/date:  John R. Boetsch, 7/9/2009
 ' Revisions:    JRB, 7/27/2009 - added a check on whether the application version was added
 '                   by fxnBEUpdates, reordered caption setting statements
@@ -347,8 +348,9 @@ End Function
 '               BLC, 8/25/2014 - added setUserAccess "update" flag for refreshing UI settings
 '               BLC, 4/30/2015 - added DB_ADMIN_CONTROL and MAIN_APP_FORM checks for handling apps w/o full Db_Admin subform
 '                                to set strReleaseID and strAddress values
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
-Public Function fxnAppSetup()
+Public Function AppSetup()
     On Error GoTo Err_Handler
 
     Dim frm As Form
@@ -411,18 +413,18 @@ Public Function fxnAppSetup()
 
     ' Log the user, login time, release number, and application mode in the systems table
     strRelease = left(strReleaseID, 8) & " / " & TempVars.item("UserAccessLevel")
-    If fxnIsODBC("tsys_Logins") Then
+    If IsODBC("tsys_Logins") Then
         ' Use a pass-through query to test the connection for write privileges
         strSQL = "INSERT INTO dbo.tsys_Logins " & _
             "SELECT GETDATE() AS Time_stamp, '" & strUser & "' AS User_name, '" & _
             strRelease & "' AS Action_taken"
-        TempVars.item("WritePermission") = fxnTestODBCConnection("tsys_Logins", , strSQL, False)
+        TempVars.item("WritePermission") = TestODBCConnection("tsys_Logins", , strSQL, False)
         ' Notify the user if their back-end privileges are insufficient to use the application
         If TempVars.item("WritePermission") = False And TempVars.item("UserAccessLevel") <> "read only" Then
             MsgBox "Your login does not have modify privileges to the database." & _
                 vbCrLf & "Notify the database administrator before using this application." _
                 & vbCrLf & vbCrLf & "User: " & strUser & vbCrLf & "Db:   " & _
-                fxnLinkedDatabase("tsys_Logins")
+                LinkedDatabase("tsys_Logins")
         End If
     Else
         TempVars.item("WritePermission") = True
@@ -437,7 +439,7 @@ Public Function fxnAppSetup()
     '   Note: Needed where there are one or more back-end copies at remote locations that
     '   cannot be updated with new release information by the developer
     If DCount("*", "tsys_App_Releases", "[Release_ID]=""" & strReleaseID & """") = 0 Then
-        If TempVars.item("WritePermission") Then fxnBEUpdates (True)
+        If TempVars.item("WritePermission") Then BEUpdates (True)
         ' Check once more to make sure that the release was added properly - if not notify
         If DCount("*", "tsys_App_Releases", "[Release_ID]=""" & strReleaseID & """") = 0 Then
             MsgBox "Unable to determine the application version." & vbCrLf & vbCrLf & _
@@ -447,7 +449,7 @@ Public Function fxnAppSetup()
         End If
     ' Or run updates only on new update lines (avoids issuing a new version for minor updates)
     ElseIf DCount("*", "tsys_BE_Updates", "[Is_done]=False") > 0 Then
-        If TempVars.item("WritePermission") Then fxnBEUpdates (False)
+        If TempVars.item("WritePermission") Then BEUpdates (False)
     End If
 
     ' Set the table-driven caption of the switchboard
@@ -485,24 +487,24 @@ Err_Handler:
             "a folder for which you do not have modify privileges." & vbCrLf & vbCrLf & _
             "Close the application and uncheck the read-only box in the" & vbCrLf & _
             "file properties window before using this application.", vbCritical, _
-            "Application error (#" & Err.Number & " - fxnAppSetup)"
+            "Application error (#" & Err.Number & " - AppSetup[mod_Initialize_App])"
         TempVars.item("WritePermission") = False
       Case 3078   ' Can't find the system table
         MsgBox "Error #" & Err.Number & ":  Missing a system table. Please notify" & _
             vbCrLf & "the database administrator before using this application.", _
-            vbCritical, "Application error (#" & Err.Number & " - fxnAppSetup)"
+            vbCritical, "Application error (#" & Err.Number & " - AppSetup[mod_Initialize_App])"
       Case 2001   ' Field name in DLookup improperly specified
         MsgBox "Error #" & Err.Number & ":  System table field not found." & _
             vbCrLf & "Please notify the database administrator before using " & _
             "this application.", vbCritical, _
-            "Application error (#" & Err.Number & " - fxnAppSetup)"
+            "Application error (#" & Err.Number & " - AppSetup[mod_Initialize_App])"
       Case 94    ' Missing information in the systems table
         MsgBox "Error #" & Err.Number & ":  Missing system table info. Please notify" & _
             vbCrLf & "the database administrator before using this application.", _
-            vbCritical, "Application error (#" & Err.Number & " - fxnAppSetup)"
+            vbCritical, "Application error (#" & Err.Number & " - AppSetup[mod_Initialize_App])"
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnAppSetup)"
+            "Error encountered (#" & Err.Number & " - AppSetup[mod_Initialize_App])"
     End Select
     Resume Exit_Procedure
 
@@ -557,7 +559,7 @@ Dim missingTable As String
     End Select
         
     For i = 0 To UBound(sysTables)
-        If fxnTableExists("tsys_" & Trim(sysTables(i))) = False Then
+        If TableExists("tsys_" & Trim(sysTables(i))) = False Then
             missingTable = sysTables(i)
             GoTo Missing_Table:
         End If

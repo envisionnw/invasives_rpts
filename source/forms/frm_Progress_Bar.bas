@@ -22,13 +22,13 @@ Begin Form
     DatasheetGridlinesBehavior =3
     GridX =24
     GridY =24
-    Width =2580
+    Width =5340
     DatasheetFontHeight =11
-    ItemSuffix =12
-    Left =7740
-    Top =3552
-    Right =10320
-    Bottom =4860
+    ItemSuffix =10
+    Left =9156
+    Top =4548
+    Right =14496
+    Bottom =5856
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x53fe177c5893e440
@@ -87,40 +87,6 @@ Begin Form
             GridlineThemeColorIndex =1
             GridlineShade =65.0
         End
-        Begin Image
-            BackStyle =0
-            OldBorderStyle =0
-            BorderLineStyle =0
-            SizeMode =3
-            PictureAlignment =2
-            BorderColor =16777215
-            GridlineColor =16777215
-            BackThemeColorIndex =1
-            BorderThemeColorIndex =1
-            BorderShade =65.0
-            GridlineThemeColorIndex =1
-            GridlineShade =65.0
-        End
-        Begin UnboundObjectFrame
-            SpecialEffect =2
-            OldBorderStyle =1
-            ThemeFontIndex =1
-            BackThemeColorIndex =1
-            BorderThemeColorIndex =1
-            BorderShade =65.0
-            ForeThemeColorIndex =2
-            ForeShade =50.0
-            GridlineThemeColorIndex =1
-            GridlineShade =65.0
-        End
-        Begin WebBrowser
-            OldBorderStyle =1
-            BackThemeColorIndex =1
-            BorderThemeColorIndex =1
-            BorderShade =65.0
-            GridlineThemeColorIndex =1
-            GridlineShade =65.0
-        End
         Begin Section
             Height =1320
             Name ="Detail"
@@ -133,7 +99,7 @@ Begin Form
                     OverlapFlags =85
                     Left =300
                     Top =780
-                    Width =1920
+                    Width =4680
                     Height =314
                     BorderColor =8355711
                     ForeColor =8355711
@@ -142,142 +108,188 @@ Begin Form
                     GridlineColor =10921638
                     LayoutCachedLeft =300
                     LayoutCachedTop =780
-                    LayoutCachedWidth =2220
+                    LayoutCachedWidth =4980
                     LayoutCachedHeight =1094
                 End
-                Begin WebBrowser
+                Begin Rectangle
+                    SpecialEffect =0
                     OldBorderStyle =0
                     OverlapFlags =85
                     Left =300
                     Top =180
-                    Width =1920
-                    Height =540
-                    AutoActivate =1
+                    Width =360
+                    Height =420
+                    BackColor =5167783
                     BorderColor =10921638
-                    Name ="WebBrowser11"
-                    OleData = Begin
-                        0x000e0000d0cf11e0a1b11ae1000000000000000000000000000000003e000300 ,
-                        0xfeff090006000000000000000000000001000000020000000000000000100000 ,
-                        0x0400000001000000feffffff0000000003000000ffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xfffffffffdfffffffeffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffff52006f006f007400200045006e007400720079000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000016000500ffffffffffffffffffffffff000000000000000000000000 ,
-                        0x000000000000000000000000000000000000000000000000feffffff00000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000052006f006f007400200045006e007400720079000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000016000500ffffffffffffffff0100000061f956880a34d011a96b00c0 ,
-                        0x4fd705a200000000000000000000000010c5b49ef091d0010500000000010000 ,
-                        0x0000000003004f006c0065004f0062006a006500630074004400610074006100 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x000000001e000201ffffffff02000000ffffffff000000000000000000000000 ,
-                        0x00000000000000000000000000000000000000000000000001000000ac000000 ,
-                        0x0000000003004100630063006500730073004f0062006a005300690074006500 ,
-                        0x4400610074006100000000000000000000000000000000000000000000000000 ,
-                        0x0000000026000200ffffffffffffffffffffffff000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000038000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000ffffffffffffffffffffffff000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x00000000fffffffffffffffffefffffffdfffffffefffffffeffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xfffffffffeffffff0200000003000000feffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff ,
-                        0xffffffff38000000000000000100000000000000000000000000000000000000 ,
-                        0x0000000038000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000061f956880a34d011a96b00c04fd705a24c0000002a20000066020000 ,
-                        0x0000000000000000000000000000000000000000000000004c00000000000000 ,
-                        0x0000000001000000e0d057007335cf11ae6908002b2e12620800000000000000 ,
-                        0x4c0000000114020000000000c000000000000046800000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000001000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000
-                    End
+                    Name ="bx10"
                     GridlineColor =10921638
-
                     LayoutCachedLeft =300
                     LayoutCachedTop =180
-                    LayoutCachedWidth =2220
-                    LayoutCachedHeight =720
-                    ControlSource ="=\"Z:\\_____LIB\\dev\\git_projects\\invasives_rpts\\blue_loading.gif\""
-                    ScrollBarsVisible =2
+                    LayoutCachedWidth =660
+                    LayoutCachedHeight =600
+                    BackThemeColorIndex =-1
+                End
+                Begin Rectangle
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    OverlapFlags =85
+                    Left =1260
+                    Top =180
+                    Width =360
+                    Height =420
+                    BackColor =5167783
+                    BorderColor =10921638
+                    Name ="bx30"
+                    GridlineColor =10921638
+                    LayoutCachedLeft =1260
+                    LayoutCachedTop =180
+                    LayoutCachedWidth =1620
+                    LayoutCachedHeight =600
+                    BackThemeColorIndex =-1
+                End
+                Begin Rectangle
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    OverlapFlags =85
+                    Left =2220
+                    Top =180
+                    Width =360
+                    Height =420
+                    BackColor =5167783
+                    BorderColor =10921638
+                    Name ="bx50"
+                    GridlineColor =10921638
+                    LayoutCachedLeft =2220
+                    LayoutCachedTop =180
+                    LayoutCachedWidth =2580
+                    LayoutCachedHeight =600
+                    BackThemeColorIndex =-1
+                End
+                Begin Rectangle
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    OverlapFlags =85
+                    Left =1740
+                    Top =180
+                    Width =360
+                    Height =420
+                    BackColor =5167783
+                    BorderColor =10921638
+                    Name ="bx40"
+                    GridlineColor =10921638
+                    LayoutCachedLeft =1740
+                    LayoutCachedTop =180
+                    LayoutCachedWidth =2100
+                    LayoutCachedHeight =600
+                    BackThemeColorIndex =-1
+                End
+                Begin Rectangle
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    OverlapFlags =85
+                    Left =780
+                    Top =180
+                    Width =360
+                    Height =420
+                    BackColor =5167783
+                    BorderColor =10921638
+                    Name ="bx20"
+                    GridlineColor =10921638
+                    LayoutCachedLeft =780
+                    LayoutCachedTop =180
+                    LayoutCachedWidth =1140
+                    LayoutCachedHeight =600
+                    BackThemeColorIndex =-1
+                End
+                Begin Rectangle
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    OverlapFlags =85
+                    Left =2700
+                    Top =180
+                    Width =360
+                    Height =420
+                    BackColor =5167783
+                    BorderColor =10921638
+                    Name ="bx60"
+                    GridlineColor =10921638
+                    LayoutCachedLeft =2700
+                    LayoutCachedTop =180
+                    LayoutCachedWidth =3060
+                    LayoutCachedHeight =600
+                    BackThemeColorIndex =-1
+                End
+                Begin Rectangle
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    OverlapFlags =85
+                    Left =3660
+                    Top =180
+                    Width =360
+                    Height =420
+                    BackColor =5167783
+                    BorderColor =10921638
+                    Name ="bx80"
+                    GridlineColor =10921638
+                    LayoutCachedLeft =3660
+                    LayoutCachedTop =180
+                    LayoutCachedWidth =4020
+                    LayoutCachedHeight =600
+                    BackThemeColorIndex =-1
+                End
+                Begin Rectangle
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    OverlapFlags =85
+                    Left =4620
+                    Top =180
+                    Width =360
+                    Height =420
+                    BackColor =5167783
+                    BorderColor =10921638
+                    Name ="bx100"
+                    GridlineColor =10921638
+                    LayoutCachedLeft =4620
+                    LayoutCachedTop =180
+                    LayoutCachedWidth =4980
+                    LayoutCachedHeight =600
+                    BackThemeColorIndex =-1
+                End
+                Begin Rectangle
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    OverlapFlags =85
+                    Left =4140
+                    Top =180
+                    Width =360
+                    Height =420
+                    BackColor =5167783
+                    BorderColor =10921638
+                    Name ="bx90"
+                    GridlineColor =10921638
+                    LayoutCachedLeft =4140
+                    LayoutCachedTop =180
+                    LayoutCachedWidth =4500
+                    LayoutCachedHeight =600
+                    BackThemeColorIndex =-1
+                End
+                Begin Rectangle
+                    SpecialEffect =0
+                    OldBorderStyle =0
+                    OverlapFlags =85
+                    Left =3180
+                    Top =180
+                    Width =360
+                    Height =420
+                    BackColor =5167783
+                    BorderColor =10921638
+                    Name ="bx70"
+                    GridlineColor =10921638
+                    LayoutCachedLeft =3180
+                    LayoutCachedTop =180
+                    LayoutCachedWidth =3540
+                    LayoutCachedHeight =600
+                    BackThemeColorIndex =-1
                 End
             End
         End
@@ -292,7 +304,7 @@ Option Compare Database
 Option Explicit
 
 ' =================================
-' MODULE:       Form_frm_Progress_Bar
+' MODULE:       Form_frmProgressBar
 ' Description:  Progress bar functions & procedures
 '
 ' Source/date:  Bonnie Campbell, 5/17/2015
@@ -358,11 +370,31 @@ On Error GoTo Err_Handler
     Dim strBox As String
     
     With Me
-        .Caption = "0% Complete"
+        .Caption = "Progress" '"0% Complete"
+        
+'        !bx80.visible = True
+'        !bx80.backstyle = Normal
+'        !bx80.backcolor = 6750105
+        
+'        .Repaint
     End With
     
-    DoEvents
+'    DoEvents
     
+    'unhide the progress bar
+'    For i = 1 To 10
+        
+'        strBox = "bx" & CStr(i * 10)
+'        Me.Controls(strBox).backstyle = Normal
+'        Me.Controls(strBox).visible = True
+'        Me.Controls(strBox).backcolor = PROGRESS_BAR
+'        bx10.backcolor = PROGRESS_BAR
+'        bx20.backstyle = Normal
+'        bx20.backcolor = PROGRESS_BAR
+'        Me.Repaint
+        
+'    Next
+
 Exit_Sub:
     Exit Sub
     
@@ -400,11 +432,11 @@ Dim strBox As String
 
     iPercentIncrement = Format(sPercentComplete, "#")
     
-'    strBox = "bx" & sPercentComplete
+    strBox = "bx" & sPercentComplete
     'Me.Controls(strBox).backstyle = acNormal
     'Me.Controls(strBox).backcolor = PROGRESS_BAR
 '    Me.Controls(strBox).visible = True
-    Me.Caption = sPercentComplete & "% Complete"
+'    Me.Caption = sPercentComplete & "% Complete"
     Me.Repaint
 
 Exit_Function:
