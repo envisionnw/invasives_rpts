@@ -14,10 +14,10 @@ Begin Report
     DatasheetFontHeight =11
     ItemSuffix =125
     Top =1608
-    Right =15432
-    Bottom =9108
+    Right =15504
+    Bottom =9360
     DatasheetGridlinesColor =14806254
-    Filter ="TgtYear=2011"
+    Filter ="TgtYear=2017"
     RecSrcDt = Begin
         0x1ce102e55493e440
     End
@@ -26,7 +26,7 @@ Begin Report
     OnOpen ="[Event Procedure]"
     DatasheetFontName ="Calibri"
     PrtMip = Begin
-        0xa8000000630100001e0100006d01000000000000a03b0000ea01000001000000 ,
+        0xf0000000630100001e0100006d01000000000000a03b0000ea01000001000000 ,
         0x010000006801000000000000a10700000100000001000000
     End
     OnLoad ="[Event Procedure]"
@@ -961,7 +961,7 @@ Begin Report
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="Species_Name"
-                    ControlSource ="Master_Plant_Code_FK"
+                    ControlSource ="LU_Code"
                     StatusBarText ="Target Species name (ITIS species name from tlu_NCPN_Plants.Master_Species)"
                     GridlineColor =10921638
 
@@ -2004,6 +2004,7 @@ Option Explicit
 ' Adapted:      Bonnie Campbell, April 7, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 4/7/2015 - initial version
+'   BLC - 5/19/2015 - added pause & increased wait for 15 seconds
 ' ---------------------------------
 Private Sub Report_Open(Cancel As Integer)
 

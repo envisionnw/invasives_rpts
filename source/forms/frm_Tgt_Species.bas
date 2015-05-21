@@ -12,10 +12,10 @@ Begin Form
     Width =10935
     DatasheetFontHeight =11
     ItemSuffix =28
-    Left =4020
-    Top =1992
-    Right =14952
-    Bottom =8040
+    Left =4104
+    Top =300
+    Right =15288
+    Bottom =6348
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x72574db34b86e440
@@ -126,7 +126,7 @@ Begin Form
                     OverlapFlags =85
                     MultiSelect =2
                     IMESentenceMode =3
-                    ColumnCount =3
+                    ColumnCount =5
                     Left =5760
                     Top =1080
                     Width =4320
@@ -141,7 +141,7 @@ Begin Form
                         "temisia arbuscula;;;ERICOMPOSITUS;Erigeron compositus;;;STIARI;Achnatherum aridu"
                         "m;;;ACAMPTOPAPPUS;Acamptopappus sp.;ACAMP;;ERICOMPOSITUS;Erigeron compositus;ERC"
                         "O4;;ERICER;Eriogonum cernuum;ERCE;"
-                    ColumnWidths ="1440;2520;720"
+                    ColumnWidths ="1440;2520;720;288;288"
                     OnDblClick ="[Event Procedure]"
                     OnKeyUp ="[Event Procedure]"
                     OnClick ="[Event Procedure]"
@@ -892,6 +892,10 @@ Private Sub btnLoad_Click()
 
 On Error GoTo Err_Handler
 
+    GetListboxRecordset lbxTgtSpecies
+
+
+
     'open tgt species list form
     DoCmd.OpenForm "frm_Select_List", acNormal, , , , acWindowNormal, Me.name
 
@@ -987,10 +991,10 @@ End Sub
 
 ' ---------------------------------
 ' SUB:          lbxTgtSpecies_DblClick
-' Description:  XX
+' Description:  Removes items from lbxTgSpecies
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   Cancel - if true cancels action, false runs removal
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -1027,8 +1031,9 @@ End Sub
 ' SUB:          lbxTgtSpecies_KeyUp
 ' Description:  Deselects items after control update
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   KeyCode - keystroke code
+'               Shift - if shift key has been pressed
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -1236,12 +1241,14 @@ End Sub
 ' Revisions:
 '   BLC - 3/3/2015 - initial version
 '   BLC - 5/13/2015 - added LU code and fixed MasterCode bug which substituted LU_Code as Master_Code from tlu_NPCN_Plants
+'   BLC - 5/20/2015 - reverted to LUCode for col 2, Code (Master_Plant_Code) in col 0
 ' ---------------------------------
 Private Sub btnSaveList_Click()
 On Error GoTo Err_Handler
 
-    Dim iRow As Integer, i As Integer
-    Dim strMasterCode As String, strSpecies As String, strLUCode As String, strSQL As String, strInsert As String
+    Dim iRow As Integer, i As Integer, iTransectOnly, iTgtAreaID
+    Dim strMasterCode As String, strSpecies As String, strLUCode As String
+    Dim strSQL As String, strInsert As String
     Dim varReturn As Variant
     
     'start @ row 1 (headers = row 0)
@@ -1250,9 +1257,11 @@ On Error GoTo Err_Handler
        ' ---------------------------------------------------
        '  NOTE: listbox column MUST have a non-zero width to retrieve its value
        ' ---------------------------------------------------
-        strMasterCode = lbxTgtSpecies.Column(0, iRow) 'column 0 = LU_Code was Master_PLANT_Code
+        strMasterCode = lbxTgtSpecies.Column(0, iRow) 'column 0 = Master_PLANT_Code
         strSpecies = lbxTgtSpecies.Column(1, iRow) 'column 1 = Species name
-        strLUCode = lbxTgtSpecies.Column(2, iRow) 'column 2 = Master_PLANT_Code
+        strLUCode = lbxTgtSpecies.Column(2, iRow) 'column 2 = LU_Code
+        iTransectOnly = Nz(lbxTgtSpecies.Column(3, iRow), 0) 'column 3 = Transect_Only
+        iTgtAreaID = Nz(lbxTgtSpecies.Column(4, iRow), 0) 'column 4 = Target_Area_ID
         
        ' ---------------------------------------------------
        '  Check if item exists in tbl_TgtSpecies for Park, Year, Species combo
@@ -1266,7 +1275,7 @@ On Error GoTo Err_Handler
         Dim rs As DAO.Recordset
 
         Set rs = CurrentDb.OpenRecordset(strSQL) 'CurrentDb.Execute(strSQL, dbFailOnError) >> doesn't compile expected function or variable
-        
+      
         'check if there are no records (rs.BOF & rs.EOF are both true)
         If rs.BOF And rs.EOF Then
             
@@ -1275,12 +1284,14 @@ On Error GoTo Err_Handler
             
             'prepare SQL
             strSQL = "INSERT INTO tbl_Target_Species" _
-                    & "(Master_Plant_Code_FK, Park_Code, Target_Year, Species_Name, LU_Code)" _
+                    & "(Master_Plant_Code_FK, Park_Code, Target_Year, Species_Name, LU_Code, " _
+                    & "Transect_Only, Target_Area_ID)" _
                     & "VALUES "
     
             'prepare insert value
             strInsert = "('" & strMasterCode & "','" & TempVars.item("park") & "'," _
-                        & TempVars.item("tgtYear") & ",'" & strSpecies & "','" & strLUCode & "');"
+                        & TempVars.item("tgtYear") & ",'" & strSpecies & "','" & strLUCode _
+                        & "'," & iTransectOnly & "," & iTgtAreaID & ");"
             
             'add comma if more than one row to insert
             'If (lbxTgtSpecies.ListCount - 1) > 1 And iRow < (lbxTgtSpecies.ListCount - 1) Then strInsert = strInsert & ","
@@ -1315,7 +1326,8 @@ On Error GoTo Err_Handler
         
         strSQL = "SELECT tbl_Target_Species.Park_Code AS Park, " & _
                  "tbl_Target_Species.Target_Year AS TgtYear, " & _
-                 "Master_Plant_Code_FK, Species_Name, LU_Code, Priority, Transect_Only, Target_Area_ID " & _
+                 "Master_Plant_Code_FK, Species_Name, LU_Code, " & _
+                 "Priority, Transect_Only, Target_Area_ID " & _
                  "FROM tbl_Target_Species " & _
                  "WHERE (((tbl_Target_Species.Target_Year) = CInt(tgtYear)) " & _
                  "And ((LCase([tbl_Target_Species].[Park_Code])) = LCase(park))) " & _

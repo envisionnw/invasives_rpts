@@ -14,10 +14,10 @@ Begin Form
     Width =13584
     DatasheetFontHeight =11
     ItemSuffix =63
-    Left =3960
+    Left =5808
     Top =2412
-    Right =17544
-    Bottom =8592
+    Right =19392
+    Bottom =11100
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x72574db34b86e440
@@ -1333,8 +1333,10 @@ End Sub
 ' SUB:          cbxAddToList
 ' Description:  Add an item to a list
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   list - listbox name
+'               cbxValue - value to add
+'               separator - delimiter for values
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -1371,8 +1373,10 @@ End Sub
 ' SUB:          cbxRemoveFromList
 ' Description:  Remove an item from a list
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   list - listbox name
+'               cbxValue - value to add
+'               separator - delimiter for values
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:

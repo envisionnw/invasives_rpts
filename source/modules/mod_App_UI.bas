@@ -113,7 +113,10 @@ Public Sub PopulateInstructions(ctrl As Control, strContext As String)
         Case "SpeciesListByPark" ' Reports > Species List By Park
             strInstructions = "Choose the park and year for your list. Click 'Continue' to prepare your report."
         Case "TgtListAnnualSummary"
-            strInstructions = "Choose the year(s) for your list. Click 'Continue' to prepare your report."
+            strInstructions = "Choose the year(s) for your list. Click 'Continue' to prepare your report." & vbCrLf & vbCrLf & _
+                            "This report may take a minute to create and display. " & vbCrLf & _
+                            "Calculated summary values will display once the report has finished rendering. " & vbCrLf & vbCrLf & _
+                            "Your patience is appreciated."
         Case "Precision", "Effectiveness", "Bias", "Stage", "Flow" ' Reports > Precision etc.
             strInstructions = "Complete the fields to define the data set or subset you are reporting. " _
                     & "Leave the fields blank if you are reporting on all data. Click 'Run' to validate."

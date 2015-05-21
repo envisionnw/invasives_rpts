@@ -180,21 +180,21 @@ MsgBox strMessage
 
 End Sub
 
-Public Function FileExists(varFile As Variant) As Boolean
+Public Function uFileExists(varFile As Variant) As Boolean
 'Return whether a file exists
 On Error GoTo Err_FileExists
 
 If IsNull(varFile) Then
-    FileExists = False
+    uFileExists = False
     Exit Function
 End If
-FileExists = (Len(Dir(varFile)) > 0)
+uFileExists = (Len(Dir(varFile)) > 0)
 
 Exit_FileExists:
     Exit Function
 
 Err_FileExists:
-    FileExists = False
+    uFileExists = False
     Resume Exit_FileExists
 
 End Function

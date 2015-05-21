@@ -323,7 +323,7 @@ End Function
 Public Function ParseFileExt(ByVal strFullPath As String, _
     Optional blnIncludeDot As Boolean = True) As String
 
-    On Error GoTo Exit_Procedure
+    On Error GoTo Exit_Function
 
     Dim arrPath() As String
     Dim strFile As String
@@ -411,7 +411,7 @@ End Function
 '               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
 Public Function ParsePath(ByVal strFullPath As String) As String
-    On Error GoTo Exit_Procedure
+    On Error GoTo Exit_Function
 
     Dim arrPath() As String
     Dim strFile As String

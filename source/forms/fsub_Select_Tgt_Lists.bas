@@ -288,10 +288,10 @@ Option Explicit
 
 ' ---------------------------------
 ' SUB:          Form_Load
-' Description:  XX
+' Description:  Actions for form loading
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   -
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:

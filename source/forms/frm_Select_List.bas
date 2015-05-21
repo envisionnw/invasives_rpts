@@ -321,10 +321,10 @@ Option Explicit
 
 ' ---------------------------------
 ' SUB:          Form_Load
-' Description:  XX
+' Description:  Form loading actions
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   -
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -457,6 +457,7 @@ End Sub
 ' Revisions:
 '   BLC - 3/5/2015 - initial version
 '   BLC - 5/13/2015 - added LU_Code to values retrieved from tbl_Tgt_Species
+'   BLC - 5/20/2015 - added transect only and target area fields
 ' ---------------------------------
 Private Sub btnLoadList_Click()
 On Error GoTo Err_Handler
@@ -473,7 +474,8 @@ On Error GoTo Err_Handler
     If Len(Replace(strWhere, "WHERE", "")) = 0 Then strWhere = ""
     
     'build SQL statement
-    strSQL = "SELECT DISTINCT Master_Plant_Code_FK AS Code, Species_Name AS Species, LU_Code AS LUCode " _
+    strSQL = "SELECT DISTINCT Master_Plant_Code_FK AS Code, Species_Name AS Species, " _
+            & "LU_Code AS LUCode,  Transect_Only, Target_Area_ID " _
             & "FROM tbl_Target_Species " _
             & strWhere & ";"
     
@@ -485,6 +487,11 @@ On Error GoTo Err_Handler
     Set rs = CurrentDb.OpenRecordset(strSQL)
 
     'merge existing listbox recordset w/ new SQL recordset
+    'Set rsNew = MergeRecordsets(Forms("frm_Tgt_Species").lbxTgtSpecies.Recordset, rs)
+    
+'    Forms("frm_Tgt_Species").lbxTgtSpecies
+    
+    
     Set rsNew = MergeRecordsets(Forms("frm_Tgt_Species").lbxTgtSpecies.Recordset, rs)
 
     'load listbox

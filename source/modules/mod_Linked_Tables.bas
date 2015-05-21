@@ -13,6 +13,7 @@ Option Explicit
 '               ------------------------------------------------------------------------
 '               BLC, 4/30/2015 - added fxnVerifyLinks, fxnRefreshLinks, fxnVerifyLinkTableInfo,
 '                                fxnMakeBackup from mod_Custom_Functions
+'               BLC, 5/19/2015 - renamed functions, removed fxn prefix
 ' =================================
 
 ' =================================
@@ -289,8 +290,11 @@ End Function
 '               -------------------------------------------------------------------------
 '               BLC, 4/30/2015 - moved to mod_Linked_Tables from mod_Custom_Functions & renamed RefreshLinks
 '               BLC, 5/18/2015 - renamed, removed fxn prefix
+'               BLC, 5/20/2015 - updated progress meter control naming, added connection component for non-"DATABASE="
+'                                connection strings (e.g. Access 2010 w/ "Dbq=")
 ' =================================
 Public Function RefreshLinks(strDbName As String, ByVal strNewConnStr As String, _
+    Optional strComponent As String = "DATABASE=", _
     Optional ByVal blnIsODBC As Boolean = False) As Boolean
     On Error GoTo Err_Handler
 
@@ -323,13 +327,13 @@ Public Function RefreshLinks(strDbName As String, ByVal strNewConnStr As String,
     strProgForm = "frm_Progress_Meter"
     DoCmd.OpenForm strProgForm
     Set frm = Forms!frm_Progress_Meter
-    frm.Caption = " Update table connections"
-    frm!txtPercent = 0
+    frm.Caption = " Updating table connections"
+    frm!tbxPercent = 0
 
     If blnIsODBC = False Then   ' Access back-end
         ' Opens the target database and the current system table containing the list
         '   of tables for refreshing links
-        varFileName = ParseConnectionStr(strNewConnStr)
+        varFileName = ParseConnectionStr(strNewConnStr, strComponent)
         Set dbGet = DBEngine.OpenDatabase(varFileName)
 
         ' First pass to verify the tables in the new back-end database (avoids partial updates)
@@ -337,18 +341,18 @@ Public Function RefreshLinks(strDbName As String, ByVal strNewConnStr As String,
         varReturn = SysCmd(acSysCmdInitMeter, "Verifying tables in " & _
             strDbName, intNumTables)
         ' Update the message below the progress meter
-        frm!txtMsg = "Verifying tables in " & strDbName
+        frm!tbxMsg = "Verifying tables in " & strDbName
         intI = 0
         rst.MoveFirst
         Do Until rst.EOF
             intI = intI + 1
             varReturn = SysCmd(acSysCmdUpdateMeter, intI)
             ' Update the popup progress meter
-            frm!txtPercent = Round(100 * intI / intNumTables)
+            frm!tbxPercent = Round(100 * intI / intNumTables)
             ' Update the progress bar in the progress popup with sequential "Û" characters
             '   which look like a bar because of the font of the control (20 characters=100%)
             strProgress = String(Round(19 * intI / intNumTables), "Û")
-            frm!txtProgress = strProgress
+            frm!tbxProgress = strProgress
             frm.Repaint
             strTable = rst![Link_table]
             Debug.Print strTable
@@ -361,18 +365,18 @@ Public Function RefreshLinks(strDbName As String, ByVal strNewConnStr As String,
         varReturn = SysCmd(acSysCmdInitMeter, "Updating table links in " & _
             strDbName, intNumTables)
         ' Update the message below the progress meter
-        frm!txtMsg = "Updating table links in " & strDbName
+        frm!tbxMsg = "Updating table links in " & strDbName
         intI = 0
         rst.MoveFirst
         Do Until rst.EOF
             intI = intI + 1
             varReturn = SysCmd(acSysCmdUpdateMeter, intI)
             ' Update the popup progress meter
-            frm!txtPercent = Round(100 * intI / intNumTables)
+            frm!tbxPercent = Round(100 * intI / intNumTables)
             ' Update the progress bar in the progress popup with sequential "Û" characters
             '   which look like a bar because of the font of the control (20 characters=100%)
             strProgress = String(Round(19 * intI / intNumTables), "Û")
-            frm!txtProgress = strProgress
+            frm!tbxProgress = strProgress
             frm.Repaint
             strTable = rst![Link_table]
 Debug.Print strTable
@@ -398,7 +402,7 @@ Debug.Print strTable
         varReturn = SysCmd(acSysCmdInitMeter, "Verifying tables in " & _
             strDbName, intNumTables)
         ' Update the message below the progress meter
-        frm!txtMsg = "Verifying tables in " & strDbName
+        frm!tbxMsg = "Verifying tables in " & strDbName
         intI = 0
         rst.MoveFirst
         Do Until rst.EOF
@@ -409,7 +413,7 @@ Debug.Print strTable
             ' Update the progress bar in the progress popup with sequential "Û" characters
             '   which look like a bar because of the font of the control (20 characters=100%)
             strProgress = String(Round(19 * intI / intNumTables), "Û")
-            frm!txtProgress = strProgress
+            frm!tbxProgress = strProgress
             frm.Repaint
             strTable = rst![Link_table]
             If TestODBCConnection(strTable, strNewConnStr) = False Then GoTo Exit_Procedure
@@ -428,18 +432,18 @@ Debug.Print strTable
             intI = intI + 1
             varReturn = SysCmd(acSysCmdUpdateMeter, intI)
             ' Update the popup progress meter
-            frm!txtPercent = Round(100 * intI / intNumTables)
+            frm!tbxPercent = Round(100 * intI / intNumTables)
             ' Update the progress bar in the progress popup with sequential "Û" characters
             '   which look like a bar because of the font of the control (20 characters=100%)
             strProgress = String(Round(19 * intI / intNumTables), "Û")
-            frm!txtProgress = strProgress
+            frm!tbxProgress = strProgress
             frm.Repaint
             strTable = rst![Link_table]
             ' Update and refresh the table connection
             Set tdf = db.tabledefs(strTable)
             ' Use test again to trap errors
             If TestODBCConnection(strTable, strNewConnStr) = True Then
-                tdf.Connect = strNewConnStr
+                tdf.Connect = "Driver={Microsoft Access Driver (*.mdb, *.accdb)};DATABASE=C:\___TEST_DATA\Invasives_be.accdb;" 'strNewConnStr
                 tdf.RefreshLink
             Else
                 GoTo Exit_Procedure
@@ -520,6 +524,7 @@ End Function
 '               -------------------------------------------------------------------------
 '               BLC, 4/30/2015 - moved to mod_Linked_Tables from mod_Custom_Functions
 '               BLC, 5/18/2015 - renamed, removed fxn prefix
+'               BLC, 5/19/2015 - added check for FIX_LINKED_DBS flag when DbAdmin is not fully implemented
 ' =================================
 Public Function VerifyLinkTableInfo() As Boolean
     On Error GoTo Err_Handler
@@ -535,6 +540,11 @@ Public Function VerifyLinkTableInfo() As Boolean
 
     Set db = CurrentDb
     blnHasError = False             ' Flag to indicate error status
+
+    ' Check if FIX_LINKED_DBS is set (usually when DbAdmin is not fully implemented)
+    If FIX_LINKED_DBS Then
+        FixLinkedDatabase "tbl_Target_Species"
+    End If
 
     ' First make sure that there are linked tables
     intNRecs = DCount("*", "MSysObjects", "([Type] In (4,6)) And ([Name] Not Like '~*')")
@@ -746,7 +756,7 @@ Public Function VerifyLinks() As Boolean
         ' Update the progress bar in the progress popup with sequential "Û" characters
         '   which look like a bar because of the font of the control (20 characters=100%)
         strProgress = String(Round(19 * intI / intNumTables), "Û")
-        frm!txtProgress = strProgress
+        frm!tbxProgress = strProgress
         frm.Repaint
         strLinkTableName = rst![name]
         ' Make sure the linked table opens properly
@@ -930,3 +940,57 @@ Err_Handler:
     Resume Exit_Procedure
 
 End Function
+
+' =================================
+' FUNCTION:     FixLinkedDatabase
+' Description:  Populates the database path for the linked table until full database admin linking is in place
+'               This fixes a situation where tbl_Link_Dbs is not updated when the Access Linked Table Manager
+'               is used to update the location of linked tables
+' Parameters:   strTableName - the name of a linked table
+' Returns:      -
+' Throws:       none
+' References:   ParseConnectionStr
+' Source/date:  BLC, 5/19/2015 - initial version
+' =================================
+Public Sub FixLinkedDatabase(ByVal strTableName As String)
+    On Error GoTo Err_Handler
+
+    Dim strTemp As String, strSQL As String, strCurDb As String, strCurDbPath As String
+    Dim rs As DAO.Recordset
+
+    strTemp = ParseConnectionStr(CurrentDb.tabledefs(strTableName).Connect)
+    
+    'fetch current database location
+    Set rs = CurrentDb.OpenRecordset("qsys_Linked_tables_mismatched_info_dbs")
+    
+    If Not rs.EOF And rs.BOF Then
+    
+        rs.MoveLast
+        
+        'handle single db otherwise do it manually via tbl_Linked_Dbs?
+        If rs.RecordCount = 1 Then
+            strCurDb = rs("Link_db")
+            strCurDbPath = rs("CurrPath")
+            
+            'populate the current database in Link_Dbs
+            strSQL = "UPDATE tsys_Link_Dbs " & _
+                     "SET File_path = '" & strCurDbPath & "' " & _
+                     "WHERE Link_db = '" & strCurDb & "';"
+        
+            DoCmd.RunSQL (strSQL)
+        End If
+        
+    End If
+
+Exit_Procedure:
+    Exit Sub
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - FixLinkedDatabase[mod_Linked_Tables])"
+    End Select
+    Resume Exit_Procedure
+
+End Sub

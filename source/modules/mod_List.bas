@@ -482,6 +482,7 @@ End Sub
 ' Revisions:
 '   BLC - 2/6/2015 - initial version
 '   BLC - 5/10/2015 - moved to mod_List from mod_Lists
+'   BLC - 5/20/2015 - changed from tbxMasterCode to tbxLUCode
 ' ---------------------------------
 Public Sub PopulateList(ctrlSource As Control, rs As Recordset, ctrlDest As Control)
 
@@ -508,7 +509,10 @@ On Error GoTo Err_Handler
         
         ctrlSource.Form.Controls("tbxCode").ControlSource = "Code"
         ctrlSource.Form.Controls("tbxSpecies").ControlSource = "Species"
-        ctrlSource.Form.Controls("tbxMasterCode").ControlSource = "Master_PLANT_Code"
+        'ctrlSource.Form.Controls("tbxMasterCode").ControlSource = "Master_PLANT_Code"
+        ctrlSource.Form.Controls("tbxLUCode").ControlSource = "LUCode"
+        ctrlSource.Form.Controls("tbxTransectOnly").ControlSource = "Transect_Only"
+        ctrlSource.Form.Controls("tbxTgtAreaID").ControlSource = "Target_Area_ID"
         
         'set the initial record count (MoveLast to get full count, MoveFirst to set display to first)
         rs.MoveLast
@@ -580,10 +584,6 @@ On Error GoTo Err_Handler
             Loop
         Case "Field List"
     End Select
-
-     'MsgBox ctrlSource.ListCount & " in list" & vbCrLf & rs.RecordCount & " in rs", vbOKOnly, "Num in list"
-    'refresh control
-    'lbx.Requery
 
 Exit_Sub:
     Exit Sub
@@ -1061,6 +1061,65 @@ Dim i As Integer
     End If
     
     GetListCount = i
+
+Exit_Function:
+    Exit Function
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - GetListCount[mod_List])"
+    End Select
+    Resume Exit_Function
+End Function
+
+' ---------------------------------
+' FUNCTION:     GetListRecordset
+' Description:  Create a recordset from list items
+' Assumptions:  -
+' Parameters:   lbx - listbox control to get records from (listbox)
+'               blnHeaders - true if listbox has headers, false if not (boolean)
+' Returns:      rs - recordset from list items
+' Throws:       none
+' References:   none
+' Source/date:
+' Adapted:      Bonnie Campbell, May 10, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 5/21/2015 - initial version
+' ---------------------------------
+Public Function GetListRecordset(lbx As ListBox, blnHeaders As Boolean) As DAO.Recordset
+On Error GoTo Err_Handler
+
+Dim iRow As Integer, iStart As Integer
+Dim rs As DAO.Recordset
+
+    'Set start row
+    iStart = 0
+    If blnHeaders Then iStart = 1
+    
+    If lbx.ListCount > 0 Then
+    
+        For iRow = iStart To lbx.ListCount - 1
+               
+            rs.AddNew
+            
+            ' ---------------------------------------------------
+            '  NOTE: listbox column MUST have a non-zero width to retrieve its value
+            ' ---------------------------------------------------
+             rs!Code = lbxTgtSpecies.Column(0, iRow) 'column 0 = Master_PLANT_Code
+             rs!Species = lbxTgtSpecies.Column(1, iRow) 'column 1 = Species name
+             rs!LUCode = lbxTgtSpecies.Column(2, iRow) 'column 2 = LU_Code
+             rs!TransectOnly = Nz(lbxTgtSpecies.Column(3, iRow), 0) 'column 3 = Transect_Only
+             rs!TgtAreaID = Nz(lbxTgtSpecies.Column(4, iRow), 0) 'column 4 = Target_Area_ID
+            
+            rs.Update
+            
+        Next
+    
+    End If
+    
+    GetListRecordset = rs
 
 Exit_Function:
     Exit Function

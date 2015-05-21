@@ -19,10 +19,10 @@ Begin Form
     Width =4140
     DatasheetFontHeight =9
     ItemSuffix =50
-    Left =6615
-    Top =7275
-    Right =10755
-    Bottom =10140
+    Left =6612
+    Top =7272
+    Right =10752
+    Bottom =9108
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x1385341e7574e340
@@ -260,7 +260,7 @@ Option Explicit
 ' References:   -
 ' Source/date:  Bonnie L. Campbell, June 12, 2014
 ' Adapted/date: -
-' Revisions:    BLC, 6/xx/2014 - XX
+' Revisions:    BLC, 6/12/2014 - initial version
 ' =================================
 
 ' ---------------------------------
