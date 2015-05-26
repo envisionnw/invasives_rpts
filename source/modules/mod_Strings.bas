@@ -42,7 +42,7 @@ Public Function ReplaceString(strTextIn As String, strFind As String, _
     intPos = InStr(1, strTemp, strFind, intCaseSensitive)
 
     Do While intPos > 0
-        strTemp = left$(strTemp, intPos - 1) & strReplace & Mid$(strTemp, intPos + Len(strFind))
+        strTemp = Left$(strTemp, intPos - 1) & strReplace & Mid$(strTemp, intPos + Len(strFind))
         intPos = InStr(intPos + Len(strReplace), strTemp, strFind, intCaseSensitive)
     Loop
 

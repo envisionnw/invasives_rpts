@@ -22,10 +22,9 @@ Begin Form
     Width =12300
     DatasheetFontHeight =10
     ItemSuffix =182
-    Left =-1635
-    Top =450
-    Right =10665
-    Bottom =10515
+    Left =3780
+    Right =16080
+    Bottom =10068
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x80d28b4cb201e340
@@ -186,10 +185,10 @@ Begin Form
                             PressedColor =16772300
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -223,10 +222,10 @@ Begin Form
                             PressedShade =90.0
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -256,10 +255,10 @@ Begin Form
                             PressedColor =13434828
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -290,10 +289,10 @@ Begin Form
                             PressedColor =14211288
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -323,10 +322,10 @@ Begin Form
                             PressedColor =16764108
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Overlaps =1
                         End
                     End
@@ -442,10 +441,10 @@ Begin Form
                             LayoutCachedTop =555
                             LayoutCachedWidth =12165
                             LayoutCachedHeight =9045
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Begin
                                 Begin Rectangle
                                     BackStyle =1
@@ -530,10 +529,10 @@ Begin Form
                             LayoutCachedTop =555
                             LayoutCachedWidth =12165
                             LayoutCachedHeight =9045
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Begin
                                 Begin Rectangle
                                     BackStyle =1
@@ -593,10 +592,10 @@ Begin Form
                             LayoutCachedTop =555
                             LayoutCachedWidth =12165
                             LayoutCachedHeight =9045
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Begin
                                 Begin Rectangle
                                     BackStyle =1
@@ -707,10 +706,10 @@ Begin Form
                             LayoutCachedTop =555
                             LayoutCachedWidth =12165
                             LayoutCachedHeight =9045
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                         End
                         Begin Page
                             Visible = NotDefault
@@ -729,10 +728,10 @@ Begin Form
                             LayoutCachedTop =555
                             LayoutCachedWidth =12165
                             LayoutCachedHeight =9045
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Begin
                                 Begin Subform
                                     OverlapFlags =247
@@ -978,8 +977,8 @@ On Error GoTo Quit_procedure
         rst.MoveFirst
         Do Until rst.EOF
             ' Check for empty string or non-existent file first
-            If IsNull(rst![file_path]) = False Then
-                strOrigFile = rst![file_path]
+            If IsNull(rst![File_path]) = False Then
+                strOrigFile = rst![File_path]
                 strFileExt = ParseFileExt(strOrigFile)
                 If FileExists(strOrigFile) Then
                     intCount = 0
@@ -987,7 +986,7 @@ On Error GoTo Quit_procedure
                     '   name is found
                     Do
                         intCount = intCount + 1
-                        strNewFile = left(strOrigFile, Len(strOrigFile) - Len(strFileExt)) _
+                        strNewFile = Left(strOrigFile, Len(strOrigFile) - Len(strFileExt)) _
                             & "_" & CStr(intCount) & strFileExt
                     Loop Until FileExists(strNewFile) = False
                     DBEngine.CompactDatabase strOrigFile, strNewFile
@@ -1226,8 +1225,9 @@ End Sub
 ' SUB:          ActionButton_Click
 ' Description:  Generic form button actions
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   btn - action control (control)
+'               strForm - optional form name (string)
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:  Bonnie Campbell, August 20, 2014 - for NCPN tools

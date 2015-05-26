@@ -63,7 +63,7 @@ End Function
 '               by Christian, 7/7/2014.
 ' Revisions:    BLC, 5/17/2015 - initial version
 ' =================================
-Public objRibbon  As IRibbonUI
+'Public objRibbon As IRibbonUI
 Public Sub RibbonOnLoad(ribbon As Office.IRibbonUI)
 On Error GoTo Err_Handler
 Dim prv_Ribbon As IRibbonUI
@@ -604,6 +604,152 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
+' SUB:          DisableControl
+' Description:  Set color scheme for labels so they appear disabled
+' Assumptions:  Assumes control has BackColor and ForeColor properties
+' Parameters:   ctrl - control to set color scheme for
+' Returns:      N/A
+' Throws:       none
+' References:   none
+' Source/date:
+' Adapted:      Bonnie Campbell, February 7, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 2/7/2015  - initial version
+'   BLC - 5/10/2015 - moved to mod_List from mod_Lists
+'   BLC - 5/22/2015 - moved from mod_List to mod_UI
+' ---------------------------------
+Public Sub DisableControl(ctrl As Control)
+
+On Error GoTo Err_Handler
+    
+    ctrl.backcolor = lngLtGray
+    ctrl.forecolor = lngGray
+    
+    If ctrl.ControlType = acCommandButton Then
+        ctrl.borderColor = lngGray
+    End If
+
+Exit_Sub:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - DisableControl[mod_UI])"
+    End Select
+    Resume Exit_Sub
+End Sub
+
+' ---------------------------------
+' SUB:          EnableControl
+' Description:  Set color scheme for labels so they appear enabled
+' Assumptions:  Assumes control has BackColor and ForeColor properties
+' Parameters:   ctrl - control to set color scheme for
+'               backColor - long value for desired back color
+'               foreColor - long value for desired fore (text) color
+'               optionally for command buttons:
+'               borderColor - long value for desired border color
+'               hoverColor - long value for desired hover color
+'               pressedColor - long value for desired pressed button color
+'               hoverForeColor - long value for desired hover fore (text) color
+'               pressedForeColor - long value for desired pressed button fore (text) color
+' Returns:      N/A
+' Throws:       none
+' References:   none
+' Source/date:
+' Adapted:      Bonnie Campbell, February 7, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 2/7/2015  - initial version
+'   BLC - 5/10/2015 - moved to mod_List from mod_Lists
+'   BLC - 5/22/2015 - moved from mod_List to mod_UI
+' ---------------------------------
+Public Function EnableControl(ctrl As Control, backcolor As Long, forecolor As Long, _
+                                Optional borderColor As Long, _
+                                Optional hoverColor As Long, _
+                                Optional pressColor As Long, _
+                                Optional hoverForeColor As Long, _
+                                Optional pressedForeColor As Long)
+On Error GoTo Err_Handler
+    
+    ctrl.backcolor = backcolor
+    ctrl.forecolor = forecolor
+    
+    If ctrl.ControlType = acCommandButton Then
+        ctrl.borderColor = borderColor
+        ctrl.hoverColor = hoverColor
+        ctrl.pressedColor = pressColor
+        ctrl.hoverForeColor = hoverForeColor
+        ctrl.pressedForeColor = pressedForeColor
+    End If
+
+Exit_Function:
+    Exit Function
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - EnableControl[mod_UI])"
+    End Select
+    Resume Exit_Function
+End Function
+
+' ---------------------------------
+' SUB:          ToggleControl
+' Description:  Toggles control font (fore) color & enables/disables
+' Parameters:   frmName - name of parent form (string)
+'               btnName - name of the button control to change
+'                     accommodates command and label as control buttons (string)
+'               color - optional color value (long)
+' Returns:      -
+' Throws:       none
+' References:   none
+' Source/date:  Bonnie Campbell May 12, 2014 - NCPN tools
+' Adapted:      -
+' Revisions:    BLC, 5/12/2014 - initial version
+'               BLC, 4/30/2015 - moved from mod_Common_UI to mod_UI
+' ---------------------------------
+Public Sub ToggleControl(frmName As String, btnName As String, Optional color As Variant = Null)
+On Error GoTo Err_Handler:
+    
+    Dim ctrl As Control
+    Set ctrl = Forms(frmName).Controls(btnName)
+    
+    'invert enabled value (change true -> false, false -> true) & change color
+    With ctrl
+    
+        'enable/disable control (includes acCommandButton, acComboBox, acListBox, acTextBox, acToggleButton)
+        If Not ctrl.ControlType = acLabel Then
+            .Enabled = Not .Enabled
+        End If
+        
+        If Not IsNull(color) Then
+            ' change font color for appropriate controls with text
+            Select Case ctrl.ControlType
+                Case acCommandButton, acComboBox, acLabel, acListBox, acTextBox, acToggleButton
+                    .forecolor = color
+                Case Else
+            End Select
+        End If
+    End With
+    
+Exit_Procedure:
+    'update display
+    repaintParentForm Forms(frmName).Controls(btnName)
+    Exit Sub
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - ToggleControl[mod_UI])"
+    End Select
+    Resume Exit_Procedure
+End Sub
+
+
+' ---------------------------------
 '  Text
 ' ---------------------------------
 
@@ -699,9 +845,9 @@ Public Sub PrepareCrumbs(frm As SubForm, aryCrumbs As Variant, Optional separato
             
             'set control position
             If intLastCtrlPosition > frm.Controls(strCtrlName).Parent.Width Then
-                .left = frm.Controls(strCtrlName).Parent.Width - .Width
+                .Left = frm.Controls(strCtrlName).Parent.Width - .Width
             Else
-                .left = intLastCtrlPosition
+                .Left = intLastCtrlPosition
             End If
             
             'set control width
@@ -716,12 +862,12 @@ Public Sub PrepareCrumbs(frm As SubForm, aryCrumbs As Variant, Optional separato
         If (i < UBound(aryCrumbs)) Then
           strCtrlSeparator = "lblSep" & strNum
           With frm.Controls(strCtrlSeparator)
-            .left = intLastCtrlPosition + intLastCtrlWidth + 10
+            .Left = intLastCtrlPosition + intLastCtrlWidth + 10
             .Caption = separator
             .visible = True
             
             'determine position of next control
-            intLastCtrlPosition = .left + .Width + 10
+            intLastCtrlPosition = .Left + .Width + 10
           End With
         End If
         

@@ -114,7 +114,7 @@ End Sub
 ' References:   -
 ' Source/date:  Bonnie Campbell, July 31, 2014 for NCPN WQ Utilities tool
 ' Adapted:      -
-' Revisions:    BLC, 7/31/2014 - XX
+' Revisions:    BLC, 7/31/2014 - initial version
 ' ---------------------------------
 Public Sub initApp()
 On Error GoTo Err_Handler:
@@ -152,177 +152,6 @@ Err_Handler:
     End Select
     Resume Exit_Procedure
 End Sub
-
-' ---------------------------------
-' FUNCTION:     VerifyConnections
-' Description:  Checks the status of back-end connections
-' Parameters:   none
-' Returns:      none
-' Throws:       none
-' References:   FileExists, FormIsOpen, TestODBCConnection, VerifyLinks,
-'                   VerifyLinkTableInfo
-' Source/date:  Susan Huse, fall 2004
-' Adapted:      Bonnie Campbell, June, 2014 for NCPN WQ Utilities tool
-' Revisions:    John R. Boetsch, May 2005 - minor revisions and documentation
-'               JRB, 5/24/2006 - updated documentation, error traps, modified backup
-'                   strategy and added verification of individual table links
-'               JRB, 7/27/2006 - added code to open the always-open back-end connection
-'                   form upon confirming a good connection
-'               JRB, 6/29/2009 - revised system table structure; default to connected=False;
-'                   removed backup call; revised to work with ODBC connections
-'               JRB, 10/8/2009 - added Proc_Final_Status to make verifying connections
-'                   optional if there is an Access back-end file
-'               BLC, 7/31/2014 - changed gvars to TempVars, shifted to initApp module
-'               BLC, 9/5/2014  - added check for remote (network) backends (IsNetworkFile)
-'               BLC, 4/30/2015 - switched from fxnSwitchboardIsOpen to FormIsOpen(frmSwitchboard)
-'               BLC, 5/18/2015 - renamed, removed fxn prefix
-' ---------------------------------
-Public Function VerifyConnections()
-    On Error GoTo Err_Handler
-
-    Dim db As DAO.Database
-    Dim rst As DAO.Recordset
-    Dim strSysTable As String
-    Dim strDbName As String
-    Dim strTable As String
-    Dim strDbPath As String
-    Dim strServer As String
-    Dim strErrMsg As String
-    Dim blnHasError As Boolean
-
-    Set db = CurrentDb
-    TempVars.item("Connected") = False           ' Default in case of error
-    TempVars.item("HasAccessBE") = False         ' Flag to indicate that at least 1 Access BE exists
-    strSysTable = "tsys_Link_Dbs"   ' System table listing linked tables
-    blnHasError = False             ' Flag to indicate error status
-
-    ' Check the information in the application tables, exit if there is a problem
-    If VerifyLinkTableInfo = False Then GoTo Exit_Procedure
-
-    ' Set the recordset to the system table
-    Set rst = db.OpenRecordset(strSysTable, dbOpenTable, dbReadOnly)
-
-    Do Until rst.EOF
-        strDbName = rst.Fields("Link_db")
-        If rst.Fields("Is_ODBC") = True Then
-            ' ODBC connection
-            If Not IsNull(rst![Server]) Then
-                strServer = rst![Server]
-                ' Test the first table in the list for this back-end to test the connection
-                strTable = DFirst("[Link_table]", "tsys_Link_Tables", _
-                    "[Link_db]=""" & strDbName & """")
-                If TestODBCConnection(strTable, , , False) = False Then
-                    blnHasError = True
-                    If strErrMsg <> "" Then strErrMsg = strErrMsg & vbCrLf & vbCrLf
-                    strErrMsg = strErrMsg & _
-                        "The following server connection is not working:" & _
-                        vbCrLf & "  Db name: " & strDbName & _
-                        vbCrLf & "  Server:  " & strServer
-                End If
-            Else    ' Missing server name
-                If strErrMsg <> "" Then strErrMsg = strErrMsg & vbCrLf & vbCrLf
-                strErrMsg = strErrMsg & _
-                    "Missing the server name for the following database:" & _
-                    vbCrLf & "  Db name: " & strDbName
-            End If
-        Else
-            ' Access back-end - update the global variable
-            TempVars.item("HasAccessBE") = True
-            If Not IsNull(rst![file_path]) Then
-                strDbPath = rst![file_path]
-                If FileExists(strDbPath) = False Then
-                    ' Cannot find the file
-                    blnHasError = True
-                    If strErrMsg <> "" Then strErrMsg = strErrMsg & vbCrLf & vbCrLf
-                    strErrMsg = strErrMsg & _
-                        "The following database file cannot be located:" & _
-                        vbCrLf & "  Db name: " & strDbName & _
-                        vbCrLf & "  " & strDbPath
-                'Else
-                    ' Check if file is remote (network) & set bit to alert user that db (app) may be slow
-                    'If IsNetworkFile(strDbPath) Then
-                    '    rst![Is_Network_Db] = 1
-                    'End If
-                End If
-            Else    ' Missing file path
-                blnHasError = True
-                If strErrMsg <> "" Then strErrMsg = strErrMsg & vbCrLf & vbCrLf
-                strErrMsg = strErrMsg & _
-                    "Missing the file path for the following database:" & _
-                    vbCrLf & "  Db name: " & strDbName
-            End If
-        End If
-        rst.MoveNext
-    Loop
-    
-    'For applications with full DbAdmin subform (DB_ADMIN_CONTROL = True) otherwise ignore
-    If DB_ADMIN_CONTROL = True Then
-    
-        ' Check the status of individual table links, depending on application settings
-        If FormIsOpen("frmSwitchboard") And blnHasError = False Then
-            If Forms!frm_Switchboard.fsub_DbAdmin.Form.chkVerifyOnStartup Then
-                If TempVars.item("HasAccessBE") = True Then
-                    If MsgBox("Would you like all linked table connections to be tested?", _
-                        vbYesNo + vbDefaultButton2, _
-                        "Checking back-end connections ...") = vbNo Then GoTo Proc_Final_Status
-                End If
-                If VerifyLinks = False Then
-                    blnHasError = True
-                    If strErrMsg <> "" Then strErrMsg = strErrMsg & vbCrLf & vbCrLf
-                    strErrMsg = strErrMsg & _
-                        "One or more table connections is not working properly."
-                End If
-            End If
-        End If
-
-    End If
-    
-Proc_Final_Status:
-    If blnHasError Then
-        If strErrMsg <> "" Then strErrMsg = strErrMsg & vbCrLf & vbCrLf
-        strErrMsg = strErrMsg & _
-            "You must update the back-end database connections" & vbCrLf & _
-            "by selecting 'Db connections' from the menu before" & vbCrLf & _
-            "using this application." & vbCrLf & vbCrLf & _
-            "Would you like to fix the connection now?"
-        ' Notify the user with specific error information
-        If MsgBox(strErrMsg, vbCritical + vbYesNo, "Update back-end connections") _
-            = vbYes Then
-            ' Open the form to reconnect back-end tables
-            DoCmd.OpenForm "frm_Connect_Dbs"
-        End If
-    Else  ' If no connection errors, then set the global variable flag to True
-        TempVars.item("Connected") = True
-    End If
-
-Exit_Procedure:
-    On Error Resume Next
-    rst.Close
-    Set rst = Nothing
-    Set db = Nothing
-    Exit Function
-
-Err_Handler:
-    Select Case Err.Number
-      Case 3135, 3061, 3078  ' Problem with SQL syntax, or ref to nonexistent object, etc.
-        MsgBox "Error #" & Err.Number & ":  SQL syntax error. Please notify the " & _
-            "database administrator before using this application.", vbCritical, _
-            "Error encountered (#" & Err.Number & " - VerifyConnections[mod_Initialize_App])"
-      Case 3011, 7874   ' System table not found
-         MsgBox "Error #" & Err.Number & ":  Missing a system table. Please notify the " & _
-            "database administrator before using this application.", vbCritical, _
-            "Error encountered (#" & Err.Number & " - VerifyConnections)"
-      Case 3265   ' Field name in the system table improperly specified
-        MsgBox "Error #" & Err.Number & ":  System table field not found." & _
-            vbCrLf & "Please notify the database administrator before using " & _
-            "this application.", vbCritical, _
-            "Error encountered (#" & Err.Number & " - VerifyConnections)"
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - VerifyConnections)"
-    End Select
-    Resume Exit_Procedure
-End Function
 
 ' =================================
 ' FUNCTION:     AppSetup
@@ -412,7 +241,7 @@ Public Function AppSetup()
     setUserAccess frm, "update"
 
     ' Log the user, login time, release number, and application mode in the systems table
-    strRelease = left(strReleaseID, 8) & " / " & TempVars.item("UserAccessLevel")
+    strRelease = Left(strReleaseID, 8) & " / " & TempVars.item("UserAccessLevel")
     If IsODBC("tsys_Logins") Then
         ' Use a pass-through query to test the connection for write privileges
         strSQL = "INSERT INTO dbo.tsys_Logins " & _

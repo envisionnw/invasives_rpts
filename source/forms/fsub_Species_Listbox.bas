@@ -13,10 +13,10 @@ Begin Form
     Width =9120
     DatasheetFontHeight =11
     ItemSuffix =17
-    Left =4656
-    Top =1860
-    Right =8352
-    Bottom =5880
+    Left =7380
+    Top =3012
+    Right =11076
+    Bottom =7032
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xa913d0241a94e440
@@ -376,6 +376,7 @@ On Error GoTo Err_Handler
 
     'initial data fill
     fillList Me.Parent, Me.Parent.Controls("fsub_Species_Listbox"), Forms("frm_Tgt_Species")!lbxTgtSpecies
+    'fillList Forms("frm_Tgt_Species"), Me, Forms("frm_Tgt_Species")!lbxTgtSpecies
 
 Exit_Sub:
     Exit Sub

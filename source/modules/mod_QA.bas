@@ -149,7 +149,7 @@ Public Function UpdateQAResults(Optional blnUpdateAll As Boolean = True, _
     intNQueries = 0
 
     For Each qdf In qdfs
-        If left(qdf.name, 3) = "qa_" Then intNQueries = intNQueries + 1
+        If Left(qdf.name, 3) = "qa_" Then intNQueries = intNQueries + 1
     Next qdf
 
     On Error Resume Next
@@ -167,7 +167,7 @@ Public Function UpdateQAResults(Optional blnUpdateAll As Boolean = True, _
     intScope = Forms!frm_QA_Tool.optgScope ' Me.optgScope
 
     For Each qdf In qdfs
-        If left(qdf.name, 3) = "qa_" Then
+        If Left(qdf.name, 3) = "qa_" Then
             intI = intI + 1
             ' Update the percent complete in the progress popup
             frm!txtPercent = Round(100 * intI / intNQueries)

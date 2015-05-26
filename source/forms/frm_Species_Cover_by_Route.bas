@@ -244,7 +244,7 @@ Private Sub ButtonReport_Click()
      TCount = Transects!transect_count  ' save transect count
      Transects.Close
      Set Transects = Nothing
-     strRouteColumnName = left(Routes!Plot_ID, 48) & "(" & TCount & ")"
+     strRouteColumnName = Left(Routes!Plot_ID, 48) & "(" & TCount & ")"
      strCountColumnName = strRouteColumnName & "PlotCount"
      strCoverColumnName = strRouteColumnName & "CoverPct"
      strSEColumnName = strRouteColumnName & " (SE)"
@@ -272,7 +272,7 @@ Private Sub ButtonReport_Click()
    strSQL = "SELECT * FROM qry_Select_Species_Cover WHERE Unit_Code = '" & Me!Park_Code & "' AND Visit_Year= " & Me!Visit_Year & " ORDER BY Plot_ID, Species"
    Set SpeciesIn = db.OpenRecordset(strSQL)
    SpeciesIn.MoveFirst
-   PlotSave = left(SpeciesIn!Plot_ID, 48)
+   PlotSave = Left(SpeciesIn!Plot_ID, 48)
    SpeciesSave = SpeciesIn!Species
    CommonSave = SpeciesIn!Master_Common_Name
    PlotCount = 0
@@ -283,7 +283,7 @@ Private Sub ButtonReport_Click()
    DoCmd.OpenQuery "qry_Clear_StdDev"  ' Clear Standard Deviation work table
    DoCmd.SetWarnings True
    Do Until SpeciesIn.EOF
-     If PlotSave <> left(SpeciesIn!Plot_ID, 48) Or SpeciesSave <> SpeciesIn!Species Then
+     If PlotSave <> Left(SpeciesIn!Plot_ID, 48) Or SpeciesSave <> SpeciesIn!Species Then
        ' write output record
        strSQL = "SELECT * FROM tbl_wrk_Route_Species WHERE [Unit_Code]= '" & Me!Park_Code & "' AND [Species] = '" & SpeciesSave & "' AND [Visit_Year] = " & Me!Visit_Year
        Set WorkOutput = db.OpenRecordset(strSQL)
@@ -301,7 +301,7 @@ Private Sub ButtonReport_Click()
          ArrayIndex = 0
          Do Until ArrayIndex > arrayend
            intTextLength = InStr(1, RouteArray(ArrayIndex, 0), SearchChar) - 1
-           If left(RouteArray(ArrayIndex, 0), intTextLength) = PlotSave Then
+           If Left(RouteArray(ArrayIndex, 0), intTextLength) = PlotSave Then
              strFieldName = RouteArray(ArrayIndex, 0) & "Plotcount"
              WorkOutput(strFieldName) = PlotCount
              strFieldName = RouteArray(ArrayIndex, 0) & "CoverPct"
@@ -337,7 +337,7 @@ Private Sub ButtonReport_Click()
          WorkOutput.Close
          Set WorkOutput = Nothing
        ' Save necessary fields
-       PlotSave = left(SpeciesIn!Plot_ID, 48)
+       PlotSave = Left(SpeciesIn!Plot_ID, 48)
        SpeciesSave = SpeciesIn!Species
        CommonSave = SpeciesIn!Master_Common_Name
        PlotCount = 0
@@ -413,7 +413,7 @@ Private Sub ButtonReport_Click()
          ArrayIndex = 0
          Do Until ArrayIndex > arrayend
            intTextLength = InStr(1, RouteArray(ArrayIndex, 0), SearchChar) - 1
-           If left(RouteArray(ArrayIndex, 0), intTextLength) = PlotSave Then
+           If Left(RouteArray(ArrayIndex, 0), intTextLength) = PlotSave Then
              strFieldName = RouteArray(ArrayIndex, 0) & "Plotcount"
              WorkOutput(strFieldName) = PlotCount
              strFieldName = RouteArray(ArrayIndex, 0) & "CoverPct"

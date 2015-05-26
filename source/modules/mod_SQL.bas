@@ -321,7 +321,7 @@ On Error GoTo Err_Handler
     'Return the string without the trailing separator.
     lngLen = Len(strOut) - Len(strSeparator)
     If lngLen > 0 Then
-        ConcatRelated = left(strOut, lngLen)
+        ConcatRelated = Left(strOut, lngLen)
     End If
 
 Exit_Function:

@@ -12,10 +12,10 @@ Begin Form
     Width =10935
     DatasheetFontHeight =11
     ItemSuffix =28
-    Left =4104
-    Top =300
-    Right =15288
-    Bottom =6348
+    Left =6828
+    Top =1452
+    Right =18504
+    Bottom =7884
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x72574db34b86e440
@@ -892,8 +892,37 @@ Private Sub btnLoad_Click()
 
 On Error GoTo Err_Handler
 
-    GetListboxRecordset lbxTgtSpecies
+Dim aryFields() As String
+Dim aryFieldTypes As Variant
+Dim strCode As String, strSpecies As String, strLUCode As String
+Dim iRow As Integer, iTransectOnly As Integer, iTgtAreaID As Integer
+Dim rs As DAO.Recordset
+    
+    iRow = Me.Controls("lbxTgtSpecies").ListCount - 1
+    
+    ReDim Preserve aryFields(0 To iRow)
+        
+    'header row (iRow = 0)
+    aryFields(0) = "Code;Species;LUCode;Transect_Only;Target_Area_ID"   'iRow = 0
+    aryFieldTypes = Array(dbText, dbText, dbText, dbInteger, dbInteger)
 
+    'data rows (iRow > 0)
+    For iRow = 1 To lbxTgtSpecies.ListCount - 1
+        
+        ' ---------------------------------------------------
+        '  NOTE: listbox column MUST have a non-zero width to retrieve its value
+        ' ---------------------------------------------------
+         strCode = lbxTgtSpecies.Column(0, iRow) 'column 0 = Master_PLANT_Code (Code)
+         strSpecies = lbxTgtSpecies.Column(1, iRow) 'column 1 = Species name (Species)
+         strLUCode = lbxTgtSpecies.Column(2, iRow) 'column 2 = LU_Code (LUCode)
+         iTransectOnly = Nz(lbxTgtSpecies.Column(3, iRow), 0) 'column 3 = Transect_Only (TransectOnly)
+         iTgtAreaID = Nz(lbxTgtSpecies.Column(4, iRow), 0) 'column 4 = Target_Area_ID (TgtAreaID)
+        
+        aryFields(iRow) = strCode & ";" & strSpecies & ";" & strLUCode & ";" & iTransectOnly & ";" & iTgtAreaID
+        
+    Next
+    
+    Set rs = GetListRecordset(lbxTgtSpecies, True, aryFields, aryFieldTypes, "temp_Listbox_Recordset")
 
 
     'open tgt species list form

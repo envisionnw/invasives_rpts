@@ -39,7 +39,7 @@ Dim i As Integer
         'set park priority values
         For i = 0 To UBound(ParkPriorities)
             'does Park have a priority value?
-            If parkCode = left(ParkPriorities(i), 4) Then
+            If parkCode = Left(ParkPriorities(i), 4) Then
                 PopulateSpeciesPriorities = Replace(ParkPriorities(i), parkCode + "-", "")
             End If
         Next

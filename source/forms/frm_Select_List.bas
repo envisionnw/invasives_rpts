@@ -384,7 +384,7 @@ Dim item As Variant
     Next
     
     'trim last comma
-    strParks = IIf(Right(strParks, 1) = ",", left(strParks, Len(strParks) - 1), strParks)
+    strParks = IIf(Right(strParks, 1) = ",", Left(strParks, Len(strParks) - 1), strParks)
     
     TempVars.Add "parks", strParks
     
@@ -428,7 +428,7 @@ Dim item As Variant
     Next
         
     'trim last comma
-    strYears = IIf(Right(strYears, 1) = ",", left(strYears, Len(strYears) - 1), strYears)
+    strYears = IIf(Right(strYears, 1) = ",", Left(strYears, Len(strYears) - 1), strYears)
     
     TempVars.Add "years", strYears
     

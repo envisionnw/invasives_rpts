@@ -11,6 +11,10 @@ Option Explicit
 ' Revisions:    BLC, 4/30/2015 - initial version
 ' =================================
 
+' ---------------------------------
+'  listview & listbox creation
+' ---------------------------------
+
 ' =================================
 ' SUB:          lvwPopulateFromQuery
 ' Description:  populates listview control from query
@@ -70,6 +74,78 @@ Err_Handler:
     Resume Exit_Procedure
 End Sub
 
+' ---------------------------------
+' SUB:          PopulateListHeaders
+' Description:  Populate the headers for listbox controls
+' Assumptions:  headers are the same as recordset field names
+'               sfrms acting as listboxes have static headers already present
+' Parameters:   ctrl - listbox control
+'               rs   - recordset containing list headers
+' Returns:      N/A
+' Throws:       none
+' References:   none
+' Source/date:
+' Adapted:      Bonnie Campbell, February 6, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 2/6/2015  - initial version
+'   BLC - 2/19/2015 - converted to generic to handle listbox-like controls & documentation update
+'   BLC - 5/10/2015 - moved to mod_List from mod_Lists
+' ---------------------------------
+Public Sub PopulateListHeaders(ctrl As Control, rs As Recordset)
+
+On Error GoTo Err_Handler
+
+    Dim rows As Integer, cols As Integer, i As Integer, j As Integer, matches As Integer
+    Dim frm As Form
+    Dim stritem As String, strColHeads As String, aryColWidths() As String
+
+    'exit if subform control (hdrs are static & present on sfrm)
+    If ctrl.ControlType = 112 Then
+        GoTo Exit_Sub
+    End If
+
+    Set frm = ctrl.Parent
+    
+    rows = rs.RecordCount
+    cols = rs.Fields.count
+    
+    If Nz(rows, 0) = 0 Then
+        MsgBox "Sorry, no records found..."
+        GoTo Exit_Sub
+    End If
+    
+    'fetch column widths
+    aryColWidths = Split(ctrl.ColumnWidths, ";")
+    
+    'populate column names (if desired)
+    If ctrl.ColumnHeads = True Then
+        strColHeads = ""
+        For i = 0 To cols - 1
+            If CInt(aryColWidths(i)) > 0 Then
+                strColHeads = strColHeads & rs.Fields(i).name & ";"
+            End If
+        Next i
+        ctrl.AddItem strColHeads
+    End If
+
+    'save headers
+    TempVars.Add "lbxHdr", strColHeads
+
+Exit_Sub:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - PopulateListHeaders[mod_List])"
+    End Select
+    Resume Exit_Sub
+End Sub
+
+' ---------------------------------
+'  listview & listbox properties
+' ---------------------------------
 
 ' =================================
 ' SUB:          lbxConditionalColor
@@ -126,11 +202,360 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:          MoveSingleItem
-' Description:  XX
+' FUNCTION:     IsListDuplicate
+' Description:  Check if item is already on the list
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   lbx - listbox control to check (listbox object)
+'               col - column which would hold the item being checked (integer)
+'               item - name of item to be checked (string)
+' Returns:      boolean - true, if item in list is a duplicate of an existing value in the list
+'                         false, if item is not a duplicate
+' Throws:       none
+' References:   none
+' Source/date:
+' Adapted:      Bonnie Campbell, February 6, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 2/6/2015 - initial version
+'   BLC - 5/10/2015 - moved to mod_List from mod_Lists
+'   BLC - 5/22/2015 - updated documentation
+' ---------------------------------
+Public Function IsListDuplicate(lbx As ListBox, col As Integer, item As String) As Boolean
+On Error GoTo Err_Handler
+    
+    Dim isDupe As Boolean
+    Dim i As Integer
+    
+    'set default
+    isDupe = False
+    
+    'iterate through listbox (use .Column(col,i) vs .ListIndex(i) which results in error 451 property let not defined, property get...)
+    For i = 0 To lbx.ListCount
+        'check if item exists in listbox
+        If lbx.Column(col, i) = item Then
+            'duplicate, so exit
+            isDupe = True
+            GoTo Exit_Function
+        End If
+    Next
+
+Exit_Function:
+    IsListDuplicate = isDupe
+    Exit Function
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - IsListDuplicate[mod_List])"
+    End Select
+    Resume Exit_Function
+End Function
+
+' ---------------------------------
+'  listview & listbox item actions
+' ---------------------------------
+
+' ---------------------------------
+' SUB:          SortList
+' Description:  Sorts the listbox item rows alphabetically
+' Assumptions:  -
+' Parameters:   lbx - listbox to sort
+' Returns:      -
+' Throws:       none
+' References:   none
+' Source/date:
+' MajP, March 22, 2012
+' http://www.tek-tips.com/viewthread.cfm?qid=1677888
+' Adapted:      Bonnie Campbell, March 5, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 3/5/2015 - initial version
+'   BLC - 5/10/2015 - moved to mod_List from mod_Lists
+' ---------------------------------
+Public Sub SortList(lbx As ListBox) ', orderCol As Integer)
+
+On Error GoTo Err_Handler
+  
+  Dim strTemp As String
+  Dim i As Integer, iHdr As Integer
+  Dim j As Integer
+  
+  'skip first row if lbx has headers
+  iHdr = 0
+  If Len(TempVars.item("lbxHdr")) > 0 Then
+    iHdr = 1
+  End If
+  
+  For i = iHdr To lbx.ListCount - 1
+    For j = i + 1 To lbx.ListCount - 1
+      If lbx.ItemData(i) > lbx.ItemData(j) Then
+        strTemp = lbx.ItemData(i)
+        lbx.RemoveItem (i)
+        lbx.AddItem lbx.ItemData(j - 1), i
+        lbx.RemoveItem (j)
+        lbx.AddItem strTemp, j - 1
+       End If
+     Next j
+   Next i
+
+Exit_Sub:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - SortList[mod_List])"
+    End Select
+    Resume Exit_Sub
+End Sub
+
+' ---------------------------------
+' FUNCTION:     GetListCount
+' Description:  Retrieve the number of items in a list
+' Assumptions:  -
+' Parameters:   lbx - listbox control to count
+'               hdr - if there is a header or not for the listbox (decrements count by 1)
+' Returns:      count - number of items in listbox (integer)
+' Throws:       none
+' References:   none
+' Source/date:
+' Adapted:      Bonnie Campbell, May 10, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 5/10/2015 - initial version
+' ---------------------------------
+Public Function GetListCount(lbx As ListBox, hasHeaders As Boolean) As Integer
+On Error GoTo Err_Handler
+
+Dim i As Integer
+
+    'Set counts
+    i = 0
+    If lbx.ListCount > 0 Then
+        i = lbx.ListCount - 1
+    End If
+    
+    GetListCount = i
+
+Exit_Function:
+    Exit Function
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - GetListCount[mod_List])"
+    End Select
+    Resume Exit_Function
+End Function
+
+' ---------------------------------
+' FUNCTION:     CountArrayValues
+' Description:  count the number of times a specific item is found in an array
+' Assumptions:  -
+' Parameters:   ary - array to inspect (variant)
+'               val - specific value to check for in array (variant)
+' Returns:      count - number of items in array (integer)
+' Throws:       none
+' References:   none
+' Source/date:
+' Adapted:      Bonnie Campbell, February 7, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 2/7/2015  - initial version
+'   BLC - 5/10/2015 - moved to mod_List from mod_Lists
+' ---------------------------------
+Public Function CountArrayValues(Ary As Variant, val As Variant) As Integer
+
+On Error GoTo Err_Handler
+    
+    Dim i As Integer, numItems As Integer
+
+    'default
+    numItems = 0
+    
+    If IsArray(Ary) Then
+    
+        For i = LBound(Ary) To UBound(Ary)
+            If Ary(i) = val Then
+                numItems = numItems + 1
+            End If
+        Next
+        
+    End If
+    
+    CountArrayValues = numItems
+
+Exit_Function:
+    Exit Function
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - CountArrayValues[mod_List])"
+    End Select
+    Resume Exit_Function
+End Function
+
+' ---------------------------------
+' SUB:          SaveListToTable
+' Description:  Save list items to table
+' Assumptions:  -
+' Parameters:   ctrl - control to iterate through
+'               tbl - table being populated
+' Returns:      N/A
+' Throws:       none
+' References:   none
+' Source/date:
+' Adapted:      Bonnie Campbell, February 8, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 2/8/2015  - initial version
+'   BLC - 5/10/2015 - moved to mod_List from mod_Lists
+' ---------------------------------
+Public Sub SaveListToTable(ctrl As Control, tbl As String, tblFields As Variant, blnSelectedOnly As Boolean)
+
+On Error GoTo Err_Handler
+    
+    Dim strSQL As String, strFields As String
+    Dim i As Integer, iRow As Integer, jCol As Integer
+    
+    strSQL = "INSERT INTO " & tbl & " " & tblFields & "VALUES ("
+    
+    ' prepare fields
+    strFields = ""
+    For i = 0 To UBound(tblFields)
+    
+        Select Case tblFields(1, i)
+            Case "Integer"
+            Case "VarChar"
+        End Select
+        strFields = strFields
+    
+    Next
+
+    'iterate through items
+    For iRow = 0 To ctrl.ListCount - 1
+    
+            For jCol = 0 To ctrl.ColumnCount - 1
+            
+            strSQL = strSQL & "'" & ctrl.Column(jCol, iRow) & "'"
+             
+            CurrentDb.Execute strSQL, dbFailOnError
+            
+            Next
+    Next 'iRow
+
+Exit_Sub:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - SaveListToTable[mod_List])"
+    End Select
+    Resume Exit_Sub
+End Sub
+
+' ---------------------------------
+' FUNCTION:     GetListRecordset
+' Description:  Create a recordset from list items
+'               This creates a temporary table for creating the recordset via DAO.
+' Assumptions:  -
+' Parameters:   lbx - listbox control to get records from (listbox)
+'               blnHeaders - true if listbox has headers, false if not (boolean)
+' Returns:      rs - recordset from list items
+' Throws:       none
+' References:   none
+' Source/date:
+' Adapted:      Bonnie Campbell, May 10, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 5/21/2015 - initial version
+' ---------------------------------
+Public Function GetListRecordset(lbx As ListBox, blnHeaders As Boolean, _
+                aryFields As Variant, aryFieldTypes As Variant, tblName As String _
+                ) As DAO.Recordset
+On Error GoTo Err_Handler
+
+Dim iRow As Integer, iStart As Integer, iCol As Integer
+Dim aryFieldNames() As String
+Dim aryTypes() As Variant, aryData() As Variant
+Dim rs As DAO.Recordset, rsProcess As DAO.Recordset
+Dim tdf As DAO.TableDef
+Dim tbl As DAO.TableDef
+
+    'Set start row
+    iStart = 0
+    If blnHeaders Then iStart = 1
+    
+    If lbx.ListCount > 0 Then
+        
+        'create temporary table
+        Set tbl = CurrentDb.CreateTableDef(tblName)
+            
+        'create fields for table
+        'strFields = CStr(aryFields(0))
+        
+        aryFieldNames = Split(CStr(aryFields(0)), ";")
+        
+        'prepare data arrays
+        ReDim Preserve aryData(0 To UBound(aryFields) - 1)
+        For iRow = 1 To UBound(aryFields)
+            strData = aryFields(iRow)
+            aryData(iRow - 1) = Split(strData, ";")
+        Next
+                
+        aryFieldNames = Split(CStr(aryFields(0)), ";")
+            
+        For iRow = 0 To UBound(aryFieldNames)
+            With tbl
+                .Fields.Append .CreateField(aryFieldNames(iRow), FieldTypeName(aryFieldTypes(iRow)))
+            End With
+        Next
+        
+        ' create recordset for the blank table
+        Set rsProcess = tbl.OpenRecordset
+        
+        '
+        For iRow = iStart To UBound(aryFields)
+            rsProcess.AddNew
+            
+            'add each field
+            For iCol = 0 To UBound(aryFields.Length) - 1
+                rsProcess(aryFieldNames(iCol)).Value = aryFields(iRow, iCol)
+            Next
+            
+            rsProcess.Update
+                                
+        Next
+        
+    End If
+    
+    Set GetListRecordset = rs
+
+Exit_Function:
+    Exit Function
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - GetListRecordset[mod_List])"
+    End Select
+    Resume Exit_Function
+End Function
+
+' ---------------------------------
+'  listview & listbox item moves
+' ---------------------------------
+
+' ---------------------------------
+' SUB:          MoveSingleItem
+' Description:  moves single list item from one control to another
+' Assumptions:  assumes controls are on the same form
+' Parameters:   frm - control parent form
+'               strSourceControl - name of source control (listbox/listview)
+'               strTargetControl - name of destination control (listbox/listview)
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -139,6 +564,7 @@ End Sub
 '   BLC - 2/6/2015 - initial version
 '   BLC - 3/5/2015 - added ability to remove from list w/o adding to target if strSourceControl = strTargetControl
 '   BLC - 5/10/2015 - moved to mod_List from mod_Lists
+'   BLC - 5/22/2015 - updated documentation
 ' ---------------------------------
 Public Sub MoveSingleItem(frm As Form, strSourceControl As String, strTargetControl As String)
     
@@ -177,7 +603,7 @@ On Error GoTo Err_Handler
     Next
     
     'remove extra semi-colon (;)
-    stritem = left(stritem, Len(stritem) - 1)
+    stritem = Left(stritem, Len(stritem) - 1)
 
     'Check the length to make sure something is selected
     ' -------------------------------------------------------------------------
@@ -205,10 +631,12 @@ End Sub
 
 ' ---------------------------------
 ' SUB:          MoveAllItems
-' Description:  XX
-' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Description:  moves all list items from one control to another
+' Assumptions:  assumes controls are on the same form
+' Parameters:   frm - control parent form
+'               strSourceControl - name of source control (listbox/listview)
+'               strTargetControl - name of destination control (listbox/listview)
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -217,6 +645,7 @@ End Sub
 '   BLC - 2/6/2015 - initial version
 '   BLC - 3/5/2015 - added ability to remove from list w/o adding to target if strSourceControl = strTargetControl
 '   BLC - 5/10/2015 - moved to mod_List from mod_Lists
+'   BLC - 5/22/2015 - updated documentation
 ' ---------------------------------
 Public Sub MoveAllItems(frm As Form, strSourceControl As String, strTargetControl As String)
     
@@ -248,7 +677,7 @@ On Error GoTo Err_Handler
         For intColumnCount = 0 To frm.Controls(strSourceControl).ColumnCount - 1
             stritem = stritem & frm.Controls(strSourceControl).Column(intColumnCount, lngRowCount) & ";"
         Next
-        stritem = left(stritem, Len(stritem) - 1)
+        stritem = Left(stritem, Len(stritem) - 1)
         frm.Controls(strTargetControl).AddItem stritem
         stritem = ""
     Next
@@ -278,10 +707,12 @@ End Sub
 
 ' ---------------------------------
 ' SUB:          MoveSelectedItems
-' Description:  XX
+' Description:  move items selected to another list
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   frm - control parent form (form object)
+'               strSourceControl - name of source list (string)
+'               strTargetControl - name of destination list (string)
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -292,6 +723,7 @@ End Sub
 '   BLC - 2/6/2015 - initial version
 '   BLC - 3/5/2015 - added ability to remove from list w/o adding to target if strSourceControl = strTargetControl
 '   BLC - 5/10/2015 - moved to mod_List from mod_Lists
+'   BLC - 5/22/2015 - updated documentation
 ' ---------------------------------
 Public Sub MoveSelectedItems(frm As Form, strSourceControl As String, strTargetControl As String)
     
@@ -399,191 +831,42 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:          PopulateListHeaders
-' Description:  Populate the headers for listbox controls
-' Assumptions:  headers are the same as recordset field names
-'               sfrms acting as listboxes have static headers already present
-' Parameters:   ctrl - listbox control
-'               rs   - recordset containing list headers
+' SUB:          RemoveSelectedItems
+' Description:  Removes selected items from a listbox by re-creating rowsource
+' Assumptions:  lbx is a listbox control (not a continuous subform which may act as a listbox control)
+' Parameters:   lbx - Listbox to remove selected items from
 ' Returns:      N/A
 ' Throws:       none
 ' References:   none
 ' Source/date:
-' Adapted:      Bonnie Campbell, February 6, 2015 - for NCPN tools
+' ADezii, April 13, 2010
+' http://bytes.com/topic/access/answers/885569-remove-selected-items-list-box-microsoft-access
+' Adapted:      Bonnie Campbell, March 5, 2015 - for NCPN tools
 ' Revisions:
-'   BLC - 2/6/2015  - initial version
-'   BLC - 2/19/2015 - converted to generic to handle listbox-like controls & documentation update
+'   BLC - 3/5/2015 - initial version
 '   BLC - 5/10/2015 - moved to mod_List from mod_Lists
 ' ---------------------------------
-Public Sub PopulateListHeaders(ctrl As Control, rs As Recordset)
-
+Public Sub RemoveSelectedItems(lbx As ListBox)
 On Error GoTo Err_Handler
-
-    Dim rows As Integer, cols As Integer, i As Integer, j As Integer, matches As Integer
-    Dim frm As Form
-    Dim stritem As String, strColHeads As String, aryColWidths() As String
-
-    'exit if subform control (hdrs are static & present on sfrm)
-    If ctrl.ControlType = 112 Then
-        GoTo Exit_Sub
-    End If
-
-    Set frm = ctrl.Parent
-    
-    rows = rs.RecordCount
-    cols = rs.Fields.count
-    
-    If Nz(rows, 0) = 0 Then
-        MsgBox "Sorry, no records found..."
-        GoTo Exit_Sub
-    End If
-    
-    'fetch column widths
-    aryColWidths = Split(ctrl.ColumnWidths, ";")
-    
-    'populate column names (if desired)
-    If ctrl.ColumnHeads = True Then
-        strColHeads = ""
-        For i = 0 To cols - 1
-            If CInt(aryColWidths(i)) > 0 Then
-                strColHeads = strColHeads & rs.Fields(i).name & ";"
-            End If
-        Next i
-        ctrl.AddItem strColHeads
-    End If
-
-    'save headers
-    TempVars.Add "lbxHdr", strColHeads
-
-Exit_Sub:
-    Exit Sub
-    
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - PopulateListHeaders[mod_List])"
-    End Select
-    Resume Exit_Sub
-End Sub
-
-' ---------------------------------
-' SUB:          PopulateList
-' Description:  Populate listbox and similar controls from recordset
-' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
-' Throws:       none
-' References:   none
-' Source/date:
-' krish KM, Aug. 27, 2014
-' http://stackoverflow.com/questions/25526904/populate-listbox-using-ado-recordset
-' Adapted:      Bonnie Campbell, February 6, 2015 - for NCPN tools
-' Revisions:
-'   BLC - 2/6/2015 - initial version
-'   BLC - 5/10/2015 - moved to mod_List from mod_Lists
-'   BLC - 5/20/2015 - changed from tbxMasterCode to tbxLUCode
-' ---------------------------------
-Public Sub PopulateList(ctrlSource As Control, rs As Recordset, ctrlDest As Control)
-
-On Error GoTo Err_Handler
-
-    Dim frm As Form
-    Dim rows As Integer, cols As Integer, i As Integer, j As Integer, matches As Integer, iZeroes As Integer
-    Dim stritem As String, strColHeads As String, aryColWidths() As String
-
-    Set frm = ctrlSource.Parent
-    
-    rows = rs.RecordCount
-    cols = rs.Fields.count
-    
-    'address no records
-    If Nz(rows, 0) = 0 Then
-        MsgBox "Sorry, no records found..."
-        GoTo Exit_Sub
-    End If
-    
-    'handle sfrm controls (acSubform = 112)
-    If ctrlSource.ControlType = acSubform Then
-        Set ctrlSource.Form.Recordset = rs
-        
-        ctrlSource.Form.Controls("tbxCode").ControlSource = "Code"
-        ctrlSource.Form.Controls("tbxSpecies").ControlSource = "Species"
-        'ctrlSource.Form.Controls("tbxMasterCode").ControlSource = "Master_PLANT_Code"
-        ctrlSource.Form.Controls("tbxLUCode").ControlSource = "LUCode"
-        ctrlSource.Form.Controls("tbxTransectOnly").ControlSource = "Transect_Only"
-        ctrlSource.Form.Controls("tbxTgtAreaID").ControlSource = "Target_Area_ID"
-        
-        'set the initial record count (MoveLast to get full count, MoveFirst to set display to first)
-        rs.MoveLast
-        ctrlSource.Parent.Form.Controls("lblSfrmSpeciesCount").Caption = rs.RecordCount & " species"
-        rs.MoveFirst
-        
-        GoTo Exit_Sub
-    End If
-    
-    'fetch column widths array
-    aryColWidths = Split(ctrlSource.ColumnWidths, ";")
-    
-    'count number of 0 width elements
-    iZeroes = CountArrayValues(aryColWidths, "0")
-        
-    'clear out existing values
-    ClearList ctrlSource
-    
-    'populate column names (if desired)
-    If ctrlSource.ColumnHeads = True Then
-        PopulateListHeaders ctrlSource, rs
-        
-        'populate second listbox headers if present
-        If ctrlDest.ColumnHeads = True Then
-            ClearList ctrlDest
-            PopulateListHeaders ctrlDest, rs
+  
+    Dim intRow As Integer, iCol As Integer
+    Dim strBuild As String
+     
+    With lbx
+      If .ItemsSelected.count = 0 Then Exit Sub
+     
+      For intRow = 0 To .ListCount - 1
+        If Not .Selected(intRow) Then
+            For iCol = 0 To .ColumnCount - 1
+                strBuild = strBuild & .Column(iCol, intRow) & ";"
+            Next
         End If
-    End If
-    
-    'populate data
-    Select Case ctrlSource.RowSourceType
-        Case "Table/Query"
-            Set ctrlSource.Recordset = rs
-        Case "Value List"
-            
-            'initialize
-            i = 0
-            
-            Do Until rs.EOF
-            
-                'initialize item
-                stritem = ""
-                    
-                'generate item
-                For j = 0 To cols - 1
-                    'check if column is displayed width > 0
-                    If CInt(aryColWidths(j)) > 0 Then
-                    
-                        stritem = stritem & rs.Fields(j).Value & ";"
-                    
-                        'determine how many separators there are (";") --> should equal # cols
-                        matches = (Len(stritem) - Len(Replace$(stritem, ";", ""))) / Len(";")
-                        
-                        'add item if not already in list --> # of ; should equal cols - 1
-                        'but # in list should only be # of non-zero columns --> cols - iZeroes
-                        If matches = cols - iZeroes Then
-                            ctrlSource.AddItem stritem
-                            'reset the string
-                            stritem = ""
-                        End If
-                    
-                    End If
-                
-                Next
-                
-                i = i + 1
-                
-                rs.MoveNext
-            Loop
-        Case "Field List"
-    End Select
+      Next
+     
+      strBuild = Left$(strBuild, Len(strBuild) - 1)
+     
+      .RowSource = strBuild
+    End With
 
 Exit_Sub:
     Exit Sub
@@ -592,11 +875,14 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - PopulateList[mod_List])"
+            "Error encountered (#" & Err.Number & " - RemoveSelectedItems[mod_List])"
     End Select
     Resume Exit_Sub
 End Sub
 
+' ---------------------------------
+'  listview & listbox item changes
+' ---------------------------------
 ' ---------------------------------
 ' SUB:          RemoveListDupes
 ' Description:  Remove listbox duplicate values
@@ -648,176 +934,25 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - PopulateList[mod_List])"
+            "Error encountered (#" & Err.Number & " - RemoveListDupes[mod_List])"
     End Select
     Resume Exit_Sub
 End Sub
 
 ' ---------------------------------
-' SUB:          SortList
-' Description:  Sorts the listbox item rows alphabetically
+' SUB:          ClearList
+' Description:  Clear values from listbox control
 ' Assumptions:  -
-' Parameters:   lbx - listbox to sort
+' Parameters:   lbx - Listbox control
 ' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
-' MajP, March 22, 2012
-' http://www.tek-tips.com/viewthread.cfm?qid=1677888
-' Adapted:      Bonnie Campbell, March 5, 2015 - for NCPN tools
-' Revisions:
-'   BLC - 3/5/2015 - initial version
-'   BLC - 5/10/2015 - moved to mod_List from mod_Lists
-' ---------------------------------
-Public Sub SortList(lbx As ListBox) ', orderCol As Integer)
-
-On Error GoTo Err_Handler
-  
-  Dim strTemp As String
-  Dim i As Integer, iHdr As Integer
-  Dim j As Integer
-  
-  'skip first row if lbx has headers
-  iHdr = 0
-  If Len(TempVars.item("lbxHdr")) > 0 Then
-    iHdr = 1
-  End If
-  
-  For i = iHdr To lbx.ListCount - 1
-    For j = i + 1 To lbx.ListCount - 1
-      If lbx.ItemData(i) > lbx.ItemData(j) Then
-        strTemp = lbx.ItemData(i)
-        lbx.RemoveItem (i)
-        lbx.AddItem lbx.ItemData(j - 1), i
-        lbx.RemoveItem (j)
-        lbx.AddItem strTemp, j - 1
-       End If
-     Next j
-   Next i
-
-Exit_Sub:
-    Exit Sub
-    
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - SortList[mod_List])"
-    End Select
-    Resume Exit_Sub
-End Sub
-
-' ---------------------------------
-' SUB:          RemoveSelectedItems
-' Description:  Removes selected items from a listbox by re-creating rowsource
-' Assumptions:  lbx is a listbox control (not a continuous subform which may act as a listbox control)
-' Parameters:   lbx - Listbox to remove selected items from
-' Returns:      N/A
-' Throws:       none
-' References:   none
-' Source/date:
-' ADezii, April 13, 2010
-' http://bytes.com/topic/access/answers/885569-remove-selected-items-list-box-microsoft-access
-' Adapted:      Bonnie Campbell, March 5, 2015 - for NCPN tools
-' Revisions:
-'   BLC - 3/5/2015 - initial version
-'   BLC - 5/10/2015 - moved to mod_List from mod_Lists
-' ---------------------------------
-Public Sub RemoveSelectedItems(lbx As ListBox)
-On Error GoTo Err_Handler
-  
-    Dim intRow As Integer, iCol As Integer
-    Dim strBuild As String
-     
-    With lbx
-      If .ItemsSelected.count = 0 Then Exit Sub
-     
-      For intRow = 0 To .ListCount - 1
-        If Not .Selected(intRow) Then
-            For iCol = 0 To .ColumnCount - 1
-                strBuild = strBuild & .Column(iCol, intRow) & ";"
-            Next
-        End If
-      Next
-     
-      strBuild = left$(strBuild, Len(strBuild) - 1)
-     
-      .RowSource = strBuild
-    End With
-
-Exit_Sub:
-    Exit Sub
-    
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - SortList[mod_List])"
-    End Select
-    Resume Exit_Sub
-End Sub
-
-' ---------------------------------
-' FUNCTION:     IsListDuplicate
-' Description:  Check if item is already on the list
-' Assumptions:  -
-' Parameters:   lbx - listbox control to check (listbox object)
-'               col - column which would hold the item being checked (integer)
-'               item - name of item to be checked (string)
-' Returns:      XX - XX
-' Throws:       none
-' References:   none
-' Source/date:
 ' Adapted:      Bonnie Campbell, February 6, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/6/2015 - initial version
 '   BLC - 5/10/2015 - moved to mod_List from mod_Lists
-' ---------------------------------
-Public Function IsListDuplicate(lbx As ListBox, col As Integer, item As String) As Boolean
-On Error GoTo Err_Handler
-    
-    Dim isDupe As Boolean
-    Dim i As Integer
-    
-    'set default
-    isDupe = False
-    
-    'iterate through listbox (use .Column(col,i) vs .ListIndex(i) which results in error 451 property let not defined, property get...)
-    For i = 0 To lbx.ListCount
-        'check if item exists in listbox
-        If lbx.Column(col, i) = item Then
-            'duplicate, so exit
-            isDupe = True
-            GoTo Exit_Function
-        End If
-    Next
-
-Exit_Function:
-    IsListDuplicate = isDupe
-    Exit Function
-    
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - IsListDuplicate[mod_List])"
-    End Select
-    Resume Exit_Function
-End Function
-
-' ---------------------------------
-' SUB:          ClearList
-' Description:  XX
-' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
-' Throws:       none
-' References:   none
-' Source/date:
-' Adapted:      Bonnie Campbell, February 6, 2015 - for NCPN tools
-' Revisions:
-'   BLC - 2/6/2015 - initial version
-'   BLC - 5/10/2015 - moved to mod_List from mod_Lists
+'   BLC - 5/22/2015 - updated documentation
 ' ---------------------------------
 Public Sub ClearList(lbx As ListBox)
 
@@ -837,298 +972,3 @@ Err_Handler:
     End Select
     Resume Exit_Sub
 End Sub
-
-' ---------------------------------
-' SUB:          DisableControl
-' Description:  Set color scheme for labels so they appear disabled
-' Assumptions:  Assumes control has BackColor and ForeColor properties
-' Parameters:   ctrl - control to set color scheme for
-' Returns:      N/A
-' Throws:       none
-' References:   none
-' Source/date:
-' Adapted:      Bonnie Campbell, February 7, 2015 - for NCPN tools
-' Revisions:
-'   BLC - 2/7/2015  - initial version
-'   BLC - 5/10/2015 - moved to mod_List from mod_Lists
-' ---------------------------------
-Public Sub DisableControl(ctrl As Control)
-
-On Error GoTo Err_Handler
-    
-    ctrl.backcolor = lngLtGray
-    ctrl.forecolor = lngGray
-    
-    If ctrl.ControlType = acCommandButton Then
-        ctrl.borderColor = lngGray
-    End If
-
-Exit_Sub:
-    Exit Sub
-    
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - DisableControl[mod_List])"
-    End Select
-    Resume Exit_Sub
-End Sub
-
-' ---------------------------------
-' SUB:          EnableControl
-' Description:  Set color scheme for labels so they appear enabled
-' Assumptions:  Assumes control has BackColor and ForeColor properties
-' Parameters:   ctrl - control to set color scheme for
-'               backColor - long value for desired back color
-'               foreColor - long value for desired fore (text) color
-'               optionally for command buttons:
-'               borderColor - long value for desired border color
-'               hoverColor - long value for desired hover color
-'               pressedColor - long value for desired pressed button color
-'               hoverForeColor - long value for desired hover fore (text) color
-'               pressedForeColor - long value for desired pressed button fore (text) color
-' Returns:      N/A
-' Throws:       none
-' References:   none
-' Source/date:
-' Adapted:      Bonnie Campbell, February 7, 2015 - for NCPN tools
-' Revisions:
-'   BLC - 2/7/2015  - initial version
-'   BLC - 5/10/2015 - moved to mod_List from mod_Lists
-' ---------------------------------
-Public Function EnableControl(ctrl As Control, backcolor As Long, forecolor As Long, _
-                                Optional borderColor As Long, _
-                                Optional hoverColor As Long, _
-                                Optional pressColor As Long, _
-                                Optional hoverForeColor As Long, _
-                                Optional pressedForeColor As Long)
-On Error GoTo Err_Handler
-    
-    ctrl.backcolor = backcolor
-    ctrl.forecolor = forecolor
-    
-    If ctrl.ControlType = acCommandButton Then
-        ctrl.borderColor = borderColor
-        ctrl.hoverColor = hoverColor
-        ctrl.pressedColor = pressColor
-        ctrl.hoverForeColor = hoverForeColor
-        ctrl.pressedForeColor = pressedForeColor
-    End If
-
-Exit_Function:
-    Exit Function
-    
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - DisableControl[mod_List])"
-    End Select
-    Resume Exit_Function
-End Function
-
-' ---------------------------------
-' SUB:          SaveListToTable
-' Description:  Save list items to table
-' Assumptions:  Assumes control has BackColor and ForeColor properties
-' Parameters:   ctrl - control to iterate through
-'               tbl - table being
-' Returns:      N/A
-' Throws:       none
-' References:   none
-' Source/date:
-' Adapted:      Bonnie Campbell, February 8, 2015 - for NCPN tools
-' Revisions:
-'   BLC - 2/8/2015  - initial version
-'   BLC - 5/10/2015 - moved to mod_List from mod_Lists
-' ---------------------------------
-Public Sub SaveListToTable(ctrl As Control, tbl As String, tblFields As Variant, blnSelectedOnly As Boolean)
-
-On Error GoTo Err_Handler
-    
-    Dim strSQL As String, strFields As String
-    Dim i As Integer, iRow As Integer, jCol As Integer
-    
-    strSQL = "INSERT INTO " & tbl & " " & tblFields & "VALUES ("
-    
-    ' prepare fields
-    strFields = ""
-    For i = 0 To UBound(tblFields)
-    
-        Select Case tblFields(1, i)
-            Case "Integer"
-            Case "VarChar"
-        End Select
-        strFields = strFields
-    
-    Next
-
-    'iterate through items
-    For iRow = 0 To ctrl.ListCount - 1
-    
-            For jCol = 0 To ctrl.ColumnCount - 1
-            
-            strSQL = strSQL & "'" & ctrl.Column(jCol, iRow) & "'"
-             
-            CurrentDb.Execute strSQL, dbFailOnError
-            
-            Next
-    Next 'iRow
-
-Exit_Sub:
-    Exit Sub
-    
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - DisableControl[mod_List])"
-    End Select
-    Resume Exit_Sub
-End Sub
-
-' ---------------------------------
-' FUNCTION:     CountArrayValues
-' Description:  XX
-' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
-' Throws:       none
-' References:   none
-' Source/date:
-' Adapted:      Bonnie Campbell, February 7, 2015 - for NCPN tools
-' Revisions:
-'   BLC - 2/7/2015  - initial version
-'   BLC - 5/10/2015 - moved to mod_List from mod_Lists
-' ---------------------------------
-Public Function CountArrayValues(Ary As Variant, val As Variant) As Integer
-
-On Error GoTo Err_Handler
-    
-    Dim i As Integer, numItems As Integer
-
-    'default
-    numItems = 0
-    
-    If IsArray(Ary) Then
-    
-        For i = LBound(Ary) To UBound(Ary)
-            If Ary(i) = val Then
-                numItems = numItems + 1
-            End If
-        Next
-        
-    End If
-    
-    CountArrayValues = numItems
-
-Exit_Function:
-    Exit Function
-    
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - CountArrayValues[mod_List])"
-    End Select
-    Resume Exit_Function
-End Function
-
-' ---------------------------------
-' FUNCTION:          GetListCount
-' Description:  Retrieve the number of items in a list
-' Assumptions:  -
-' Parameters:   lbx - listbox control to count
-'               hdr - if there is a header or not for the listbox (decrements count by 1)
-' Returns:      count - number of items in listbox (integer)
-' Throws:       none
-' References:   none
-' Source/date:
-' Adapted:      Bonnie Campbell, May 10, 2015 - for NCPN tools
-' Revisions:
-'   BLC - 5/10/2015 - initial version
-' ---------------------------------
-Public Function GetListCount(lbx As ListBox, hasHeaders As Boolean) As Integer
-On Error GoTo Err_Handler
-
-Dim i As Integer
-
-    'Set counts
-    i = 0
-    If lbx.ListCount > 0 Then
-        i = lbx.ListCount - 1
-    End If
-    
-    GetListCount = i
-
-Exit_Function:
-    Exit Function
-    
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - GetListCount[mod_List])"
-    End Select
-    Resume Exit_Function
-End Function
-
-' ---------------------------------
-' FUNCTION:     GetListRecordset
-' Description:  Create a recordset from list items
-' Assumptions:  -
-' Parameters:   lbx - listbox control to get records from (listbox)
-'               blnHeaders - true if listbox has headers, false if not (boolean)
-' Returns:      rs - recordset from list items
-' Throws:       none
-' References:   none
-' Source/date:
-' Adapted:      Bonnie Campbell, May 10, 2015 - for NCPN tools
-' Revisions:
-'   BLC - 5/21/2015 - initial version
-' ---------------------------------
-Public Function GetListRecordset(lbx As ListBox, blnHeaders As Boolean) As DAO.Recordset
-On Error GoTo Err_Handler
-
-Dim iRow As Integer, iStart As Integer
-Dim rs As DAO.Recordset
-
-    'Set start row
-    iStart = 0
-    If blnHeaders Then iStart = 1
-    
-    If lbx.ListCount > 0 Then
-    
-        For iRow = iStart To lbx.ListCount - 1
-               
-            rs.AddNew
-            
-            ' ---------------------------------------------------
-            '  NOTE: listbox column MUST have a non-zero width to retrieve its value
-            ' ---------------------------------------------------
-             rs!Code = lbxTgtSpecies.Column(0, iRow) 'column 0 = Master_PLANT_Code
-             rs!Species = lbxTgtSpecies.Column(1, iRow) 'column 1 = Species name
-             rs!LUCode = lbxTgtSpecies.Column(2, iRow) 'column 2 = LU_Code
-             rs!TransectOnly = Nz(lbxTgtSpecies.Column(3, iRow), 0) 'column 3 = Transect_Only
-             rs!TgtAreaID = Nz(lbxTgtSpecies.Column(4, iRow), 0) 'column 4 = Target_Area_ID
-            
-            rs.Update
-            
-        Next
-    
-    End If
-    
-    GetListRecordset = rs
-
-Exit_Function:
-    Exit Function
-    
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - GetListCount[mod_List])"
-    End Select
-    Resume Exit_Function
-End Function

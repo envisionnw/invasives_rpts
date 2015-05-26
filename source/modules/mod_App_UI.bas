@@ -153,7 +153,7 @@ End Sub
 '   BLC - 2/6/2015  - initial version
 '   BLC - 2/19/2015 - added dynamic getParkState() & standard error handling
 '   BLC - 3/4/2015  - shifted colors to mod_Color, removed setting of park, state, tgtYear TempVars
-'   BLC - 5/13/2015 - removed colors to
+'   BLC - 5/13/2015 - stub only
 ' ---------------------------------
 Public Sub Initialize()
 On Error GoTo Err_Handler
