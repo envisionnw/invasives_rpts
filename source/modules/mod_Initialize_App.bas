@@ -4,19 +4,19 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_Initialize_App
 ' Level:        Framework module
-' Version:      1.00
+' Version:      1.02
 ' Description:  Standard module for setting initial app & database values/settings & global variables
 ' Source/date:  Bonnie Campbell, July 2014
 ' Adapted:      -
-' Revisions:    BLC, 7/31/2014 - initial version
-'               BLC, 8/6/2014  - merged in mod_Global_Variables (see history below)
+' Revisions:    BLC, 7/31/2014 - 1.00 - initial version
+'               BLC, 8/6/2014  - 1.01 - merged in mod_Global_Variables (see history below)
 '               BLC, 4/22/2015 - adapted to generic tools (NCPN Invasives Reporting Tool) by adding
 '                                USER_ACCESS_CONTROL (False - gives users full control in apps w/o controls,
 '                                                     True - relies on user access control settings)
 '                                DB_SYS_TABLES & APP_SYS_TABLES (handle table arrays for the database/
 '                                   application)
 '                                WQ Utilities tool constants removed (WATER_YEAR_START & WATER_YEAR_END)
-'               BLC, 4/30/2015 - shifted USER_ACCESS_CONTROL, DB_SYS_TABLES, APP_SYS_TABLES to mod_App_Settings
+'               BLC, 4/30/2015 - 1.02 - shifted USER_ACCESS_CONTROL, DB_SYS_TABLES, APP_SYS_TABLES to mod_App_Settings
 '                                since these are application vs. framework specific, added Level & Version #
 '                                added blnRunQueries & blnUpdateAll from mod_User
 ' =================================

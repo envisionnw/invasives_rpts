@@ -8,7 +8,7 @@ Option Explicit
 ' Description:  Database admin related functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, April 2015
-' Revisions:    BLC, 4/30/2015 - initial version
+' Revisions:    BLC, 4/30/2015 - 1.00 - initial version
 ' =================================
 
 ' ---------------------------------

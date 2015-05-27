@@ -12,8 +12,9 @@ Begin Form
     GridY =24
     DatasheetFontHeight =11
     ItemSuffix =22
+    Top =-864
     Right =7452
-    Bottom =4128
+    Bottom =3264
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xc1f3db6ed487e440
@@ -458,6 +459,7 @@ End Sub
 '   BLC - 3/5/2015 - initial version
 '   BLC - 5/13/2015 - added LU_Code to values retrieved from tbl_Tgt_Species
 '   BLC - 5/20/2015 - added transect only and target area fields
+'   BLC - 5/26/2015 - added merge from temp_Listbox_Recordset table vs listbox & table removal
 ' ---------------------------------
 Private Sub btnLoadList_Click()
 On Error GoTo Err_Handler
@@ -481,18 +483,25 @@ On Error GoTo Err_Handler
     
     'run search
     Dim rs As DAO.Recordset
+    Dim rsTgtSpecies As DAO.Recordset
     Dim rsNew As DAO.Recordset
       
     'fetch data
-    Set rs = CurrentDb.OpenRecordset(strSQL)
+    Set rs = CurrentDb.OpenRecordset(strSQL, dbOpenDynaset)
 
+    'Set rsTgtSpecies = CurrentDb.OpenRecordset("temp_Listbox_Recordset", dbOpenDynaset) 'dbOpenDynamic) 'dbOpenDynaset) error 3027 object read-only
+    Set rsTgtSpecies = CurrentDb.OpenRecordset("temp_Listbox_Recordset", dbOpenDynaset) '"SELECT * FROM temp_Listbox_Recordset;", dbOpenDynaset)
+    rsTgtSpecies.GetRows
+    'rsTgtSpecies.MoveLast
+    'rsTgtSpecies.MoveFirst
     'merge existing listbox recordset w/ new SQL recordset
     'Set rsNew = MergeRecordsets(Forms("frm_Tgt_Species").lbxTgtSpecies.Recordset, rs)
     
 '    Forms("frm_Tgt_Species").lbxTgtSpecies
     
-    
-    Set rsNew = MergeRecordsets(Forms("frm_Tgt_Species").lbxTgtSpecies.Recordset, rs)
+'    Set rsNew = MergeRecordsets(Forms("frm_Tgt_Species").lbxTgtSpecies.Recordset, rs)
+    Set rsNew = MergeRecordsets(rsTgtSpecies, rs)
+
 
     'load listbox
     PopulateList Forms("frm_Tgt_Species").lbxTgtSpecies, rsNew, Forms("frm_Tgt_Species").lbxTgtSpecies
@@ -503,6 +512,12 @@ On Error GoTo Err_Handler
     'cleanup
     TempVars.Remove ("parks")
     TempVars.Remove ("years")
+    
+    'remove temp_Listbox_Recordset table
+    If TableExists("temp_Listbox_Recordset") Then
+        'delete all records or delete table?
+        DoCmd.DeleteObject acTable, "temp_Listbox_Recordset"
+    End If
     
     'return to species form
     Dim originForm As String

@@ -3,10 +3,12 @@ Option Explicit
 
 ' =================================
 ' MODULE:       mod_Forms
+' Level:        Framework module
+' Version:      1.00
 ' Description:  generic form functions & procedures
 '
 ' Source/date:  Bonnie Campbell, 2/19/2015
-' Revisions:    BLC - 2/19/2015 - initial version
+' Revisions:    BLC - 2/19/2015 - 1.00 - initial version
 ' =================================
 
 '=================================================================

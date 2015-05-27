@@ -8,7 +8,7 @@ Option Explicit
 ' Description:  Listview & listbox related functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, April 2015
-' Revisions:    BLC, 4/30/2015 - initial version
+' Revisions:    BLC, 4/30/2015 - 1.00 - initial version
 ' =================================
 
 ' ---------------------------------
@@ -457,7 +457,7 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' FUNCTION:     GetListRecordset
+' SUB:          SetListRecordset
 ' Description:  Create a recordset from list items
 '               This creates a temporary table for creating the recordset via DAO.
 ' Assumptions:  -
@@ -470,58 +470,112 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 10, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 5/21/2015 - initial version
+'   BLC - 5/26/2015 - revised to SetListRecordset saving listbox rows to temp table
 ' ---------------------------------
-Public Function GetListRecordset(lbx As ListBox, blnHeaders As Boolean, _
+Public Sub SetListRecordset(lbx As ListBox, blnHeaders As Boolean, _
                 aryFields As Variant, aryFieldTypes As Variant, tblName As String _
-                ) As DAO.Recordset
+                )
 On Error GoTo Err_Handler
 
-Dim iRow As Integer, iStart As Integer, iCol As Integer
-Dim aryFieldNames() As String
-Dim aryTypes() As Variant, aryData() As Variant
+Dim iRow As Integer, iStart As Integer, iCol As Integer, iSubRow As Integer
+Dim strData As String, aryFieldNames() As String
+Dim aryRecord() As String
+Dim aryTypes() As Variant, aryData() As String, varFieldType As Variant
+Dim arySubFields() As Variant
 Dim rs As DAO.Recordset, rsProcess As DAO.Recordset
 Dim tdf As DAO.TableDef
-Dim tbl As DAO.TableDef
+Dim blnTableExists As Boolean
+
+    'set default table exists
+    blnTableExists = False
 
     'Set start row
     iStart = 0
     If blnHeaders Then iStart = 1
     
+    'remove existing table unless it has records
+    If TableExists(tblName) Then
+        If HasRecords(tblName) Then
+            MsgBox "Sorry for the inconvenience, but the table " & tblName & "already exists and has records." & vbCrLf & _
+                "Please check the table's records and remove them (or remove the table)." & vbCrLf & _
+                "Then return here and recreate your list.", _
+                vbCritical, "Oops! " & tblName & " Already Exists!"
+            GoTo Exit_Sub
+        End If
+        blnTableExists = True
+    End If
+
+    'create fields for table
+    'strFields = CStr(aryFields(0))
+    aryFieldNames = Split(CStr(aryFields(0)), ";")
+
+    'prepare data arrays
+    ReDim Preserve aryData(0 To UBound(aryFields) - 1, 0 To UBound(aryFieldNames))
+    
+    'prepare @ listbox row
+    For iRow = 1 To UBound(aryFields) 'aryFieldNames) - 1
+        
+        'get record array
+        aryRecord = Split(aryFields(iRow), ";")
+       
+        'prepare @ listbox field
+        For iCol = 0 To UBound(aryFieldNames) ' - 1 'UBound(aryFields)
+            
+            'strData = aryFields(iRow)
+            'aryData(iRow - 1) = Split(strData, ";")
+            'aryData(iCol, iRow - 1) = Split(strData, ";") 'CStr(aryFields(iRow)), ";") 'strData, ";")
+            aryData(iRow - 1, iCol) = aryRecord(iCol) 'Split(strData, ";")(0)
+        Next
+
+    Next
+
     If lbx.ListCount > 0 Then
-        
-        'create temporary table
-        Set tbl = CurrentDb.CreateTableDef(tblName)
             
-        'create fields for table
-        'strFields = CStr(aryFields(0))
-        
-        aryFieldNames = Split(CStr(aryFields(0)), ";")
-        
-        'prepare data arrays
-        ReDim Preserve aryData(0 To UBound(aryFields) - 1)
-        For iRow = 1 To UBound(aryFields)
-            strData = aryFields(iRow)
-            aryData(iRow - 1) = Split(strData, ";")
-        Next
+        If Not blnTableExists Then
+            
+            'create temporary table (if it doesn't exist)
+            Set tdf = CurrentDb.CreateTableDef(tblName)
+                    
+            aryFieldNames = Split(CStr(aryFields(0)), ";")
                 
-        aryFieldNames = Split(CStr(aryFields(0)), ";")
-            
-        For iRow = 0 To UBound(aryFieldNames)
-            With tbl
-                .Fields.Append .CreateField(aryFieldNames(iRow), FieldTypeName(aryFieldTypes(iRow)))
-            End With
-        Next
-        
+            For iRow = 0 To UBound(aryFieldNames)
+                With tdf
+                    'add table fields
+                    .Fields.Append .CreateField(aryFieldNames(iRow), aryFieldTypes(iRow)) 'GetFieldTypeName(CInt(aryFieldTypes(iRow))))
+                
+                    'create table & fetch recordset
+                    If iRow = UBound(aryFieldNames) - 1 Then
+                            
+                        ' add table to tabledefs
+                        CurrentDb.tabledefs.Append tdf
+                                        
+                    End If
+                    
+                End With
+            Next
+        End If
+                
         ' create recordset for the blank table
-        Set rsProcess = tbl.OpenRecordset
-        
-        '
-        For iRow = iStart To UBound(aryFields)
+        Set rsProcess = CurrentDb.OpenRecordset(tblName, dbOpenDynaset)
+                
+        'add records
+        For iRow = 0 To UBound(aryData)
             rsProcess.AddNew
             
-            'add each field
-            For iCol = 0 To UBound(aryFields.Length) - 1
-                rsProcess(aryFieldNames(iCol)).Value = aryFields(iRow, iCol)
+            'add each field (second element of aryData)
+            For iCol = 0 To UBound(aryData, 2) ' - 1
+                
+                'fetch values from value string
+                'ReDim Preserve arySubFields(0 To UBound(aryFields) - 1)
+                'arySubFields() = Split(CStr(aryFields(iRow)), ";")
+                
+                'add record field values for each record (aryFields - 1, row 0 = field names)
+                'For iSubRow = 0 To UBound(aryData) 'arySubFields) - 1
+                
+                    'rsProcess(aryFieldNames(iCol)).Value = aryData(iSubRow) 'arySubFields(iSubRow)
+                    'rsProcess(aryFieldNames(iSubRow)).Value = aryData(iSubRow) 'arySubFields(iSubRow)
+                    rsProcess(aryFieldNames(iCol)).Value = aryData(iRow, iCol)
+                'Next
             Next
             
             rsProcess.Update
@@ -529,8 +583,47 @@ Dim tbl As DAO.TableDef
         Next
         
     End If
+
+Exit_Sub:
+    Set tdf = Nothing
+    Set rsProcess = Nothing
+    Exit Sub
     
-    Set GetListRecordset = rs
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - SetListRecordset[mod_List])"
+    End Select
+    Resume Exit_Sub
+End Sub
+
+' ---------------------------------
+' FUNCTION:     GetListRecordset
+' Description:  Create a recordset from list items saved in temp table
+' Assumptions:  Records have already been saved to table via SetListRecordset
+' Parameters:   tblName - name of table to check
+' Returns:      rs - recordset from list items (or empty recordset), (nothing if no table exists)
+' Throws:       none
+' References:   none
+' Source/date:
+' Adapted:      Bonnie Campbell, May 26, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 5/26/2015 - initial version
+' ---------------------------------
+Public Function GetListRecordset(tblName As String) As DAO.Recordset
+On Error GoTo Err_Handler
+    
+    'check for table
+    If TableExists(tblName) Then
+
+        ' create recordset for the blank table
+        GetListRecordset = CurrentDb.OpenRecordset(tblName, dbOpenDynaset)
+    Else
+        'nothing if there isn't a table
+        GetListRecordset = vbNull
+    End If
+        
 
 Exit_Function:
     Exit Function
@@ -541,7 +634,7 @@ Err_Handler:
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
             "Error encountered (#" & Err.Number & " - GetListRecordset[mod_List])"
     End Select
-    Resume Exit_Function
+    Resume Exit_Sub
 End Function
 
 ' ---------------------------------

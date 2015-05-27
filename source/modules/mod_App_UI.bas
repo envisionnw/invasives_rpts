@@ -8,7 +8,8 @@ Option Explicit
 ' Description:  Application User Interface related functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, April 2015
-' Revisions:    BLC, 4/30/2015 - initial version
+' Revisions:    BLC, 4/30/2015 - 1.00 - initial version
+'               BLC, 5/26/2015 - 1.01 - added PopulateSpeciesPriorities function from mod_Species
 ' =================================
 
 ' =================================
@@ -27,8 +28,11 @@ Option Explicit
 '               --------------------------------------------------------------------------------------
 '               BLC, 4/21/2015 - Adapted for NCPN Invasives Reports - Species Target List tool
 '                                Converted QAQC to Create, Logs to View
+'               BLC, 5/26/2015 - Added error handling
 ' =================================
 Public Sub PopulateInsetTitle(ctrl As Control, strContext As String)
+On Error GoTo Err_Handler
+    
     Dim strTitle As String
     
     Select Case strContext
@@ -70,6 +74,17 @@ Public Sub PopulateInsetTitle(ctrl As Control, strContext As String)
             ctrl.visible = True
         End If
     End If
+    
+Exit_Sub:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - PopulateInsetTitle[mod_App_UI])"
+    End Select
+    Resume Exit_Sub
 End Sub
 
 ' =================================
@@ -86,8 +101,10 @@ End Sub
 '               --------------------------------------------------------------------------------------
 '               BLC, 4/21/2015 - Adapted for NCPN Invasives Reports - Species Target List tool
 '                                Converted QAQC to Create, Logs to View
+'               BLC, 5/26/2015 - Added error handling
 ' =================================
 Public Sub PopulateInstructions(ctrl As Control, strContext As String)
+On Error GoTo Err_Handler
     Dim strInstructions As String
     
     'MsgBox strContext
@@ -137,7 +154,72 @@ Public Sub PopulateInstructions(ctrl As Control, strContext As String)
         End If
     End If
     
+Exit_Sub:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - PopulateInstructions[mod_App_UI])"
+    End Select
+    Resume Exit_Sub
 End Sub
+
+' ---------------------------------
+' FUNCTION:     PopulateSpeciesPriorities
+' Description:  Populate species priority values from species priority concatenation
+' Assumptions:  Park priority textboxes are named tbxPARKPriority (e.g. tbxZIONPriority)
+' Parameters:   parkCode - 4 character park code (string)
+'               priorities - species priority string concatenation for all parks (e.g. "BLCA-1|COLM-Transect|FOBU-1")
+' Returns:      Priority - value for park species priority (string)
+' Throws:       none
+' References:   none
+' Source/date:
+' Adapted:      Bonnie Campbell, April 9, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 4/9/2015 - initial version
+'   BLC - 5/26/2015 - moved from mod_Species to mod_App_UI
+' ---------------------------------
+Public Function PopulateSpeciesPriorities(parkCode As String, priorities As String) As String
+
+On Error GoTo Err_Handler
+
+Dim ParkPriorities As Variant
+Dim i As Integer
+
+    'check if parkCode is in priorities string
+    If Len(priorities) > Len(Replace(priorities, parkCode, "")) Then
+    
+        'prepare the Park Priority values
+        ParkPriorities = Split(priorities, "|")
+        
+        'set park priority values
+        For i = 0 To UBound(ParkPriorities)
+            'does Park have a priority value?
+            If parkCode = Left(ParkPriorities(i), 4) Then
+                PopulateSpeciesPriorities = Replace(ParkPriorities(i), parkCode + "-", "")
+            End If
+        Next
+        
+    Else
+        'not listed
+        PopulateSpeciesPriorities = "X"
+    
+    End If
+    
+Exit_Function:
+    Exit Function
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - PopulateSpeciesPriorities[mod_App_UI])"
+    End Select
+    Resume Exit_Function
+End Function
+
 
 ' ---------------------------------
 ' SUB:          Initialize

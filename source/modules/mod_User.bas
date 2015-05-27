@@ -4,14 +4,14 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_User
 ' Level:        Framework module
-' Version:      1.00
+' Version:      1.02
 ' Description:  Access related functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, May 2014
-' Revisions:    BLC, 6/13/2014 - initial version
-'               BLC, 8/6/2014  - renamed from mod_Access_Utilities to mod_User
+' Revisions:    BLC, 6/13/2014 - 1.00 - initial version
+'               BLC, 8/6/2014  - 1.01 - renamed from mod_Access_Utilities to mod_User
 '                                to accommodate additional user functions/subs
-'               BLC, 4/30/2015 - added level & version info, move blnRunQueries & blnUpdateAll to mod_Initialize_App
+'               BLC, 4/30/2015 - 1.02 - added level & version info, move blnRunQueries & blnUpdateAll to mod_Initialize_App
 ' =================================
 
 ' ---------------------------------

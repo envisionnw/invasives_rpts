@@ -579,6 +579,7 @@ End Sub
 '   BLC - 5/10/2015 - exposed event as Public to allow calls from main form
 '   BLC - 5/20/2015 - switched from tbxMasterCode to tbxLUCode,
 '                     added transect only & tgt area ID
+'   BLC - 5/26/2015 - added 0 for passing base value for TgtAreaID to target species listbox
 ' ---------------------------------
 Public Sub tbxCode_DblClick(Cancel As Integer)
 On Error GoTo Err_Handler
@@ -588,7 +589,7 @@ On Error GoTo Err_Handler
     'add components of item (code, species (UT or whatever), & ITIS) to listbox
 
     'prepare item for listbox value
-    item = tbxCode & ";" & tbxSpecies & ";" & tbxLUCode & ";0;;" '& tbxTransectOnly & ";" & tbxTgtAreaID & ";" 'tbxMasterCode
+    item = tbxCode & ";" & tbxSpecies & ";" & tbxLUCode & ";0;0;" '& tbxTransectOnly & ";" & tbxTgtAreaID & ";" 'tbxMasterCode
     
     'check listbox for duplicate & skip if already present (col 0 vs 2)
     If IsListDuplicate(Forms("frm_Tgt_Species").Controls("lbxTgtSpecies"), 2, tbxLUCode) Then

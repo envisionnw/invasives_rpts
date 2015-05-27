@@ -14,8 +14,8 @@ Begin Form
     ItemSuffix =28
     Left =6828
     Top =1452
-    Right =18504
-    Bottom =7884
+    Right =18012
+    Bottom =7500
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x72574db34b86e440
@@ -893,7 +893,7 @@ Private Sub btnLoad_Click()
 On Error GoTo Err_Handler
 
 Dim aryFields() As String
-Dim aryFieldTypes As Variant
+Dim aryFieldTypes() As Variant
 Dim strCode As String, strSpecies As String, strLUCode As String
 Dim iRow As Integer, iTransectOnly As Integer, iTgtAreaID As Integer
 Dim rs As DAO.Recordset
@@ -922,8 +922,8 @@ Dim rs As DAO.Recordset
         
     Next
     
-    Set rs = GetListRecordset(lbxTgtSpecies, True, aryFields, aryFieldTypes, "temp_Listbox_Recordset")
-
+    'save the existing records to temp_Listbox_Recordset
+    SetListRecordset lbxTgtSpecies, True, aryFields, aryFieldTypes, "temp_Listbox_Recordset"
 
     'open tgt species list form
     DoCmd.OpenForm "frm_Select_List", acNormal, , , , acWindowNormal, Me.name

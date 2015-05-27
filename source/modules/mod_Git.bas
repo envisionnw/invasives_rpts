@@ -3,10 +3,13 @@ Option Explicit
 
 ' =================================
 ' MODULE:       mod_Git
+' Level:        Framework module
+' Version:      1.00
+'
 ' Description:  Git related functions & procedures for version control
 '
 ' Source/date:  Bonnie Campbell, 2/12/2015
-' Revisions:    BLC - 2/12/2015 - initial version
+' Revisions:    BLC - 2/12/2015 - 1.00 - initial version
 ' =================================
 
 ' ===================================================================================
@@ -20,8 +23,11 @@ Option Explicit
 ' FUNCTION:     ExportVBComponent
 ' Description:  Export VB components (forms, modules, classes) as text files for later use
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   VBComp - VB component
+'               FolderName - name of folder component is in (string)
+'               fileName - name of VB component file (string)
+'               OverwriteExisting - true if existing file should be overwritten, false if not (boolean)
+' Returns:      boolean - true if successful export, false if not
 ' Throws:       none
 ' References:   Requires Microsoft Visual Basic for Applications Extensibility 5.3 library (add via Tools > References)
 ' Source/date:
@@ -89,8 +95,8 @@ End Function
 ' FUNCTION:     GetFileExtension
 ' Description:  Return appropriate file extension for VB Components(forms, modules, classes) as text files for later use
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   VBComp - VB component
+' Returns:      string - file extension of VB component
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -136,8 +142,8 @@ End Function
 ' SUB:          DocDatabase
 ' Description:  Documents the database to a series of text files
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   path - path to database file (string, optional)
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -231,8 +237,8 @@ End Sub
 ' SUB:          RecreateDatabase
 ' Description:  Recreates the database from series of text files created through SaveAsText
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   -
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -287,8 +293,12 @@ End Sub
 ' FUNCTION:     SetPropertyDAO
 ' Description:  Export VB components (forms, modules, classes) as text files for later use
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   obj - object to set property for (object)
+'               strPropertyName - property name (string)
+'               intType - type of property (integer)
+'               varValue - value of property (variant)
+'               strErrMsg - error message to display (string)
+' Returns:      boolean - true if property value is set, false if not
 ' Throws:       none
 ' References:   Requires Microsoft Visual Basic for Applications Extensibility 5.3 library (add via Tools > References)
 ' Source/date:
@@ -322,7 +332,9 @@ ExitHandler:
 
 ErrHandler:
     strErrMsg = strErrMsg & obj.name & "." & strPropertyName & " not set to " & _
-        varValue & ". Error " & Err.Number & " - " & Err.Description & vbCrLf
+        varValue & ". Error encountered (#" & Err.Number & " - SetPropertyDAO[mod_Git])" & _
+        Err.Number & " - " & Err.Description & vbCrLf
+    
     Resume ExitHandler
 End Function
 
@@ -330,8 +342,9 @@ End Function
 ' FUNCTION:     HasProperty
 ' Description:  Returns true if object has the property
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   obj - object to inspect (object)
+'               strPropName - property name to find (string)
+' Returns:      boolean - true if object has property, false if not
 ' Throws:       none
 ' References:   -
 ' Source/date:
@@ -356,8 +369,8 @@ End Function
 ' FUNCTION:     GetDescriptions
 ' Description:  Returns table descriptions
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   db - name of database (string)
+' Returns:      descriptions - table descriptions (string)
 ' Throws:       none
 ' References:   -
 ' Source/date:
@@ -402,10 +415,6 @@ On Error Resume Next
    ' End If
     Set Catalog = Nothing
 End Function
-
-Public Sub test()
-GetDescriptions "VCS_base_test.accdb"
-End Sub
 
 ' ---------------------------------
 ' FUNCTION:     TableInfo
@@ -480,10 +489,10 @@ End Function
 
 ' ---------------------------------
 ' FUNCTION:     FieldTypeName
-' Description:  Returns table descriptions
+' Description:  Converts the numeric results of DAO Field.Type to text
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   fld - DAO field
+' Returns:      type name - name of field's type (string) - Yes/No, Byte, Integer, etc.
 ' Throws:       none
 ' References:   -
 ' Source/date:
@@ -494,7 +503,7 @@ End Function
 '   BLC - 2/13/2015 - initial version
 ' ---------------------------------
 Function FieldTypeName(fld As DAO.Field) As String
-    'Purpose: Converts the numeric results of DAO Field.Type to text.
+
     Dim strReturn As String    'Name to return
 
     Select Case CLng(fld.Type) 'fld.Type is Integer, but constants are Long.
@@ -551,4 +560,92 @@ Function FieldTypeName(fld As DAO.Field) As String
     End Select
 
     FieldTypeName = strReturn
+End Function
+
+' ---------------------------------
+' FUNCTION:     GetFieldTypeName
+' Description:  Converts the numeric results of DAO Field.Type to text
+' Assumptions:  -
+' Parameters:   fld - DAO field
+' Returns:      type name - name of field's type (string) - Yes/No, Byte, Integer, etc.
+' Throws:       none
+' References:   -
+' Source/date:
+' Allen Browne, April 2010
+' http://allenbrowne.com/func-06.html
+' Adapted:      Bonnie Campbell, May 26, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 5/26/2015 - initial version
+' ---------------------------------
+Function GetFieldTypeName(fld As Integer) As String
+On Err GoTo Err_Handler
+
+    Dim strReturn As String    'Name to return
+
+    Select Case CLng(fld) 'fld.Type is Integer, but constants are Long.
+        Case dbBoolean, 1: strReturn = "Yes/No"           ' 1
+        Case dbByte, 2: strReturn = "Byte"                ' 2
+        Case dbInteger, 3: strReturn = "Integer"          ' 3
+        Case dbLong, 4                                    ' 4
+            'If (fld.Attributes And dbAutoIncrField) = 0& Then
+                strReturn = "Long Integer"
+            'Else
+            '    strReturn = "AutoNumber"
+            'End If
+        Case dbCurrency, 5: strReturn = "Currency"        ' 5
+        Case dbSingle, 6: strReturn = "Single"            ' 6
+        Case dbDouble, 7: strReturn = "Double"            ' 7
+        Case dbDate, 8: strReturn = "Date/Time"           ' 8
+        Case dbBinary, 9: strReturn = "Binary"            ' 9 (no interface)
+        Case dbText, 10                                    '10
+            'If (fld.Attributes And dbFixedField) = 0& Then
+                strReturn = "Text"
+            'Else
+            '    strReturn = "Text (fixed width)"        '(no interface)
+            'End If
+        Case dbLongBinary, 11: strReturn = "OLE Object"    '11
+        Case dbMemo, 12                                    '12
+            'If (fld.Attributes And dbHyperlinkField) = 0& Then
+                strReturn = "Memo"
+            'Else
+            '    strReturn = "Hyperlink"
+            'End If
+        Case dbGUID, 15: strReturn = "GUID"                '15
+
+        'Attached tables only: cannot create these in JET.
+        Case dbBigInt, 16: strReturn = "Big Integer"       '16
+        Case dbVarBinary, 17: strReturn = "VarBinary"      '17
+        Case dbChar, 18: strReturn = "Char"                '18
+        Case dbNumeric, 19: strReturn = "Numeric"          '19
+        Case dbDecimal, 20: strReturn = "Decimal"          '20
+        Case dbFloat, 21: strReturn = "Float"              '21
+        Case dbTime, 22: strReturn = "Time"                '22
+        Case dbTimeStamp, 23: strReturn = "Time Stamp"     '23
+
+        'Constants for complex types don't work prior to Access 2007 and later.
+        Case 101&: strReturn = "Attachment"         'dbAttachment
+        Case 102&: strReturn = "Complex Byte"       'dbComplexByte
+        Case 103&: strReturn = "Complex Integer"    'dbComplexInteger
+        Case 104&: strReturn = "Complex Long"       'dbComplexLong
+        Case 105&: strReturn = "Complex Single"     'dbComplexSingle
+        Case 106&: strReturn = "Complex Double"     'dbComplexDouble
+        Case 107&: strReturn = "Complex GUID"       'dbComplexGUID
+        Case 108&: strReturn = "Complex Decimal"    'dbComplexDecimal
+        Case 109&: strReturn = "Complex Text"       'dbComplexText
+        Case Else: strReturn = "Field type " & fld & " unknown"
+    End Select
+
+    GetFieldTypeName = strReturn
+
+
+Exit_Function:
+    Exit Function
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - GetFieldTypeName[mod_Git])"
+    End Select
+    Resume Exit_Function
 End Function

@@ -4,6 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_Linked_Tables
 ' Level:        Framework module
+' Version:      1.01
 ' Description:  Linked table related functions & subroutines
 '
 ' Adapted from: John R. Boetsch, May 24, 2006
@@ -11,9 +12,9 @@ Option Explicit
 ' Revisions:    JRB, 7/9/2009 - simplified by moving certain functions to another module
 '               JRB, 12/30/2009 - moved fxnVerifyLinks to another module
 '               ------------------------------------------------------------------------
-'               BLC, 4/30/2015 - added fxnVerifyLinks, fxnRefreshLinks, fxnVerifyLinkTableInfo,
+'               BLC, 4/30/2015 - 1.00 - added fxnVerifyLinks, fxnRefreshLinks, fxnVerifyLinkTableInfo,
 '                                fxnMakeBackup from mod_Custom_Functions
-'               BLC, 5/19/2015 - renamed functions, removed fxn prefix
+'               BLC, 5/19/2015 - 1.01 - renamed functions, removed fxn prefix
 ' =================================
 
 ' ---------------------------------

@@ -4,12 +4,20 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_Time
 ' Level:        Framework module
-' Version:      1.00
+' Version:      1.01
 ' Description:  File and directory related functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, April 2015
-' Revisions:    BLC, 4/30/2015 - initial version
+' Revisions:    BLC, 4/30/2015 - 1.00 - initial version
+'               BLC, 5/26/2015 - 1.01 - added sapiSleep, Delay from mod_Zip_Files
 ' =================================
+
+' ---------------------------------
+'  Functions
+' ---------------------------------
+' Goes with fxnPause (Delay); code courtesy of Dev Ashish (http://www.mvps.org/access/)
+Private Declare Sub sapiSleep Lib "kernel32" _
+        Alias "Sleep" (ByVal dwMilliseconds As Long)
 
 ' =================================
 ' FUNCTION:     FiscalYear
@@ -96,4 +104,34 @@ Err_Handler:
             "Error encountered (#" & Err.Number & " - NumberOfSeconds[mod_Time])"
     End Select
     Resume Exit_Function
+End Function
+
+' =================================
+' FUNCTION:     Delay
+' Description:  Uses API call to delay code execution for a specified number of milliseconds
+' Parameters:   lngMilliSec = long of number of milliseconds to pause execution
+' Returns:      none
+' Throws:       none
+' References:   sapiSleep
+' Source/date:  Dev Ashish, 10/8/2009 (http://www.mvps.org/access/)
+' Revisions:    John R. Boetsch, 10/8/2009 - updated error handling and naming conventions
+'               BLC, 5/26/2015 - renamed Delay from fxnPause to avoid function conflict
+' =================================
+Public Function Delay(lngMilliSec As Long)
+    On Error GoTo Err_Handler
+
+    If lngMilliSec > 0 Then
+        Call sapiSleep(lngMilliSec)
+    End If
+
+Exit_Procedure:
+    Exit Function
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - Delay[mod_Time])"
+    End Select
+    Resume Exit_Procedure
 End Function

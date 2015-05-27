@@ -1,5 +1,10 @@
+Option Compare Database
+Option Explicit
+
 ' =================================
 ' MODULE:       mod_Zip_Files
+' Level:        Framework module
+' Version:      1.00
 ' Description:  Standard module for compressing files using Windows XP's built-in
 '                   'Compressed (Zipped) Folders' feature
 ' Source/date:  Alan Williams at nps.gov, 7/20/2007 - collected code bits and cleaned
@@ -7,17 +12,20 @@
 ' Revisions:    John R. Boetsch, 1/8/2009 - minor reformatting and name changes
 '               JRB, 10/8/2009 - added fxnPause to allow a delay in code execution until
 '                   the zip file is created
+'               -------------------------------------
+'               BLC, 5/26/2015 - 1.00 - included in NCPN invasives reporting tool &
+'                   moved sapiSleep & fxnPause(Delay) to mod_Time
+' =================================
 
-Option Compare Database
-Option Explicit
-
+' ---------------------------------
+'  Functions
+' ---------------------------------
 Public Declare Function GetVersionExA Lib "kernel32" _
                (LpVersionInformation As OSVERSIONINFO) As Integer
 
-' Goes with fxnPause; code courtesy of Dev Ashish (http://www.mvps.org/access/)
-Private Declare Sub sapiSleep Lib "kernel32" _
-        Alias "Sleep" (ByVal dwMilliseconds As Long)
-
+' ---------------------------------
+'  Types
+' ---------------------------------
 Public Type OSVERSIONINFO
   dwOSVersionInfoSize As Long
   dwMajorVersion As Long
@@ -27,9 +35,16 @@ Public Type OSVERSIONINFO
   szCSDVersion As String * 128
 End Type
 
+' ---------------------------------
+'  Constants
+' ---------------------------------
 Public Const VER_PLATFORM_WIN32s = 0        ' Win32s on Windows 3.1
 Public Const VER_PLATFORM_WIN32_WINDOWS = 1 ' Windows 95, Windows 98, or Windows Me
 Public Const VER_PLATFORM_WIN32_NT = 2      ' Windows NT/2000/XP, or Windows Server 2003 family
+
+' ---------------------------------
+'  Functions
+' ---------------------------------
 
 ' =================================
 ' FUNCTION:     fxnZipFiles
@@ -219,33 +234,4 @@ Err_Handler:
     End Select
     Resume Exit_Procedure
 
-End Function
-
-' =================================
-' FUNCTION:     fxnPause
-' Description:  Uses API call to delay code execution for a specified number of milliseconds
-' Parameters:   lngMilliSec = long of number of milliseconds to pause execution
-' Returns:      none
-' Throws:       none
-' References:   sapiSleep
-' Source/date:  Dev Ashish, 10/8/2009 (http://www.mvps.org/access/)
-' Revisions:    John R. Boetsch, 10/8/2009 - updated error handling and naming conventions
-' =================================
-Public Function fxnPause(lngMilliSec As Long)
-    On Error GoTo Err_Handler
-
-    If lngMilliSec > 0 Then
-        Call sapiSleep(lngMilliSec)
-    End If
-
-Exit_Procedure:
-    Exit Function
-
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnPause)"
-    End Select
-    Resume Exit_Procedure
 End Function
