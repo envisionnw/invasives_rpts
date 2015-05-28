@@ -13,10 +13,10 @@ Begin Form
     Width =9120
     DatasheetFontHeight =11
     ItemSuffix =17
-    Left =7380
-    Top =3012
-    Right =11076
-    Bottom =7032
+    Left =2604
+    Top =3288
+    Right =6300
+    Bottom =7308
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xa913d0241a94e440
@@ -566,7 +566,7 @@ End Sub
 ' ---------------------------------
 ' SUB:          tbxCode_DblClick
 ' Description:  Actions for clicking tbxCode
-' Assumptions:  -
+' Assumptions:  Species with empty lookup codes must first be fixed before being added to a list.
 ' Parameters:   N/A
 ' Returns:      N/A
 ' Throws:       none
@@ -580,11 +580,28 @@ End Sub
 '   BLC - 5/20/2015 - switched from tbxMasterCode to tbxLUCode,
 '                     added transect only & tgt area ID
 '   BLC - 5/26/2015 - added 0 for passing base value for TgtAreaID to target species listbox
+'   BLC - 5/27/2015 - added check for missing LU Codes
+'                     (species w/ missing codes cannot be added to target list)
 ' ---------------------------------
 Public Sub tbxCode_DblClick(Cancel As Integer)
 On Error GoTo Err_Handler
     Dim item As String
     Dim lbx As ListBox
+    
+    'check for empty Lookup code (LUCode)
+    If IsNull(tbxLUCode) Or IsEmpty(tbxLUCode) Or Len(Trim(tbxLUCode)) = 0 Then
+        
+        MsgBox "Species " & tbxSpecies & " is missing a lookup code (LUCode). " & _
+            vbCrLf & vbCrLf & "This code is required before the species can be added to a target list. " & _
+            vbCrLf & vbCrLf & "Please determine the appropriate code and enter it into the master " & _
+            "plant species list." & _
+            vbCrLf & vbCrLf & "Contact the project ecologist/data manager to add the species. ", _
+            vbExclamation, "Missing Lookup Code!"
+
+        'email species desired
+        
+        GoTo Exit_Sub
+    End If
     
     'add components of item (code, species (UT or whatever), & ITIS) to listbox
 
@@ -635,19 +652,38 @@ End Sub
 '   BLC - 2/23/2015 - added lblTgtSpeciesCount update
 '   BLC - 5/20/2015 - switched from tbxMasterCode to tbxLUCode,
 '                     added transect only & tgt area ID
+'   BLC - 5/27/2015 - added check for missing LU Codes
+'                     (species w/ missing codes cannot be added to target list)
+'                     fixed error (variable not defined) on tbxMasterCode - replaced w/ tbxLUCode
+'                     in call to IsListDuplicate
 ' ---------------------------------
 Private Sub tbxSpecies_DblClick(Cancel As Integer)
 On Error GoTo Err_Handler
     Dim item As String
     Dim lbx As ListBox
     
+    'check for empty Lookup code (LUCode)
+    If IsNull(tbxLUCode) Or IsEmpty(tbxLUCode) Or Len(Trim(tbxLUCode)) = 0 Then
+
+        MsgBox "Species " & tbxSpecies & " is missing a lookup code (LUCode). " & _
+            vbCrLf & vbCrLf & "This code is required before the species can be added to a target list. " & _
+            vbCrLf & vbCrLf & "Please determine the appropriate code and enter it into the master " & _
+            "plant species list." & _
+            vbCrLf & vbCrLf & "Contact the project ecologist/data manager to add the species. ", _
+            vbExclamation, "Missing Lookup Code!"
+        
+        'email species desired
+        
+        GoTo Exit_Sub
+    End If
+    
     'add components of item (code, species (UT or whatever), & ITIS) to listbox
 
-    'prepare item for listbox value
-    item = tbxCode & ";" & tbxSpecies & ";" & tbxLUCode & ";" & tbxTransectOnly & ";" & tbxTgtAreaID & ";"
+    'prepare item for listbox value (default TransectOnly & TgtAreaID to 0)
+    item = tbxCode & ";" & tbxSpecies & ";" & tbxLUCode & ";0;0;"  ' & ";" & tbxTransectOnly & ";" & tbxTgtAreaID & ";" 'tbxMasterCode
     
     'check listbox for duplicate & skip if already present was col 2
-    If IsListDuplicate(Forms("frm_Tgt_Species").Controls("lbxTgtSpecies"), 0, tbxMasterCode) Then
+    If IsListDuplicate(Forms("frm_Tgt_Species").Controls("lbxTgtSpecies"), 0, tbxLUCode) Then
         'duplicate, so exit
         GoTo Exit_Sub
     End If

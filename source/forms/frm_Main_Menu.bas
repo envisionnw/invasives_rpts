@@ -334,7 +334,6 @@ Err_Handler:
     End Select
     Resume Exit_Procedure
 End Sub
-
     
 ' ---------------------------------
 ' SUB:          btnLaunchTgtTool_Click

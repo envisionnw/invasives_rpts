@@ -12,9 +12,8 @@ Begin Form
     GridY =24
     DatasheetFontHeight =11
     ItemSuffix =22
-    Top =-864
     Right =7452
-    Bottom =3264
+    Bottom =4128
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xc1f3db6ed487e440
@@ -448,7 +447,7 @@ End Sub
 ' ---------------------------------
 ' SUB:          btnLoadList_Click
 ' Description:  Load the target list species into frmTgtSpecies.lbxTgtSpecies
-' Assumptions:  -
+' Assumptions:  Target species already selected exist in the temp_List_Recordset temp table
 ' Parameters:   N/A
 ' Returns:      N/A
 ' Throws:       none
@@ -460,12 +459,16 @@ End Sub
 '   BLC - 5/13/2015 - added LU_Code to values retrieved from tbl_Tgt_Species
 '   BLC - 5/20/2015 - added transect only and target area fields
 '   BLC - 5/26/2015 - added merge from temp_Listbox_Recordset table vs listbox & table removal
+'   BLC - 5/27/2015 - modified to use AddListRecordset and GetListRecordset vs.  MergeRecordsets to capture
+'                     all records from
 ' ---------------------------------
 Private Sub btnLoadList_Click()
 On Error GoTo Err_Handler
     
-    Dim strSQL As String, strWhere As String
-    
+    Dim strSQL As String, strWhere As String, strFieldNames As String
+    Dim rs As DAO.Recordset, rsTgtSpecies As DAO.Recordset, rsNew As DAO.Recordset
+    Dim aryFieldTypes() As Variant
+      
     'determine the selected park(s) & year(s)
     If Len(TempVars.item("parks")) > 0 And Len(TempVars.item("years")) > 0 Then
         strWhere = "WHERE Park_Code IN (" & TempVars.item("parks") & ") " _
@@ -480,28 +483,31 @@ On Error GoTo Err_Handler
             & "LU_Code AS LUCode,  Transect_Only, Target_Area_ID " _
             & "FROM tbl_Target_Species " _
             & strWhere & ";"
-    
-    'run search
-    Dim rs As DAO.Recordset
-    Dim rsTgtSpecies As DAO.Recordset
-    Dim rsNew As DAO.Recordset
-      
+            
     'fetch data
     Set rs = CurrentDb.OpenRecordset(strSQL, dbOpenDynaset)
 
     'Set rsTgtSpecies = CurrentDb.OpenRecordset("temp_Listbox_Recordset", dbOpenDynaset) 'dbOpenDynamic) 'dbOpenDynaset) error 3027 object read-only
-    Set rsTgtSpecies = CurrentDb.OpenRecordset("temp_Listbox_Recordset", dbOpenDynaset) '"SELECT * FROM temp_Listbox_Recordset;", dbOpenDynaset)
-    rsTgtSpecies.GetRows
-    'rsTgtSpecies.MoveLast
-    'rsTgtSpecies.MoveFirst
+'    Set rsTgtSpecies = CurrentDb.OpenRecordset("temp_Listbox_Recordset", dbOpenDynaset) '"SELECT * FROM temp_Listbox_Recordset;", dbOpenDynaset)
+'    rsTgtSpecies.GetRows
+    
+    'prepare temp_Listbox_Recordset field names
+    strFieldNames = "Code;Species;LUCode;Transect_Only;Target_Area_ID"
+    aryFieldTypes = Array(dbText, dbText, dbText, dbInteger, dbInteger)
+
+    'Add to existing records in temp_Listbox_Recordset (from lbsTgtSpecies)
+    AddListRecordset "temp_Listbox_Recordset", rs, strFieldNames, aryFieldTypes, False
+
     'merge existing listbox recordset w/ new SQL recordset
     'Set rsNew = MergeRecordsets(Forms("frm_Tgt_Species").lbxTgtSpecies.Recordset, rs)
     
 '    Forms("frm_Tgt_Species").lbxTgtSpecies
     
 '    Set rsNew = MergeRecordsets(Forms("frm_Tgt_Species").lbxTgtSpecies.Recordset, rs)
-    Set rsNew = MergeRecordsets(rsTgtSpecies, rs)
+'    Set rsNew = MergeRecordsets(rsTgtSpecies, rs)
 
+    'Get list records (merged) from temp table
+    Set rsNew = GetListRecordset("temp_Listbox_Recordset")
 
     'load listbox
     PopulateList Forms("frm_Tgt_Species").lbxTgtSpecies, rsNew, Forms("frm_Tgt_Species").lbxTgtSpecies
@@ -533,6 +539,8 @@ On Error GoTo Err_Handler
     DoCmd.Close acForm, Me.name
     
 Exit_Sub:
+    Set rsNew = Nothing
+    Set rs = Nothing
     Exit Sub
     
 Err_Handler:

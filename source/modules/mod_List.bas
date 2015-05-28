@@ -363,7 +363,7 @@ End Function
 '   BLC - 2/7/2015  - initial version
 '   BLC - 5/10/2015 - moved to mod_List from mod_Lists
 ' ---------------------------------
-Public Function CountArrayValues(Ary As Variant, val As Variant) As Integer
+Public Function CountArrayValues(ary As Variant, val As Variant) As Integer
 
 On Error GoTo Err_Handler
     
@@ -372,10 +372,10 @@ On Error GoTo Err_Handler
     'default
     numItems = 0
     
-    If IsArray(Ary) Then
+    If IsArray(ary) Then
     
-        For i = LBound(Ary) To UBound(Ary)
-            If Ary(i) = val Then
+        For i = LBound(ary) To UBound(ary)
+            If ary(i) = val Then
                 numItems = numItems + 1
             End If
         Next
@@ -463,7 +463,12 @@ End Sub
 ' Assumptions:  -
 ' Parameters:   lbx - listbox control to get records from (listbox)
 '               blnHeaders - true if listbox has headers, false if not (boolean)
-' Returns:      rs - recordset from list items
+'               aryFields - fields (headers & data) from listbox data (array)
+'               aryFieldTypes - field types from listbox data (array)
+'               tblName - temporary table name (string)
+'               blnReplace - true = replace records in the temp table (if it exists)
+'                            false = append to records in the temp table (if it exists)
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -471,18 +476,19 @@ End Sub
 ' Revisions:
 '   BLC - 5/21/2015 - initial version
 '   BLC - 5/26/2015 - revised to SetListRecordset saving listbox rows to temp table
+'   BLC - 5/27/2015 - added blnReplace to handle adding additional records to the temp
+'                     table from a list
 ' ---------------------------------
 Public Sub SetListRecordset(lbx As ListBox, blnHeaders As Boolean, _
-                aryFields As Variant, aryFieldTypes As Variant, tblName As String _
-                )
+                aryFields As Variant, aryFieldTypes As Variant, tblName As String, _
+                blnReplace As Boolean, Optional rsList As DAO.Recordset)
 On Error GoTo Err_Handler
 
-Dim iRow As Integer, iStart As Integer, iCol As Integer, iSubRow As Integer
-Dim strData As String, aryFieldNames() As String
+Dim iRow As Integer, iStart As Integer, iCol As Integer
+Dim strSQL As String, aryFieldNames() As String
 Dim aryRecord() As String
-Dim aryTypes() As Variant, aryData() As String, varFieldType As Variant
-Dim arySubFields() As Variant
-Dim rs As DAO.Recordset, rsProcess As DAO.Recordset
+Dim aryData() As String
+Dim rsProcess As DAO.Recordset
 Dim tdf As DAO.TableDef
 Dim blnTableExists As Boolean
 
@@ -495,36 +501,43 @@ Dim blnTableExists As Boolean
     
     'remove existing table unless it has records
     If TableExists(tblName) Then
-        If HasRecords(tblName) Then
-            MsgBox "Sorry for the inconvenience, but the table " & tblName & "already exists and has records." & vbCrLf & _
-                "Please check the table's records and remove them (or remove the table)." & vbCrLf & _
-                "Then return here and recreate your list.", _
-                vbCritical, "Oops! " & tblName & " Already Exists!"
-            GoTo Exit_Sub
+    
+        'Append Records --> do nothing
+        If HasRecords(tblName) And blnReplace = False Then
+'            MsgBox "Sorry for the inconvenience, but the table " & tblName & "already exists and has records." & vbCrLf & _
+'                "Please check the table's records and remove them (or remove the table)." & vbCrLf & _
+'                "Then return here and recreate your list.", _
+'                vbCritical, "Oops! " & tblName & " Already Exists!"
+'            GoTo Exit_Sub
+            
+        'Replace Records --> delete existing records
+        ElseIf HasRecords(tblName) And blnReplace = True Then
+        
+            strSQL = "DELETE * FROM " & tblName & ";"
+            DoCmd.SetWarnings False
+            DoCmd.RunSQL (strSQL)
+            DoCmd.SetWarnings True
+        
         End If
         blnTableExists = True
     End If
 
     'create fields for table
-    'strFields = CStr(aryFields(0))
     aryFieldNames = Split(CStr(aryFields(0)), ";")
 
     'prepare data arrays
     ReDim Preserve aryData(0 To UBound(aryFields) - 1, 0 To UBound(aryFieldNames))
     
     'prepare @ listbox row
-    For iRow = 1 To UBound(aryFields) 'aryFieldNames) - 1
+    For iRow = 1 To UBound(aryFields)
         
         'get record array
         aryRecord = Split(aryFields(iRow), ";")
        
         'prepare @ listbox field
-        For iCol = 0 To UBound(aryFieldNames) ' - 1 'UBound(aryFields)
+        For iCol = 0 To UBound(aryFieldNames)
             
-            'strData = aryFields(iRow)
-            'aryData(iRow - 1) = Split(strData, ";")
-            'aryData(iCol, iRow - 1) = Split(strData, ";") 'CStr(aryFields(iRow)), ";") 'strData, ";")
-            aryData(iRow - 1, iCol) = aryRecord(iCol) 'Split(strData, ";")(0)
+            aryData(iRow - 1, iCol) = aryRecord(iCol)
         Next
 
     Next
@@ -544,7 +557,7 @@ Dim blnTableExists As Boolean
                     .Fields.Append .CreateField(aryFieldNames(iRow), aryFieldTypes(iRow)) 'GetFieldTypeName(CInt(aryFieldTypes(iRow))))
                 
                     'create table & fetch recordset
-                    If iRow = UBound(aryFieldNames) - 1 Then
+                    If iRow = UBound(aryFieldNames) Then '- 1 Then
                             
                         ' add table to tabledefs
                         CurrentDb.tabledefs.Append tdf
@@ -565,22 +578,16 @@ Dim blnTableExists As Boolean
             'add each field (second element of aryData)
             For iCol = 0 To UBound(aryData, 2) ' - 1
                 
-                'fetch values from value string
-                'ReDim Preserve arySubFields(0 To UBound(aryFields) - 1)
-                'arySubFields() = Split(CStr(aryFields(iRow)), ";")
-                
                 'add record field values for each record (aryFields - 1, row 0 = field names)
-                'For iSubRow = 0 To UBound(aryData) 'arySubFields) - 1
-                
-                    'rsProcess(aryFieldNames(iCol)).Value = aryData(iSubRow) 'arySubFields(iSubRow)
-                    'rsProcess(aryFieldNames(iSubRow)).Value = aryData(iSubRow) 'arySubFields(iSubRow)
                     rsProcess(aryFieldNames(iCol)).Value = aryData(iRow, iCol)
-                'Next
+
             Next
             
             rsProcess.Update
                                 
         Next
+        
+        rsProcess.Close
         
     End If
 
@@ -594,6 +601,128 @@ Err_Handler:
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
             "Error encountered (#" & Err.Number & " - SetListRecordset[mod_List])"
+    End Select
+    Resume Exit_Sub
+End Sub
+
+
+' ---------------------------------
+' SUB:          SetListRecordset
+' Description:  Add list items to existing records in a list recordset table via DAO.
+' Assumptions:  Recordset contains the same number and type of fields as the list recordset table.
+' Parameters:   tblName - temporary table name (string)
+'               rsList - listbox recordset (DAO.recordset)
+'               aryFieldNames - table fields (string array)
+'               aryFieldTypes - field types (variant array)
+'               blnReplace - true = replace records in the temp table (if it exists)
+'                            false = append to records in the temp table (if it exists)
+' Returns:      -
+' Throws:       none
+' References:   none
+' Source/date:
+' Adapted:      Bonnie Campbell, May 26, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 5/27/2015 - initial version
+' ---------------------------------
+Public Sub AddListRecordset(tblName As String, rsList As DAO.Recordset, strFieldNames As String, _
+                aryFieldTypes As Variant, blnReplace As Boolean)
+On Error GoTo Err_Handler
+
+Dim iRow As Integer, iStart As Integer, iCol As Integer
+Dim strSQL As String, aryFieldNames() As String
+Dim aryRecord() As String
+Dim aryData() As String
+Dim rsProcess As DAO.Recordset
+Dim tdf As DAO.TableDef
+Dim blnTableExists As Boolean
+
+    'set default table exists
+    blnTableExists = False
+
+    'Set start row
+    iStart = 0
+    
+    'prepare field names
+    aryFieldNames = Split(strFieldNames, ";")
+    
+    'remove existing table unless it has records
+    If TableExists(tblName) Then
+            
+        'Replace Records --> delete existing records
+        If HasRecords(tblName) And blnReplace = True Then
+        
+            strSQL = "DELETE * FROM " & tblName & ";"
+            DoCmd.SetWarnings False
+            DoCmd.RunSQL (strSQL)
+            DoCmd.SetWarnings True
+                
+        End If
+                
+        'Append Records --> do nothing
+        
+        blnTableExists = True
+    End If
+
+    rsList.MoveLast
+    If rsList.RecordCount > 0 Then
+
+        'Create Table
+        If Not blnTableExists Then
+            
+            'create temporary table (if it doesn't exist)
+            Set tdf = CurrentDb.CreateTableDef(tblName)
+
+            For iRow = 0 To UBound(aryFieldNames)
+                With tdf
+                    'add table fields
+                    .Fields.Append .CreateField(aryFieldNames(iRow), aryFieldTypes(iRow))
+                
+                    'create table & fetch recordset
+                    If iRow = UBound(aryFieldNames) - 1 Then
+                            
+                        ' add table to tabledefs
+                        CurrentDb.tabledefs.Append tdf
+                                        
+                    End If
+                    
+                End With
+            Next
+        End If
+                
+        ' create recordset for the blank table
+        Set rsProcess = CurrentDb.OpenRecordset(tblName, dbOpenDynaset)
+                
+        'add records
+        For iRow = 0 To rsList.RecordCount - 1 'UBound(aryData)
+
+            rsProcess.AddNew
+            
+            'add each field (second element of aryData)
+            For iCol = 0 To UBound(aryFieldNames) - 1
+            
+                'add record field values for each record (aryFields - 1, row 0 = field names)
+                rsProcess(aryFieldNames(iCol)).Value = rsList(aryFieldNames(iCol)).Value
+
+                iCol = iCol + 1
+            Next
+
+            rsProcess.Update
+            'rsList.MoveNext
+            iRow = iRow + 1
+        Next
+
+    End If
+
+Exit_Sub:
+    Set tdf = Nothing
+    Set rsProcess = Nothing
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - AddListRecordset[mod_List])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -618,10 +747,10 @@ On Error GoTo Err_Handler
     If TableExists(tblName) Then
 
         ' create recordset for the blank table
-        GetListRecordset = CurrentDb.OpenRecordset(tblName, dbOpenDynaset)
+        Set GetListRecordset = CurrentDb.OpenRecordset(tblName, dbOpenDynaset)
     Else
         'nothing if there isn't a table
-        GetListRecordset = vbNull
+        'GetListRecordset = vbNull
     End If
         
 
@@ -634,7 +763,7 @@ Err_Handler:
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
             "Error encountered (#" & Err.Number & " - GetListRecordset[mod_List])"
     End Select
-    Resume Exit_Sub
+    Resume Exit_Function
 End Function
 
 ' ---------------------------------

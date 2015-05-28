@@ -289,7 +289,6 @@ Err_Handler:
 
 End Function
 
-
 ' =================================
 ' FUNCTION:     MakeBackup
 ' Description:  Creates a backup of linked Access back-end database files

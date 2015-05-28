@@ -3,13 +3,14 @@ Option Explicit
 
 ' =================================
 ' MODULE:       mod_Git
-' Level:        Framework module
-' Version:      1.00
+' Level:        Development module
+' Version:      1.01
 '
 ' Description:  Git related functions & procedures for version control
 '
 ' Source/date:  Bonnie Campbell, 2/12/2015
 ' Revisions:    BLC - 2/12/2015 - 1.00 - initial version
+'               BLC - 5/27/2015 - 1.01 - renamed to note as development module
 ' =================================
 
 ' ===================================================================================
