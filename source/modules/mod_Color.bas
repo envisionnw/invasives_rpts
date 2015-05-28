@@ -4,12 +4,12 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_Color
 ' Level:        Framework module
-' Version:      1.00
+' Version:      1.01
 ' Description:  initialize functions & procedures
 '
 ' Source/date:  Bonnie Campbell, 2/9/2015
-' Revisions:    BLC, 2/9/2015 - initial version
-'               BLC, 5/1/2015 - integrated into Invasives Reporting tool
+' Revisions:    BLC, 2/9/2015 - 1.00 - initial version
+'               BLC, 5/1/2015 - 1.01 - integrated into Invasives Reporting tool
 ' =================================
 
 ' ---------------------------------
@@ -84,6 +84,39 @@ Err_Handler:
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
             "Error encountered (#" & Err.Number & " - ConvertLongToRGB[mod_Color])"
+    End Select
+    Resume Exit_Function
+End Function
+
+' =================================
+' FUNCTION:     HTMLConvert
+' Description:  converts HTML string value for color to RGB which can be used for control colors
+' Parameters:   strHTML - HTML color (make sure you include # otherwise the color won't match)
+' Returns:      HTML color as long
+' Throws:       none
+' References:   none
+' Source/date:  Adapted from http://www.access-programmers.co.uk/forums/showthread.php?t=193353
+'               by Steve R., 5/21/2010.
+'               Created 05/12/2014 blc; Last modified 05/12/2014 blc.
+' Revisions:    BLC, 5/12/2014 - initial version
+'               BLC, 4/30/2015 - moved from mod_Common_UI to mod_UI
+'               BLC, 5/17/2015 - moved from mod_UI to mod_Color & added error handling
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
+' =================================
+Public Function HTMLConvert(strHTML As String) As Long
+On Error GoTo Err_Handler
+    
+    Rem converts a HTML color code number such as #D8B190 to an RGB value.
+    HTMLConvert = RGB(CInt("&H" & Mid(strHTML, 2, 2)), CInt("&H" & Mid(strHTML, 4, 2)), CInt("&H" & Mid(strHTML, 6, 2)))
+
+Exit_Function:
+    Exit Function
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - HTMLConvert[mod_Color])"
     End Select
     Resume Exit_Function
 End Function

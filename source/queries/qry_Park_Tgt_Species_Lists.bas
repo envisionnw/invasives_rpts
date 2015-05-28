@@ -7,7 +7,7 @@
     "rget_Species.Park_Code & \"-\" & tbl_Target_Species.Target_Year AS TgtList\015\012"
     "FROM (tbl_Target_Species LEFT JOIN tbl_Target_Areas ON tbl_Target_Species.Target"
     "_Area_ID = tbl_Target_Areas.Target_Area_ID) LEFT JOIN tlu_NCPN_Plants ON tbl_Tar"
-    "get_Species.Master_Plant_Code_FK = tlu_NCPN_Plants.LU_Code;\015\012"
+    "get_Species.Master_Plant_Code_FK = tlu_NCPN_Plants.Master_Plant_Code;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -115,6 +115,7 @@ Begin
     End
     Begin
         dbText "Name" ="TgtList"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x2ccfa02359522645aa4237d398990945
         End

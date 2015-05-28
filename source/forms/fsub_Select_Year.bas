@@ -13,10 +13,10 @@ Begin Form
     Width =3960
     DatasheetFontHeight =11
     ItemSuffix =14
-    Left =8736
-    Top =3936
-    Right =12888
-    Bottom =6816
+    Left =26196
+    Top =5100
+    Right =30348
+    Bottom =7968
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x2cb45f3fbd91e440
@@ -268,10 +268,10 @@ Option Explicit
 
 ' ---------------------------------
 ' SUB:          Form_Load
-' Description:  XX
+' Description:  actions for select year form load
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   -
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:

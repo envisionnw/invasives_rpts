@@ -23,10 +23,10 @@ Begin Form
     Width =9300
     DatasheetFontHeight =10
     ItemSuffix =96
-    Left =7695
-    Top =3390
-    Right =16995
-    Bottom =8895
+    Left =4770
+    Top =2895
+    Right =14070
+    Bottom =8400
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0xb46db5e5f0f8e240
@@ -129,10 +129,10 @@ Begin Form
                     FontName ="Arial"
                     ControlTipText ="Close the form"
 
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                 End
                 Begin CommandButton
                     Enabled = NotDefault
@@ -149,10 +149,10 @@ Begin Form
                     FontName ="Arial"
                     ControlTipText ="Update links to the file(s) indicated"
 
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                 End
             End
         End
@@ -177,10 +177,10 @@ Begin Form
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
 
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin TextBox
@@ -390,7 +390,7 @@ Option Explicit
 ' Data access:  edit only, no additions, moving between records, or deletions
 ' Pages:        none
 ' Functions:    none
-' References:   fxnGetLinkFile, fxnRefreshLinks, fxnSwitchboardIsOpen
+' References:   GetLinkFile, RefreshLinks, SwitchboardIsOpen
 ' Source/date:  Susan Huse, MonitoringSM.mdb v 7/28/2004
 ' Revisions:    John R. Boetsch, May 2005 - minor edits
 ' Revisions:    JRB, May 24, 2006 - documentation, added error trapping, fixed specification
@@ -437,11 +437,13 @@ Private Sub cmdBrowse_Click()
     strCurrentDir = Me!txtCurrentPath
 
     ' Clip to indicate just the folder of the current back-end
-    strCurrentDir = left(strCurrentDir, Len(strCurrentDir) - Len(strCurrentFile) - 1)
+    strCurrentDir = Left(strCurrentDir, Len(strCurrentDir) - Len(strCurrentFile) - 1)
 
     ' Select the file, and start the search in the current back-end folder
-    varFilePath = fxnGetLinkFile(strCurrentDir)
-
+    ' -------------------------------------------------------
+    ' BLC, 5/19/2015 - revised to use GetFile vs GetLinkFile
+    varFilePath = GetFile(strCurrentDir)
+    ' -------------------------------------------------------
     ' Exit if the user didn't specify a file
     If IsNull(varFilePath) Then GoTo Exit_Procedure
 
@@ -488,6 +490,8 @@ Private Sub cmdUpdateLinks_Click()
     Dim strFilePath As String       ' Path of the new database
     Dim strSQL As String
     Dim bHasError As Boolean
+    Dim strLinkDb As String         ' Name of linked database
+    Dim strConnString As String     ' Linked db connection string
 
     strSysTable = "[tsys_Link_Tables]"  ' Set the name of the system table
 
@@ -499,6 +503,7 @@ Private Sub cmdUpdateLinks_Click()
     bHasError = False   ' Default until an error is encountered
 
     Do Until rst.EOF
+        strLinkDb = rst.Fields("Link_file_name")
         strLinkName = rst.Fields("Link_type")
         ' If the user didn't specify a different database,
         '   refresh the links to the current linked file
@@ -513,7 +518,19 @@ Private Sub cmdUpdateLinks_Click()
             strSysTable & "![Link_type] = '" & strLinkName & "'"
 
         ' Verify the file and update the links to the selected file
-        If fxnRefreshLinks(strSQL, strFilePath) = False Then
+    ' -------------------------------------------------------
+    '   BLC, 5/20/2015 - updated to new RefreshLinks version
+        
+        'If RefreshLinks(strSQL, strFilePath) = False Then
+
+        'ODBC; DATABASE=database; UID=user; PWD=password; DSN= datasourcename;
+        'strConnString = "Driver={Microsoft Access Driver (*.mdb, *.accdb)};" & _
+        '            "Dbq=" & strFilePath & ";Uid=Admin;Pwd=;"
+        strConnString = ";DATABASE=" & strFilePath
+
+                    
+        If RefreshLinks(strLinkDb, strConnString) = False Then
+    ' -------------------------------------------------------
             ' An error was encountered
             MsgBox "Links to this file were not updated or only partially updated", _
                 vbExclamation, strLinkName
@@ -530,6 +547,17 @@ Private Sub cmdUpdateLinks_Click()
                 .Update
                 .Bookmark = .LastModified
             End With
+            
+    ' -------------------------------------------------------
+    '   BLC, 5/20/2015 - added update for tsys_Link_Dbs paths
+    
+            'update tsys_Link_Dbs paths
+            strSQL = "UPDATE tsys_Link_Dbs SET File_Path = '" & strFilePath & "' " & _
+                     "WHERE Link_db = '" & strLinkDb & "';"
+            DoCmd.SetWarnings False 'hide the append dialog
+            DoCmd.RunSQL strSQL
+            DoCmd.SetWarnings True
+    ' -------------------------------------------------------
         End If
 
 NextBackEnd:
@@ -551,6 +579,11 @@ NextBackEnd:
     End If
 
 Exit_Procedure:
+    ' -------------------------------------------------------
+    '   BLC, 5/28/2015 - added frm_Main_Menu restore
+            DoCmd.SelectObject acForm, Forms(MAIN_APP_MENU), False
+            DoCmd.Restore
+    ' -------------------------------------------------------
     Exit Sub
 
 Err_Handler:

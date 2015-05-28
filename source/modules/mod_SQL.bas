@@ -3,12 +3,14 @@ Option Explicit
 
 ' =================================
 ' MODULE:       mod_SQL
-' VERSION:      1.01
+' Level:        Framework module
+' VERSION:      1.02
 ' Description:  Database/SQL properties, functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, 7/24/2014
 ' Revisions:    BLC, 7/24/2014 - 1.00 - initial version
 '               BLC, 8/19/2014 - 1.01 - added versioning
+'               BLC, 5/26/2015 - 1.02 - added mod_db_Templates subs/functions - GetQuerySQL, GetSQLDbTemplate
 ' =================================
 
 ' ---------------------------------
@@ -23,7 +25,7 @@ Option Explicit
 ' Source/date:  Dirk Goldgar, MS Access MVP - May 22, 2013
 '   http://social.msdn.microsoft.com/Forums/office/en-US/9993d229-8a00-4a59-a796-dfa2dad505bc/cannot-open-any-more-databases?forum=accessdev
 ' Adapted:      Bonnie Campbell, July, 2014 for NCPN Riparian tools
-' Revisions:    BLC, 7/23/2014 - XX
+' Revisions:    BLC, 7/23/2014 - initial version
 ' ---------------------------------
 Private m_db As DAO.Database
 Public Property Get dbCurrent() As DAO.Database
@@ -35,6 +37,10 @@ Public Property Get dbCurrent() As DAO.Database
     Set dbCurrent = m_db
 
 End Property
+
+' ---------------------------------
+'   Retrieve SQL
+' ---------------------------------
 
 ' ---------------------------------
 ' FUNCTION:     getSQL
@@ -133,7 +139,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - getSql[mod_Point_Intercept])"
+            "Error encountered (#" & Err.Number & " - getSql[mod_SQL])"
     End Select
     Resume Exit_Function
 End Function
@@ -174,6 +180,130 @@ Err_Handler:
     End Select
     Resume Exit_Function
 End Function
+
+' ---------------------------------
+' SUB:     GetDbQuerySQL
+' Description:  gets SQL from existing database queries via QueryDef object
+' Parameters:   strQueryName - name of the Access query
+' Returns:      SQL string
+' Assumptions:  -
+' Throws:       none
+' References:   -
+' Source/date:  sphinney, 7/13/2009 comment on
+'               http://bytes.com/topic/access/answers/871500-getting-sql-string-query
+' Adapted:      Bonnie Campbell, June 2014
+' Revisions:    BLC, 6/16/2014 - initial version
+'               BLC, 5/26/2015 - moved from mod_db_Templates to mod_SQL, added error handling
+' ---------------------------------
+Private Function GetDbQuerySQL(strQueryName As String) As String
+On Error GoTo Err_Handler
+
+Dim QD As DAO.QueryDef
+ 
+Set QD = CurrentDb.QueryDefs(strQueryName)
+GetDbQuerySQL = QD.sql
+ 
+Exit_Function:
+    Exit Function
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - GetDbQuerySQL[mod_SQL])"
+    End Select
+    Resume Exit_Function
+End Function
+
+' ---------------------------------
+' SUB:     GetSQLTemplate
+' Description:  loads SQL templates (queries as SQL string) into memory as a dictionary object
+'               with query SQL strings available without querying the db tsys_SQL_templates table
+' Parameters:
+' Returns:      dictionary object stored in tempVars.Item("SQL")
+' Assumptions:  placing
+' Throws:       none
+' References:   tsys_SQL_templates, Microsoft Scripting Runtime (dictionary object)
+' Source/date:  Bonnie Campbell, June 2014
+' Revisions:    BLC, 6/16/2014 - initial version
+'               BLC, 5/26/2015 - moved from mod_db_Templates to mod_SQL, added error handling
+' ---------------------------------
+Public Sub GetSQLTemplates(Optional strVersion As String = "")
+On Error GoTo Err_Handler
+
+    Dim db As DAO.Database
+    Dim rst As DAO.Recordset
+    Dim strSQL As String, strSQLWhere As String, key As String, Value As String
+    
+    'handle default
+    strSQLWhere = " WHERE Is_Supported > 0"
+    
+    If Len(strVersion) > 0 Then
+        strSQLWhere = " AND LCase(versionID) = LCase(" & strVersion & " )"
+    End If
+    
+    'sql
+    strSQL = "SELECT * FROM tsys_Db_Templates" & strSQLWhere
+    
+    Set db = CurrentDb
+    Set rst = db.OpenRecordset(strSQL)
+    
+    'handle no records
+    If rst.EOF Then
+        MsgBox "Sorry, no templates were found for this database version.", vbExclamation, _
+            "Linked Database Templates Not Found"
+        DoCmd.CancelEvent
+        GoTo Exit_Procedure
+    End If
+    
+    'prepare dictionary
+    Dim dict As New Scripting.Dictionary
+    Dim ary(1 To 4) As String
+    Dim i As Integer
+    
+    'prepare the dictionary key array
+    ary(1) = "context"
+    ary(2) = "template_Name"
+    ary(3) = "SQLstring" 'template
+    ary(4) = "var_list"
+    
+    rst.MoveFirst
+    Do Until rst.EOF
+        'populate the dictionary
+        For i = 1 To UBound(ary)
+            key = ary(i)
+            If (ary(i) = "SQLstring") Then
+                Value = rst!template
+            Else
+                Value = rst.Fields(ary(i))
+            End If
+            If Not dict.Exists(key) Then
+                dict.Add key, Value
+            End If
+        Next
+        rst.MoveNext
+    Loop
+    
+    TempVars.Add "SQL", dict
+
+    'cleanup
+    Set dict = Nothing
+    
+Exit_Sub:
+    Exit Sub
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - GetSQLTemplates[mod_SQL])"
+    End Select
+    Resume Exit_Sub
+End Sub
+
+' ---------------------------------
+'   SQL Parameters
+' ---------------------------------
 
 ' ---------------------------------
 ' FUNCTION:     SetParam
@@ -240,6 +370,10 @@ Err_Handler:
     End Select
     Resume Exit_Function
 End Function
+
+' ---------------------------------
+'   SQL Functions
+' ---------------------------------
 
 ' ---------------------------------
 ' SUB:          ConcatRelated
@@ -321,7 +455,7 @@ On Error GoTo Err_Handler
     'Return the string without the trailing separator.
     lngLen = Len(strOut) - Len(strSeparator)
     If lngLen > 0 Then
-        ConcatRelated = left(strOut, lngLen)
+        ConcatRelated = Left(strOut, lngLen)
     End If
 
 Exit_Function:

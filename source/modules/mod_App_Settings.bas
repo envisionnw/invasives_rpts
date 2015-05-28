@@ -28,10 +28,15 @@ Option Explicit
 '                                add APP_RELEASE_ID constant to handle application release ID w/o full DbAdmin subfrom & controls
 '               BLC, 5/1/2015  - add DEV_MODE constant to enable menus typically off during use
 '               BLC, 5/13/2015 - shifted UI enable/disabled colors from TempVars set in initialize (mod_App_UI) to constants
+'               BLC, 5/19/2015 - added FIX_LINKED_DBS flag to handle applications which require updates of tbl_Dbs via FixLinkedDb
+'                                (usually when DbAdmin is not fully implemented)
+'               BLC, 5/28/2015 - added MAIN_APP_MENU to handle applications w/ main menu forms (not tabbed switchboards)
 ' ---------------------------------
 Public Const USER_ACCESS_CONTROL As Boolean = False             'Boolean flag -> db includes user access control or not
 Public Const DB_ADMIN_CONTROL As Boolean = False                'Boolean flag -> db does not include DbAdmin subform & controls
+Public Const FIX_LINKED_DBS As Boolean = True                   'Boolean flag -> db requires tbl_Dbs to be updated via FixLinkedDb (usually when DbAdmin is not fully implemented)
 Public Const MAIN_APP_FORM As String = "frm_Tgt_List_Tool"      'String -> main tabbed form (frm_Switchboard, etc.)
+Public Const MAIN_APP_MENU As String = "frm_Main_Menu"          'String -> main tabbed form (frm_Switchboard, etc.)
 Public Const APP_RELEASE_ID As String = ""                      'String -> release ID (tsys_App_Release.Release_ID) for current release
                                                                 '          used when db doesn't include full DbAdmin subform & controls, otherwise NULL
 Public Const APP_URL As String = "science.nature.nps.gov/im/units/ncpn/datamanagement.cfm"
@@ -70,3 +75,5 @@ Public Const CTRL_ADD_ENABLED As Long = lngLime
 Public Const CTRL_REMOVE_ENABLED As Long = lngLtOrange
 Public Const TEXT_ENABLED As Long = lngBlue
 Public Const TEXT_DISABLED As Long = lngGray
+
+Public Const PROGRESS_BAR As Long = lngLime

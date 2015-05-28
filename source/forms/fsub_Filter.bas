@@ -19,10 +19,10 @@ Begin Form
     Width =4140
     DatasheetFontHeight =9
     ItemSuffix =50
-    Left =6615
-    Top =7275
-    Right =10755
-    Bottom =10140
+    Left =6612
+    Top =7272
+    Right =10752
+    Bottom =8316
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x1385341e7574e340
@@ -260,7 +260,7 @@ Option Explicit
 ' References:   -
 ' Source/date:  Bonnie L. Campbell, June 12, 2014
 ' Adapted/date: -
-' Revisions:    BLC, 6/xx/2014 - XX
+' Revisions:    BLC, 6/12/2014 - initial version
 ' =================================
 
 ' ---------------------------------
@@ -272,7 +272,7 @@ Option Explicit
 ' References:   -
 ' Source/date:  Adapted from John Boetsch
 '               Created 06/12/2014 blc; Last modified 06/12/2014 blc.
-' Revisions:    Bonnie Campbell, June 12, 2014 - XX
+' Revisions:    Bonnie Campbell, June 12, 2014 - initial version
 ' ---------------------------------
 Private Sub btnRun_Click()
     Dim dictParams As New Dictionary
@@ -323,7 +323,7 @@ Private Sub Form_Open(Cancel As Integer)
     'MsgBox Me.OpenArgs, vbCritical, "crumbs"
     'Dim aryCrumbs As Variant
     
-    'aryCrumbs = fxnCrumbsToArray(Me.OpenArgs)
+    'aryCrumbs = CrumbsToArray(Me.OpenArgs)
 
     
 End Sub
@@ -337,7 +337,7 @@ End Sub
 ' Throws:       -
 ' References:   -
 ' Source/date:  Bonnie Campbell, June 17, 2014 - for NCPN WQ Utilities tool
-' Revisions:    6/17/2014 - BLC - XX
+' Revisions:    6/17/2014 - BLC - initial version
 ' ---------------------------------
 Public Sub RunReport(varParams As Variant)
 On Error GoTo Err_Handler:
@@ -495,7 +495,7 @@ End Sub
 ' Throws:       -
 ' References:   -
 ' Source/date:  Bonnie Campbell, June 17, 2014
-' Revisions:    6/17/2014 - BLC - XX
+' Revisions:    6/17/2014 - BLC - initial version
 ' ---------------------------------
 Public Sub Form_Close()
     MsgBox "close"

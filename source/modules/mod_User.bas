@@ -4,14 +4,14 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_User
 ' Level:        Framework module
-' Version:      1.00
+' Version:      1.02
 ' Description:  Access related functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, May 2014
-' Revisions:    BLC, 6/13/2014 - initial version
-'               BLC, 8/6/2014  - renamed from mod_Access_Utilities to mod_User
+' Revisions:    BLC, 6/13/2014 - 1.00 - initial version
+'               BLC, 8/6/2014  - 1.01 - renamed from mod_Access_Utilities to mod_User
 '                                to accommodate additional user functions/subs
-'               BLC, 4/30/2015 - added level & version info, move blnRunQueries & blnUpdateAll to mod_Initialize_App
+'               BLC, 4/30/2015 - 1.02 - added level & version info, move blnRunQueries & blnUpdateAll to mod_Initialize_App
 ' =================================
 
 ' ---------------------------------
@@ -630,7 +630,7 @@ Err_Handler:
 End Sub
 
 ' =================================
-' FUNCTION:     fxnUserName
+' FUNCTION:     UserName
 ' Description:  Returns the current user name
 ' Parameters:   none
 ' Returns:      string of the user login
@@ -639,12 +639,13 @@ End Sub
 ' Source/date:  John R. Boetsch, 12/31/2009
 ' Revisions:    JRB, 12/31/2009 - initial version
 '               BLC, 4/30/2015  - moved from mod_Utilities
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
 ' =================================
-Public Function fxnUserName() As String
+Public Function UserName() As String
     On Error GoTo Err_Handler
 
-    fxnUserName = "Unknown"
-    fxnUserName = Environ("Username")
+    UserName = "Unknown"
+    UserName = Environ("Username")
 
 Exit_Procedure:
     Exit Function
@@ -653,7 +654,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - fxnUserName[mod_User])"
+            "Error encountered (#" & Err.Number & " - UserName[mod_User])"
     End Select
     Resume Exit_Procedure
 

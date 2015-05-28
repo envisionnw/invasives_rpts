@@ -288,10 +288,10 @@ Option Explicit
 
 ' ---------------------------------
 ' SUB:          Form_Load
-' Description:  XX
+' Description:  Actions for form loading
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   -
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -345,7 +345,7 @@ Dim item As Variant
     Next
     
     'trim last comma
-    strTgtLists = IIf(Right(strTgtLists, 1) = ",", left(strTgtLists, Len(strTgtLists) - 1), strTgtLists)
+    strTgtLists = IIf(Right(strTgtLists, 1) = ",", Left(strTgtLists, Len(strTgtLists) - 1), strTgtLists)
     
     TempVars.Add "TgtLists", strTgtLists
     

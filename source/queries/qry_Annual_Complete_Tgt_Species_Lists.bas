@@ -1,49 +1,18 @@
-﻿Operation =1
-Option =2
-Begin InputTables
-    Name ="tbl_Target_Species"
-    Name ="tbl_Target_Areas"
-    Name ="tlu_NCPN_Plants"
-End
-Begin OutputColumns
-    Alias ="Park"
-    Expression ="tbl_Target_Species.Park_Code"
-    Alias ="TgtYear"
-    Expression ="tbl_Target_Species.Target_Year"
-    Expression ="tbl_Target_Species.Master_Plant_Code_FK"
-    Expression ="tlu_NCPN_Plants.LU_Code"
-    Expression ="tbl_Target_Species.Species_Name"
-    Expression ="tbl_Target_Species.Priority"
-    Expression ="tbl_Target_Species.Transect_Only"
-    Expression ="tbl_Target_Species.Target_Area_ID"
-    Alias ="Tgt_Area"
-    Expression ="tbl_Target_Areas.Target_Area"
-    Alias ="Family"
-    Expression ="tlu_NCPN_Plants.Master_Family"
-    Expression ="tlu_NCPN_Plants.Master_Common_Name"
-    Expression ="tlu_NCPN_Plants.utah_species"
-    Expression ="tlu_NCPN_Plants.Co_Species"
-    Expression ="tlu_NCPN_Plants.Wy_Species"
-    Alias ="PriorityTarget"
-    Expression ="IIf(tbl_Target_Species.Target_Area_ID>0,tbl_Target_Areas.Target_Area,IIf(tbl_Tar"
-        "get_Species.Transect_Only>0,\"Transect\",tbl_Target_Species.Priority))"
-    Alias ="ParkPriority"
-    Expression ="(tbl_Target_Species.Park_Code+\"-\"+PriorityTarget)"
-End
-Begin Joins
-    LeftTable ="tbl_Target_Species"
-    RightTable ="tbl_Target_Areas"
-    Expression ="tbl_Target_Species.Target_Area_ID = tbl_Target_Areas.Target_Area_ID"
-    Flag =2
-    LeftTable ="tbl_Target_Species"
-    RightTable ="tlu_NCPN_Plants"
-    Expression ="tbl_Target_Species.Master_Plant_Code_FK = tlu_NCPN_Plants.LU_Code"
-    Flag =2
-End
-Begin OrderBy
-    Expression ="tbl_Target_Species.Species_Name"
-    Flag =0
-End
+﻿dbMemo "SQL" ="SELECT DISTINCT tbl_Target_Species.Park_Code AS Park, tbl_Target_Species.Target_"
+    "Year AS TgtYear, tbl_Target_Species.Master_Plant_Code_FK, tlu_NCPN_Plants.LU_Cod"
+    "e, tbl_Target_Species.Species_Name, tbl_Target_Species.Priority, tbl_Target_Spec"
+    "ies.Transect_Only, tbl_Target_Species.Target_Area_ID, tbl_Target_Areas.Target_Ar"
+    "ea AS Tgt_Area, tlu_NCPN_Plants.Master_Family AS Family, tlu_NCPN_Plants.Master_"
+    "Common_Name, tlu_NCPN_Plants.utah_species, tlu_NCPN_Plants.Co_Species, tlu_NCPN_"
+    "Plants.Wy_Species, IIf(tbl_Target_Species.Target_Area_ID>0,tbl_Target_Areas.Targ"
+    "et_Area,IIf(tbl_Target_Species.Transect_Only>0,\"Transect\",tbl_Target_Species.P"
+    "riority)) AS PriorityTarget, (tbl_Target_Species.Park_Code+\"-\"+PriorityTarget)"
+    " AS ParkPriority, (tbl_Target_Species.Species_Name+\"-\"+CStr(tbl_Target_Species"
+    ".Target_Year)) AS SpeciesYear\015\012FROM (tbl_Target_Species LEFT JOIN tbl_Targ"
+    "et_Areas ON tbl_Target_Species.Target_Area_ID = tbl_Target_Areas.Target_Area_ID)"
+    " LEFT JOIN tlu_NCPN_Plants ON tbl_Target_Species.Master_Plant_Code_FK = tlu_NCPN"
+    "_Plants.Master_Plant_Code\015\012ORDER BY tbl_Target_Species.Species_Name;\015\012"
+dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
 dbByte "RecordsetType" ="0"
@@ -166,45 +135,13 @@ Begin
         dbText "Name" ="tlu_NCPN_Plants.LU_Code"
         dbLong "AggregateType" ="-1"
     End
-End
-Begin
-    State =0
-    Left =0
-    Top =0
-    Right =800
-    Bottom =801
-    Left =-1
-    Top =-1
-    Right =762
-    Bottom =258
-    Left =0
-    Top =0
-    ColumnsShown =539
     Begin
-        Left =48
-        Top =12
-        Right =192
-        Bottom =156
-        Top =0
-        Name ="tbl_Target_Species"
-        Name =""
-    End
-    Begin
-        Left =240
-        Top =12
-        Right =384
-        Bottom =156
-        Top =0
-        Name ="tbl_Target_Areas"
-        Name =""
-    End
-    Begin
-        Left =432
-        Top =12
-        Right =576
-        Bottom =156
-        Top =0
-        Name ="tlu_NCPN_Plants"
-        Name =""
+        dbText "Name" ="SpeciesYear"
+        dbInteger "ColumnWidth" ="2208"
+        dbBoolean "ColumnHidden" ="0"
+        dbLong "AggregateType" ="-1"
+        dbBinary "GUID" = Begin
+            0x7597b113575789469ca53d2a7dc20e54
+        End
     End
 End

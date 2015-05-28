@@ -1,47 +1,22 @@
-﻿Operation =1
-Option =0
-Where ="(((MSysObjects.Type) In (4,6)) And ((IIf([Type]=4,fxnParseConnectionStr([Connect"
-    "]),fxnParseFileName([Database])))<>tsys_Link_Tables.Link_db)) Or (((MSysObjects."
-    "Type) In (4,6)) And ((IIf([Type]=4,fxnParseConnectionStr([Connect],'SERVER=')))<"
-    ">[Server])) Or (((MSysObjects.Type) In (4,6)) And ((MSysObjects.Database)<>[File"
-    "_path])) Or (((MSysObjects.Type)=4) And ((tsys_Link_Dbs.Is_ODBC)=False)) Or (((M"
-    "SysObjects.Type)=6) And ((tsys_Link_Dbs.Is_ODBC)=True)) Or (((IIf([Type]=4,fxnPa"
-    "rseConnectionStr([Connect],'SERVER='))) Is Null) And ((tsys_Link_Dbs.Server) Is "
-    "Not Null)) Or (((IIf([Type]=4,fxnParseConnectionStr([Connect],'SERVER='))) Is No"
-    "t Null) And ((tsys_Link_Dbs.Server) Is Null)) Or (((MSysObjects.Database) Is Nul"
-    "l) And ((tsys_Link_Dbs.File_path) Is Not Null)) Or (((MSysObjects.Database) Is N"
-    "ot Null) And ((tsys_Link_Dbs.File_path) Is Null))"
-Begin InputTables
-    Name ="tsys_Link_Dbs"
-    Name ="MSysObjects"
-    Name ="tsys_Link_Tables"
-End
-Begin OutputColumns
-    Alias ="CurrTable"
-    Expression ="MSysObjects.Name"
-    Expression ="tsys_Link_Tables.Link_table"
-    Expression ="MSysObjects.Type"
-    Expression ="tsys_Link_Dbs.Is_ODBC"
-    Alias ="CurrDb"
-    Expression ="IIf([Type]=4,fxnParseConnectionStr([Connect]),fxnParseFileName([Database]))"
-    Expression ="tsys_Link_Tables.Link_db"
-    Alias ="CurrServer"
-    Expression ="IIf([Type]=4,fxnParseConnectionStr([Connect],'SERVER='))"
-    Expression ="tsys_Link_Dbs.Server"
-    Alias ="CurrPath"
-    Expression ="MSysObjects.Database"
-    Expression ="tsys_Link_Dbs.File_path"
-End
-Begin Joins
-    LeftTable ="MSysObjects"
-    RightTable ="tsys_Link_Tables"
-    Expression ="MSysObjects.Name = tsys_Link_Tables.Link_table"
-    Flag =1
-    LeftTable ="tsys_Link_Dbs"
-    RightTable ="tsys_Link_Tables"
-    Expression ="tsys_Link_Dbs.Link_db = tsys_Link_Tables.Link_db"
-    Flag =1
-End
+﻿dbMemo "SQL" ="SELECT MSysObjects.Name AS CurrTable, tsys_Link_Tables.Link_table, MSysObjects.T"
+    "ype, tsys_Link_Dbs.Is_ODBC, IIf([Type]=4,ParseConnectionStr([Connect]),ParseFile"
+    "Name([Database])) AS CurrDb, tsys_Link_Tables.Link_db, IIf([Type]=4,ParseConnect"
+    "ionStr([Connect],'SERVER=')) AS CurrServer, tsys_Link_Dbs.Server, MSysObjects.Da"
+    "tabase AS CurrPath, tsys_Link_Dbs.File_path\015\012FROM tsys_Link_Dbs INNER JOIN"
+    " (MSysObjects INNER JOIN tsys_Link_Tables ON MSysObjects.Name = tsys_Link_Tables"
+    ".Link_table) ON tsys_Link_Dbs.Link_db = tsys_Link_Tables.Link_db\015\012WHERE (("
+    "(MSysObjects.Type) In (4,6)) And ((IIf([Type]=4,ParseConnectionStr([Connect]),Pa"
+    "rseFileName([Database])))<>tsys_Link_Tables.Link_db)) Or (((MSysObjects.Type) In"
+    " (4,6)) And ((IIf([Type]=4,ParseConnectionStr([Connect],'SERVER=')))<>[Server]))"
+    " Or (((MSysObjects.Type) In (4,6)) And ((MSysObjects.Database)<>[File_path])) Or"
+    " (((MSysObjects.Type)=4) And ((tsys_Link_Dbs.Is_ODBC)=False)) Or (((MSysObjects."
+    "Type)=6) And ((tsys_Link_Dbs.Is_ODBC)=True)) Or (((IIf([Type]=4,ParseConnectionS"
+    "tr([Connect],'SERVER='))) Is Null) And ((tsys_Link_Dbs.Server) Is Not Null)) Or "
+    "(((IIf([Type]=4,ParseConnectionStr([Connect],'SERVER='))) Is Not Null) And ((tsy"
+    "s_Link_Dbs.Server) Is Null)) Or (((MSysObjects.Database) Is Null) And ((tsys_Lin"
+    "k_Dbs.File_path) Is Not Null)) Or (((MSysObjects.Database) Is Not Null) And ((ts"
+    "ys_Link_Dbs.File_path) Is Null));\015\012"
+dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
 dbByte "RecordsetType" ="0"
@@ -125,46 +100,5 @@ Begin
     Begin
         dbText "Name" ="tsys_Link_Dbs.Server"
         dbLong "AggregateType" ="-1"
-    End
-End
-Begin
-    State =0
-    Left =27
-    Top =62
-    Right =1138
-    Bottom =629
-    Left =-1
-    Top =-1
-    Right =1073
-    Bottom =106
-    Left =0
-    Top =0
-    ColumnsShown =539
-    Begin
-        Left =38
-        Top =6
-        Right =134
-        Bottom =113
-        Top =0
-        Name ="MSysObjects"
-        Name =""
-    End
-    Begin
-        Left =172
-        Top =6
-        Right =334
-        Bottom =113
-        Top =0
-        Name ="tsys_Link_Tables"
-        Name =""
-    End
-    Begin
-        Left =372
-        Top =6
-        Right =468
-        Bottom =113
-        Top =0
-        Name ="tsys_Link_Dbs"
-        Name =""
     End
 End

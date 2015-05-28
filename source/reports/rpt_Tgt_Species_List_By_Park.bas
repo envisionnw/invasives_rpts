@@ -15,11 +15,11 @@ Begin Report
     ItemSuffix =43
     Top =540
     Right =11760
-    Bottom =8316
+    Bottom =8772
     DatasheetGridlinesColor =14806254
-    Filter ="TgtList IN ('COLM-2015','COLM-2016','COLM-2017','DINO-2015','FOBU-2013')"
+    Filter ="TgtList IN ('CARE-2009')"
     RecSrcDt = Begin
-        0xbe76e03db891e440
+        0x75c142d25493e440
     End
     RecordSource ="qry_Park_Tgt_Species_Lists"
     Caption ="INVASIVE LIST"
@@ -268,7 +268,8 @@ Begin Report
                     LayoutCachedHeight =1260
                 End
                 Begin Label
-                    TextAlign =1
+                    OverlapFlags =4
+                    TextAlign =2
                     Left =10080
                     Top =960
                     Width =1200
@@ -668,9 +669,10 @@ Begin Report
                 Begin TextBox
                     DecimalPlaces =0
                     OldBorderStyle =0
+                    TextAlign =2
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =10080
+                    Left =10200
                     Top =60
                     Width =1140
                     Height =300
@@ -684,9 +686,9 @@ Begin Report
                     StatusBarText ="Park priority (1 - , 2- , 3- , 4- , 5-)"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =10080
+                    LayoutCachedLeft =10200
                     LayoutCachedTop =60
-                    LayoutCachedWidth =11220
+                    LayoutCachedWidth =11340
                     LayoutCachedHeight =360
                 End
                 Begin TextBox
@@ -716,7 +718,7 @@ Begin Report
                     OldBorderStyle =0
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =9600
+                    Left =10020
                     Top =60
                     Width =660
                     Height =312
@@ -729,9 +731,9 @@ Begin Report
                     StatusBarText ="FK to plant master code (tlu_NCPN_Plants.Master_Species)"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =9600
+                    LayoutCachedLeft =10020
                     LayoutCachedTop =60
-                    LayoutCachedWidth =10260
+                    LayoutCachedWidth =10680
                     LayoutCachedHeight =372
                 End
                 Begin TextBox

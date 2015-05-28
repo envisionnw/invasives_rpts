@@ -1,22 +1,13 @@
-﻿Operation =1
-Option =2
-Begin InputTables
-    Name ="qryAnnualCompleteTgtSpeciesLists"
-End
-Begin OutputColumns
-    Expression ="qryAnnualCompleteTgtSpeciesLists.TgtYear"
-    Expression ="qryAnnualCompleteTgtSpeciesLists.Master_Plant_Code_FK"
-    Expression ="qryAnnualCompleteTgtSpeciesLists.LU_Code"
-    Expression ="qryAnnualCompleteTgtSpeciesLists.Family"
-    Expression ="qryAnnualCompleteTgtSpeciesLists.Species_Name"
-    Expression ="qryAnnualCompleteTgtSpeciesLists.utah_species"
-    Expression ="qryAnnualCompleteTgtSpeciesLists.Co_Species"
-    Expression ="qryAnnualCompleteTgtSpeciesLists.Wy_Species"
-    Expression ="qryAnnualCompleteTgtSpeciesLists.Master_Common_Name"
-    Alias ="ParkPriorities"
-    Expression ="ConcatRelated(\"ParkPriority\",\"qryAnnualCompleteTgtSpeciesLists\",\"Species_Na"
-        "me='\"+Species_Name+\"'\",'',\"|\")"
-End
+﻿dbMemo "SQL" ="SELECT DISTINCT qry_Annual_Complete_Tgt_Species_Lists.TgtYear, qry_Annual_Comple"
+    "te_Tgt_Species_Lists.Master_Plant_Code_FK, qry_Annual_Complete_Tgt_Species_Lists"
+    ".LU_Code, qry_Annual_Complete_Tgt_Species_Lists.Family, qry_Annual_Complete_Tgt_"
+    "Species_Lists.Species_Name, qry_Annual_Complete_Tgt_Species_Lists.utah_species, "
+    "qry_Annual_Complete_Tgt_Species_Lists.Co_Species, qry_Annual_Complete_Tgt_Specie"
+    "s_Lists.Wy_Species, qry_Annual_Complete_Tgt_Species_Lists.Master_Common_Name, Co"
+    "ncatRelated(\"ParkPriority\",\"qry_Annual_Complete_Tgt_Species_Lists\",\"Species"
+    "Year='\"+SpeciesYear+\"'\",'',\"|\") AS ParkPriorities\015\012FROM qry_Annual_Co"
+    "mplete_Tgt_Species_Lists;\015\012"
+dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
 dbBoolean "OrderByOn" ="0"
@@ -31,32 +22,8 @@ dbBinary "GUID" = Begin
 End
 Begin
     Begin
-        dbText "Name" ="qryAnnualCompleteTgtSpeciesLists.Family"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="qryAnnualCompleteTgtSpeciesLists.Species_Name"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="qryAnnualCompleteTgtSpeciesLists.utah_species"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="qryAnnualCompleteTgtSpeciesLists.Co_Species"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="qryAnnualCompleteTgtSpeciesLists.Wy_Species"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="qryAnnualCompleteTgtSpeciesLists.Master_Common_Name"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
         dbText "Name" ="ParkPriorities"
-        dbInteger "ColumnWidth" ="5625"
+        dbInteger "ColumnWidth" ="3744"
         dbBoolean "ColumnHidden" ="0"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
@@ -64,38 +31,39 @@ Begin
         End
     End
     Begin
-        dbText "Name" ="qryAnnualCompleteTgtSpeciesLists.Master_Plant_Code_FK"
+        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.TgtYear"
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="qryAnnualCompleteTgtSpeciesLists.LU_Code"
+        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.Master_Plant_Code_FK"
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="qryAnnualCompleteTgtSpeciesLists.TgtYear"
+        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.LU_Code"
         dbLong "AggregateType" ="-1"
     End
-End
-Begin
-    State =0
-    Left =0
-    Top =0
-    Right =1332
-    Bottom =625
-    Left =-1
-    Top =-1
-    Right =1294
-    Bottom =380
-    Left =0
-    Top =0
-    ColumnsShown =539
     Begin
-        Left =60
-        Top =15
-        Right =296
-        Bottom =402
-        Top =0
-        Name ="qryAnnualCompleteTgtSpeciesLists"
-        Name =""
+        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.Family"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.Species_Name"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.utah_species"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.Co_Species"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.Wy_Species"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.Master_Common_Name"
+        dbLong "AggregateType" ="-1"
     End
 End

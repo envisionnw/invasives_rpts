@@ -10,20 +10,21 @@ Begin Form
     DatasheetGridlinesBehavior =3
     GridX =24
     GridY =24
-    Width =9480
+    Width =9120
     DatasheetFontHeight =11
-    ItemSuffix =15
-    Left =4572
-    Top =3552
-    Right =8268
-    Bottom =7572
+    ItemSuffix =17
+    Left =2604
+    Top =3288
+    Right =6300
+    Bottom =7308
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
-        0x74be3bc33793e440
+        0xa913d0241a94e440
     End
-    RecordSource ="SELECT Switch(tlu_NCPN_Plants.LU_Code Is Null,\" \",tlu_NCPN_Plants.LU_Code<>\"\""
-        ",tlu_NCPN_Plants.LU_Code) AS Code, tlu_NCPN_Plants.Master_Species AS Species, tl"
-        "u_NCPN_Plants.Master_PLANT_Code\015\012FROM tlu_NCPN_Plants;\015\012"
+    RecordSource ="SELECT tlu_NCPN_Plants.Master_PLANT_Code AS Code, tlu_NCPN_Plants.Master_Species"
+        " AS Species, Switch(tlu_NCPN_Plants.LU_Code Is Null,\" \",tlu_NCPN_Plants.LU_Cod"
+        "e<>\"\",tlu_NCPN_Plants.LU_Code) AS LUCode, NULL AS Transect_Only, NULL AS Tgt_A"
+        "rea_ID FROM tlu_NCPN_Plants;"
     DatasheetFontName ="Calibri"
     PrtMip = Begin
         0x6801000068010000680100006801000000000000201c0000e010000001000000 ,
@@ -258,21 +259,65 @@ Begin Form
                     BackStyle =0
                     IMESentenceMode =3
                     Left =4320
-                    Width =5160
+                    Width =1980
                     Height =300
                     FontSize =10
                     TabIndex =2
                     BackColor =9699294
                     BorderColor =10921638
                     ForeColor =4210752
-                    Name ="tbxMasterCode"
-                    ControlSource ="Master_PLANT_Code"
+                    Name ="tbxLUCode"
+                    ControlSource ="LUCode"
                     OnDblClick ="[Event Procedure]"
                     OnClick ="[Event Procedure]"
                     GridlineColor =10921638
 
                     LayoutCachedLeft =4320
-                    LayoutCachedWidth =9480
+                    LayoutCachedWidth =6300
+                    LayoutCachedHeight =300
+                    BackThemeColorIndex =-1
+                End
+                Begin TextBox
+                    OldBorderStyle =0
+                    OverlapFlags =85
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =6420
+                    Width =1020
+                    Height =300
+                    FontSize =10
+                    TabIndex =3
+                    BackColor =9699294
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxTransectOnly"
+                    ControlSource ="Transect_Only"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =6420
+                    LayoutCachedWidth =7440
+                    LayoutCachedHeight =300
+                    BackThemeColorIndex =-1
+                End
+                Begin TextBox
+                    OldBorderStyle =0
+                    OverlapFlags =85
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =7560
+                    Width =1020
+                    Height =300
+                    FontSize =10
+                    TabIndex =4
+                    BackColor =9699294
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxTgtAreaID"
+                    ControlSource ="Tgt_Area_ID"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =7560
+                    LayoutCachedWidth =8580
                     LayoutCachedHeight =300
                     BackThemeColorIndex =-1
                 End
@@ -331,6 +376,7 @@ On Error GoTo Err_Handler
 
     'initial data fill
     fillList Me.Parent, Me.Parent.Controls("fsub_Species_Listbox"), Forms("frm_Tgt_Species")!lbxTgtSpecies
+    'fillList Forms("frm_Tgt_Species"), Me, Forms("frm_Tgt_Species")!lbxTgtSpecies
 
 Exit_Sub:
     Exit Sub
@@ -365,7 +411,7 @@ Private Sub Form_Current()
 On Error GoTo Err_Handler
 
     'set selected record ID
-    curID = Me.tbxMasterCode 'Nz(Me.tbxMasterCode, 0)
+    curID = Me.tbxCode 'Nz(Me.tbxMasterCode, 0)
     
 Exit_Sub:
     Exit Sub
@@ -398,11 +444,11 @@ Private Sub Detail_Paint()
 On Error GoTo Err_Handler
 
     'set selected record backcolor
-    If Me.tbxMasterCode = curID Then
+    If Me.tbxLUCode = curID Then
         Me.Detail.backcolor = lngYelLime
-        Me.tbxCode.backcolor = lngYelLime
+        Me.tbxLUCode.backcolor = lngYelLime
         'Me.tbxSpecies.backcolor = lngYelLime
-        Me.tbxMasterCode.backcolor = lngYelLime
+        Me.tbxLUCode.backcolor = lngYelLime
         
     Else
         Me.Detail.backcolor = lngWhite
@@ -433,12 +479,13 @@ End Sub
 ' Adapted:      Bonnie Campbell, March 4, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/19/2015 - initial version
+'   BLC - 5/20/2015 - changed to Me.tbxLUCode vs. Me.tbxMasterCode
 ' ---------------------------------
 Private Sub tbxCode_Click()
 On Error GoTo Err_Handler
 
     'set selected record ID
-    curID = Me.tbxMasterCode
+    curID = Me.tbxLUCode
     
 Exit_Sub:
     Exit Sub
@@ -464,12 +511,13 @@ End Sub
 ' Adapted:      Bonnie Campbell, March 4, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 3/4/2015 - initial version
+'   BLC - 5/20/2015 - switched from tbxMasterCode to tbxLUCode
 ' ---------------------------------
 Private Sub tbxSpecies_Click()
 On Error GoTo Err_Handler
 
     'set selected record ID
-    curID = Me.tbxMasterCode 'Nz(Me.tbxMasterCode, 0)
+    curID = Me.tbxLUCode 'Nz(Me.tbxMasterCode, 0)
        
 Exit_Sub:
     Exit Sub
@@ -484,8 +532,8 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:          tbxMasterCode_Click
-' Description:  Actions for clicking tbxMasterCode
+' SUB:          tbxLUCode_Click
+' Description:  Actions for clicking tbxCode (was tbxMasterCode)
 ' Assumptions:  -
 ' Parameters:   N/A
 ' Returns:      N/A
@@ -495,12 +543,13 @@ End Sub
 ' Adapted:      Bonnie Campbell, March 5, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 3/5/2015 - initial version
+'   BLC - 5/20/2015 - changed to tbxLUCode from tbxMasterCode
 ' ---------------------------------
-Private Sub tbxMasterCode_Click()
+Private Sub tbxLUCode_Click()
 On Error GoTo Err_Handler
 
     'set selected record ID
-    curID = Me.tbxMasterCode
+    curID = Me.tbxLUCode
 
 Exit_Sub:
     Exit Sub
@@ -509,7 +558,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - tbxMasterCode_Click[Form_fsub_Species_Listbox])"
+            "Error encountered (#" & Err.Number & " - tbxLUCode_Click[Form_fsub_Species_Listbox])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -517,7 +566,7 @@ End Sub
 ' ---------------------------------
 ' SUB:          tbxCode_DblClick
 ' Description:  Actions for clicking tbxCode
-' Assumptions:  -
+' Assumptions:  Species with empty lookup codes must first be fixed before being added to a list.
 ' Parameters:   N/A
 ' Returns:      N/A
 ' Throws:       none
@@ -528,19 +577,39 @@ End Sub
 '   BLC - 2/19/2015 - initial version
 '   BLC - 2/23/2015 - added lblTgtSpeciesCount update
 '   BLC - 5/10/2015 - exposed event as Public to allow calls from main form
+'   BLC - 5/20/2015 - switched from tbxMasterCode to tbxLUCode,
+'                     added transect only & tgt area ID
+'   BLC - 5/26/2015 - added 0 for passing base value for TgtAreaID to target species listbox
+'   BLC - 5/27/2015 - added check for missing LU Codes
+'                     (species w/ missing codes cannot be added to target list)
 ' ---------------------------------
 Public Sub tbxCode_DblClick(Cancel As Integer)
 On Error GoTo Err_Handler
     Dim item As String
     Dim lbx As ListBox
     
+    'check for empty Lookup code (LUCode)
+    If IsNull(tbxLUCode) Or IsEmpty(tbxLUCode) Or Len(Trim(tbxLUCode)) = 0 Then
+        
+        MsgBox "Species " & tbxSpecies & " is missing a lookup code (LUCode). " & _
+            vbCrLf & vbCrLf & "This code is required before the species can be added to a target list. " & _
+            vbCrLf & vbCrLf & "Please determine the appropriate code and enter it into the master " & _
+            "plant species list." & _
+            vbCrLf & vbCrLf & "Contact the project ecologist/data manager to add the species. ", _
+            vbExclamation, "Missing Lookup Code!"
+
+        'email species desired
+        
+        GoTo Exit_Sub
+    End If
+    
     'add components of item (code, species (UT or whatever), & ITIS) to listbox
 
     'prepare item for listbox value
-    item = tbxCode & ";" & tbxSpecies & ";" & tbxMasterCode
+    item = tbxCode & ";" & tbxSpecies & ";" & tbxLUCode & ";0;0;" '& tbxTransectOnly & ";" & tbxTgtAreaID & ";" 'tbxMasterCode
     
     'check listbox for duplicate & skip if already present (col 0 vs 2)
-    If IsListDuplicate(Forms("frm_Tgt_Species").Controls("lbxTgtSpecies"), 2, tbxMasterCode) Then
+    If IsListDuplicate(Forms("frm_Tgt_Species").Controls("lbxTgtSpecies"), 2, tbxLUCode) Then
         'duplicate, so exit
         GoTo Exit_Sub
     End If
@@ -554,9 +623,6 @@ On Error GoTo Err_Handler
         'update target species count
         Forms("frm_Tgt_Species").Controls("lblTgtSpeciesCount").Caption = .ListCount - 1 & " species"
         
-        'return to the species list
-'        DoCmd.Minimize
-'        Forms("frm_Tgt_Species").SetFocus
     End With
     
 Exit_Sub:
@@ -584,19 +650,40 @@ End Sub
 ' Revisions:
 '   BLC - 2/19/2015 - initial version
 '   BLC - 2/23/2015 - added lblTgtSpeciesCount update
+'   BLC - 5/20/2015 - switched from tbxMasterCode to tbxLUCode,
+'                     added transect only & tgt area ID
+'   BLC - 5/27/2015 - added check for missing LU Codes
+'                     (species w/ missing codes cannot be added to target list)
+'                     fixed error (variable not defined) on tbxMasterCode - replaced w/ tbxLUCode
+'                     in call to IsListDuplicate
 ' ---------------------------------
 Private Sub tbxSpecies_DblClick(Cancel As Integer)
 On Error GoTo Err_Handler
     Dim item As String
     Dim lbx As ListBox
     
+    'check for empty Lookup code (LUCode)
+    If IsNull(tbxLUCode) Or IsEmpty(tbxLUCode) Or Len(Trim(tbxLUCode)) = 0 Then
+
+        MsgBox "Species " & tbxSpecies & " is missing a lookup code (LUCode). " & _
+            vbCrLf & vbCrLf & "This code is required before the species can be added to a target list. " & _
+            vbCrLf & vbCrLf & "Please determine the appropriate code and enter it into the master " & _
+            "plant species list." & _
+            vbCrLf & vbCrLf & "Contact the project ecologist/data manager to add the species. ", _
+            vbExclamation, "Missing Lookup Code!"
+        
+        'email species desired
+        
+        GoTo Exit_Sub
+    End If
+    
     'add components of item (code, species (UT or whatever), & ITIS) to listbox
 
-    'prepare item for listbox value
-    item = tbxCode & ";" & tbxSpecies & ";" & tbxMasterCode
+    'prepare item for listbox value (default TransectOnly & TgtAreaID to 0)
+    item = tbxCode & ";" & tbxSpecies & ";" & tbxLUCode & ";0;0;"  ' & ";" & tbxTransectOnly & ";" & tbxTgtAreaID & ";" 'tbxMasterCode
     
     'check listbox for duplicate & skip if already present was col 2
-    If IsListDuplicate(Forms("frm_Tgt_Species").Controls("lbxTgtSpecies"), 0, tbxMasterCode) Then
+    If IsListDuplicate(Forms("frm_Tgt_Species").Controls("lbxTgtSpecies"), 0, tbxLUCode) Then
         'duplicate, so exit
         GoTo Exit_Sub
     End If

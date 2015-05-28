@@ -3,29 +3,28 @@ VersionRequired =20
 Begin Report
     LayoutForPrint = NotDefault
     DividingLines = NotDefault
-    FilterOn = NotDefault
     DateGrouping =1
     GrpKeepTogether =1
     PictureAlignment =2
     DatasheetGridlinesBehavior =3
     GridX =24
     GridY =24
-    Width =15480
+    Width =15264
     DatasheetFontHeight =11
     ItemSuffix =125
-    Right =15648
-    Bottom =8028
+    Top =525
+    Right =8670
+    Bottom =7230
     DatasheetGridlinesColor =14806254
-    Filter ="TgtYear=2017"
     RecSrcDt = Begin
-        0xbdcb1e56bd91e440
+        0xf59e8f680195e440
     End
     RecordSource ="qry_Tgt_Species_List_Annual_Summary"
     Caption ="INVASIVE LIST"
     OnOpen ="[Event Procedure]"
     DatasheetFontName ="Calibri"
     PrtMip = Begin
-        0xa8000000630100001e0100006d01000000000000df3d0000ea01000001000000 ,
+        0xf0000000630100001e0100006d01000000000000a03b0000ea01000001000000 ,
         0x010000006801000000000000a10700000100000001000000
     End
     OnLoad ="[Event Procedure]"
@@ -126,7 +125,7 @@ Begin Report
                     TextAlign =3
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =10620
+                    Left =10380
                     Width =4680
                     Height =528
                     ColumnOrder =0
@@ -138,8 +137,8 @@ Begin Report
                     StatusBarText ="Park and year for list"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =10620
-                    LayoutCachedWidth =15300
+                    LayoutCachedLeft =10380
+                    LayoutCachedWidth =15060
                     LayoutCachedHeight =528
                     ForeTint =50.0
                 End
@@ -154,13 +153,13 @@ Begin Report
             Begin
                 Begin Rectangle
                     OldBorderStyle =0
-                    Width =15480
+                    Width =15264
                     Height =480
                     BackColor =15849926
                     BorderColor =10921638
                     Name ="rectPageHdr"
                     GridlineColor =10921638
-                    LayoutCachedWidth =15480
+                    LayoutCachedWidth =15264
                     LayoutCachedHeight =480
                     BackThemeColorIndex =2
                     BackTint =20.0
@@ -287,11 +286,11 @@ Begin Report
                 Begin Line
                     BorderWidth =2
                     Top =1320
-                    Width =15480
+                    Width =15264
                     Name ="lnHeader"
                     GridlineColor =10921638
                     LayoutCachedTop =1320
-                    LayoutCachedWidth =15480
+                    LayoutCachedWidth =15264
                     LayoutCachedHeight =1320
                 End
                 Begin TextBox
@@ -320,7 +319,7 @@ Begin Report
                     TextAlign =3
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =10320
+                    Left =10080
                     Top =60
                     Width =5040
                     Height =312
@@ -331,9 +330,9 @@ Begin Report
                     ControlSource ="=\"Page \" & [Page] & \" of \" & [Pages]"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =10320
+                    LayoutCachedLeft =10080
                     LayoutCachedTop =60
-                    LayoutCachedWidth =15360
+                    LayoutCachedWidth =15120
                     LayoutCachedHeight =372
                 End
                 Begin Label
@@ -531,7 +530,6 @@ Begin Report
         Begin Section
             KeepTogether = NotDefault
             Height =490
-            OnFormat ="[Event Procedure]"
             Name ="Detail"
             AlternateBackColor =15921906
             AlternateBackThemeColorIndex =1
@@ -541,7 +539,7 @@ Begin Report
                 Begin TextBox
                     OldBorderStyle =0
                     IMESentenceMode =3
-                    Width =15480
+                    Width =15264
                     Height =490
                     TabIndex =3
                     BorderColor =10921638
@@ -549,7 +547,7 @@ Begin Report
                     Name ="tbxDetail"
                     GridlineColor =10921638
 
-                    LayoutCachedWidth =15480
+                    LayoutCachedWidth =15264
                     LayoutCachedHeight =490
                 End
                 Begin TextBox
@@ -582,7 +580,7 @@ Begin Report
                     Top =24
                     Width =677
                     Height =432
-                    FontSize =9
+                    FontSize =7
                     TabIndex =12
                     BorderColor =10921638
                     ForeColor =4210752
@@ -626,7 +624,7 @@ Begin Report
                     Top =24
                     Width =677
                     Height =432
-                    FontSize =9
+                    FontSize =7
                     TabIndex =14
                     BorderColor =10921638
                     ForeColor =4210752
@@ -670,7 +668,7 @@ Begin Report
                     Top =24
                     Width =677
                     Height =432
-                    FontSize =9
+                    FontSize =7
                     TabIndex =15
                     BorderColor =10921638
                     ForeColor =4210752
@@ -714,7 +712,7 @@ Begin Report
                     Top =24
                     Width =677
                     Height =432
-                    FontSize =9
+                    FontSize =7
                     TabIndex =16
                     BorderColor =10921638
                     ForeColor =4210752
@@ -758,7 +756,7 @@ Begin Report
                     Top =24
                     Width =677
                     Height =432
-                    FontSize =9
+                    FontSize =7
                     TabIndex =17
                     BorderColor =10921638
                     ForeColor =4210752
@@ -802,7 +800,7 @@ Begin Report
                     Top =24
                     Width =677
                     Height =432
-                    FontSize =9
+                    FontSize =7
                     TabIndex =18
                     BorderColor =10921638
                     ForeColor =4210752
@@ -846,7 +844,7 @@ Begin Report
                     Top =24
                     Width =677
                     Height =432
-                    FontSize =9
+                    FontSize =7
                     TabIndex =19
                     BorderColor =10921638
                     ForeColor =4210752
@@ -890,7 +888,7 @@ Begin Report
                     Top =24
                     Width =677
                     Height =432
-                    FontSize =9
+                    FontSize =7
                     TabIndex =20
                     BorderColor =10921638
                     ForeColor =4210752
@@ -961,7 +959,7 @@ Begin Report
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="Species_Name"
-                    ControlSource ="Master_Plant_Code_FK"
+                    ControlSource ="LU_Code"
                     StatusBarText ="Target Species name (ITIS species name from tlu_NCPN_Plants.Master_Species)"
                     GridlineColor =10921638
 
@@ -1358,10 +1356,10 @@ Begin Report
                 End
                 Begin Line
                     BorderWidth =2
-                    Width =15480
+                    Width =15264
                     Name ="lnPageFooter"
                     GridlineColor =10921638
-                    LayoutCachedWidth =15480
+                    LayoutCachedWidth =15264
                 End
                 Begin TextBox
                     DecimalPlaces =0
@@ -2004,13 +2002,34 @@ Option Explicit
 ' Adapted:      Bonnie Campbell, April 7, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 4/7/2015 - initial version
+'   BLC - 5/19/2015 - added pause & increased wait for 15 seconds
+'   BLC - 5/27/2015 - added comments for possible query modifications
 ' ---------------------------------
 Private Sub Report_Open(Cancel As Integer)
 
 On Error GoTo Err_Handler
 'http://stackoverflow.com/questions/11477297/giving-an-alias-to-a-subquery-containing-a-join-in-access
 
-'Dim ParkPriorities As Variant
+    'get report data source & alter it using target year to reduce query time
+    'Dim strSQL As String
+    
+    'If CInt(Me.OpenArgs) > 0 Then
+    
+    '    strWhere = " WHERE "
+        
+    'End If
+
+    Dim i As Integer
+    
+    Screen.MousePointer = 11 'Hour Glass
+
+    DoCmd.OpenForm "frm_Progress_Bar", acNormal
+    
+    For i = 1 To 10
+        
+        Forms("frm_Progress_Bar").Increment i * 10, "Preparing report..."
+    
+    Next
 
     If Len(Me.OpenArgs) > 0 Then
         ' Bob Larsen, January 28, 2012
@@ -2027,8 +2046,21 @@ On Error GoTo Err_Handler
         'set orderby
         Me.OrderBy = Me.OpenArgs
     End If
+    'sPercentage
+
+If ReportIsLoaded("rpt_Tgt_Species_List_Annual_Summary") Then
+     DoEvents
+     Pause (15)
+     DoCmd.Close acForm, "frm_Progress_Bar"
+     DoEvents
     
-    
+    Pause (30)
+    ' clear statusbar note running report
+    SysCmd acSysCmdSetStatus, "Calculations complete!"
+End If
+
+Screen.MousePointer = 1 'Standard Cursor
+
 Exit_Sub:
     Exit Sub
     
@@ -2055,9 +2087,7 @@ End Sub
 '   BLC - 4/8/2015 - initial version
 ' ---------------------------------
 Private Sub Report_Load()
-
 On Error GoTo Err_Handler
-
     
 Exit_Sub:
     Exit Sub
@@ -2067,36 +2097,6 @@ Err_Handler:
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
             "Error encountered (#" & Err.Number & " - Report_Load[Report_rpt_Tgt_Species_List_Annual])"
-    End Select
-    Resume Exit_Sub
-End Sub
-
-' ---------------------------------
-' SUB:          Detail_Format
-' Description:  Actions for when report detail is formatted
-' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      N/A
-' Throws:       none
-' References:   none
-' Source/date:
-' Adapted:      Bonnie Campbell, April 8, 2015 - for NCPN tools
-' Revisions:
-'   BLC - 4/8/2015 - initial version
-' ---------------------------------
-Private Sub Detail_Format(Cancel As Integer, FormatCount As Integer)
-
-On Error GoTo Err_Handler
-
-    
-Exit_Sub:
-    Exit Sub
-    
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Detail_Format[Report_rpt_Tgt_Species_List_Annual])"
     End Select
     Resume Exit_Sub
 End Sub

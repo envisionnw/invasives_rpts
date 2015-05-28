@@ -3,10 +3,12 @@ Option Explicit
 
 ' =================================
 ' MODULE:       mod_Validation
+' Level:        Framework module
+' Version:      1.00
 ' Description:  string functions & procedures
 '
 ' Source/date:  Bonnie Campbell, 2/10/2015
-' Revisions:    BLC - 2/10/2015 - initial version
+' Revisions:    BLC - 2/10/2015 - 1.00 - initial version
 ' =================================
 
 ' ---------------------------------

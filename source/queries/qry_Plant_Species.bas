@@ -1,6 +1,6 @@
-﻿dbMemo "SQL" ="SELECT Switch(tlu_NCPN_Plants.LU_Code Is Null,\" \",tlu_NCPN_Plants.LU_Code<>\"\""
-    ",tlu_NCPN_Plants.LU_Code) AS Code, tlu_NCPN_Plants.Master_Species AS Species, tl"
-    "u_NCPN_Plants.Master_PLANT_Code\015\012FROM tlu_NCPN_Plants;\015\012"
+﻿dbMemo "SQL" ="SELECT tlu_NCPN_Plants.Master_PLANT_Code AS Code, tlu_NCPN_Plants.Master_Species"
+    " AS Species, Switch(tlu_NCPN_Plants.LU_Code Is Null,\" \",tlu_NCPN_Plants.LU_Cod"
+    "e<>\"\",tlu_NCPN_Plants.LU_Code) AS LUCode\015\012FROM tlu_NCPN_Plants;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -34,5 +34,12 @@ Begin
     Begin
         dbText "Name" ="tlu_NCPN_Plants.Master_PLANT_Code"
         dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="LUCode"
+        dbLong "AggregateType" ="-1"
+        dbBinary "GUID" = Begin
+            0x89f8cd1b07547b45892fc1da691ff909
+        End
     End
 End

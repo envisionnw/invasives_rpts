@@ -13,10 +13,10 @@ Begin Form
     Width =4320
     DatasheetFontHeight =11
     ItemSuffix =15
-    Left =8736
-    Top =3936
-    Right =12888
-    Bottom =6564
+    Left =8016
+    Top =4836
+    Right =12168
+    Bottom =7452
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xc1f3db6ed487e440
@@ -316,10 +316,10 @@ Option Explicit
 
 ' ---------------------------------
 ' SUB:          Form_Load
-' Description:  XX
+' Description:  Actions for form loading
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   -
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:

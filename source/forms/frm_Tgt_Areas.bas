@@ -12,7 +12,7 @@ Begin Form
     DatasheetFontHeight =11
     ItemSuffix =12
     Right =10272
-    Bottom =8556
+    Bottom =8316
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xc1f3db6ed487e440
@@ -644,10 +644,10 @@ Option Explicit
 
 ' ---------------------------------
 ' SUB:          Form_Load
-' Description:  XX
+' Description:  form loading actions
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   -
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -683,8 +683,8 @@ End Sub
 ' SUB:          tbxTgtArea_Change
 ' Description:  Actions to take when new target area textbox is not empty
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   -
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -722,8 +722,8 @@ End Sub
 ' SUB:          tbxTgtArea_LostFocus
 ' Description:  Actions to take when new target area textbox is not empty
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   -
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -760,8 +760,9 @@ End Sub
 ' SUB:          tbxTgtArea_KeyUp
 ' Description:  Actions to take when new target area textbox is not empty
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   KeyCode - value of key press(integer)
+'               Shift - if Shift key was pressed (integer)
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
