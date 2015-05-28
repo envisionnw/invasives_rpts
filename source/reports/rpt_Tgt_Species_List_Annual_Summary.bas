@@ -3,7 +3,6 @@ VersionRequired =20
 Begin Report
     LayoutForPrint = NotDefault
     DividingLines = NotDefault
-    FilterOn = NotDefault
     DateGrouping =1
     GrpKeepTogether =1
     PictureAlignment =2
@@ -13,13 +12,12 @@ Begin Report
     Width =15264
     DatasheetFontHeight =11
     ItemSuffix =125
-    Top =1608
-    Right =15504
-    Bottom =9360
+    Top =528
+    Right =8664
+    Bottom =7236
     DatasheetGridlinesColor =14806254
-    Filter ="TgtYear=2017"
     RecSrcDt = Begin
-        0x1ce102e55493e440
+        0xf59e8f680195e440
     End
     RecordSource ="qry_Tgt_Species_List_Annual_Summary"
     Caption ="INVASIVE LIST"
@@ -2005,11 +2003,21 @@ Option Explicit
 ' Revisions:
 '   BLC - 4/7/2015 - initial version
 '   BLC - 5/19/2015 - added pause & increased wait for 15 seconds
+'   BLC - 5/27/2015 - added comments for possible query modifications
 ' ---------------------------------
 Private Sub Report_Open(Cancel As Integer)
 
 On Error GoTo Err_Handler
 'http://stackoverflow.com/questions/11477297/giving-an-alias-to-a-subquery-containing-a-join-in-access
+
+    'get report data source & alter it using target year to reduce query time
+    'Dim strSQL As String
+    
+    'If CInt(Me.OpenArgs) > 0 Then
+    
+    '    strWhere = " WHERE "
+        
+    'End If
 
     Dim i As Integer
     

@@ -14,13 +14,13 @@ Begin Form
     Width =13584
     DatasheetFontHeight =11
     ItemSuffix =63
-    Left =5808
-    Top =2412
-    Right =19392
-    Bottom =11100
+    Left =6816
+    Top =2664
+    Right =19884
+    Bottom =10056
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
-        0x72574db34b86e440
+        0x0a915c95ff94e440
     End
     Caption ="Species Search"
     DatasheetFontName ="Calibri"
@@ -175,7 +175,6 @@ Begin Form
             BackThemeColorIndex =1
             Begin
                 Begin Rectangle
-                    Visible = NotDefault
                     SpecialEffect =0
                     BackStyle =1
                     OldBorderStyle =0
@@ -492,7 +491,6 @@ Begin Form
                     End
                 End
                 Begin Label
-                    Visible = NotDefault
                     OverlapFlags =215
                     Left =120
                     Top =4140
@@ -510,7 +508,6 @@ Begin Form
                     LayoutCachedHeight =4512
                 End
                 Begin Label
-                    Visible = NotDefault
                     OverlapFlags =215
                     Left =300
                     Top =4620
@@ -527,7 +524,6 @@ Begin Form
                     LayoutCachedHeight =4920
                 End
                 Begin Line
-                    Visible = NotDefault
                     BorderWidth =2
                     OverlapFlags =87
                     Top =4020
@@ -541,7 +537,6 @@ Begin Form
                     BorderTint =50.0
                 End
                 Begin Line
-                    Visible = NotDefault
                     BorderWidth =2
                     OverlapFlags =87
                     Top =5160
@@ -599,12 +594,12 @@ Begin Form
                     WebImagePaddingBottom =2
                 End
                 Begin Label
-                    Visible = NotDefault
                     OverlapFlags =93
                     Left =120
                     Top =5220
                     Width =1728
                     Height =300
+                    BackColor =0
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblCodeHdr"
@@ -615,15 +610,16 @@ Begin Form
                     LayoutCachedTop =5220
                     LayoutCachedWidth =1848
                     LayoutCachedHeight =5520
+                    BackThemeColorIndex =-1
+                    ForeThemeColorIndex =-1
                 End
                 Begin Label
-                    Visible = NotDefault
                     OverlapFlags =93
                     Left =1920
                     Top =5220
                     Width =2304
                     Height =300
-                    BackColor =15788753
+                    BackColor =0
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblITISHdr"
@@ -635,14 +631,15 @@ Begin Form
                     LayoutCachedWidth =4224
                     LayoutCachedHeight =5520
                     BackThemeColorIndex =-1
+                    ForeThemeColorIndex =-1
                 End
                 Begin Label
-                    Visible = NotDefault
                     OverlapFlags =93
                     Left =4260
                     Top =5220
                     Width =2304
                     Height =300
+                    BackColor =0
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblUTHdr"
@@ -653,14 +650,16 @@ Begin Form
                     LayoutCachedTop =5220
                     LayoutCachedWidth =6564
                     LayoutCachedHeight =5520
+                    BackThemeColorIndex =-1
+                    ForeThemeColorIndex =-1
                 End
                 Begin Label
-                    Visible = NotDefault
                     OverlapFlags =93
                     Left =6600
                     Top =5220
                     Width =2304
                     Height =300
+                    BackColor =15788753
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblCOHdr"
@@ -671,14 +670,17 @@ Begin Form
                     LayoutCachedTop =5220
                     LayoutCachedWidth =8904
                     LayoutCachedHeight =5520
+                    BackThemeColorIndex =-1
+                    ForeThemeColorIndex =-1
+                    ForeTint =100.0
                 End
                 Begin Label
-                    Visible = NotDefault
                     OverlapFlags =93
                     Left =8940
                     Top =5220
                     Width =2304
                     Height =300
+                    BackColor =0
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblWYHdr"
@@ -689,14 +691,16 @@ Begin Form
                     LayoutCachedTop =5220
                     LayoutCachedWidth =11244
                     LayoutCachedHeight =5520
+                    BackThemeColorIndex =-1
+                    ForeThemeColorIndex =-1
                 End
                 Begin Label
-                    Visible = NotDefault
                     OverlapFlags =93
                     Left =11280
                     Top =5220
                     Width =2304
                     Height =300
+                    BackColor =0
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblCommonHdr"
@@ -707,9 +711,10 @@ Begin Form
                     LayoutCachedTop =5220
                     LayoutCachedWidth =13584
                     LayoutCachedHeight =5520
+                    BackThemeColorIndex =-1
+                    ForeThemeColorIndex =-1
                 End
                 Begin Line
-                    Visible = NotDefault
                     BorderWidth =1
                     OverlapFlags =87
                     Top =5520
@@ -723,7 +728,6 @@ Begin Form
                     BorderTint =50.0
                 End
                 Begin Label
-                    Visible = NotDefault
                     FontItalic = NotDefault
                     OverlapFlags =215
                     Left =1980
@@ -742,7 +746,6 @@ Begin Form
                     LayoutCachedHeight =4512
                 End
                 Begin Label
-                    Visible = NotDefault
                     OverlapFlags =215
                     Left =2700
                     Top =4140
@@ -762,7 +765,6 @@ Begin Form
                     ForeTint =100.0
                 End
                 Begin Label
-                    Visible = NotDefault
                     FontItalic = NotDefault
                     OverlapFlags =215
                     TextAlign =3
@@ -774,7 +776,7 @@ Begin Form
                     BorderColor =8355711
                     ForeColor =16737792
                     Name ="lblSpeciesFound"
-                    Caption ="species found"
+                    Caption ="0 species found"
                     GridlineColor =10921638
                     LayoutCachedLeft =5820
                     LayoutCachedTop =4140
@@ -796,6 +798,7 @@ Begin Form
             BackThemeColorIndex =1
             Begin
                 Begin TextBox
+                    Visible = NotDefault
                     AllowAutoCorrect = NotDefault
                     OldBorderStyle =0
                     OverlapFlags =85
@@ -807,6 +810,7 @@ Begin Form
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxResultCode"
+                    ControlSource ="LU_Code"
                     OnDblClick ="[Event Procedure]"
                     GridlineColor =10921638
 
@@ -815,6 +819,7 @@ Begin Form
                     LayoutCachedHeight =300
                 End
                 Begin TextBox
+                    Visible = NotDefault
                     OldBorderStyle =0
                     OverlapFlags =85
                     IMESentenceMode =3
@@ -826,6 +831,7 @@ Begin Form
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxMasterSpecies"
+                    ControlSource ="Master_Species"
                     GridlineColor =10921638
 
                     LayoutCachedLeft =1920
@@ -833,6 +839,7 @@ Begin Form
                     LayoutCachedHeight =300
                 End
                 Begin TextBox
+                    Visible = NotDefault
                     Locked = NotDefault
                     OldBorderStyle =0
                     OverlapFlags =93
@@ -845,6 +852,7 @@ Begin Form
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxUTSpecies"
+                    ControlSource ="Utah_Species"
                     GridlineColor =10921638
 
                     LayoutCachedLeft =4260
@@ -852,6 +860,7 @@ Begin Form
                     LayoutCachedHeight =300
                 End
                 Begin TextBox
+                    Visible = NotDefault
                     Locked = NotDefault
                     OldBorderStyle =0
                     OverlapFlags =93
@@ -864,6 +873,7 @@ Begin Form
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxCOSpecies"
+                    ControlSource ="CO_Species"
                     GridlineColor =10921638
 
                     LayoutCachedLeft =6600
@@ -871,6 +881,7 @@ Begin Form
                     LayoutCachedHeight =300
                 End
                 Begin TextBox
+                    Visible = NotDefault
                     Locked = NotDefault
                     OldBorderStyle =0
                     OverlapFlags =85
@@ -883,6 +894,7 @@ Begin Form
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxWYSpecies"
+                    ControlSource ="WY_Species"
                     GridlineColor =10921638
 
                     LayoutCachedLeft =8940
@@ -890,6 +902,7 @@ Begin Form
                     LayoutCachedHeight =300
                 End
                 Begin TextBox
+                    Visible = NotDefault
                     Locked = NotDefault
                     OldBorderStyle =0
                     OverlapFlags =85
@@ -902,6 +915,7 @@ Begin Form
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxCmnName"
+                    ControlSource ="Master_Common_Name"
                     GridlineColor =10921638
 
                     LayoutCachedLeft =11280
@@ -1080,7 +1094,7 @@ On Error GoTo Err_Handler
     
     'disable search until something is entered
     btnSearch.Enabled = False
-    DisableControl btnSearch
+    'DisableControl btnSearch
     
     'clear selections
     ClearFields Me
@@ -1101,8 +1115,8 @@ End Sub
 ' SUB:          tbxSearchFor_LostFocus
 ' Description:  Actions to take when search for textbox is not empty
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   -
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -1119,7 +1133,7 @@ On Error GoTo Err_Handler
         If Len(TempVars.item("speciestype")) > 0 Then
             'enable the search "button"
             btnSearch.Enabled = True
-            EnableControl btnSearch, CTRL_ADD_ENABLED, TEXT_ENABLED
+            'EnableControl btnSearch, CTRL_ADD_ENABLED, TEXT_ENABLED
         Else
             MsgBox "Please choose at least one species list to search.", vbOKOnly, "Oops! Missing Species List to Search"
         End If
@@ -1419,6 +1433,8 @@ End Sub
 '   BLC - 2/21/2015 - fixed Runtime Error 451: Property let procedure not defined and property get Procedure did not return an object.
 '                     changed from .ListIndex(i) to .Column(2,i) when iterating through list items
 '   BLC - 2/23/2015 - added lblTgtSpeciesCount update
+'   BLC - 5/27/2015 - added Transect_Only and Tgt_Area_ID values to item (";0;0")
+'                     added check for missing LUCode
 ' ---------------------------------
 Private Sub tbxResultCode_DblClick(Cancel As Integer)
 On Error GoTo Err_Handler
@@ -1426,10 +1442,25 @@ On Error GoTo Err_Handler
     Dim i As Integer
     Dim lbx As ListBox
     
+    'check for empty values --> tbxResultCode, tbxUTSpecies, tbxMasterSpecies - cannot be empty!
+    If IsNull(tbxResultCode) Or Len(Trim(tbxResultCode)) = 0 Then
+        MsgBox "Species " & tbxMasterSpecies & " is missing a lookup code (LU_Code). " & _
+            vbCrLf & vbCrLf & "This code is required before the species can be added to a target list. " & _
+            vbCrLf & vbCrLf & "Please determine the appropriate code and enter it into the master " & _
+            "plant species list." & _
+            vbCrLf & vbCrLf & "Contact the project ecologist/data manager to add the species. ", _
+            vbExclamation, "Missing Lookup Code!"
+
+        'email species desired
+        
+        GoTo Exit_Sub
+
+    End If
+    
     'add components of item (code, species (UT or whatever), & ITIS) to listbox
 
     'prepare item for listbox value
-    item = tbxResultCode & ";" & tbxUTSpecies & ";" & tbxMasterSpecies
+    item = tbxResultCode & ";" & tbxUTSpecies & ";" & tbxMasterSpecies & ";0;0"
     
     'iterate through listbox (use .Column(x,i) vs .ListIndex(i) which results in error 451 property let not defined, property get...)
     If IsListDuplicate(Forms("frm_Tgt_Species").Controls("lbxTgtSpecies"), 2, tbxMasterSpecies) Then
@@ -1610,6 +1641,11 @@ On Error GoTo Err_Handler
     'set search for caption
     lblSearchForValue.Caption = """" & strSearch & """"
     
+    'extend form if species count > 0
+    If count > 0 Then
+        SetWindowSize Me, 8000, Me.width
+    End If
+    
     'set statusbar notice
     Dim varReturn As Variant
     varReturn = SysCmd(acSysCmdSetStatus, "Searching for " & strSearch & "...")
@@ -1707,7 +1743,7 @@ On Error GoTo Err_Handler
     If Len(TempVars.item("speciestype")) > 0 Then
         'enable the search "button"
         btnSearch.Enabled = True
-        EnableControl btnSearch, CTRL_ADD_ENABLED, TEXT_ENABLED
+'        EnableControl btnSearch, CTRL_ADD_ENABLED, TEXT_ENABLED
     Else
         MsgBox "Please choose at least one species list to search.", vbOKOnly, "Oops! Missing Species List to Search"
         GoTo Exit_Sub
@@ -1798,8 +1834,6 @@ On Error GoTo Err_Handler
         lblSpeciesFound.Caption = count & " species found"
 '        lblSpeciesFound.Visible = True
         lblNoRecords.visible = False
-        
-        'resize form (height only)
         
     Else
         lblSpeciesFound.visible = False

@@ -22,8 +22,8 @@ Begin Form
     Width =12300
     DatasheetFontHeight =10
     ItemSuffix =182
-    Left =3780
-    Right =16080
+    Left =19620
+    Right =31920
     Bottom =10068
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
@@ -427,20 +427,20 @@ Begin Form
                     Begin
                         Begin Page
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabCreate"
                             StatusBarText ="Create"
                             ControlTipText ="Click to create lists"
                             Caption ="QA/QC"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
                             WebImagePaddingLeft =3
                             WebImagePaddingTop =3
                             WebImagePaddingRight =3
@@ -517,18 +517,18 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabView"
                             Caption ="LOGS"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
                             WebImagePaddingLeft =3
                             WebImagePaddingTop =3
                             WebImagePaddingRight =3
@@ -580,18 +580,18 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabReports"
                             Caption ="REPORTS"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
                             WebImagePaddingLeft =3
                             WebImagePaddingTop =3
                             WebImagePaddingRight =3
@@ -694,18 +694,18 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabExport"
                             Caption ="EXPORT"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
                             WebImagePaddingLeft =3
                             WebImagePaddingTop =3
                             WebImagePaddingRight =3
@@ -714,20 +714,20 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabDbAdmin"
                             StatusBarText ="Database Administration"
                             ControlTipText ="Database Administration Tasks"
                             Caption ="DB ADMIN"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
                             WebImagePaddingLeft =3
                             WebImagePaddingTop =3
                             WebImagePaddingRight =3
@@ -909,7 +909,7 @@ End Sub
 ' References:   -
 ' Source/date:  Adapted from John Boetsch
 ' Adapted:      Bonnie Campbell, June, 2014 for NCPN WQ Utilities tool
-' Revisions:    BLC, 7/31/2014 - XX
+' Revisions:    BLC, 7/31/2014 - initial version
 ' ---------------------------------
 Private Sub Form_GotFocus()
     On Error GoTo Err_Handler
@@ -934,7 +934,7 @@ End Sub
 ' Throws:       -
 ' References:   -
 ' Source/date:  Bonnie Campbell, June 17, 2014
-' Revisions:    6/17/2014 - BLC - XX
+' Revisions:    6/17/2014 - BLC - initial version
 ' ---------------------------------
 Private Sub Form_Current()
     Me.Repaint
@@ -1033,6 +1033,7 @@ End Sub
 ' Source/date:  Adapted from John Boetsch
 ' Adapted:      Bonnie Campbell, June, 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC, 7/31/2014 - updated to use TempVars vs gvars
+'               BLC, 5/27/2015 - added check for if main form is open (frm_Main_Menu)
 ' ---------------------------------
 Private Sub Form_Close()
     On Error GoTo Err_Handler
@@ -1040,10 +1041,13 @@ Private Sub Form_Close()
     'log user exit
     logUserAction Me
 
-    'refocus on main menu
-    Forms("frm_Main_Menu").SetFocus
-    DoCmd.Restore
-
+    'check if form is open
+    If FormIsOpen("frm_Main_Menu") Then
+        'refocus on main menu
+        Forms("frm_Main_Menu").SetFocus
+        DoCmd.Restore
+    End If
+    
 Exit_Procedure:
     DoCmd.SetWarnings True
     Exit Sub

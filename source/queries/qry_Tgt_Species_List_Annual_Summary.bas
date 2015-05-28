@@ -66,40 +66,4 @@ Begin
         dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.Master_Common_Name"
         dbLong "AggregateType" ="-1"
     End
-    Begin
-        dbText "Name" ="qryAnnualCompleteTgtSpeciesLists.Family"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="qryAnnualCompleteTgtSpeciesLists.Species_Name"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="qryAnnualCompleteTgtSpeciesLists.utah_species"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="qryAnnualCompleteTgtSpeciesLists.Co_Species"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="qryAnnualCompleteTgtSpeciesLists.Wy_Species"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="qryAnnualCompleteTgtSpeciesLists.Master_Common_Name"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="qryAnnualCompleteTgtSpeciesLists.Master_Plant_Code_FK"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="qryAnnualCompleteTgtSpeciesLists.LU_Code"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="qryAnnualCompleteTgtSpeciesLists.TgtYear"
-        dbLong "AggregateType" ="-1"
-    End
 End

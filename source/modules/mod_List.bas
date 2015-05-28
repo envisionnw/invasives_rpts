@@ -132,6 +132,7 @@ On Error GoTo Err_Handler
     TempVars.Add "lbxHdr", strColHeads
 
 Exit_Sub:
+    'leave rs for remaining values
     Exit Sub
     
 Err_Handler:
@@ -525,6 +526,9 @@ Dim blnTableExists As Boolean
     'create fields for table
     aryFieldNames = Split(CStr(aryFields(0)), ";")
 
+    'handle empty listbox (aside from header record)
+    If UBound(aryFields) = 0 Then GoTo Exit_Sub
+
     'prepare data arrays
     ReDim Preserve aryData(0 To UBound(aryFields) - 1, 0 To UBound(aryFieldNames))
     
@@ -665,7 +669,9 @@ Dim blnTableExists As Boolean
 
     rsList.MoveLast
     If rsList.RecordCount > 0 Then
-
+        
+        rsList.MoveFirst
+        
         'Create Table
         If Not blnTableExists Then
             
@@ -698,19 +704,21 @@ Dim blnTableExists As Boolean
             rsProcess.AddNew
             
             'add each field (second element of aryData)
-            For iCol = 0 To UBound(aryFieldNames) - 1
+            For iCol = 0 To UBound(aryFieldNames) ' - 1
             
                 'add record field values for each record (aryFields - 1, row 0 = field names)
                 rsProcess(aryFieldNames(iCol)).Value = rsList(aryFieldNames(iCol)).Value
 
-                iCol = iCol + 1
+'                iCol = iCol + 1
             Next
 
             rsProcess.Update
-            'rsList.MoveNext
-            iRow = iRow + 1
+            rsList.MoveNext
+            'iRow = iRow + 1
         Next
 
+        rsProcess.Close
+        
     End If
 
 Exit_Sub:

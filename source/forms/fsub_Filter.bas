@@ -22,7 +22,7 @@ Begin Form
     Left =6612
     Top =7272
     Right =10752
-    Bottom =9108
+    Bottom =8316
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x1385341e7574e340
@@ -272,7 +272,7 @@ Option Explicit
 ' References:   -
 ' Source/date:  Adapted from John Boetsch
 '               Created 06/12/2014 blc; Last modified 06/12/2014 blc.
-' Revisions:    Bonnie Campbell, June 12, 2014 - XX
+' Revisions:    Bonnie Campbell, June 12, 2014 - initial version
 ' ---------------------------------
 Private Sub btnRun_Click()
     Dim dictParams As New Dictionary
@@ -337,7 +337,7 @@ End Sub
 ' Throws:       -
 ' References:   -
 ' Source/date:  Bonnie Campbell, June 17, 2014 - for NCPN WQ Utilities tool
-' Revisions:    6/17/2014 - BLC - XX
+' Revisions:    6/17/2014 - BLC - initial version
 ' ---------------------------------
 Public Sub RunReport(varParams As Variant)
 On Error GoTo Err_Handler:
@@ -495,7 +495,7 @@ End Sub
 ' Throws:       -
 ' References:   -
 ' Source/date:  Bonnie Campbell, June 17, 2014
-' Revisions:    6/17/2014 - BLC - XX
+' Revisions:    6/17/2014 - BLC - initial version
 ' ---------------------------------
 Public Sub Form_Close()
     MsgBox "close"

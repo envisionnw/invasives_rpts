@@ -107,7 +107,7 @@ On Error GoTo Err_Handler
 
     Select Case frm.name
     
-        Case "frmSpeciesSearch"
+        Case "frm_Species_Search"
             frm.Controls("cbxCO").DefaultValue = False
             frm.Controls("cbxUT").DefaultValue = False
             frm.Controls("cbxWY").DefaultValue = False
@@ -288,8 +288,12 @@ End Sub
 ' SUB:          AddControl
 ' Description:  initialize application values
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   frm - form (object)
+'               ctrl - control (object)
+'               ctrlName - name of control (string)
+'               xPos - horizontal position (twips)
+'               yPos - vertical position (twips)
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -400,7 +404,7 @@ End Sub
 ' Assumptions:  Active control's EnterKeyBehaviro is OFF
 ' Usage:        Called by ContinuousUpDown SUB
 ' Parameters:   N/A
-' Returns:      XX - XX
+' Returns:      boolean - true if moving up/down a record in continuous form is ok, false if not
 ' Throws:       none
 ' References:   none
 ' Source/date:

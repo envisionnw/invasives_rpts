@@ -216,6 +216,45 @@ Err_Handler:
     Resume Exit_Function
 End Function
 
+
+' ---------------------------------
+' FUNCTION:     ClearTable
+' Description:  Deletes records from table
+' Assumptions:  Table is in the current database (not linked)
+' Parameters:   strTable - table name (string)
+' Returns:      -
+' Throws:       none
+' References:   none
+' Source/date:  Bonnie Campbell, May 27, 2015 - for NCPN tools
+' Adapted:      -
+' Revisions:
+'   BLC - 5/27/2015  - initial version
+' ---------------------------------
+Public Sub ClearTable(strTable As String)
+
+On Error GoTo Err_Handler
+    
+    Dim strSQL As String
+    
+    'clear table
+    strSQL = "DELETE * FROM " & strTable & ";"
+    
+    DoCmd.SetWarnings False
+    DoCmd.RunSQL strSQL
+    DoCmd.SetWarnings True
+    
+Exit_Sub:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - ClearTable[mod_Db])"
+    End Select
+    Resume Exit_Sub
+End Sub
+
 ' ---------------------------------
 '  Validate Database Objects
 ' ---------------------------------

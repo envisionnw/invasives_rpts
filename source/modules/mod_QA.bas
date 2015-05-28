@@ -22,7 +22,7 @@ Option Explicit
 ' Source/date:  Dirk Goldgar, MS Access MVP - May 22, 2013
 '   http://social.msdn.microsoft.com/Forums/office/en-US/9993d229-8a00-4a59-a796-dfa2dad505bc/cannot-open-any-more-databases?forum=accessdev
 ' Adapted:      Bonnie Campbell, July, 2014 for NCPN Riparian tools
-' Revisions:    BLC, 7/23/2014 - XX
+' Revisions:    BLC, 7/23/2014 - initial version
 ' ---------------------------------
 
 ' ---------------------------------

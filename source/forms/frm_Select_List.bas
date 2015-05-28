@@ -12,8 +12,10 @@ Begin Form
     GridY =24
     DatasheetFontHeight =11
     ItemSuffix =22
-    Right =7452
-    Bottom =4128
+    Left =336
+    Top =444
+    Right =7788
+    Bottom =4572
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xc1f3db6ed487e440
@@ -24,6 +26,7 @@ Begin Form
         0x6801000068010000680100006801000000000000201c0000e010000001000000 ,
         0x010000006801000000000000a10700000100000001000000
     End
+    OnKeyUp ="[Event Procedure]"
     OnLoad ="[Event Procedure]"
     AllowDatasheetView =0
     AllowPivotTableView =0
@@ -444,10 +447,45 @@ Err_Handler:
     Resume Exit_Sub
 End Sub
 
+
+' ---------------------------------
+' SUB:          Form_KeyUp
+' Description:  Enables btnLoad when park(s) & year(s) are selected
+' Assumptions:  -
+' Parameters:   N/A
+' Returns:      N/A
+' Throws:       none
+' References:   none
+' Source/date:  Bonnie Campbell, May 26, 2015 - for NCPN tools
+' Adapted:      -
+' Revisions:
+'   BLC - 5/26/2015 - initial version
+' ---------------------------------
+Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
+On Error GoTo Err_Handler
+
+    If Len(TempVars.item("parks")) > 0 And Len(TempVars.item("years")) > 0 Then
+        Me.btnLoadList.Enabled True
+    Else
+        Me.btnLoadList.Enabled False
+    End If
+
+Exit_Sub:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - Form_KeyUp[form_frm_Select_List])"
+    End Select
+    Resume Exit_Sub
+End Sub
+
 ' ---------------------------------
 ' SUB:          btnLoadList_Click
 ' Description:  Load the target list species into frmTgtSpecies.lbxTgtSpecies
-' Assumptions:  Target species already selected exist in the temp_List_Recordset temp table
+' Assumptions:  Target species already selected exist in the temp_Listbox_Recordset temp table
 ' Parameters:   N/A
 ' Returns:      N/A
 ' Throws:       none
@@ -495,9 +533,14 @@ On Error GoTo Err_Handler
     strFieldNames = "Code;Species;LUCode;Transect_Only;Target_Area_ID"
     aryFieldTypes = Array(dbText, dbText, dbText, dbInteger, dbInteger)
 
-    'Add to existing records in temp_Listbox_Recordset (from lbsTgtSpecies)
-    AddListRecordset "temp_Listbox_Recordset", rs, strFieldNames, aryFieldTypes, False
-
+    'check rs for records
+    If Not (rs.BOF And rs.EOF) Then
+    
+        'Add to existing records in temp_Listbox_Recordset (from lbsTgtSpecies)
+        AddListRecordset "temp_Listbox_Recordset", rs, strFieldNames, aryFieldTypes, False
+        
+    End If
+    
     'merge existing listbox recordset w/ new SQL recordset
     'Set rsNew = MergeRecordsets(Forms("frm_Tgt_Species").lbxTgtSpecies.Recordset, rs)
     
@@ -522,7 +565,8 @@ On Error GoTo Err_Handler
     'remove temp_Listbox_Recordset table
     If TableExists("temp_Listbox_Recordset") Then
         'delete all records or delete table?
-        DoCmd.DeleteObject acTable, "temp_Listbox_Recordset"
+        'DoCmd.DeleteObject acTable, "temp_Listbox_Recordset" <-- Error 3211 table in use
+        ClearTable "temp_Listbox_Recordset"
     End If
     
     'return to species form

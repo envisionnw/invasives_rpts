@@ -24,7 +24,7 @@ Option Explicit
 ' References:   none
 ' Source/date:
 '               Created 06/12/2014 blc; Last modified 06/12/2014 blc.
-' Revisions:    Bonnie Campbell, June 12, 2014 - XX
+' Revisions:    Bonnie Campbell, June 12, 2014 - initial version
 '               --------------------------------------------------------------------------------------
 '               BLC, 4/21/2015 - Adapted for NCPN Invasives Reports - Species Target List tool
 '                                Converted QAQC to Create, Logs to View
@@ -97,7 +97,7 @@ End Sub
 ' References:   none
 ' Source/date:
 '               Created 06/12/2014 blc; Last modified 06/12/2014 blc.
-' Revisions:    Bonnie Campbell, June 12, 2014 - XX
+' Revisions:    Bonnie Campbell, June 12, 2014 - initial version
 '               --------------------------------------------------------------------------------------
 '               BLC, 4/21/2015 - Adapted for NCPN Invasives Reports - Species Target List tool
 '                                Converted QAQC to Create, Logs to View

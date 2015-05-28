@@ -422,7 +422,7 @@ End Function
 ' Description:  Returns table descriptions
 ' Assumptions:  -
 ' Parameters:   strTableName - name of table
-' Returns:      XX - XX
+' Returns:      -
 ' Throws:       none
 ' References:   -
 ' Source/date:
@@ -472,8 +472,8 @@ End Function
 ' FUNCTION:     GetDescrip
 ' Description:  Returns table descriptions
 ' Assumptions:  -
-' Parameters:   XX - XX
-' Returns:      XX - XX
+' Parameters:   obj - database object
+' Returns:      description - object description (string)
 ' Throws:       none
 ' References:   -
 ' Source/date:

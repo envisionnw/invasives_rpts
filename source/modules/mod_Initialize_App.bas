@@ -78,7 +78,7 @@ Public blnUpdateAll As Boolean      ' flag to indicate whether to run all querie
 ' References:   -
 ' Source/date:  Bonnie Campbell, July 31, 2014 for NCPN WQ Utilities tool
 ' Adapted:      -
-' Revisions:    BLC, 7/31/2014 - XX
+' Revisions:    BLC, 7/31/2014 - initial version
 ' ---------------------------------
 Public Sub initGlobalTempVars()
 On Error GoTo Err_Handler:

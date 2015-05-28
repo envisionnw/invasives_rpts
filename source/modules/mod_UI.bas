@@ -123,6 +123,43 @@ End Sub
 ' ---------------------------------
 
 ' =================================
+' SUB:          SetWindowSize
+' Description:  sets form size (width & height)
+' Assumptions:  -
+' Note:         dimensions are in twips (1 inch = 1440 twips)
+' Parameters:   ctrl - office ribbon control (IRibbonControl object)
+'               visible - true (boolean)
+' Returns:      -
+' Throws:       none
+' References:   none
+' Source/date:  Hasup, February 26,2014
+'   http://stackoverflow.com/questions/22021802/resize-form-in-ms-access-by-changing-detail-height
+' Adapted:      Bonnie Campbell, May 27, 2015 - for NCPN tools
+' Revisions:    BLC, 5/27/2015 - initial version
+' =================================
+Public Sub SetWindowSize(ByRef frm As Form, ByRef lngHeight As Long, ByRef lngWidth As Long)
+On Error GoTo Err_Handler
+
+'    If Me.WindowHeight = 4044 Then
+'        lngHeight = 8000
+'    Else
+'        lngHeight = 4044
+'    End If
+    frm.Move frm.WindowLeft, height:=lngHeight, width:=lngWidth
+    
+Exit_Procedure:
+    Exit Sub
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - SetWindowHeight[mod_UI])"
+    End Select
+    Resume Exit_Procedure
+End Sub
+
+' =================================
 ' SUB:          PopulateSubformControl
 ' Description:  Set the form for a subform control
 ' Parameters:   ctrl - subform control to populate
@@ -380,7 +417,7 @@ End Function
 ' Source/date:  Adapted from Tom's post comment, 9/12/2009
 '               http://www.vbdotnetforums.com/gui/36561-loop-through-tab-pages-remove.html
 '               Created 06/11/2014 blc; Last modified 06/11/2014 blc.
-' Revisions:    Bonnie Campbell, June 11, 2014 - XX
+' Revisions:    Bonnie Campbell, June 11, 2014 - initial version
 ' =================================
 Public Sub tabPageUnhide(ctrl As TabControl, strTabName As String)
 On Error GoTo Err_Handler
@@ -844,8 +881,8 @@ Public Sub PrepareCrumbs(frm As SubForm, aryCrumbs As Variant, Optional separato
             End If
             
             'set control position
-            If intLastCtrlPosition > frm.Controls(strCtrlName).Parent.Width Then
-                .Left = frm.Controls(strCtrlName).Parent.Width - .Width
+            If intLastCtrlPosition > frm.Controls(strCtrlName).Parent.width Then
+                .Left = frm.Controls(strCtrlName).Parent.width - .width
             Else
                 .Left = intLastCtrlPosition
             End If
@@ -854,7 +891,7 @@ Public Sub PrepareCrumbs(frm As SubForm, aryCrumbs As Variant, Optional separato
 '            setControlWidth frm.Controls(strCtrlName), , frm.Controls(strCtrlName).Parent.Width
             
             'save new ctrl width for setting separator position
-            intLastCtrlWidth = .Width
+            intLastCtrlWidth = .width
         
         End With
         
@@ -867,7 +904,7 @@ Public Sub PrepareCrumbs(frm As SubForm, aryCrumbs As Variant, Optional separato
             .visible = True
             
             'determine position of next control
-            intLastCtrlPosition = .Left + .Width + 10
+            intLastCtrlPosition = .Left + .width + 10
           End With
         End If
         
