@@ -3,7 +3,7 @@ VersionRequired =20
 Begin Report
     LayoutForPrint = NotDefault
     DividingLines = NotDefault
-    OrderByOn = NotDefault
+    FilterOn = NotDefault
     DateGrouping =1
     GrpKeepTogether =1
     PictureAlignment =2
@@ -13,12 +13,11 @@ Begin Report
     Width =11400
     DatasheetFontHeight =11
     ItemSuffix =46
-    Right =13608
-    Bottom =6396
+    Right =11505
+    Bottom =9855
     DatasheetGridlinesColor =14806254
-    OrderBy ="Family, "
     RecSrcDt = Begin
-        0xab695344b891e440
+        0x122745e02f95e440
     End
     RecordSource ="qry_Park_Tgt_Species_Lists"
     Caption ="INVASIVE LIST"
@@ -497,7 +496,7 @@ Begin Report
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="Species_Name"
-                    ControlSource ="Master_Plant_Code_FK"
+                    ControlSource ="LU_code"
                     StatusBarText ="Target Species name (ITIS species name from tlu_NCPN_Plants.Master_Species)"
                     GridlineColor =10921638
 

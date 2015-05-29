@@ -1998,27 +1998,23 @@ Option Explicit
 ' Returns:      N/A
 ' Throws:       none
 ' References:   none
+' Notes:
+'   Consider references for performance improvements/user cues that report is still being generated
+'   http://stackoverflow.com/questions/11477297/giving-an-alias-to-a-subquery-containing-a-join-in-access
 ' Source/date:
 ' Adapted:      Bonnie Campbell, April 7, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 4/7/2015 - initial version
 '   BLC - 5/19/2015 - added pause & increased wait for 15 seconds
 '   BLC - 5/27/2015 - added comments for possible query modifications
+'   BLC - 5/29/2015 - added notes and adjusted status message to note report was still being generated
 ' ---------------------------------
 Private Sub Report_Open(Cancel As Integer)
 
 On Error GoTo Err_Handler
-'http://stackoverflow.com/questions/11477297/giving-an-alias-to-a-subquery-containing-a-join-in-access
 
-    'get report data source & alter it using target year to reduce query time
-    'Dim strSQL As String
-    
-    'If CInt(Me.OpenArgs) > 0 Then
-    
-    '    strWhere = " WHERE "
-        
-    'End If
 
+    'get report data source & alter it using target year to reduce query time?
     Dim i As Integer
     
     Screen.MousePointer = 11 'Hour Glass
@@ -2056,7 +2052,7 @@ If ReportIsLoaded("rpt_Tgt_Species_List_Annual_Summary") Then
     
     Pause (30)
     ' clear statusbar note running report
-    SysCmd acSysCmdSetStatus, "Calculations complete!"
+    SysCmd acSysCmdSetStatus, "Calculations complete! Fetching report..."
 End If
 
 Screen.MousePointer = 1 'Standard Cursor

@@ -15,7 +15,7 @@ Begin Report
     ItemSuffix =43
     Top =540
     Right =11760
-    Bottom =8772
+    Bottom =8775
     DatasheetGridlinesColor =14806254
     Filter ="TgtList IN ('CARE-2009')"
     RecSrcDt = Begin
@@ -268,7 +268,6 @@ Begin Report
                     LayoutCachedHeight =1260
                 End
                 Begin Label
-                    OverlapFlags =4
                     TextAlign =2
                     Left =10080
                     Top =960
@@ -634,7 +633,7 @@ Begin Report
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="Species_Name"
-                    ControlSource ="Master_Plant_Code_FK"
+                    ControlSource ="LU_code"
                     StatusBarText ="Target Species name (ITIS species name from tlu_NCPN_Plants.Master_Species)"
                     GridlineColor =10921638
 

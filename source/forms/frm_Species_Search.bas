@@ -13,11 +13,11 @@ Begin Form
     GridY =24
     Width =13584
     DatasheetFontHeight =11
-    ItemSuffix =63
-    Left =6816
-    Top =2664
-    Right =19884
-    Bottom =10056
+    ItemSuffix =64
+    Left =3855
+    Top =2790
+    Right =16890
+    Bottom =10155
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x0a915c95ff94e440
@@ -588,10 +588,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                 End
                 Begin Label
                     OverlapFlags =93
@@ -809,7 +809,7 @@ Begin Form
                     FontSize =9
                     BorderColor =10921638
                     ForeColor =4210752
-                    Name ="tbxResultCode"
+                    Name ="tbxLUCode"
                     ControlSource ="LU_Code"
                     OnDblClick ="[Event Procedure]"
                     GridlineColor =10921638
@@ -884,7 +884,7 @@ Begin Form
                     Visible = NotDefault
                     Locked = NotDefault
                     OldBorderStyle =0
-                    OverlapFlags =85
+                    OverlapFlags =93
                     IMESentenceMode =3
                     Left =8940
                     Width =2304
@@ -905,7 +905,7 @@ Begin Form
                     Visible = NotDefault
                     Locked = NotDefault
                     OldBorderStyle =0
-                    OverlapFlags =85
+                    OverlapFlags =93
                     IMESentenceMode =3
                     Left =11280
                     Width =2304
@@ -940,6 +940,28 @@ Begin Form
                     LayoutCachedHeight =300
                     ForeThemeColorIndex =-1
                     ForeTint =100.0
+                End
+                Begin TextBox
+                    Visible = NotDefault
+                    Locked = NotDefault
+                    OldBorderStyle =0
+                    OverlapFlags =247
+                    IMESentenceMode =3
+                    Left =10560
+                    Width =2304
+                    Height =300
+                    FontSize =9
+                    TabIndex =6
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxMasterPlantCode"
+                    ControlSource ="Master_PLANT_Code"
+                    Tag ="#"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =10560
+                    LayoutCachedWidth =12864
+                    LayoutCachedHeight =300
                 End
             End
         End
@@ -1419,7 +1441,7 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:          tbxResultCode_DblClick
+' SUB:          tbxLUCode_DblClick
 ' Description:  Add an item to the listbox if it is not a duplicate of items already listed
 ' Assumptions:  Assumes duplicates are not desired in the listbox
 ' Parameters:   N/A
@@ -1435,15 +1457,20 @@ End Sub
 '   BLC - 2/23/2015 - added lblTgtSpeciesCount update
 '   BLC - 5/27/2015 - added Transect_Only and Tgt_Area_ID values to item (";0;0")
 '                     added check for missing LUCode
+'   BLC - 5/29/2015 - added tbxMasterPlantCode, changed tbxResultCode to tbxLUCode
+'                     swapped tbxMasterSpecies (ITIS) for tbxUTSpecies
+'                     renamed tbxResultCode to tbxLUCode
+'                     changed order of tbxMasterPlantCode and tbxLUCode to populate listbox
+'                     (bugfix for search species missing proper LUcode)
 ' ---------------------------------
-Private Sub tbxResultCode_DblClick(Cancel As Integer)
+Private Sub tbxLUCode_DblClick(Cancel As Integer)
 On Error GoTo Err_Handler
     Dim item As String
     Dim i As Integer
     Dim lbx As ListBox
     
     'check for empty values --> tbxResultCode, tbxUTSpecies, tbxMasterSpecies - cannot be empty!
-    If IsNull(tbxResultCode) Or Len(Trim(tbxResultCode)) = 0 Then
+    If IsNull(tbxLUCode) Or Len(Trim(tbxLUCode)) = 0 Then
         MsgBox "Species " & tbxMasterSpecies & " is missing a lookup code (LU_Code). " & _
             vbCrLf & vbCrLf & "This code is required before the species can be added to a target list. " & _
             vbCrLf & vbCrLf & "Please determine the appropriate code and enter it into the master " & _
@@ -1460,10 +1487,10 @@ On Error GoTo Err_Handler
     'add components of item (code, species (UT or whatever), & ITIS) to listbox
 
     'prepare item for listbox value
-    item = tbxResultCode & ";" & tbxUTSpecies & ";" & tbxMasterSpecies & ";0;0"
+    item = tbxMasterPlantCode & ";" & tbxMasterSpecies & ";" & tbxLUCode & ";0;0"
     
     'iterate through listbox (use .Column(x,i) vs .ListIndex(i) which results in error 451 property let not defined, property get...)
-    If IsListDuplicate(Forms("frm_Tgt_Species").Controls("lbxTgtSpecies"), 2, tbxMasterSpecies) Then
+    If IsListDuplicate(Forms("frm_Tgt_Species").Controls("lbxTgtSpecies"), 2, tbxLUCode) Then
         'duplicate, so exit
         GoTo Exit_Sub
     End If
@@ -1523,6 +1550,8 @@ End Sub
 '   BLC - 5/13/2015 - revised to use global constants vs. tempvars for enabled control
 '   BLC - 5/14/2015 - revised to leave checkbox list intact to avoid error message @ choosing a species type
 '                     when checkbox was left checked
+'   BLC - 5/29/2015 - added Master_PLANT_Code to selection (bugfix for search species missing proper LUcode)
+'                     renamed tbxResultCode to tbxLUCode
 ' ---------------------------------
 Private Sub btnSearch_Click()
 On Error GoTo Err_Handler
@@ -1542,7 +1571,7 @@ On Error GoTo Err_Handler
     If Len(TempVars.item("speciestype")) > 0 Then
         'enable the search "button"
         btnSearch.Enabled = True
-        EnableControl btnSearch, CTRL_ADD_ENABLED, TEXT_ENABLED
+        'EnableControl btnSearch, CTRL_ADD_ENABLED, TEXT_ENABLED
     Else
         MsgBox "Please choose at least one species list to search.", vbOKOnly, "Oops! Missing Species List to Search"
         GoTo Exit_Sub
@@ -1599,7 +1628,7 @@ On Error GoTo Err_Handler
     
     'build SQL statement
     strSQL = "SELECT DISTINCT LU_Code, Master_Species, Utah_Species, CO_Species, WY_Species, " _
-            & "Master_Common_Name " _
+            & "Master_Common_Name, Master_PLANT_Code " _
             & "FROM tlu_NCPN_Plants " _
             & strWhere & ";"
                
@@ -1611,12 +1640,13 @@ On Error GoTo Err_Handler
 
     'set form results
     Set Me.Recordset = rs
-    tbxResultCode.ControlSource = "LU_Code"
-    tbxMasterSpecies.ControlSource = "Master_Species"
+    tbxLUCode.ControlSource = "LU_Code"
+    tbxMasterSpecies.ControlSource = "Master_Species" 'ITIS
     tbxUTSpecies.ControlSource = "Utah_Species"
     tbxCOSpecies.ControlSource = "CO_Species"
     tbxWYSpecies.ControlSource = "WY_Species"
     tbxCmnName.ControlSource = "Master_Common_Name"
+    tbxMasterPlantCode.ControlSource = "Master_PLANT_Code"
 
     'turn fields on (includes lblNoRecords, controls w/o & w/ * tags)
     ShowControls Me, True, "", True
@@ -1812,12 +1842,13 @@ On Error GoTo Err_Handler
 
     'set form results
     Set Me.Recordset = rs
-    tbxResultCode.ControlSource = "LU_Code"
-    tbxMasterSpecies.ControlSource = "Master_Species"
+    tbxLUCode.ControlSource = "LU_Code"
+    tbxMasterSpecies.ControlSource = "Master_Species"   'ITIS
     tbxUTSpecies.ControlSource = "Utah_Species"
     tbxCOSpecies.ControlSource = "CO_Species"
     tbxWYSpecies.ControlSource = "WY_Species"
     tbxCmnName.ControlSource = "Master_Common_Name"
+    tbxMasterPlantCode.ControlSource = "Master_PLANT_Code"
 
     'turn fields on (includes lblNoRecords, controls w/o & w/ * tags)
     ShowControls Me, True, "", True
