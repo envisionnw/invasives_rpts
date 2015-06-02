@@ -22,10 +22,10 @@ Begin Form
     Width =10800
     DatasheetFontHeight =10
     ItemSuffix =110
-    Left =2835
-    Top =3375
-    Right =13635
-    Bottom =9420
+    Left =4020
+    Top =2715
+    Right =14820
+    Bottom =8760
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0xabea2039169de340
@@ -1375,6 +1375,11 @@ End Sub
 ' Revisions:    BLC, 7/31/2014 - changed gvars to TempVars
 '               BLC, 9/5/2014  - set added Is_Network_Db value for linked Dbs
 '               BLC, 5/21/2015 - added to invasives reporting tool & renamed cmd prefix to btn
+'               BLC, 5/28/2015 - fixed bug resulting in DSN dialog when calling RefreshLinks
+'                                strComponent was being passed in as False due to missing
+'                                comma after "strNewConnStr," new call is
+'                                RefreshLinks(strDbName, strNewConnStr, , False)
+'                                added frm_Main_Menu restore on exit
 ' ---------------------------------
 Private Sub btnUpdateLinks_Click()
     On Error GoTo Err_Handler
@@ -1448,7 +1453,8 @@ Private Sub btnUpdateLinks_Click()
             End If
             strNewConnStr = ";DATABASE=" & strNewPath
             ' Update the links to the selected database
-            If RefreshLinks(strDbName, strNewConnStr, False) = False Then
+
+            If RefreshLinks(strDbName, strNewConnStr, , False) = False Then
                 ' A linking error was encountered
                 MsgBox "Links to this database were not updated or only partially updated", _
                     vbExclamation, strDbName
@@ -1499,6 +1505,10 @@ NextBackEnd:
     End If
 
 Exit_Sub:
+    ' restore main menu
+    DoCmd.SelectObject acForm, Forms(MAIN_APP_MENU), False
+    DoCmd.Restore
+    
     Exit Sub
 
 Err_Handler:

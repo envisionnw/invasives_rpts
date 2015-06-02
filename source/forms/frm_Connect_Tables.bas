@@ -579,6 +579,11 @@ NextBackEnd:
     End If
 
 Exit_Procedure:
+    ' -------------------------------------------------------
+    '   BLC, 5/28/2015 - added frm_Main_Menu restore
+            DoCmd.SelectObject acForm, Forms(MAIN_APP_MENU), False
+            DoCmd.Restore
+    ' -------------------------------------------------------
     Exit Sub
 
 Err_Handler:

@@ -178,6 +178,8 @@ End Sub
 '               BLC, 4/30/2015 - added DB_ADMIN_CONTROL and MAIN_APP_FORM checks for handling apps w/o full Db_Admin subform
 '                                to set strReleaseID and strAddress values
 '               BLC, 5/18/2015 - renamed, removed fxn prefix
+'               BLC, 5/28/2015 - added MAIN_APP_FORM open check to prevent Error #2450 where
+'                                frm_Tgt_List_Tool is not found on exit from frm_Connect_Dbs
 ' =================================
 Public Function AppSetup()
     On Error GoTo Err_Handler
@@ -185,6 +187,10 @@ Public Function AppSetup()
     Dim frm As Form
     Dim strSysTable As String, strAddress As String, strUser As String, strRelease As String
     Dim strSQL As String, strCaption As String, strReleaseID As String
+
+    If Not FormIsOpen(MAIN_APP_FORM) Then
+        DoCmd.OpenForm MAIN_APP_FORM, acNormal, , , , acHidden
+    End If
 
     Set frm = Forms(MAIN_APP_FORM) 'Forms!frm_Switchboard
     TempVars.item("WritePermission") = False

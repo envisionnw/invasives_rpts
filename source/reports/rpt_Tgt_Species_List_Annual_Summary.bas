@@ -12,9 +12,9 @@ Begin Report
     Width =15264
     DatasheetFontHeight =11
     ItemSuffix =125
-    Top =528
-    Right =8664
-    Bottom =7236
+    Top =525
+    Right =8670
+    Bottom =7230
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xf59e8f680195e440
@@ -2053,6 +2053,10 @@ If ReportIsLoaded("rpt_Tgt_Species_List_Annual_Summary") Then
      Pause (15)
      DoCmd.Close acForm, "frm_Progress_Bar"
      DoEvents
+    
+    Pause (30)
+    ' clear statusbar note running report
+    SysCmd acSysCmdSetStatus, "Calculations complete!"
 End If
 
 Screen.MousePointer = 1 'Standard Cursor
