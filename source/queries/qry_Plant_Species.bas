@@ -1,6 +1,7 @@
 ﻿dbMemo "SQL" ="SELECT tlu_NCPN_Plants.Master_PLANT_Code AS Code, tlu_NCPN_Plants.Master_Species"
     " AS Species, Switch(tlu_NCPN_Plants.LU_Code Is Null,\" \",tlu_NCPN_Plants.LU_Cod"
-    "e<>\"\",tlu_NCPN_Plants.LU_Code) AS LUCode\015\012FROM tlu_NCPN_Plants;\015\012"
+    "e<>\"\",tlu_NCPN_Plants.LU_Code) AS LUCode\015\012FROM tlu_NCPN_Plants\015\012OR"
+    "DER BY tlu_NCPN_Plants.Master_Species;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
