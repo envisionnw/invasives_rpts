@@ -4,6 +4,7 @@ Begin Form
     RecordSelectors = NotDefault
     NavigationButtons = NotDefault
     DividingLines = NotDefault
+    OrderByOn = NotDefault
     ScrollBars =2
     BorderStyle =1
     PictureAlignment =2
@@ -13,10 +14,10 @@ Begin Form
     Width =9120
     DatasheetFontHeight =11
     ItemSuffix =17
-    Left =2604
-    Top =3288
-    Right =6300
-    Bottom =7308
+    Left =570
+    Top =3465
+    Right =4260
+    Bottom =7485
     DatasheetGridlinesColor =14806254
     OrderBy ="Species"
     RecSrcDt = Begin

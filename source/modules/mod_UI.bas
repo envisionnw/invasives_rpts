@@ -145,7 +145,7 @@ On Error GoTo Err_Handler
 '    Else
 '        lngHeight = 4044
 '    End If
-    frm.Move frm.WindowLeft, height:=lngHeight, width:=lngWidth
+    frm.Move frm.WindowLeft, height:=lngHeight, Width:=lngWidth
     
 Exit_Procedure:
     Exit Sub
@@ -173,7 +173,7 @@ End Sub
 Public Sub PopulateSubformControl(ctrl As SubForm, strSubFormName As String)
     On Error GoTo Err_Handler
 
-    ctrl.SourceObject = Forms(strSubFormName)
+    ctrl.SourceObject = strSubFormName 'Forms(strSubFormName)
 
 Exit_Procedure:
     Exit Sub
@@ -881,8 +881,8 @@ Public Sub PrepareCrumbs(frm As SubForm, aryCrumbs As Variant, Optional separato
             End If
             
             'set control position
-            If intLastCtrlPosition > frm.Controls(strCtrlName).Parent.width Then
-                .Left = frm.Controls(strCtrlName).Parent.width - .width
+            If intLastCtrlPosition > frm.Controls(strCtrlName).Parent.Width Then
+                .Left = frm.Controls(strCtrlName).Parent.Width - .Width
             Else
                 .Left = intLastCtrlPosition
             End If
@@ -891,7 +891,7 @@ Public Sub PrepareCrumbs(frm As SubForm, aryCrumbs As Variant, Optional separato
 '            setControlWidth frm.Controls(strCtrlName), , frm.Controls(strCtrlName).Parent.Width
             
             'save new ctrl width for setting separator position
-            intLastCtrlWidth = .width
+            intLastCtrlWidth = .Width
         
         End With
         
@@ -904,7 +904,7 @@ Public Sub PrepareCrumbs(frm As SubForm, aryCrumbs As Variant, Optional separato
             .visible = True
             
             'determine position of next control
-            intLastCtrlPosition = .Left + .width + 10
+            intLastCtrlPosition = .Left + .Width + 10
           End With
         End If
         
