@@ -1,13 +1,14 @@
 ﻿dbMemo "SQL" ="SELECT DISTINCT tbl_Target_Species.Park_Code AS Park, tbl_Target_Species.Target_"
-    "Year AS TgtYear, tbl_Target_Species.Master_Plant_Code_FK, tbl_Target_Species.Spe"
-    "cies_Name, tbl_Target_Species.Priority, tbl_Target_Species.Transect_Only, tbl_Ta"
-    "rget_Species.Target_Area_ID, tbl_Target_Areas.Target_Area AS Tgt_Area, tlu_NCPN_"
-    "Plants.Master_Family AS Family, tlu_NCPN_Plants.Master_Common_Name, tlu_NCPN_Pla"
-    "nts.utah_species, tlu_NCPN_Plants.Co_Species, tlu_NCPN_Plants.Wy_Species, tbl_Ta"
-    "rget_Species.Park_Code & \"-\" & tbl_Target_Species.Target_Year AS TgtList\015\012"
-    "FROM (tbl_Target_Species LEFT JOIN tbl_Target_Areas ON tbl_Target_Species.Target"
-    "_Area_ID = tbl_Target_Areas.Target_Area_ID) LEFT JOIN tlu_NCPN_Plants ON tbl_Tar"
-    "get_Species.Master_Plant_Code_FK = tlu_NCPN_Plants.Master_Plant_Code;\015\012"
+    "Year AS TgtYear, tbl_Target_Species.LU_code, tbl_Target_Species.Master_Plant_Cod"
+    "e_FK, tbl_Target_Species.Species_Name, tbl_Target_Species.Priority, tbl_Target_S"
+    "pecies.Transect_Only, tbl_Target_Species.Target_Area_ID, tbl_Target_Areas.Target"
+    "_Area AS Tgt_Area, tlu_NCPN_Plants.Master_Family AS Family, tlu_NCPN_Plants.Mast"
+    "er_Common_Name, tlu_NCPN_Plants.utah_species, tlu_NCPN_Plants.Co_Species, tlu_NC"
+    "PN_Plants.Wy_Species, tbl_Target_Species.Park_Code & \"-\" & tbl_Target_Species."
+    "Target_Year AS TgtList\015\012FROM (tbl_Target_Species LEFT JOIN tbl_Target_Area"
+    "s ON tbl_Target_Species.Target_Area_ID = tbl_Target_Areas.Target_Area_ID) LEFT J"
+    "OIN tlu_NCPN_Plants ON tbl_Target_Species.Master_Plant_Code_FK = tlu_NCPN_Plants"
+    ".Master_Plant_Code;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -119,5 +120,9 @@ Begin
         dbBinary "GUID" = Begin
             0x2ccfa02359522645aa4237d398990945
         End
+    End
+    Begin
+        dbText "Name" ="tbl_Target_Species.LU_code"
+        dbLong "AggregateType" ="-1"
     End
 End

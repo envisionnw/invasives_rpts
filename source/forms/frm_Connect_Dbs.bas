@@ -1453,7 +1453,6 @@ Private Sub btnUpdateLinks_Click()
             End If
             strNewConnStr = ";DATABASE=" & strNewPath
             ' Update the links to the selected database
-
             If RefreshLinks(strDbName, strNewConnStr, , False) = False Then
                 ' A linking error was encountered
                 MsgBox "Links to this database were not updated or only partially updated", _
