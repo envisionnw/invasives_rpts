@@ -11,8 +11,8 @@ Begin Form
     GridY =24
     DatasheetFontHeight =11
     ItemSuffix =13
-    Right =7200
-    Bottom =4950
+    Right =7248
+    Bottom =4596
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xc1f3db6ed487e440
@@ -268,10 +268,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin Label
@@ -336,7 +336,7 @@ Begin Form
                 End
                 Begin Image
                     PictureType =2
-                    Left =4320
+                    Left =4140
                     Top =2820
                     Width =540
                     Height =300
@@ -345,9 +345,9 @@ Begin Form
                     Picture ="delete"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =4320
+                    LayoutCachedLeft =4140
                     LayoutCachedTop =2820
-                    LayoutCachedWidth =4860
+                    LayoutCachedWidth =4680
                     LayoutCachedHeight =3120
                     TabIndex =2
                 End
@@ -423,10 +423,10 @@ Begin Form
                     PressedColor =9592887
                     HoverForeColor =4210752
                     PressedForeColor =4210752
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =3
+                    WebImagePaddingBottom =3
                     Overlaps =1
                 End
                 Begin TextBox

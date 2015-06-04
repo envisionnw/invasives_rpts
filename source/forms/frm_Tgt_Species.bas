@@ -11,11 +11,9 @@ Begin Form
     GridY =24
     Width =10935
     DatasheetFontHeight =11
-    ItemSuffix =28
-    Left =-765
-    Top =1905
-    Right =10170
-    Bottom =7950
+    ItemSuffix =30
+    Right =11160
+    Bottom =5988
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x72574db34b86e440
@@ -113,7 +111,7 @@ Begin Form
         End
         Begin Section
             CanGrow = NotDefault
-            Height =6060
+            Height =6000
             Name ="Detail"
             AlternateBackColor =15921906
             AlternateBackThemeColorIndex =1
@@ -321,15 +319,15 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
                     OverlapFlags =85
-                    Left =8400
+                    Left =8640
                     Top =5220
                     Width =1560
                     Height =405
@@ -341,9 +339,9 @@ Begin Form
                     OnClick ="[Event Procedure]"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =8400
+                    LayoutCachedLeft =8640
                     LayoutCachedTop =5220
-                    LayoutCachedWidth =9960
+                    LayoutCachedWidth =10200
                     LayoutCachedHeight =5625
                     ForeThemeColorIndex =-1
                     ForeTint =100.0
@@ -366,10 +364,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -411,10 +409,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -456,10 +454,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -503,10 +501,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -549,10 +547,10 @@ Begin Form
                     PressedForeColor =0
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -597,10 +595,10 @@ Begin Form
                     PressedForeColor =0
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =3
+                    WebImagePaddingBottom =3
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -645,11 +643,55 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =3
+                    WebImagePaddingBottom =3
+                    Overlaps =1
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    Left =6240
+                    Top =5220
+                    Width =1560
+                    Height =405
+                    TabIndex =10
+                    ForeColor =16711680
+                    Name ="btnPreviewList"
+                    Caption ="Preview List"
+                    StatusBarText ="Save the current list"
+                    OnClick ="[Event Procedure]"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =6240
+                    LayoutCachedTop =5220
+                    LayoutCachedWidth =7800
+                    LayoutCachedHeight =5625
+                    ForeThemeColorIndex =-1
+                    ForeTint =100.0
+                    Gradient =0
+                    BackColor =6750156
+                    BackThemeColorIndex =-1
+                    BackTint =100.0
+                    BorderColor =52377
+                    BorderThemeColorIndex =-1
+                    BorderTint =100.0
+                    HoverColor =3407769
+                    HoverThemeColorIndex =-1
+                    HoverTint =100.0
+                    PressedColor =52224
+                    PressedThemeColorIndex =-1
+                    PressedShade =100.0
+                    HoverForeColor =2375487
+                    HoverForeThemeColorIndex =-1
+                    HoverForeTint =100.0
+                    PressedForeColor =6750156
+                    PressedForeThemeColorIndex =-1
+                    PressedForeTint =100.0
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
                     WebImagePaddingRight =2
                     WebImagePaddingBottom =2
-                    Overlaps =1
                 End
             End
         End
@@ -766,8 +808,6 @@ Public Property Let Minimized(IsMin As Boolean)
          DoCmd.Restore
      End If
 End Property
-
-'Public WithEvents sfrm As Access.Form
 
 '=================================================================
 '  Subroutines & Functions
@@ -1293,20 +1333,20 @@ On Error GoTo Err_Handler
     blnAddToList = False
     
     'delete the full list for current or future years
-    If CInt(TempVars.item("TgtYear")) > 0 And CInt(TempVars.item("TgtYear")) > Year(Now()) + 1 Then
+    If CInt(TempVars("TgtYear")) > 0 And CInt(TempVars("TgtYear")) > Year(Now()) + 1 Then
     
-        MsgBox "Removing previously saved " & TempVars.item("park") & " - " & TempVars.item("TgtYear") & _
+        MsgBox "Removing previously saved " & TempVars("park") & " - " & TempVars("TgtYear") & _
                 " species. " & vbCrLf & vbCrLf & _
                 "Your new list will be saved shortly.", vbInformation, _
-                "Deleting Old " & TempVars.item("park") & " - " & TempVars.item("TgtYear") & " List"
+                "Deleting Old " & TempVars("park") & " - " & TempVars("TgtYear") & " List"
                 
         'set statusbar notice
         varReturn = SysCmd(acSysCmdSetStatus, "Removing old list...")
         
         'remove the old list
         strSQL = "DELETE * FROM tbl_Target_Species " & _
-                    "WHERE Park_Code = '" & TempVars.item("park") & _
-                    "' AND Target_Year = " & TempVars.item("TgtYear") & ";"
+                    "WHERE Park_Code = '" & TempVars("park") & _
+                    "' AND Target_Year = " & TempVars("TgtYear") & ";"
         
         DoCmd.SetWarnings False
         DoCmd.RunSQL strSQL
@@ -1320,10 +1360,10 @@ On Error GoTo Err_Handler
     
         'warn the user, but allow them to choose to add to the previous year list (or not)
         iResponse = MsgBox("The list you are saving is from a previous year ( " & _
-                TempVars.item("park") & " - " & TempVars.item("TgtYear") & " )." & vbCrLf & vbCrLf & _
+                TempVars("park") & " - " & TempVars("TgtYear") & " )." & vbCrLf & vbCrLf & _
                 "If the list you are saving has new species, they will be added." & vbCrLf & vbCrLf & _
                "Do you really want to add species to the " & _
-               TempVars.item("park") & " - " & TempVars.item("TgtYear") & "?", _
+               TempVars("park") & " - " & TempVars("TgtYear") & "?", _
                 vbYesNoCancel, "Altering List for a Previous Year!")
         
         'check response - vbOK(1), vbCancel(2), vbAbort(3), vbRetry(4), vbIgnore(5), vbYes(6), vbNo(7)
@@ -1355,8 +1395,8 @@ On Error GoTo Err_Handler
        ' ---------------------------------------------------
         strSQL = "SELECT * FROM tbl_Target_Species " & _
                  "WHERE Master_PLANT_Code_FK = '" & strMasterCode & _
-                 "' AND Park_Code = '" & TempVars.item("park") & _
-                 "' AND Target_Year = " & TempVars.item("TgtYear") & ";"
+                 "' AND Park_Code = '" & TempVars("park") & _
+                 "' AND Target_Year = " & TempVars("TgtYear") & ";"
         
         Dim db As DAO.Database
         Dim rs As DAO.Recordset
@@ -1376,8 +1416,8 @@ On Error GoTo Err_Handler
                     & "VALUES "
     
             'prepare insert value
-            strInsert = "('" & strMasterCode & "','" & TempVars.item("park") & "'," _
-                        & TempVars.item("tgtYear") & ",'" & strSpecies & "','" & strLUCode _
+            strInsert = "('" & strMasterCode & "','" & TempVars("park") & "'," _
+                        & TempVars("tgtYear") & ",'" & strSpecies & "','" & strLUCode _
                         & "'," & iTransectOnly & "," & iTgtAreaID & ");"
             
             'add comma if more than one row to insert
@@ -1481,6 +1521,44 @@ Err_Handler:
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
             "Error encountered (#" & Err.Number & " - btnSearch_Click[Form_frm_Tgt_Species])"
+    End Select
+    Resume Exit_Sub
+End Sub
+
+
+' ---------------------------------
+' SUB:          btnPreviewList_Click
+' Description:  Open a preview report listing of the current target list (based on species in the target species listbox)
+' Assumptions:  -
+' Parameters:   N/A
+' Returns:      N/A
+' Throws:       none
+' References:   none
+' Source/date:
+' Adapted:      Bonnie Campbell, June 3, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 6/3/2015 - initial version
+' ---------------------------------
+Private Sub btnPreviewList_Click()
+On Error GoTo Err_Handler
+
+    Dim rs As DAO.Recordset
+
+    'prepare the recordset for the report (populate temp_Listbox_Recordset)
+    'SetListRecordset lbxTgtSpecies, True, aryFields, aryFieldTypes, "temp_Listbox_Recordset", True
+    AddListToTable lbxTgtSpecies
+    
+    'open the report in preview mode
+    DoCmd.OpenReport "rpt_Tgt_Species_List", acViewReport, , , acWindowNormal, "preview"
+    
+Exit_Sub:
+    Exit Sub
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnPreviewList_Click[Form_frm_Tgt_Species])"
     End Select
     Resume Exit_Sub
 End Sub

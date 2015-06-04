@@ -13,8 +13,10 @@ Begin Report
     Width =11400
     DatasheetFontHeight =11
     ItemSuffix =46
-    Right =11508
-    Bottom =7980
+    Left =888
+    Top =576
+    Right =13308
+    Bottom =8556
     DatasheetGridlinesColor =14806254
     Filter ="TgtList IN ('CARE-2017')"
     RecSrcDt = Begin
@@ -107,7 +109,7 @@ Begin Report
                 Begin Label
                     Left =60
                     Top =60
-                    Width =5700
+                    Width =7140
                     Height =528
                     FontSize =20
                     BorderColor =8355711
@@ -117,7 +119,7 @@ Begin Report
                     GridlineColor =10921638
                     LayoutCachedLeft =60
                     LayoutCachedTop =60
-                    LayoutCachedWidth =5760
+                    LayoutCachedWidth =7200
                     LayoutCachedHeight =588
                 End
                 Begin TextBox
@@ -740,11 +742,25 @@ Option Explicit
 ' Adapted:      Bonnie Campbell, March 5, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 4/1/2015 - initial version
+'   BLC - 6/3/2015 - added check for "preview" openarg to handle list previews
 ' ---------------------------------
 Private Sub Report_Open(Cancel As Integer)
 
 On Error GoTo Err_Handler
 'http://stackoverflow.com/questions/11477297/giving-an-alias-to-a-subquery-containing-a-join-in-access
+    
+    If Me.OpenArgs <> vbNullString Then
+    
+        Select Case Me.OpenArgs
+            Case "preview"
+              Me.RecordSource = "temp_Listbox_Recordset"
+              
+              'set headers
+              tbxParkYear.ControlSource = TempVars("park") & "-" & TempVars("TgtYear")
+              lblReportHdr.Caption = "INVASIVES TARGET LIST PREVIEW"
+        End Select
+        
+    End If
 
     If Len(Me.OpenArgs) > 0 Then
         ' Bob Larsen, January 28, 2012
@@ -759,7 +775,7 @@ On Error GoTo Err_Handler
         '==> Not available for *.mdb or *.accdb's
         
         'set orderby
-        Me.OrderBy = Me.OpenArgs
+        'Me.OrderBy = Me.OpenArgs
     End If
         
 Exit_Sub:
