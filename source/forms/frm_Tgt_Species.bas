@@ -12,10 +12,10 @@ Begin Form
     Width =10935
     DatasheetFontHeight =11
     ItemSuffix =28
-    Left =2052
-    Top =1728
-    Right =13236
-    Bottom =7776
+    Left =-765
+    Top =1905
+    Right =10170
+    Bottom =7950
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x72574db34b86e440
@@ -321,10 +321,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -366,10 +366,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -411,10 +411,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -456,10 +456,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -503,10 +503,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -549,10 +549,10 @@ Begin Form
                     PressedForeColor =0
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -597,10 +597,10 @@ Begin Form
                     PressedForeColor =0
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =3
-                    WebImagePaddingBottom =3
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -645,10 +645,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =3
-                    WebImagePaddingBottom =3
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
             End
@@ -1260,7 +1260,10 @@ End Sub
 ' ---------------------------------
 ' SUB:          btnSaveList_Click
 ' Description:  Save list items
-' Assumptions:  -
+' Assumptions:  Current and future year's lists can be amended by adding/deleting species.
+'               Prior year lists can only add new species to the list.
+'               Species deletions for prior years can only be done via the backend database.
+'               This is to prevent inadvertent list deletions.
 ' Parameters:   N/A
 ' Returns:      N/A
 ' Throws:       none
@@ -1271,6 +1274,11 @@ End Sub
 '   BLC - 3/3/2015 - initial version
 '   BLC - 5/13/2015 - added LU code and fixed MasterCode bug which substituted LU_Code as Master_Code from tlu_NPCN_Plants
 '   BLC - 5/20/2015 - reverted to LUCode for col 2, Code (Master_Plant_Code) in col 0
+'   BLC - 6/3/2015 - added ability to delete from previously created lists for current or future years,
+'                    prior years cannot delete species - done by first deleting then inserting
+'                    list for the park/year
+'                    added message alert for prior year list changes to ensure the user really wants to add
+'                    new species to them (deletions are done via the BE)
 ' ---------------------------------
 Private Sub btnSaveList_Click()
 On Error GoTo Err_Handler
@@ -1279,6 +1287,56 @@ On Error GoTo Err_Handler
     Dim strMasterCode As String, strSpecies As String, strLUCode As String
     Dim strSQL As String, strInsert As String
     Dim varReturn As Variant
+    Dim blnAddToList As Boolean
+    
+    'default
+    blnAddToList = False
+    
+    'delete the full list for current or future years
+    If CInt(TempVars.item("TgtYear")) > 0 And CInt(TempVars.item("TgtYear")) > Year(Now()) + 1 Then
+    
+        MsgBox "Removing previously saved " & TempVars.item("park") & " - " & TempVars.item("TgtYear") & _
+                " species. " & vbCrLf & vbCrLf & _
+                "Your new list will be saved shortly.", vbInformation, _
+                "Deleting Old " & TempVars.item("park") & " - " & TempVars.item("TgtYear") & " List"
+                
+        'set statusbar notice
+        varReturn = SysCmd(acSysCmdSetStatus, "Removing old list...")
+        
+        'remove the old list
+        strSQL = "DELETE * FROM tbl_Target_Species " & _
+                    "WHERE Park_Code = '" & TempVars.item("park") & _
+                    "' AND Target_Year = " & TempVars.item("TgtYear") & ";"
+        
+        DoCmd.SetWarnings False
+        DoCmd.RunSQL strSQL
+        DoCmd.SetWarnings True
+        
+         'pause to view status bar
+        Pause 5
+        
+        blnAddToList = True
+    Else
+    
+        'warn the user, but allow them to choose to add to the previous year list (or not)
+        iResponse = MsgBox("The list you are saving is from a previous year ( " & _
+                TempVars.item("park") & " - " & TempVars.item("TgtYear") & " )." & vbCrLf & vbCrLf & _
+                "If the list you are saving has new species, they will be added." & vbCrLf & vbCrLf & _
+               "Do you really want to add species to the " & _
+               TempVars.item("park") & " - " & TempVars.item("TgtYear") & "?", _
+                vbYesNoCancel, "Altering List for a Previous Year!")
+        
+        'check response - vbOK(1), vbCancel(2), vbAbort(3), vbRetry(4), vbIgnore(5), vbYes(6), vbNo(7)
+        'allow addition only if user says "Yes!"
+        If iResponse = 6 Then blnAddToList = True
+        
+    End If
+    
+    'skip it?
+    If blnAddToList = False Then GoTo Exit_Sub
+    
+    'set status bar
+    varReturn = SysCmd(acSysCmdSetStatus, "Preparing new list... ")
     
     'start @ row 1 (headers = row 0)
     For iRow = 1 To lbxTgtSpecies.ListCount - 1
@@ -1345,13 +1403,7 @@ On Error GoTo Err_Handler
         
         Set qdf = CurrentDb.QueryDefs("qry_Tgt_Species_List")
         
-        'qdf.Parameters("park") = TempVars.item("park")
-        'qdf.Parameters("tgtYear") = CInt(TempVars.item("tgtYear"))
-        
         strSQL = qdf.sql
-        
-        'Call SetValue
-        'Set rs = qdf.OpenRecordset
         
         strSQL = "SELECT tbl_Target_Species.Park_Code AS Park, " & _
                  "tbl_Target_Species.Target_Year AS TgtYear, " & _
@@ -1376,9 +1428,7 @@ On Error GoTo Err_Handler
     varReturn = SysCmd(acSysCmdSetStatus, "Targetlist save complete.")
     
     'pause to view status bar
-    For i = 0 To 10000
-        i = i
-    Next i
+    Pause 20
     
     'reset status bar
     varReturn = SysCmd(acSysCmdSetStatus, " ")

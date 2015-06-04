@@ -1673,7 +1673,7 @@ On Error GoTo Err_Handler
     
     'extend form if species count > 0
     If count > 0 Then
-        SetWindowSize Me, 8000, Me.width
+        SetWindowSize Me, 8000, Me.Width
     End If
     
     'set statusbar notice

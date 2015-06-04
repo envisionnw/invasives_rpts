@@ -263,3 +263,52 @@ Err_Handler:
     End Select
     Resume Exit_Function
 End Function
+
+' ---------------------------------
+' FUNCTION:     IsUsedTargetArea
+' Description:  Determine if the target area is in use by a target list
+' Parameters:   TgtAreaID - target area idenifier (integer)
+' Returns:      boolean - true if target area is in use, false if not
+' Throws:       none
+' References:   none
+' Source/date:
+' Adapted:      Bonnie Campbell, June 3, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 6/3/2015  - initial version
+' ---------------------------------
+Public Function IsUsedTargetArea(TgtAreaID As Integer) As Boolean
+
+On Error GoTo Err_Handler
+    
+    Dim db As DAO.Database
+    Dim rs As DAO.Recordset
+    Dim strSQL As String
+    
+    'default
+    IsUsedTargetArea = False
+    
+    'generate SQL ==> NOTE: LIMIT 1; syntax not viable for Access, use SELECT TOP x instead
+    strSQL = "SELECT TOP 1 Target_Area_ID FROM tbl_Target_Species WHERE Target_Area_ID = " & TgtAreaID & ";"
+            
+    'fetch data
+    Set db = CurrentDb
+    Set rs = db.OpenRecordset(strSQL)
+    
+    'assume only 1 record returned
+    If rs.RecordCount > 0 Then
+        IsUsedTargetArea = True
+    Else
+        GoTo Exit_Function
+    End If
+       
+Exit_Function:
+    Exit Function
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - IsUsedTargetArea[mod_App_Data])"
+    End Select
+    Resume Exit_Function
+End Function

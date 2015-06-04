@@ -22,9 +22,10 @@ Begin Form
     Width =12300
     DatasheetFontHeight =10
     ItemSuffix =182
-    Left =19620
-    Right =31920
-    Bottom =10068
+    Left =1455
+    Top =600
+    Right =13755
+    Bottom =10665
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x80d28b4cb201e340
@@ -185,10 +186,10 @@ Begin Form
                             PressedColor =16772300
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =2
+                            WebImagePaddingBottom =2
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -222,10 +223,10 @@ Begin Form
                             PressedShade =90.0
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =2
+                            WebImagePaddingBottom =2
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -255,10 +256,10 @@ Begin Form
                             PressedColor =13434828
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =2
+                            WebImagePaddingBottom =2
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -289,10 +290,10 @@ Begin Form
                             PressedColor =14211288
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =2
+                            WebImagePaddingBottom =2
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -322,10 +323,10 @@ Begin Form
                             PressedColor =16764108
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =2
+                            WebImagePaddingBottom =2
                             Overlaps =1
                         End
                     End
@@ -441,10 +442,10 @@ Begin Form
                             LayoutCachedTop =540
                             LayoutCachedWidth =12180
                             LayoutCachedHeight =9060
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =2
+                            WebImagePaddingBottom =2
                             Begin
                                 Begin Rectangle
                                     BackStyle =1
@@ -529,10 +530,10 @@ Begin Form
                             LayoutCachedTop =540
                             LayoutCachedWidth =12180
                             LayoutCachedHeight =9060
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =2
+                            WebImagePaddingBottom =2
                             Begin
                                 Begin Rectangle
                                     BackStyle =1
@@ -592,10 +593,10 @@ Begin Form
                             LayoutCachedTop =540
                             LayoutCachedWidth =12180
                             LayoutCachedHeight =9060
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =2
+                            WebImagePaddingBottom =2
                             Begin
                                 Begin Rectangle
                                     BackStyle =1
@@ -706,10 +707,10 @@ Begin Form
                             LayoutCachedTop =540
                             LayoutCachedWidth =12180
                             LayoutCachedHeight =9060
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =2
+                            WebImagePaddingBottom =2
                         End
                         Begin Page
                             Visible = NotDefault
@@ -728,10 +729,10 @@ Begin Form
                             LayoutCachedTop =540
                             LayoutCachedWidth =12180
                             LayoutCachedHeight =9060
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =2
+                            WebImagePaddingBottom =2
                             Begin
                                 Begin Subform
                                     OverlapFlags =247
