@@ -211,7 +211,6 @@ Err_Handler:
     Resume Exit_Sub
 End Sub
 
-
 ' ---------------------------------
 ' SUB:          AddListToTable
 ' Description:  Populate table from listbox

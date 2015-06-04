@@ -21,17 +21,17 @@ Begin Form
     GridY =24
     Width =12300
     DatasheetFontHeight =10
-    ItemSuffix =182
-    Left =1455
-    Top =600
-    Right =13755
-    Bottom =10665
+    ItemSuffix =194
+    Left =555
+    Top =435
+    Right =12855
+    Bottom =10995
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x80d28b4cb201e340
     End
     RecordSource ="tsys_App_Defaults"
-    Caption ="NCPN Invasive Species Utilities"
+    Caption ="NCPN Invasives Reporting Tool"
     OnCurrent ="[Event Procedure]"
     OnOpen ="[Event Procedure]"
     OnClose ="[Event Procedure]"
@@ -139,7 +139,7 @@ Begin Form
         End
         Begin Section
             CanGrow = NotDefault
-            Height =10080
+            Height =10575
             BackColor =11830108
             Name ="Detail"
             AlternateBackColor =15710311
@@ -202,10 +202,10 @@ Begin Form
                             TabIndex =1
                             OptionValue =2
                             ForeColor =6250335
-                            Name ="tglView"
-                            StatusBarText ="View options"
-                            Caption ="VIEW"
-                            ControlTipText ="View options"
+                            Name ="tglSearch"
+                            StatusBarText ="Search options"
+                            Caption ="SEARCH"
+                            ControlTipText ="Search options"
 
                             LayoutCachedLeft =2280
                             LayoutCachedTop =1425
@@ -373,7 +373,7 @@ Begin Form
                     BorderColor =16777215
                     ForeColor =8355711
                     Name ="lblInstructions"
-                    Caption ="Choose the park and year for your list. Click 'Continue' to prepare your list."
+                    Caption =" "
                     FontName ="Calibri"
                     GridlineColor =10921638
                     LayoutCachedLeft =6420
@@ -428,20 +428,20 @@ Begin Form
                     Begin
                         Begin Page
                             OverlapFlags =247
-                            Left =60
-                            Top =540
-                            Width =12120
-                            Height =8520
+                            Left =75
+                            Top =555
+                            Width =12090
+                            Height =8490
                             BorderColor =10921638
                             Name ="tabCreate"
                             StatusBarText ="Create"
                             ControlTipText ="Click to create lists"
                             Caption ="QA/QC"
                             GridlineColor =10921638
-                            LayoutCachedLeft =60
-                            LayoutCachedTop =540
-                            LayoutCachedWidth =12180
-                            LayoutCachedHeight =9060
+                            LayoutCachedLeft =75
+                            LayoutCachedTop =555
+                            LayoutCachedWidth =12165
+                            LayoutCachedHeight =9045
                             WebImagePaddingLeft =2
                             WebImagePaddingTop =2
                             WebImagePaddingRight =2
@@ -453,7 +453,7 @@ Begin Form
                                     Left =2280
                                     Top =3000
                                     Width =2400
-                                    Height =3720
+                                    Height =2880
                                     BackColor =8829910
                                     BorderColor =12835293
                                     Name ="rctInsetCtr_Create"
@@ -461,7 +461,7 @@ Begin Form
                                     LayoutCachedLeft =2280
                                     LayoutCachedTop =3000
                                     LayoutCachedWidth =4680
-                                    LayoutCachedHeight =6720
+                                    LayoutCachedHeight =5880
                                     BorderThemeColorIndex =3
                                     BorderShade =90.0
                                     GridlineThemeColorIndex =1
@@ -469,7 +469,6 @@ Begin Form
                                 End
                                 Begin Label
                                     FontUnderline = NotDefault
-                                    BackStyle =1
                                     BorderWidth =1
                                     OverlapFlags =247
                                     TextAlign =2
@@ -518,18 +517,18 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =60
-                            Top =540
-                            Width =12120
-                            Height =8520
+                            Left =75
+                            Top =555
+                            Width =12090
+                            Height =8490
                             BorderColor =10921638
-                            Name ="tabView"
-                            Caption ="LOGS"
+                            Name ="tabSearch"
+                            Caption ="SEARCH"
                             GridlineColor =10921638
-                            LayoutCachedLeft =60
-                            LayoutCachedTop =540
-                            LayoutCachedWidth =12180
-                            LayoutCachedHeight =9060
+                            LayoutCachedLeft =75
+                            LayoutCachedTop =555
+                            LayoutCachedWidth =12165
+                            LayoutCachedHeight =9045
                             WebImagePaddingLeft =2
                             WebImagePaddingTop =2
                             WebImagePaddingRight =2
@@ -538,18 +537,18 @@ Begin Form
                                 Begin Rectangle
                                     BackStyle =1
                                     OverlapFlags =255
-                                    Left =2220
-                                    Top =3855
+                                    Left =2279
+                                    Top =2999
                                     Width =2400
                                     Height =2880
                                     BackColor =8829910
                                     BorderColor =12835293
                                     Name ="rctInsetCtr_Logs"
                                     GridlineColor =10921638
-                                    LayoutCachedLeft =2220
-                                    LayoutCachedTop =3855
-                                    LayoutCachedWidth =4620
-                                    LayoutCachedHeight =6735
+                                    LayoutCachedLeft =2279
+                                    LayoutCachedTop =2999
+                                    LayoutCachedWidth =4679
+                                    LayoutCachedHeight =5879
                                     BorderThemeColorIndex =3
                                     BorderShade =90.0
                                     GridlineThemeColorIndex =1
@@ -558,7 +557,7 @@ Begin Form
                                 Begin Label
                                     FontUnderline = NotDefault
                                     BorderWidth =1
-                                    OverlapFlags =247
+                                    OverlapFlags =255
                                     TextAlign =2
                                     Left =2205
                                     Top =4455
@@ -576,23 +575,62 @@ Begin Form
                                     LayoutCachedHeight =4875
                                     ThemeFontIndex =1
                                 End
+                                Begin Rectangle
+                                    SpecialEffect =0
+                                    BackStyle =1
+                                    OverlapFlags =255
+                                    Left =2279
+                                    Top =2999
+                                    Width =2399
+                                    Height =2880
+                                    BackColor =8829910
+                                    BorderColor =12835293
+                                    Name ="rctInsetCtr_Search"
+                                    LayoutCachedLeft =2279
+                                    LayoutCachedTop =2999
+                                    LayoutCachedWidth =4678
+                                    LayoutCachedHeight =5879
+                                    BorderThemeColorIndex =3
+                                    BorderShade =90.0
+                                End
+                                Begin Label
+                                    FontUnderline = NotDefault
+                                    OverlapFlags =247
+                                    TextAlign =2
+                                    Left =2280
+                                    Top =3540
+                                    Width =2415
+                                    Height =420
+                                    FontSize =11
+                                    ForeColor =16711680
+                                    Name ="btnSearch"
+                                    Caption ="Species Search"
+                                    FontName ="Calibri"
+                                    OnClick ="[Event Procedure]"
+                                    ControlTipText ="Open species search"
+                                    LayoutCachedLeft =2280
+                                    LayoutCachedTop =3540
+                                    LayoutCachedWidth =4695
+                                    LayoutCachedHeight =3960
+                                    ThemeFontIndex =1
+                                End
                             End
                         End
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =60
-                            Top =540
-                            Width =12120
-                            Height =8520
+                            Left =75
+                            Top =555
+                            Width =12090
+                            Height =8490
                             BorderColor =10921638
                             Name ="tabReports"
                             Caption ="REPORTS"
                             GridlineColor =10921638
-                            LayoutCachedLeft =60
-                            LayoutCachedTop =540
-                            LayoutCachedWidth =12180
-                            LayoutCachedHeight =9060
+                            LayoutCachedLeft =75
+                            LayoutCachedTop =555
+                            LayoutCachedWidth =12165
+                            LayoutCachedHeight =9045
                             WebImagePaddingLeft =2
                             WebImagePaddingTop =2
                             WebImagePaddingRight =2
@@ -695,18 +733,18 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =60
-                            Top =540
-                            Width =12120
-                            Height =8520
+                            Left =75
+                            Top =555
+                            Width =12090
+                            Height =8490
                             BorderColor =10921638
                             Name ="tabExport"
                             Caption ="EXPORT"
                             GridlineColor =10921638
-                            LayoutCachedLeft =60
-                            LayoutCachedTop =540
-                            LayoutCachedWidth =12180
-                            LayoutCachedHeight =9060
+                            LayoutCachedLeft =75
+                            LayoutCachedTop =555
+                            LayoutCachedWidth =12165
+                            LayoutCachedHeight =9045
                             WebImagePaddingLeft =2
                             WebImagePaddingTop =2
                             WebImagePaddingRight =2
@@ -715,20 +753,20 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =60
-                            Top =540
-                            Width =12120
-                            Height =8520
+                            Left =75
+                            Top =555
+                            Width =12090
+                            Height =8490
                             BorderColor =10921638
                             Name ="tabDbAdmin"
                             StatusBarText ="Database Administration"
                             ControlTipText ="Database Administration Tasks"
                             Caption ="DB ADMIN"
                             GridlineColor =10921638
-                            LayoutCachedLeft =60
-                            LayoutCachedTop =540
-                            LayoutCachedWidth =12180
-                            LayoutCachedHeight =9060
+                            LayoutCachedLeft =75
+                            LayoutCachedTop =555
+                            LayoutCachedWidth =12165
+                            LayoutCachedHeight =9045
                             WebImagePaddingLeft =2
                             WebImagePaddingTop =2
                             WebImagePaddingRight =2
@@ -753,19 +791,17 @@ Begin Form
                                     LayoutCachedHeight =8115
                                 End
                                 Begin Label
-                                    BackStyle =1
                                     OverlapFlags =255
                                     Left =600
                                     Top =2640
                                     Width =10980
                                     Height =5640
-                                    BackColor =12566463
+                                    BackColor =12835293
                                     Name ="lblCover"
                                     LayoutCachedLeft =600
                                     LayoutCachedTop =2640
                                     LayoutCachedWidth =11580
                                     LayoutCachedHeight =8280
-                                    BackThemeColorIndex =1
                                     BackShade =75.0
                                 End
                             End
@@ -782,7 +818,7 @@ Begin Form
                     BorderColor =16777215
                     ForeColor =5855577
                     Name ="lblInsetTitle"
-                    Caption ="Create > Species Target Lists"
+                    Caption ="Choose what you'd like to create"
                     FontName ="Calibri"
                     GridlineColor =10921638
                     LayoutCachedLeft =840
@@ -798,6 +834,7 @@ Begin Form
                     GridlineShade =65.0
                 End
                 Begin Subform
+                    Visible = NotDefault
                     OverlapFlags =247
                     Left =6540
                     Top =4620
@@ -839,6 +876,7 @@ Option Explicit
 ' Revisions:    BLC, 4/21/2015 - Adapted for NCPN Invasives Reports - Species Target List tool
 '                   Converted tabQAQC to tabCreate, tabLogs to tabView
 '               BLC, 4/22/2015 - Renamed
+'               BLC, 6/4/2015  - Changed View to Search tab
 ' =================================
 
 ' ********************************************************************************************
@@ -1087,6 +1125,7 @@ End Sub
 '                                on tab change
 '               --------------------------------------------------------------------------------------
 '               BLC, 4/21/2015 - Adapted for NCPN Invasives Reports - Species Target List tool
+'               BLC, 6/4/2015  - Changed View to Search, changed TempVars.item("xx") to TempVars("xx")
 ' =================================
 Public Sub optGrpTabs_Click()
 On Error GoTo Err_Handler
@@ -1105,11 +1144,13 @@ Dim blnLeftInsetHide As Boolean
             strTab = "tabCreate"
             strAction = "tbl"
             lngTabColor = HTMLConvert("#CCECFF") 'lt blue CCECFF RGB(204,236,255) 13430015
-        Case 2 'View
-            strTab = "tabView"
+        Case 2 'Search
+            strTab = "tabSearch"
+            strAction = "frm"
             lngTabColor = RGB(221, 217, 195) 'tan DDD9C3 RGB(221,217,195) 14539203
-            lblCover.backcolor = lngTabColor
-            lblCover.visible = True
+            'update instructions & make visible
+            PopulateInstructions Me!lblInstructions, "Search"
+            Me!lblInstructions.visible = True
         Case 3 'Reports
             strTab = "tabReports"
             strAction = "rpt"
@@ -1130,7 +1171,7 @@ Dim blnLeftInsetHide As Boolean
             lblCover.visible = True
     End Select
     
-    'identify action type (qry = query, rpt = report, exp = export, tbl = table)
+    'identify action type (qry = query, rpt = report, exp = export, tbl = table, frm = form)
      If IsNull(TempVars.item("action")) Then
         TempVars.Add "action", strAction
     Else
@@ -1176,7 +1217,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Initialize[mod_Init])"
+            "Error encountered (#" & Err.Number & " - optGrpTabs_Click[frm_Tgt_List_Tool])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -1238,8 +1279,12 @@ End Sub
 ' Source/date:  Bonnie Campbell, August 20, 2014 - for NCPN tools
 ' Adapted:      -
 ' Revisions:   BLC - 8/20/2014 - initial version
+'              BLC - 6/4/2015  - added blnDisableDoubleClick to turn off species search LUCode_DoubleClick event
 ' ---------------------------------
 Public Sub ActionButton_Click(btn As Control, Optional strForm As String)
+    Dim strArgs As String
+    'default
+    strArgs = ""
     
     'highlight btn
     buttonHighlight btn, 1
@@ -1249,7 +1294,8 @@ Public Sub ActionButton_Click(btn As Control, Optional strForm As String)
 
     'prepare display
     If Len(strForm) > 0 Then
-        DoCmd.OpenForm strForm
+        If strForm = "frm_Species_Search" Then strArgs = "DisableDoubleClick"
+        DoCmd.OpenForm strForm, acNormal, , , , acWindowNormal, strArgs
     Else
         OpenFilterSubform btn
     End If
@@ -1267,6 +1313,7 @@ End Sub
 '               BLC - 5/1/2015  - handled alternate fsub_Filter subform control source forms
 '               BLC - 5/12/2015  - adapted for unused tabs
 '               BLC - 5/13/2015 - fixed so "Select Year" is displayed initially for cbxYear
+'               BLC - 6/4/2015  - added "Search" action for alternate fsub_Filter subform control handling
 ' ---------------------------------
 Public Sub OpenFilterSubform(ctrl As Control)
         
@@ -1335,7 +1382,7 @@ On Error GoTo Err_Handler:
     End With
     
     'hide filter subform for unused tabs
-    If strAction = "DbAdmin" Or strAction = "View" Then
+    If strAction = "DbAdmin" Or strAction = "View" Or strAction = "Search" Then
         lblCover.visible = True
     End If
     
@@ -1355,15 +1402,32 @@ Err_Handler:
 End Sub
 
 ' =================================
-'   View Tab Functionality
+'   Search Tab Functionality
 ' =================================
 ' =================================
-' TAB (PAGE) NAME:    View (tabView)
-' Description:  View target species lists
+' TAB (PAGE) NAME:    Search (tabSearch)
+' Description:  Search for species info
 ' Unbound ctls:
 ' Subforms:     none
 ' =================================
-'  see instructions
+' ---------------------------------
+' SUB:     btnSearch_Click
+' Description:  Opens the search form without double click functionality
+' Parameters:   -
+' Returns:      -
+' Throws:       -
+' References:   -
+' Source/date:  Bonnie Campbell, June 4, 2015
+' Revisions:    6/4/2015 - BLC - initial version
+' ---------------------------------
+Private Sub btnSearch_Click()
+
+    TempVars.item("frm") = "Species_Search"
+
+    'button actions
+    ActionButton_Click btnSearch, "frm_Species_Search"
+    
+End Sub
 
 ' =================================
 '   Reports Tab Functionality
