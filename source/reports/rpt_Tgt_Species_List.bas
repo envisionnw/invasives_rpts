@@ -13,9 +13,10 @@ Begin Report
     Width =11400
     DatasheetFontHeight =11
     ItemSuffix =46
-    Right =11505
-    Bottom =9855
+    Right =11508
+    Bottom =7980
     DatasheetGridlinesColor =14806254
+    Filter ="TgtList IN ('CARE-2017')"
     RecSrcDt = Begin
         0x122745e02f95e440
     End
@@ -91,7 +92,7 @@ Begin Report
             ControlSource ="Family"
         End
         Begin BreakLevel
-            ControlSource ="Species_Name"
+            ControlSource ="utah_species"
         End
         Begin FormHeader
             KeepTogether = NotDefault
@@ -106,7 +107,7 @@ Begin Report
                 Begin Label
                     Left =60
                     Top =60
-                    Width =3816
+                    Width =5700
                     Height =528
                     FontSize =20
                     BorderColor =8355711
@@ -116,7 +117,7 @@ Begin Report
                     GridlineColor =10921638
                     LayoutCachedLeft =60
                     LayoutCachedTop =60
-                    LayoutCachedWidth =3876
+                    LayoutCachedWidth =5760
                     LayoutCachedHeight =588
                 End
                 Begin TextBox
@@ -319,18 +320,18 @@ Begin Report
                     IMESentenceMode =3
                     Left =120
                     Top =60
-                    Width =2760
+                    Width =4140
                     Height =315
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxDate"
-                    ControlSource ="=Now()"
+                    ControlSource ="=\"Printed:   \" & Now()"
                     Format ="Long Date"
                     GridlineColor =10921638
 
                     LayoutCachedLeft =120
                     LayoutCachedTop =60
-                    LayoutCachedWidth =2880
+                    LayoutCachedWidth =4260
                     LayoutCachedHeight =375
                 End
                 Begin TextBox

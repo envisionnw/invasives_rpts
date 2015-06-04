@@ -15,9 +15,9 @@ Begin Report
     ItemSuffix =43
     Top =540
     Right =11760
-    Bottom =8775
+    Bottom =8520
     DatasheetGridlinesColor =14806254
-    Filter ="TgtList IN ('CARE-2009')"
+    Filter ="TgtList IN ('BLCA-2012','BLCA-2017','CARE-2009','CARE-2010')"
     RecSrcDt = Begin
         0x75c142d25493e440
     End
@@ -103,7 +103,7 @@ Begin Report
             ControlSource ="Family"
         End
         Begin BreakLevel
-            ControlSource ="Species_Name"
+            ControlSource ="utah_species"
         End
         Begin FormHeader
             KeepTogether = NotDefault
@@ -119,7 +119,7 @@ Begin Report
                 Begin Label
                     Left =60
                     Top =60
-                    Width =4260
+                    Width =5700
                     Height =528
                     FontSize =20
                     BorderColor =8355711
@@ -129,7 +129,7 @@ Begin Report
                     GridlineColor =10921638
                     LayoutCachedLeft =60
                     LayoutCachedTop =60
-                    LayoutCachedWidth =4320
+                    LayoutCachedWidth =5760
                     LayoutCachedHeight =588
                 End
                 Begin TextBox
@@ -333,18 +333,18 @@ Begin Report
                     IMESentenceMode =3
                     Left =120
                     Top =60
-                    Width =5040
+                    Width =5940
                     Height =312
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxDate"
-                    ControlSource ="=Now()"
+                    ControlSource ="=\"Printed:   \" & Now()"
                     Format ="Long Date"
                     GridlineColor =10921638
 
                     LayoutCachedLeft =120
                     LayoutCachedTop =60
-                    LayoutCachedWidth =5160
+                    LayoutCachedWidth =6060
                     LayoutCachedHeight =372
                 End
                 Begin TextBox

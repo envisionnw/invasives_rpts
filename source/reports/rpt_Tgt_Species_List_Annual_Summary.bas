@@ -3,6 +3,7 @@ VersionRequired =20
 Begin Report
     LayoutForPrint = NotDefault
     DividingLines = NotDefault
+    FilterOn = NotDefault
     DateGrouping =1
     GrpKeepTogether =1
     PictureAlignment =2
@@ -12,10 +13,11 @@ Begin Report
     Width =15264
     DatasheetFontHeight =11
     ItemSuffix =125
-    Top =525
-    Right =8670
-    Bottom =7230
+    Top =528
+    Right =15504
+    Bottom =8508
     DatasheetGridlinesColor =14806254
+    Filter ="TgtYear=2017"
     RecSrcDt = Begin
         0xf59e8f680195e440
     End
@@ -92,7 +94,7 @@ Begin Report
             ControlSource ="Family"
         End
         Begin BreakLevel
-            ControlSource ="Species_Name"
+            ControlSource ="utah_species"
         End
         Begin FormHeader
             KeepTogether = NotDefault
@@ -300,18 +302,18 @@ Begin Report
                     IMESentenceMode =3
                     Left =120
                     Top =60
-                    Width =5040
+                    Width =5820
                     Height =312
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxDate"
-                    ControlSource ="=Now()"
+                    ControlSource ="=\"Printed:   \" & Now()"
                     Format ="Long Date"
                     GridlineColor =10921638
 
                     LayoutCachedLeft =120
                     LayoutCachedTop =60
-                    LayoutCachedWidth =5160
+                    LayoutCachedWidth =5940
                     LayoutCachedHeight =372
                 End
                 Begin TextBox

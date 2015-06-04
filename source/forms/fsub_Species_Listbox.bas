@@ -18,8 +18,9 @@ Begin Form
     Right =6300
     Bottom =7308
     DatasheetGridlinesColor =14806254
+    OrderBy ="Species"
     RecSrcDt = Begin
-        0xa913d0241a94e440
+        0xf3f72ab2be95e440
     End
     RecordSource ="SELECT tlu_NCPN_Plants.Master_PLANT_Code AS Code, tlu_NCPN_Plants.Master_Species"
         " AS Species, Switch(tlu_NCPN_Plants.LU_Code Is Null,\" \",tlu_NCPN_Plants.LU_Cod"
@@ -37,8 +38,6 @@ Begin Form
     AllowPivotChartView =0
     AllowPivotChartView =0
     FilterOnLoad =0
-    OrderByOnLoad =0
-    OrderByOnLoad =0
     ShowPageMargins =0
     DisplayOnSharePointSite =1
     AllowLayoutView =0
