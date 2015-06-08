@@ -13,7 +13,7 @@ Begin Form
     DatasheetFontHeight =11
     ItemSuffix =30
     Right =11160
-    Bottom =5988
+    Bottom =5985
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x72574db34b86e440
@@ -319,10 +319,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -364,10 +364,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -409,10 +409,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -454,10 +454,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -501,10 +501,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -547,10 +547,10 @@ Begin Form
                     PressedForeColor =0
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -595,10 +595,10 @@ Begin Form
                     PressedForeColor =0
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =3
-                    WebImagePaddingBottom =3
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -643,10 +643,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =3
-                    WebImagePaddingBottom =3
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -688,10 +688,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                 End
             End
         End
@@ -1319,6 +1319,7 @@ End Sub
 '                    list for the park/year
 '                    added message alert for prior year list changes to ensure the user really wants to add
 '                    new species to them (deletions are done via the BE)
+'   BLC - 6/4/2015 - renamed tempTgtSpecies to temp_Tgt_Species
 ' ---------------------------------
 Private Sub btnSaveList_Click()
 On Error GoTo Err_Handler
@@ -1434,8 +1435,8 @@ On Error GoTo Err_Handler
     Next
 
         ' check for temp query & clear if it exists
-        If QueryExists("tempTgtSpecies") Then
-            CurrentDb.QueryDefs.Delete "tempTgtSpecies"
+        If QueryExists("temp_Tgt_Species") Then
+            CurrentDb.QueryDefs.Delete "temp_Tgt_Species"
         End If
         
         'open target list
@@ -1461,8 +1462,8 @@ On Error GoTo Err_Handler
         'DoCmd.OpenQuery "qryTgtSpeciesList", acViewNormal, acReadOnly
         'DoCmd.RunSQL strSQL <=== NO! not on a SELECT...
         
-        CurrentDb.CreateQueryDef("tempTgtSpecies").sql = strSQL
-        DoCmd.OpenQuery "tempTgtSpecies"
+        CurrentDb.CreateQueryDef("temp_Tgt_Species").sql = strSQL
+        DoCmd.OpenQuery "temp_Tgt_Species"
     
     'set statusbar notice
     varReturn = SysCmd(acSysCmdSetStatus, "Targetlist save complete.")

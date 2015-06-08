@@ -13,10 +13,9 @@ Begin Report
     Width =11400
     DatasheetFontHeight =11
     ItemSuffix =46
-    Left =888
-    Top =576
-    Right =13308
-    Bottom =8556
+    Top =1050
+    Right =12015
+    Bottom =10950
     DatasheetGridlinesColor =14806254
     Filter ="TgtList IN ('CARE-2017')"
     RecSrcDt = Begin
@@ -737,7 +736,19 @@ Option Explicit
 ' Parameters:   -
 ' Returns:      N/A
 ' Throws:       none
-' References:   none
+' References:
+'   http://stackoverflow.com/questions/11477297/giving-an-alias-to-a-subquery-containing-a-join-in-access
+'   Bob Larsen, January 28, 2012
+'   https://social.msdn.microsoft.com/Forums/office/en-US/3e126484-112f-4854-a5c0-2e9ef48e02bc/how-to-change-recordsource-for-a-report-with-vba?forum=accessdev
+'       set recordset to passed in SQL via OpenArgs
+'       If Me.OpenArgs <> vbNullString Then
+'       Me.Recordset = Me.OpenArgs
+'   dyDMA, Sept 8, 2008
+'   http://www.utteraccess.com/forum/Run-time-error-32585-t1710296.html
+'       Me.Recordset = qdf.OpenRecordset()
+'       ==> Run-time Error 32585: This feature is only available in an ADP
+'       ==> Only Access ADP's can use this method (assign report recordset @ run-time)
+'       ==> Not available for *.mdb or *.accdb's
 ' Source/date:
 ' Adapted:      Bonnie Campbell, March 5, 2015 - for NCPN tools
 ' Revisions:
@@ -747,36 +758,50 @@ Option Explicit
 Private Sub Report_Open(Cancel As Integer)
 
 On Error GoTo Err_Handler
-'http://stackoverflow.com/questions/11477297/giving-an-alias-to-a-subquery-containing-a-join-in-access
-    
+   
     If Me.OpenArgs <> vbNullString Then
     
         Select Case Me.OpenArgs
             Case "preview"
-              Me.RecordSource = "temp_Listbox_Recordset"
+                Dim qdf As DAO.QueryDef
+                
+                'delete table if exists
+                If TableExists("temp_List_Preview") Then
+                    DoCmd.SetWarnings False
+                    DoCmd.DeleteObject acTable, "temp_List_Preview"
+                    DoCmd.SetWarnings True
+                End If
+                
+                'qry_Park_Tgt_Species_List_Preview --> creates table temp_List_Preview
+                Set qdf = CurrentDb.QueryDefs("qry_Tgt_Species_List_Preview")
+                qdf.Parameters("park") = TempVars("park")
+                qdf.Parameters("TgtYear") = CInt(TempVars("TgtYear"))
+                
+                qdf.Execute
+                
+                'set report recordset
+                Me.RecordSource = "temp_List_Preview"
               
-              'set headers
-              tbxParkYear.ControlSource = TempVars("park") & "-" & TempVars("TgtYear")
-              lblReportHdr.Caption = "INVASIVES TARGET LIST PREVIEW"
+              'MsgBox tbxListName.ControlSource, vbOKOnly, "hmmm"
+              
+                'set headers
+                tbxParkYear.ControlSource = TempVars("park") & "-" & TempVars("TgtYear")
+                tbxListName.ControlSource = IIf([Page] > 1, "Invasives List for " & TempVars("park") & "-" & TempVars("TgtYear"), "")
+                lblReportHdr.Caption = "INVASIVES TARGET LIST PREVIEW"
+                
+              'MsgBox tbxListName.ControlSource, vbOKOnly, "hmmm"
+              
+                'set textboxes
+                'tbxPriority=Switch([Transect_Only]=1,"Transect Only",Len([Tgt_Area])>0,[Tgt_Area],[Priority]>-1,[Priority])
+                'tbxPriority.ControlSource = Switch([Transect_Only] = 1, "Transect Only", Len([Tgt_Area]) > 0, [Tgt_Area], [Priority] > -1, [Priority])
         End Select
         
     End If
 
-    If Len(Me.OpenArgs) > 0 Then
-        ' Bob Larsen, January 28, 2012
-        ' https://social.msdn.microsoft.com/Forums/office/en-US/3e126484-112f-4854-a5c0-2e9ef48e02bc/how-to-change-recordsource-for-a-report-with-vba?forum=accessdev
-        'set recordset to passed in SQL via OpenArgs
-        'If Me.OpenArgs <> vbNullString Then
-        'Me.Recordset = Me.OpenArgs
-        ' dyDMA, Sept 8, 2008
-        ' http://www.utteraccess.com/forum/Run-time-error-32585-t1710296.html
-        '==> Run-time Error 32585: This feature is only available in an ADP
-        '==> Only Access ADP's can use this method (assign report recordset @ run-time)
-        '==> Not available for *.mdb or *.accdb's
-        
+    'If Len(Me.OpenArgs) > 0 Then
         'set orderby
         'Me.OrderBy = Me.OpenArgs
-    End If
+    'End If
         
 Exit_Sub:
     Exit Sub

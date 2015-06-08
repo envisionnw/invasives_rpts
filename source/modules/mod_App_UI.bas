@@ -29,6 +29,7 @@ Option Explicit
 '               BLC, 4/21/2015 - Adapted for NCPN Invasives Reports - Species Target List tool
 '                                Converted QAQC to Create, Logs to View
 '               BLC, 5/26/2015 - Added error handling
+'               BLC, 6/4/2015 - Changed View to Search tab, added "or modify" for create tab
 ' =================================
 Public Sub PopulateInsetTitle(ctrl As Control, strContext As String)
 On Error GoTo Err_Handler
@@ -37,7 +38,7 @@ On Error GoTo Err_Handler
     
     Select Case strContext
         Case "Create" ' Create main
-            strTitle = "Choose what you'd like to create"
+            strTitle = "Choose what you'd like to create or modify"
         Case "CreateTgtLists" ' Create species target lists
             strTitle = "Create > Species Target Lists"
         Case "AddTgtArea" ' Add target areas
@@ -47,8 +48,8 @@ On Error GoTo Err_Handler
             strTitle = "Data Validation > " & strContext
         Case "Data Validation" ' QA/QC analysis project selection
             strTitle = "Data Validation > Field > Duplicates (NFV)" '<<<<< Make this so it ties back to the selected analysis
-        Case "View" ' View main
-            strTitle = "View"
+        Case "Search" ' Search main
+            strTitle = "Species Search"
         Case "Reports" ' Reports main
             strTitle = "Reports"
         Case "CrewSpeciesList" ' Reports > Field Crew Species List
@@ -102,6 +103,7 @@ End Sub
 '               BLC, 4/21/2015 - Adapted for NCPN Invasives Reports - Species Target List tool
 '                                Converted QAQC to Create, Logs to View
 '               BLC, 5/26/2015 - Added error handling
+'               BLC, 6/4/2015  - Changed View to Search
 ' =================================
 Public Sub PopulateInstructions(ctrl As Control, strContext As String)
 On Error GoTo Err_Handler
@@ -111,7 +113,7 @@ On Error GoTo Err_Handler
     
     Select Case strContext
         Case "Create" ' Create main
-            strInstructions = "Choose what you would like to create."
+            strInstructions = "Choose what you would like to create/modify."
         Case "CreateTgtLists" ' Create > Species Target Lists
             strInstructions = "Choose the park and year for your list. Click 'Continue' to prepare your list."
         Case "AddTgtArea" ' Create > Add Target Area
@@ -119,8 +121,11 @@ On Error GoTo Err_Handler
         Case "Outliers", "MissingData", "SuspectValues", "SuspectDO", "SuspectpH", "SuspectSC", "SuspectWT", "Duplicates" ' QA/QC main
             strInstructions = "Complete the fields to define the data set or subset you are validating. " _
                     & "Leave the fields blank if you are validating all data. Click 'Run' to validate."
-        Case "View" ' View main
-            strInstructions = "The view menu is currently not in use for this application."
+        Case "Search" ' Search main
+            strInstructions = "Search for species family, name, codes. " & _
+                    "Latin, common, and state specific (UT, CO, WY) genus species names " & _
+                    "and lookup (6-letter) and ITIS codes are included." & vbCrLf & vbCrLf & _
+                    "Searches can be made across all or only a few species names/codes."
             'strInstructions = "Log your modifications to data within the edit log. " _
             '        & "Be as complete as possible to aid others in tracing data changes."
         Case "Reports" ' Reports main
@@ -219,7 +224,6 @@ Err_Handler:
     End Select
     Resume Exit_Function
 End Function
-
 
 ' ---------------------------------
 ' SUB:          Initialize
