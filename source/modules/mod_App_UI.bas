@@ -256,3 +256,38 @@ Err_Handler:
     End Select
     Resume Exit_Sub
 End Sub
+
+' ---------------------------------
+' SUB:          EnableTargetTool
+' Description:  enable the target tool button
+' Assumptions:  -
+' Parameters:   N/A
+' Returns:      N/A
+' Throws:       none
+' References:   none
+' Source/date:  Bonnie Campbell, June 4, 2015 - for NCPN tools
+' Adapted:      -
+' Revisions:
+'   BLC - 6/4/2015  - initial version
+' ---------------------------------
+Public Sub EnableTargetTool(ctrl As Control)
+On Error GoTo Err_Handler
+    
+    'enable button if connected
+    If TempVars.item("Connected") Then
+        ctrl.Enabled = True
+    Else
+        ctrl.Enabled = False
+    End If
+
+Exit_Sub:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - EnableTargetTool[mod_Init])"
+    End Select
+    Resume Exit_Sub
+End Sub
