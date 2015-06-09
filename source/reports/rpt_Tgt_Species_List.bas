@@ -13,9 +13,9 @@ Begin Report
     Width =11400
     DatasheetFontHeight =11
     ItemSuffix =46
-    Top =1050
-    Right =12015
-    Bottom =10950
+    Top =1410
+    Right =11715
+    Bottom =11265
     DatasheetGridlinesColor =14806254
     Filter ="TgtList IN ('CARE-2017')"
     RecSrcDt = Begin
@@ -134,7 +134,8 @@ Begin Report
                     BorderColor =10921638
                     ForeColor =8355711
                     Name ="tbxParkYear"
-                    ControlSource ="=[Park] & \" - \" & [TgtYear]"
+                    ControlSource ="=IIf([OpenArgs]=\"preview\",[TempVars]![[park] & \" - \" & [TempVars]![TgtYear],"
+                        "[Park] & \" - \" & [TgtYear])"
                     StatusBarText ="Park and year for list"
                     GridlineColor =10921638
 
@@ -781,27 +782,21 @@ On Error GoTo Err_Handler
                 
                 'set report recordset
                 Me.RecordSource = "temp_List_Preview"
-              
-              'MsgBox tbxListName.ControlSource, vbOKOnly, "hmmm"
-              
+                          
                 'set headers
-                tbxParkYear.ControlSource = TempVars("park") & "-" & TempVars("TgtYear")
+                '=IIf([OpenArgs]="preview",[TempVars]![[park] & " - " & [TempVars]![TgtYear],[Park] & " - " & [TgtYear])
+                'tbxParkYear.ControlSource = TempVars("park") & "-" & TempVars("TgtYear")
                 tbxListName.ControlSource = IIf([Page] > 1, "Invasives List for " & TempVars("park") & "-" & TempVars("TgtYear"), "")
                 lblReportHdr.Caption = "INVASIVES TARGET LIST PREVIEW"
                 
-              'MsgBox tbxListName.ControlSource, vbOKOnly, "hmmm"
-              
                 'set textboxes
                 'tbxPriority=Switch([Transect_Only]=1,"Transect Only",Len([Tgt_Area])>0,[Tgt_Area],[Priority]>-1,[Priority])
                 'tbxPriority.ControlSource = Switch([Transect_Only] = 1, "Transect Only", Len([Tgt_Area]) > 0, [Tgt_Area], [Priority] > -1, [Priority])
+            Case Else
+                'tbxParkYear.ControlSource = [Park] & " - " & [TgtYear]
         End Select
         
     End If
-
-    'If Len(Me.OpenArgs) > 0 Then
-        'set orderby
-        'Me.OrderBy = Me.OpenArgs
-    'End If
         
 Exit_Sub:
     Exit Sub

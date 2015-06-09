@@ -22,9 +22,10 @@ Begin Form
     Width =12300
     DatasheetFontHeight =10
     ItemSuffix =194
-    Left =3780
-    Right =16080
-    Bottom =10560
+    Left =1395
+    Top =2865
+    Right =13695
+    Bottom =13425
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x80d28b4cb201e340
@@ -185,10 +186,10 @@ Begin Form
                             PressedColor =16772300
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =2
+                            WebImagePaddingBottom =2
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -222,10 +223,10 @@ Begin Form
                             PressedShade =90.0
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =2
+                            WebImagePaddingBottom =2
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -255,10 +256,10 @@ Begin Form
                             PressedColor =13434828
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =2
+                            WebImagePaddingBottom =2
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -289,10 +290,10 @@ Begin Form
                             PressedColor =14211288
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =2
+                            WebImagePaddingBottom =2
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -322,10 +323,10 @@ Begin Form
                             PressedColor =16764108
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =2
+                            WebImagePaddingBottom =2
                             Overlaps =1
                         End
                     End
@@ -441,10 +442,10 @@ Begin Form
                             LayoutCachedTop =555
                             LayoutCachedWidth =12165
                             LayoutCachedHeight =9045
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =2
+                            WebImagePaddingBottom =2
                             Begin
                                 Begin Rectangle
                                     BackStyle =1
@@ -528,10 +529,10 @@ Begin Form
                             LayoutCachedTop =555
                             LayoutCachedWidth =12165
                             LayoutCachedHeight =9045
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =2
+                            WebImagePaddingBottom =2
                             Begin
                                 Begin Rectangle
                                     BackStyle =1
@@ -630,10 +631,10 @@ Begin Form
                             LayoutCachedTop =555
                             LayoutCachedWidth =12165
                             LayoutCachedHeight =9045
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =2
+                            WebImagePaddingBottom =2
                             Begin
                                 Begin Rectangle
                                     BackStyle =1
@@ -744,10 +745,10 @@ Begin Form
                             LayoutCachedTop =555
                             LayoutCachedWidth =12165
                             LayoutCachedHeight =9045
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =2
+                            WebImagePaddingBottom =2
                         End
                         Begin Page
                             Visible = NotDefault
@@ -766,10 +767,10 @@ Begin Form
                             LayoutCachedTop =555
                             LayoutCachedWidth =12165
                             LayoutCachedHeight =9045
-                            WebImagePaddingLeft =3
-                            WebImagePaddingTop =3
-                            WebImagePaddingRight =3
-                            WebImagePaddingBottom =3
+                            WebImagePaddingLeft =2
+                            WebImagePaddingTop =2
+                            WebImagePaddingRight =2
+                            WebImagePaddingBottom =2
                             Begin
                                 Begin Subform
                                     OverlapFlags =247
@@ -1167,20 +1168,24 @@ Dim blnLeftInsetHide As Boolean
         Case 5 'DB Admin
             strTab = "tabDbAdmin"
             lngTabColor = HTMLConvert("#D8D8D8") 'lt gray D8D8D8 RGB(216,216,216) 14211288
-            blnLeftInsetHide = True
+            'blnLeftInsetHide = True
             lblCover.backcolor = lngTabColor
             lblCover.visible = True
+            'update instructions & make visible
+            PopulateInstructions Me!lblInstructions, "DbAdmin"
+            Me!lblInstructions.visible = True
+            'strAction = "exp"
     End Select
     
     'identify action type (qry = query, rpt = report, exp = export, tbl = table, frm = form)
-     If IsNull(TempVars.item("action")) Then
+    If IsNull(TempVars.item("action")) Then
         TempVars.Add "action", strAction
     Else
         TempVars.item("action") = strAction
     End If
     
-    'clear instructions
-    If Not (strTab = "tabExport" Or strTab = "tabSearch" Or strTab = "tabDbAdmin") Then
+    'clear instructions And DB_ADMIN_CONTROL)
+    If Not (strTab = "tabExport" Or strTab = "tabSearch" Or (strTab = "tabDbAdmin") Then
         Me!lblInstructions.Caption = " "
     End If
     
@@ -1207,7 +1212,7 @@ Dim blnLeftInsetHide As Boolean
             
                     
             
-        MsgBox "Sorry, this tab is not active for this application.", vbInformation, "Tab Inactive"
+        'MsgBox "Sorry, this tab is not active for this application.", vbInformation, "Tab Inactive"
                 
         GoTo Exit_Sub
     End If

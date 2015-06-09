@@ -65,13 +65,13 @@ On Error GoTo Err_Handler
         Case "UtahLab" ' Exports > Utah Lab etc.
             strContext = Replace(strContext, "Lab", " Lab")
             strTitle = "Exports > " & strContext
-        Case "DB Admin" ' DB Admin main
-            strTitle = ""
+        Case "DbAdmin" ' DB Admin main
+            strTitle = "Db Admin"
     End Select
     
     If ctrl.ControlType = acLabel Then
         ctrl.Caption = strTitle
-        If strContext <> "DbAdmin" Then
+        If strContext <> "DbAdmin" Or DB_ADMIN_CONTROL = False Then
             ctrl.visible = True
         End If
     End If
@@ -115,7 +115,9 @@ On Error GoTo Err_Handler
         Case "Create" ' Create main
             strInstructions = "Choose what you would like to create/modify."
         Case "CreateTgtLists" ' Create > Species Target Lists
-            strInstructions = "Choose the park and year for your list. Click 'Continue' to prepare your list."
+            strInstructions = "Choose the park and year for your list. Click 'Continue' to prepare your list." & vbCrLf & vbCrLf & _
+                    "Only existing lists for the current or future years may be modified." & vbCrLf & vbCrLf & _
+                    "Please contact the project lead or data management if a prior year list must be modified."
         Case "AddTgtArea" ' Create > Add Target Area
             strInstructions = "" '"Choose the park and year for your target area. Click 'Continue' to create your area."
         Case "Outliers", "MissingData", "SuspectValues", "SuspectDO", "SuspectpH", "SuspectSC", "SuspectWT", "Duplicates" ' QA/QC main
@@ -154,7 +156,7 @@ On Error GoTo Err_Handler
     'populate caption & display instructions
     If ctrl.ControlType = acLabel Then
         ctrl.Caption = strInstructions
-        If strContext <> "DbAdmin" Then
+        If strContext <> "DbAdmin" Or DB_ADMIN_CONTROL = False Then
             ctrl.visible = True
         End If
     End If
