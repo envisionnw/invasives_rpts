@@ -14,8 +14,8 @@ Begin Form
     DatasheetFontHeight =11
     ItemSuffix =16
     Left =1320
-    Top =1896
-    Right =6204
+    Top =1890
+    Right =6210
     Bottom =6000
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
@@ -198,10 +198,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin ListBox
@@ -220,10 +220,9 @@ Begin Form
                     BorderColor =10921638
                     Name ="lbxTgtLists"
                     RowSourceType ="Table/Query"
-                    RowSource ="SELECT DISTINCT tbl_Target_Species.Park_Code, tbl_Target_Species.Target_Year, tb"
-                        "l_Target_Species.Park_Code & \"-\" & tbl_Target_Species.Target_Year AS ParkYear "
-                        "FROM tbl_Target_Species ORDER BY tbl_Target_Species.[Park_Code], tbl_Target_Spec"
-                        "ies.[Target_Year];"
+                    RowSource ="SELECT DISTINCT tbl_Target_List.Park_Code, tbl_Target_List.Target_Year, tbl_Targ"
+                        "et_List.Park_Code & \"-\" & tbl_Target_List.Target_Year AS ParkYear FROM tbl_Tar"
+                        "get_List ORDER BY tbl_Target_List.[Park_Code], tbl_Target_List.[Target_Year];"
                     ColumnWidths ="0;0;1440"
                     OnClick ="[Event Procedure]"
                     GridlineColor =10921638

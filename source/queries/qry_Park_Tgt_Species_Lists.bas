@@ -22,6 +22,8 @@ dbBoolean "TotalsRow" ="0"
 dbBinary "GUID" = Begin
     0x130bab6b315e3049a7418bad3e6bf946
 End
+dbText "Description" ="Park target species listings including priority, transect_only, and target_area "
+    "(Target List Tool update)"
 Begin
     Begin
         dbText "Name" ="tlu_NCPN_Plants.Co_Species"

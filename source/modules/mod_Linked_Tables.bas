@@ -18,6 +18,27 @@ Option Explicit
 ' =================================
 
 ' ---------------------------------
+'  References
+' ---------------------------------
+
+' --------------------------------------------------------------------------------
+'   Msys Objects
+' --------------------------------------------------------------------------------
+' Source: Pat Hartman March 13, 2006
+'         http://www.access-programmers.co.uk/forums/showthread.php?t=103811
+' --------------------------------------------------------------------------------
+'   Type   TypeDesc           Type  TypeDesc
+'  -32768  Form                 1   Table - Local Access Tables
+'  -32766  Macro                2   Access Object - Database
+'  -32764  Reports              3   Access Object - Containers
+'  -32761  Module               4   Table - Linked ODBC Tables
+'  -32758  Users                5   Queries
+'  -32757  Database Document    6   Table - Linked Access Tables
+'  -32756  Data Access Pages    8   SubDataSheets
+' --------------------------------------------------------------------------------
+
+
+' ---------------------------------
 '   Database Level
 ' ---------------------------------
 

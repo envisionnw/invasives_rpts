@@ -104,6 +104,8 @@ dbBoolean "TotalsRow" ="0"
 dbBinary "GUID" = Begin
     0x5188a5b072348a4faa3426c65339009b
 End
+dbText "Description" ="Complete species list for all parks for a given year\015\012 (Target List Tool u"
+    "pdate)"
 Begin
     Begin
         dbText "Name" ="BRCAPriority"
