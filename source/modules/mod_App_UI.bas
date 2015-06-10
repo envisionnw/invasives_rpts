@@ -150,7 +150,6 @@ On Error GoTo Err_Handler
             strInstructions = "Choose the export you would like to run."
         Case "DbAdmin" ' DB Admin main
             strInstructions = "The database administration tab is currently not in use for this application."
-            'strInstructions = ""
     End Select
     
     'populate caption & display instructions

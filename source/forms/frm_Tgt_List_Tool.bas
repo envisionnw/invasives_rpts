@@ -22,10 +22,9 @@ Begin Form
     Width =12300
     DatasheetFontHeight =10
     ItemSuffix =194
-    Left =1395
-    Top =2865
-    Right =13695
-    Bottom =13425
+    Left =3780
+    Right =16080
+    Bottom =10560
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x80d28b4cb201e340
@@ -186,10 +185,10 @@ Begin Form
                             PressedColor =16772300
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -223,10 +222,10 @@ Begin Form
                             PressedShade =90.0
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -256,10 +255,10 @@ Begin Form
                             PressedColor =13434828
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -290,10 +289,10 @@ Begin Form
                             PressedColor =14211288
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -323,10 +322,10 @@ Begin Form
                             PressedColor =16764108
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Overlaps =1
                         End
                     End
@@ -428,24 +427,24 @@ Begin Form
                     Begin
                         Begin Page
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabCreate"
                             StatusBarText ="Create"
                             ControlTipText ="Click to create lists"
                             Caption ="QA/QC"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Begin
                                 Begin Rectangle
                                     BackStyle =1
@@ -517,22 +516,22 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabSearch"
                             Caption ="SEARCH"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Begin
                                 Begin Rectangle
                                     BackStyle =1
@@ -619,22 +618,22 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabReports"
                             Caption ="REPORTS"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Begin
                                 Begin Rectangle
                                     BackStyle =1
@@ -733,44 +732,44 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabExport"
                             Caption ="EXPORT"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                         End
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabDbAdmin"
                             StatusBarText ="Database Administration"
                             ControlTipText ="Database Administration Tasks"
                             Caption ="DB ADMIN"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Begin
                                 Begin Subform
                                     OverlapFlags =247
@@ -1128,6 +1127,7 @@ End Sub
 '               BLC, 6/4/2015  - Changed View to Search, changed TempVars.item("xx") to TempVars("xx")
 '                                Shifted PopulateInsetTitle & set tab color to before check if DbAdmin
 '                                to make DbAdmin tab appear correct color when selected
+'               BLC, 6/9/2015  - Removed blnLeftInsetHide to expose DbAdmin display similar to Export tab
 ' =================================
 Public Sub optGrpTabs_Click()
 On Error GoTo Err_Handler
@@ -1174,7 +1174,6 @@ Dim blnLeftInsetHide As Boolean
             'update instructions & make visible
             PopulateInstructions Me!lblInstructions, "DbAdmin"
             Me!lblInstructions.visible = True
-            'strAction = "exp"
     End Select
     
     'identify action type (qry = query, rpt = report, exp = export, tbl = table, frm = form)
@@ -1184,8 +1183,8 @@ Dim blnLeftInsetHide As Boolean
         TempVars.item("action") = strAction
     End If
     
-    'clear instructions And DB_ADMIN_CONTROL)
-    If Not (strTab = "tabExport" Or strTab = "tabSearch" Or (strTab = "tabDbAdmin") Then
+    'clear instructions
+    If Not (strTab = "tabExport" Or strTab = "tabSearch" Or strTab = "tabDbAdmin") Then
         Me!lblInstructions.Caption = " "
     End If
     
@@ -1209,11 +1208,9 @@ Dim blnLeftInsetHide As Boolean
         
     'keep tabs hidden
     If strTab = "tabView" Or strTab = "tabDbAdmin" Then
-            
-                    
-            
-        'MsgBox "Sorry, this tab is not active for this application.", vbInformation, "Tab Inactive"
-                
+        
+        ' set hide only to hide other tab insets
+        tabPageUnhide tabMain, strTab, True
         GoTo Exit_Sub
     End If
     

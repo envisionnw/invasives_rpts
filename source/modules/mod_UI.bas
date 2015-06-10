@@ -417,16 +417,20 @@ End Function
 ' Source/date:  Adapted from Tom's post comment, 9/12/2009
 '               http://www.vbdotnetforums.com/gui/36561-loop-through-tab-pages-remove.html
 '               Created 06/11/2014 blc; Last modified 06/11/2014 blc.
-' Revisions:    Bonnie Campbell, June 11, 2014 - initial version
+' Adapted:      Bonnie Campbell, June 11, 2014 - initial version
+' Revisions:    BLC, June 11, 2014 - initial version
+'               BLC, June 9, 2015  - adjust for hiding tabs only with blnHideOnly
 ' =================================
-Public Sub tabPageUnhide(ctrl As TabControl, strTabName As String)
+Public Sub tabPageUnhide(ctrl As TabControl, strTabName As String, Optional blnHideOnly As Boolean)
 On Error GoTo Err_Handler
 
     Dim pg As Page
     
     For Each pg In ctrl.Pages
         If pg.name = strTabName Then
-            ctrl.Pages(pg.name).visible = True
+            If Not blnHideOnly = True Then
+                ctrl.Pages(pg.name).visible = True
+            End If
         Else
             ctrl.Pages(pg.name).visible = False
         End If
@@ -504,7 +508,6 @@ On Error GoTo Err_Handler
     End If
   Next ctl
   
-
 Exit_Function:
     Exit Function
 
