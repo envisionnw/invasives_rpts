@@ -22,7 +22,7 @@ dbBoolean "TotalsRow" ="0"
 dbBinary "GUID" = Begin
     0x998dc10f4688af4bbeb4712342c20919
 End
-dbText "Description" ="parameterized query for list previews"
+dbText "Description" ="parameterized query for list previews\015\012 (Target List Tool update)"
 Begin
     Begin
         dbText "Name" ="park"

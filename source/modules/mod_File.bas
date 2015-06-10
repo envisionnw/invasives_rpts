@@ -271,6 +271,11 @@ Err_Handler:
     Resume Exit_Function
 End Function
 
+Public Sub testme()
+    ParseFileName ("C:\___TEST_DATA\test_BE_new\Invasives_be.accdb")
+End Sub
+
+
 ' =================================
 ' FUNCTION:     ParseFileName
 ' Description:  Parses an input path string to return only the file extension, if present
