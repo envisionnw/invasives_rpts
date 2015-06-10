@@ -430,6 +430,7 @@ End Sub
 Private Sub ButtonClose_Click()
 On Error GoTo Err_ButtonClose_Click
 
+   CloseFormsReports
 
     DoCmd.Close
 

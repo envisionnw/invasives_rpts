@@ -12,7 +12,7 @@ Begin Form
     Width =10935
     DatasheetFontHeight =11
     ItemSuffix =30
-    Right =11160
+    Right =11190
     Bottom =5985
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
@@ -135,10 +135,7 @@ Begin Form
                     BorderColor =10921638
                     Name ="lbxTgtSpecies"
                     RowSourceType ="Value List"
-                    RowSource ="Code;Species;;;ABRONIA;Abronia sp.;;;ACAMPTOPAPPUS;Acamptopappus sp.;;;ARTARB;Ar"
-                        "temisia arbuscula;;;ERICOMPOSITUS;Erigeron compositus;;;STIARI;Achnatherum aridu"
-                        "m;;;ACAMPTOPAPPUS;Acamptopappus sp.;ACAMP;;ERICOMPOSITUS;Erigeron compositus;ERC"
-                        "O4;;ERICER;Eriogonum cernuum;ERCE;"
+                    RowSource ="Code;Species;LUCode;'';''"
                     ColumnWidths ="1440;2520;720;288;288"
                     OnDblClick ="[Event Procedure]"
                     OnKeyUp ="[Event Procedure]"
@@ -179,7 +176,7 @@ Begin Form
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblParkHdr"
-                    Caption ="CURE"
+                    Caption ="ZION"
                     GridlineColor =10921638
                     LayoutCachedLeft =60
                     LayoutCachedTop =60
@@ -212,7 +209,7 @@ Begin Form
                             BorderColor =8355711
                             ForeColor =8355711
                             Name ="lblSpeciesListbox"
-                            Caption ="CO Species"
+                            Caption ="UT Species"
                             GridlineColor =10921638
                             LayoutCachedLeft =180
                             LayoutCachedTop =660
@@ -233,7 +230,7 @@ Begin Form
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblTgtSpeciesCount"
-                    Caption ="8 species"
+                    Caption ="0 species"
                     ControlTipText ="Number of species in the current list"
                     GridlineColor =10921638
                     LayoutCachedLeft =8340
@@ -515,7 +512,7 @@ Begin Form
                     Height =480
                     FontWeight =600
                     TabIndex =7
-                    ForeColor =16711680
+                    ForeColor =8224125
                     Name ="btnRemoveAll"
                     Caption ="<<"
                     StatusBarText ="Remove all"
@@ -529,10 +526,10 @@ Begin Form
                     ForeThemeColorIndex =-1
                     ForeTint =100.0
                     Gradient =0
-                    BackColor =52479
+                    BackColor =13882323
                     BackThemeColorIndex =-1
                     BackTint =100.0
-                    BorderColor =0
+                    BorderColor =8224125
                     BorderThemeColorIndex =-1
                     BorderTint =100.0
                     HoverColor =0
@@ -561,7 +558,7 @@ Begin Form
                     Height =480
                     FontWeight =600
                     TabIndex =8
-                    ForeColor =16711680
+                    ForeColor =8224125
                     Name ="btnRemove"
                     Caption ="<"
                     StatusBarText ="Remove all"
@@ -576,11 +573,11 @@ Begin Form
                     ForeThemeColorIndex =-1
                     ForeTint =100.0
                     Gradient =0
-                    BackColor =52479
+                    BackColor =13882323
                     BackThemeColorIndex =-1
                     BackTint =100.0
                     OldBorderStyle =0
-                    BorderColor =0
+                    BorderColor =8224125
                     BorderThemeColorIndex =-1
                     BorderTint =100.0
                     HoverColor =0
@@ -829,11 +826,12 @@ End Property
 '                   is no longer needed, added check for species number to ensure >= 0
 '   BLC, 5/13/2015 - disabled Remove All button to start & recaptioned btnReset to "Reset List" vs. "Reset Lists"
 '                    set btnAdd to enabled to start vs disabled
+'   BLC - 6/9/2015 - toggle preview & save list buttons (enabled if lbx has species)
 ' ---------------------------------
 Private Sub Form_Load()
 
 On Error GoTo Err_Handler
-    Dim intSpecies As Integer
+    Dim intSpecies As Integer, iSpeciesCount As Integer
     
     Initialize
        
@@ -858,7 +856,8 @@ On Error GoTo Err_Handler
     btnAddAll.Enabled = False
     
     'Set counts
-    lblTgtSpeciesCount.Caption = GetListCount(lbxTgtSpecies, True) & " species"
+    iSpeciesCount = GetListCount(lbxTgtSpecies, True)
+    lblTgtSpeciesCount.Caption = iSpeciesCount & " species"
     
     'Set Reset button label (reset list vs. lists)
     btnReset.Caption = "Reset List"
@@ -867,6 +866,16 @@ On Error GoTo Err_Handler
     EnableControl btnAdd, lngLtLime, lngBlue, lngDkLime, lngBrtLime, lngLtGreen, lngDkGray, lngLtLime
     DisableControl btnRemove
     DisableControl btnRemoveAll
+    
+    If iSpeciesCount > 0 Then
+        'enable preview & save buttons
+        btnPreviewList.Enabled = True
+        btnSaveList.Enabled = True
+    Else
+        'Disable preview & save buttons
+        btnPreviewList.Enabled = False
+        btnSaveList.Enabled = False
+    End If
     
 Exit_Sub:
     Exit Sub
@@ -894,13 +903,25 @@ End Sub
 '   BLC - 3/5/2015 - initial version
 '   BLC - 5/1/2015 - added check for no species to prevent # = -1
 '   BLC - 5/10/2015 - revised to include generic count function
+'   BLC - 6/9/2015 - toggle preview & save list buttons (enabled if lbx has species)
 ' ---------------------------------
 Private Sub Form_Activate()
 
 On Error GoTo Err_Handler
     
+    Dim iSpeciesCount As Integer
+    
     'set species count
-    lblTgtSpeciesCount.Caption = GetListCount(lbxTgtSpecies, True) & " species"
+    iSpeciesCount = GetListCount(lbxTgtSpecies, True)
+    lblTgtSpeciesCount.Caption = iSpeciesCount & " species"
+    
+    If iSpeciesCount > 0 Then
+        btnPreviewList.Enabled = True
+        btnSaveList.Enabled = True
+    Else
+        btnPreviewList.Enabled = False
+        btnSaveList.Enabled = False
+    End If
     
 Exit_Sub:
     Exit Sub
@@ -1027,6 +1048,7 @@ End Sub
 '   BLC - 2/6/2015 - initial version
 '   BLC - 5/10/2015 - added species count update
 '   BLC - 5/13/2015 - revised to use global constants vs. tempvars for enabled control
+'   BLC - 6/9/2015 - enable preview & save list buttons if species in list
 ' ---------------------------------
 Private Sub lbxTgtSpecies_Click()
 On Error GoTo Err_Handler
@@ -1039,6 +1061,9 @@ On Error GoTo Err_Handler
             EnableControl btnRemove, CTRL_REMOVE_ENABLED, TEXT_ENABLED
             EnableControl btnRemoveAll, CTRL_REMOVE_ENABLED, TEXT_ENABLED
         End If
+        'enable preview & save
+        btnPreviewList.Enabled = True
+        btnSaveList.Enabled = True
     Else
         DisableControl btnRemove
     End If
@@ -1077,13 +1102,24 @@ End Sub
 Private Sub lbxTgtSpecies_DblClick(Cancel As Integer)
     
 On Error GoTo Err_Handler
+    Dim iSpeciesCount As Integer
+
 
     'MoveSingleItem Me, "lbxTgtSpecies", "lbxTgtSpecies"
     RemoveSelectedItems lbxTgtSpecies
 
     'set species count
-    lblTgtSpeciesCount.Caption = GetListCount(lbxTgtSpecies, True) & " species"
+    iSpeciesCount = GetListCount(lbxTgtSpecies, True)
+    lblTgtSpeciesCount.Caption = iSpeciesCount & " species"
 
+    If iSpeciesCount > 0 Then
+        btnPreviewList.Enabled = True
+        btnSaveList.Enabled = True
+    Else
+        btnPreviewList.Enabled = False
+        btnSaveList.Enabled = False
+    End If
+    
 Exit_Sub:
     Exit Sub
 
@@ -1145,6 +1181,7 @@ End Sub
 ' Revisions:
 '   BLC - 3/3/2015 - initial version
 '   BLC - 5/10/2015 - added update for species count
+'   BLC - 6/9/2015  - enable preview and save list buttons if species in list
 ' ---------------------------------
 Private Sub btnAdd_Click()
 On Error GoTo Err_Handler
@@ -1158,6 +1195,12 @@ On Error GoTo Err_Handler
 
     'update count
     lblTgtSpeciesCount.Caption = GetListCount(lbxTgtSpecies, True) & " species"
+    
+    'enable preview
+    If GetListCount(lbxSpecies, True) > 0 Then
+        btnPreviewList.Enabled = True
+        btnSaveList.Enabled = True
+    End If
 
 Exit_Sub:
     Exit Sub
@@ -1188,6 +1231,7 @@ End Sub
 '                     added update for species count
 '   BLC - 5/13/2015 - revised to use global constants vs. tempvars for disabled control
 '                     disabled btnRemove, btnRemoveAll when target species count = 0
+'   BLC - 6/9/2015 - disable preview and save list buttons if no species in list
 ' ---------------------------------
 Private Sub btnRemove_Click()
 On Error GoTo Err_Handler
@@ -1199,14 +1243,16 @@ On Error GoTo Err_Handler
     RemoveSelectedItems lbxTgtSpecies
     
     'update count
-    Dim iCount As Integer
-    iCount = GetListCount(lbxTgtSpecies, True)
-    lblTgtSpeciesCount.Caption = iCount & " species"
+    Dim iSpeciesCount As Integer
+    iSpeciesCount = GetListCount(lbxTgtSpecies, True)
+    lblTgtSpeciesCount.Caption = iSpeciesCount & " species"
     
     'turn off Remove buttons if iCount = 0
-    If iCount = 0 Then
+    If iSpeciesCount = 0 Then
         DisableControl btnRemove
         DisableControl btnRemoveAll
+        btnPreviewList.Enabled = False
+        btnSaveList.Enabled = False
     End If
     
 Exit_Sub:
@@ -1234,6 +1280,7 @@ End Sub
 ' Revisions:
 '   BLC - 3/3/2015 - initial version
 '   BLC - 5/10/2015 - added update for species count
+'   BLC - 6/9/2015 - enable preview and save list buttons if species in list
 ' ---------------------------------
 Private Sub btnAddAll_Click()
 On Error GoTo Err_Handler
@@ -1250,6 +1297,10 @@ On Error GoTo Err_Handler
 
     'update count
     lblTgtSpeciesCount.Caption = GetListCount(lbxTgtSpecies, True) & " species"
+    
+    'enable preview & save
+    btnPreviewList.Enabled = True
+    btnSaveList.Enabled = True
 
 Exit_Sub:
     Exit Sub
@@ -1525,7 +1576,6 @@ Err_Handler:
     End Select
     Resume Exit_Sub
 End Sub
-
 
 ' ---------------------------------
 ' SUB:          btnPreviewList_Click

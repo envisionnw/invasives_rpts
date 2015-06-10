@@ -427,20 +427,20 @@ Begin Form
                     Begin
                         Begin Page
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabCreate"
                             StatusBarText ="Create"
                             ControlTipText ="Click to create lists"
                             Caption ="QA/QC"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
                             WebImagePaddingLeft =3
                             WebImagePaddingTop =3
                             WebImagePaddingRight =3
@@ -516,18 +516,18 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabSearch"
                             Caption ="SEARCH"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
                             WebImagePaddingLeft =3
                             WebImagePaddingTop =3
                             WebImagePaddingRight =3
@@ -618,18 +618,18 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabReports"
                             Caption ="REPORTS"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
                             WebImagePaddingLeft =3
                             WebImagePaddingTop =3
                             WebImagePaddingRight =3
@@ -732,18 +732,18 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabExport"
                             Caption ="EXPORT"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
                             WebImagePaddingLeft =3
                             WebImagePaddingTop =3
                             WebImagePaddingRight =3
@@ -752,20 +752,20 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabDbAdmin"
                             StatusBarText ="Database Administration"
                             ControlTipText ="Database Administration Tasks"
                             Caption ="DB ADMIN"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
                             WebImagePaddingLeft =3
                             WebImagePaddingTop =3
                             WebImagePaddingRight =3
@@ -1127,6 +1127,7 @@ End Sub
 '               BLC, 6/4/2015  - Changed View to Search, changed TempVars.item("xx") to TempVars("xx")
 '                                Shifted PopulateInsetTitle & set tab color to before check if DbAdmin
 '                                to make DbAdmin tab appear correct color when selected
+'               BLC, 6/9/2015  - Removed blnLeftInsetHide to expose DbAdmin display similar to Export tab
 ' =================================
 Public Sub optGrpTabs_Click()
 On Error GoTo Err_Handler
@@ -1167,13 +1168,16 @@ Dim blnLeftInsetHide As Boolean
         Case 5 'DB Admin
             strTab = "tabDbAdmin"
             lngTabColor = HTMLConvert("#D8D8D8") 'lt gray D8D8D8 RGB(216,216,216) 14211288
-            blnLeftInsetHide = True
+            'blnLeftInsetHide = True
             lblCover.backcolor = lngTabColor
             lblCover.visible = True
+            'update instructions & make visible
+            PopulateInstructions Me!lblInstructions, "DbAdmin"
+            Me!lblInstructions.visible = True
     End Select
     
     'identify action type (qry = query, rpt = report, exp = export, tbl = table, frm = form)
-     If IsNull(TempVars.item("action")) Then
+    If IsNull(TempVars.item("action")) Then
         TempVars.Add "action", strAction
     Else
         TempVars.item("action") = strAction
@@ -1204,11 +1208,9 @@ Dim blnLeftInsetHide As Boolean
         
     'keep tabs hidden
     If strTab = "tabView" Or strTab = "tabDbAdmin" Then
-            
-                    
-            
-        MsgBox "Sorry, this tab is not active for this application.", vbInformation, "Tab Inactive"
-                
+        
+        ' set hide only to hide other tab insets
+        tabPageUnhide tabMain, strTab, True
         GoTo Exit_Sub
     End If
     
