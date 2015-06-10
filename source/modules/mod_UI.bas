@@ -213,9 +213,7 @@ Public Function FormIsOpen(strFormName As String) As Boolean
             FormIsOpen = True
             'Exit Function
         End If
-        Debug.Print frm.name
       End If
-      Debug.Print frm.name
     Next
 
 Exit_Function:
