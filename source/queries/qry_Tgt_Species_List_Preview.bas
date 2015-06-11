@@ -4,11 +4,11 @@
     "set.Transect_Only, temp_Listbox_Recordset.Target_Area_ID, tbl_Target_Areas.Targe"
     "t_Area AS Tgt_Area, tlu_NCPN_Plants.Master_Family AS Family, tlu_NCPN_Plants.Mas"
     "ter_Common_Name, tlu_NCPN_Plants.utah_species, tlu_NCPN_Plants.Co_Species, tlu_N"
-    "CPN_Plants.Wy_Species, Park & \"-\" & TgtYear AS TgtList INTO temp_List_Preview\015"
-    "\012FROM (temp_Listbox_Recordset LEFT JOIN tbl_Target_Areas ON temp_Listbox_Reco"
-    "rdset.Target_Area_ID = tbl_Target_Areas.Target_Area_ID) LEFT JOIN tlu_NCPN_Plant"
-    "s ON temp_Listbox_Recordset.Code = tlu_NCPN_Plants.Master_Plant_Code\015\012ORDE"
-    "R BY tlu_NCPN_Plants.Master_Family, Species;\015\012"
+    "CPN_Plants.Wy_Species, Park & \"-\" & TgtYear AS TgtList, Now() AS Last_Modified"
+    " INTO temp_List_Preview\015\012FROM (temp_Listbox_Recordset LEFT JOIN tbl_Target"
+    "_Areas ON temp_Listbox_Recordset.Target_Area_ID = tbl_Target_Areas.Target_Area_I"
+    "D) LEFT JOIN tlu_NCPN_Plants ON temp_Listbox_Recordset.Code = tlu_NCPN_Plants.Ma"
+    "ster_Plant_Code\015\012ORDER BY tlu_NCPN_Plants.Master_Family, Species;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -129,6 +129,12 @@ Begin
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x340cc89732c25f4297b31d79c0d18250
+        End
+    End
+    Begin
+        dbText "Name" ="Last_Modified"
+        dbBinary "GUID" = Begin
+            0x95fe15f45987254f8a42f7f80fba68e7
         End
     End
 End

@@ -325,6 +325,11 @@ Err_Handler:
     Resume Exit_Function
 End Function
 
+Public Sub test()
+TempVars.Add "TgtYear", 2017
+ getListLastModifiedDate TempVars("TgtYear"), "BLCA"
+End Sub
+
 ' ---------------------------------
 ' FUNCTION:     getListLastModifiedDate
 ' Description:  Retrieve the last modified date with a park (via tbl_Target_List)
@@ -352,17 +357,64 @@ On Error GoTo Err_Handler
         GoTo Exit_Function
     End If
     
+    Dim strCriteria As String
+    'strExp =
+    'strExp = DLookup("Last_Modified", "tbl_Target_List", "Park_Code LIKE '" & parkCode & "' AND Target_Year = " & CInt(TgtYear) & "")
+'    DLookup "Last_Modified", "tbl_Target_List", _
+'        "[Park_Code] LIKE '" & [parkCode] & "'AND [Target_Year] = " & CInt([TgtYear])
+    Dim varDate As Variant
+    
+    'strCriteria = "[Park_Code] LIKE '" & [parkCode] & "' AND [Target_Year] = " & CInt([TgtYear])
+    strCriteria = "Park_Code LIKE '" & parkCode & "' AND CInt(Target_Year) = " & CInt(TgtYear)
+    
+    Debug.Print strCriteria
+    
+    '---------- Yield NULL for varDate ----------------
+    
+    varDate = DLookup("Last_Modified", "tbl_Target_List", strCriteria)
+
+    varDate = DLookup("Last_Modified", "tbl_Target_List", _
+        "[Park_Code] LIKE '" & [parkCode] & "' AND [Target_Year] = " & [TgtYear])
+
+    varDate = DLookup("Last_Modified", "tbl_Target_List", _
+        "[Park_Code] LIKE '" & [parkCode] & "' AND CStr([Target_Year]) = '" & CStr(TgtYear) & "'")
+    
+    varDate = DLookup("Last_Modified", "tbl_Target_List", _
+        "[Park_Code] LIKE '" & [parkCode] & "' AND CInt([Target_Year]) = " & CInt([TgtYear]))
+    
+    varDate = DLookup("Last_Modified", "tbl_Target_List", _
+        "[Park_Code] LIKE '" & [parkCode] & "' AND [Target_Year] = 2017")
+
+    varDate = DLookup("Last_Modified", "tbl_Target_List", _
+        "[Park_Code] LIKE '" & [parkCode] & "' AND [Target_Year] = " & 2017)
+    
+    varDate = DLookup("Last_Modified", "tbl_Target_List", _
+        "[Park_Code] LIKE '" & [parkCode] & "' AND [Target_Year] = [TempVars]![TgtYear]")
+    '---------------------------------------------------
+
+    '*** Yield value for varDate ***
+    varDate = DLookup("Last_Modified", "tbl_Target_List", _
+        "[Park_Code] LIKE '" & [parkCode] & "'")
+    '*******************************
+    
+    varDate = DLookup("Last_Modified", "tbl_Target_List", _
+        "[Park_Code] LIKE '" & [parkCode] & "' AND [Target_Year] = [TempVars]![TgtYear]")
+
     'generate SQL ==> NOTE: LIMIT 1; syntax not viable for Access, use SELECT TOP x instead
-    strSQL = "SELECT TOP 1 LastModified FROM tbl_Target_List WHERE ParkCode LIKE '" & parkCode & "' AND Tgt_Year = tgtYear;"
+    'strSQL = "SELECT Last_Modified FROM tbl_Target_List WHERE Park_Code LIKE '" & parkCode & "' AND Target_Year = " & CInt(TgtYear) & ";"
             
     'fetch data
-    Set db = CurrentDb
-    Set rs = db.OpenRecordset(strSQL)
+    'Set db = CurrentDb
+    'Set rs = db.OpenRecordset(strSQL, dbOpenDynaset)
     
     'assume only 1 record returned
-    If rs.RecordCount > 0 Then
-        lastModified = rs.Fields("LastModified").Value
-    End If
+    'If rs.RecordCount > 0 Then
+    '    lastModified = rs.Fields("Last_Modified").Value
+    'End If
+   
+    'If Not (rs.BOF And rs.EOF) Then
+    '    lastModified = rs.Fields("Last_Modified").Value
+    'End If
    
     'return value
     getListLastModifiedDate = lastModified
