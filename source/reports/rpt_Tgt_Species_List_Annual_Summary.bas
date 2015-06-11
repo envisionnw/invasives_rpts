@@ -12,10 +12,11 @@ Begin Report
     GridY =24
     Width =15264
     DatasheetFontHeight =11
-    ItemSuffix =134
-    Top =684
-    Right =15252
-    Bottom =8664
+    ItemSuffix =135
+    Left =-3672
+    Top =456
+    Right =9948
+    Bottom =8436
     DatasheetGridlinesColor =14806254
     Filter ="TgtYear=2017"
     RecSrcDt = Begin
@@ -1326,7 +1327,7 @@ Begin Report
         End
         Begin FormFooter
             KeepTogether = NotDefault
-            Height =2580
+            Height =3960
             Name ="ReportFooter"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -1583,7 +1584,7 @@ Begin Report
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblParkPriorities"
-                    Caption ="Total # Priority 1 Species by Park ="
+                    Caption ="Total # Priority 1 Species by Park =>"
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
@@ -1971,36 +1972,37 @@ Begin Report
                 Begin Label
                     BackStyle =1
                     TextAlign =3
-                    Left =6948
+                    Left =6852
                     Top =420
-                    Width =2292
+                    Width =2388
                     Height =288
                     FontSize =10
                     BackColor =16777164
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblUniquePri1"
-                    Caption ="Unique Priority 1 Species ="
+                    Caption ="Unique Priority 1 Species =>"
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
-                    LayoutCachedLeft =6948
+                    LayoutCachedLeft =6852
                     LayoutCachedTop =420
                     LayoutCachedWidth =9240
                     LayoutCachedHeight =708
                     BackThemeColorIndex =-1
                 End
                 Begin TextBox
+                    Vertical = NotDefault
                     DecimalPlaces =0
                     OldBorderStyle =0
-                    TextAlign =2
+                    TextAlign =1
                     BackStyle =0
                     IMESentenceMode =3
                     Left =9480
                     Top =1440
                     Width =300
-                    Height =1080
-                    FontSize =9
+                    Height =2160
+                    FontSize =8
                     TabIndex =17
                     BorderColor =10921638
                     ForeColor =4210752
@@ -2012,19 +2014,20 @@ Begin Report
                     LayoutCachedLeft =9480
                     LayoutCachedTop =1440
                     LayoutCachedWidth =9780
-                    LayoutCachedHeight =2520
+                    LayoutCachedHeight =3600
                 End
                 Begin TextBox
+                    Vertical = NotDefault
                     DecimalPlaces =0
                     OldBorderStyle =0
-                    TextAlign =2
+                    TextAlign =1
                     BackStyle =0
                     IMESentenceMode =3
                     Left =10020
                     Top =1440
                     Width =300
-                    Height =1080
-                    FontSize =9
+                    Height =2160
+                    FontSize =8
                     TabIndex =18
                     BorderColor =10921638
                     ForeColor =4210752
@@ -2036,19 +2039,20 @@ Begin Report
                     LayoutCachedLeft =10020
                     LayoutCachedTop =1440
                     LayoutCachedWidth =10320
-                    LayoutCachedHeight =2520
+                    LayoutCachedHeight =3600
                 End
                 Begin TextBox
+                    Vertical = NotDefault
                     DecimalPlaces =0
                     OldBorderStyle =0
-                    TextAlign =2
+                    TextAlign =1
                     BackStyle =0
                     IMESentenceMode =3
                     Left =10620
                     Top =1440
                     Width =300
-                    Height =1080
-                    FontSize =9
+                    Height =2160
+                    FontSize =8
                     TabIndex =19
                     BorderColor =10921638
                     ForeColor =4210752
@@ -2060,19 +2064,20 @@ Begin Report
                     LayoutCachedLeft =10620
                     LayoutCachedTop =1440
                     LayoutCachedWidth =10920
-                    LayoutCachedHeight =2520
+                    LayoutCachedHeight =3600
                 End
                 Begin TextBox
+                    Vertical = NotDefault
                     DecimalPlaces =0
                     OldBorderStyle =0
-                    TextAlign =2
+                    TextAlign =1
                     BackStyle =0
                     IMESentenceMode =3
                     Left =11220
                     Top =1440
                     Width =300
-                    Height =1080
-                    FontSize =9
+                    Height =2160
+                    FontSize =8
                     TabIndex =20
                     BorderColor =10921638
                     ForeColor =4210752
@@ -2084,19 +2089,20 @@ Begin Report
                     LayoutCachedLeft =11220
                     LayoutCachedTop =1440
                     LayoutCachedWidth =11520
-                    LayoutCachedHeight =2520
+                    LayoutCachedHeight =3600
                 End
                 Begin TextBox
+                    Vertical = NotDefault
                     DecimalPlaces =0
                     OldBorderStyle =0
-                    TextAlign =2
+                    TextAlign =1
                     BackStyle =0
                     IMESentenceMode =3
                     Left =11820
                     Top =1440
                     Width =300
-                    Height =1080
-                    FontSize =9
+                    Height =2160
+                    FontSize =8
                     TabIndex =21
                     BorderColor =10921638
                     ForeColor =4210752
@@ -2108,19 +2114,20 @@ Begin Report
                     LayoutCachedLeft =11820
                     LayoutCachedTop =1440
                     LayoutCachedWidth =12120
-                    LayoutCachedHeight =2520
+                    LayoutCachedHeight =3600
                 End
                 Begin TextBox
+                    Vertical = NotDefault
                     DecimalPlaces =0
                     OldBorderStyle =0
-                    TextAlign =2
+                    TextAlign =1
                     BackStyle =0
                     IMESentenceMode =3
                     Left =12420
                     Top =1440
                     Width =300
-                    Height =1080
-                    FontSize =9
+                    Height =2160
+                    FontSize =8
                     TabIndex =22
                     BorderColor =10921638
                     ForeColor =4210752
@@ -2132,19 +2139,20 @@ Begin Report
                     LayoutCachedLeft =12420
                     LayoutCachedTop =1440
                     LayoutCachedWidth =12720
-                    LayoutCachedHeight =2520
+                    LayoutCachedHeight =3600
                 End
                 Begin TextBox
+                    Vertical = NotDefault
                     DecimalPlaces =0
                     OldBorderStyle =0
-                    TextAlign =2
+                    TextAlign =1
                     BackStyle =0
                     IMESentenceMode =3
                     Left =13080
                     Top =1440
                     Width =300
-                    Height =1080
-                    FontSize =9
+                    Height =2160
+                    FontSize =8
                     TabIndex =23
                     BorderColor =10921638
                     ForeColor =4210752
@@ -2156,19 +2164,20 @@ Begin Report
                     LayoutCachedLeft =13080
                     LayoutCachedTop =1440
                     LayoutCachedWidth =13380
-                    LayoutCachedHeight =2520
+                    LayoutCachedHeight =3600
                 End
                 Begin TextBox
+                    Vertical = NotDefault
                     DecimalPlaces =0
                     OldBorderStyle =0
-                    TextAlign =2
+                    TextAlign =1
                     BackStyle =0
                     IMESentenceMode =3
                     Left =13740
                     Top =1440
                     Width =300
-                    Height =1080
-                    FontSize =9
+                    Height =2160
+                    FontSize =8
                     TabIndex =24
                     BorderColor =10921638
                     ForeColor =4210752
@@ -2180,7 +2189,26 @@ Begin Report
                     LayoutCachedLeft =13740
                     LayoutCachedTop =1440
                     LayoutCachedWidth =14040
-                    LayoutCachedHeight =2520
+                    LayoutCachedHeight =3600
+                End
+                Begin Label
+                    TextAlign =3
+                    Left =7860
+                    Top =1440
+                    Width =1260
+                    Height =960
+                    FontSize =10
+                    BorderColor =8355711
+                    ForeColor =8355711
+                    Name ="lblLastModDate"
+                    Caption ="Last      Modified  =>\015\012Date      "
+                    Tag ="DetachedLabel"
+                    GridlineStyleBottom =1
+                    GridlineColor =10921638
+                    LayoutCachedLeft =7860
+                    LayoutCachedTop =1440
+                    LayoutCachedWidth =9120
+                    LayoutCachedHeight =2400
                 End
             End
         End
