@@ -1,17 +1,19 @@
-﻿dbMemo "SQL" ="SELECT DISTINCT tbl_Target_Species.Park_Code AS Park, tbl_Target_Species.Target_"
-    "Year AS TgtYear, tbl_Target_Species.Master_Plant_Code_FK, tlu_NCPN_Plants.LU_Cod"
-    "e, tbl_Target_Species.Species_Name, tbl_Target_Species.Priority, tbl_Target_Spec"
-    "ies.Transect_Only, tbl_Target_Species.Target_Area_ID, tbl_Target_Areas.Target_Ar"
-    "ea AS Tgt_Area, tlu_NCPN_Plants.Master_Family AS Family, tlu_NCPN_Plants.Master_"
-    "Common_Name, tlu_NCPN_Plants.utah_species, tlu_NCPN_Plants.Co_Species, tlu_NCPN_"
-    "Plants.Wy_Species, IIf(tbl_Target_Species.Target_Area_ID>0,tbl_Target_Areas.Targ"
-    "et_Area,IIf(tbl_Target_Species.Transect_Only>0,\"Transect\",tbl_Target_Species.P"
-    "riority)) AS PriorityTarget, (tbl_Target_Species.Park_Code+\"-\"+PriorityTarget)"
-    " AS ParkPriority, (tbl_Target_Species.Species_Name+\"-\"+CStr(tbl_Target_Species"
-    ".Target_Year)) AS SpeciesYear\015\012FROM (tbl_Target_Species LEFT JOIN tbl_Targ"
-    "et_Areas ON tbl_Target_Species.Target_Area_ID = tbl_Target_Areas.Target_Area_ID)"
-    " LEFT JOIN tlu_NCPN_Plants ON tbl_Target_Species.Master_Plant_Code_FK = tlu_NCPN"
-    "_Plants.Master_Plant_Code\015\012ORDER BY tbl_Target_Species.Species_Name;\015\012"
+﻿dbMemo "SQL" ="SELECT DISTINCT tbl_Target_List.Park_Code AS Park, tbl_Target_List.Target_Year A"
+    "S TgtYear, tbl_Target_Species.Master_Plant_Code_FK, tlu_NCPN_Plants.LU_Code, tbl"
+    "_Target_Species.Species_Name, tbl_Target_Species.Priority, tbl_Target_Species.Tr"
+    "ansect_Only, tbl_Target_Species.Target_Area_ID, tbl_Target_Areas.Target_Area AS "
+    "Tgt_Area, tlu_NCPN_Plants.Master_Family AS Family, tlu_NCPN_Plants.Master_Common"
+    "_Name, tlu_NCPN_Plants.utah_species, tlu_NCPN_Plants.Co_Species, tlu_NCPN_Plants"
+    ".Wy_Species, IIf(tbl_Target_Species.Target_Area_ID>0,tbl_Target_Areas.Target_Are"
+    "a,IIf\015\015\012(tbl_Target_Species.Transect_Only>0,\"Transect\",tbl_Target_Spe"
+    "cies.Priority)) AS PriorityTarget, (tbl_Target_List.Park_Code+\"-\"+PriorityTarg"
+    "et) AS ParkPriority, (tbl_Target_Species.Species_Name+\"-\"+CStr(tbl_Target_List"
+    ".Target_Year)) AS SpeciesYear\015\012FROM ((tbl_Target_Species LEFT JOIN tbl_Tar"
+    "get_Areas ON tbl_Target_Species.Target_Area_ID = tbl_Target_Areas.Target_Area_ID"
+    ") LEFT JOIN tbl_Target_List ON tbl_Target_Species.Tgt_List_ID_FK = tbl_Target_Li"
+    "st.Tgt_List_ID) LEFT JOIN tlu_NCPN_Plants ON tbl_Target_Species.Master_Plant_Cod"
+    "e_FK = tlu_NCPN_Plants.Master_Plant_Code\015\012ORDER BY tbl_Target_Species.Spec"
+    "ies_Name;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -144,6 +146,71 @@ Begin
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x7597b113575789469ca53d2a7dc20e54
+        End
+    End
+    Begin
+        dbText "Name" ="Created"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="Last_Modified"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="ParkListCreated"
+        dbLong "AggregateType" ="-1"
+        dbBinary "GUID" = Begin
+            0x344b8679246d0642a385551846157bcf
+        End
+    End
+    Begin
+        dbText "Name" ="ParkListLastModified"
+        dbLong "AggregateType" ="-1"
+        dbBinary "GUID" = Begin
+            0x23d4f04346a7234f969e22c7d86ba445
+        End
+    End
+    Begin
+        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.Family"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.Species_Name"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.utah_species"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.Co_Species"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.Wy_Species"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.TgtYear"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.Master_Plant_Code_FK"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.LU_Code"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.Master_Common_Name"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="ParkPriorities"
+        dbLong "AggregateType" ="-1"
+        dbBinary "GUID" = Begin
+            0x843d4e5053c4864aa495a5abf3b808b3
         End
     End
 End

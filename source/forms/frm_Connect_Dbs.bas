@@ -1475,7 +1475,7 @@ Private Sub btnUpdateLinks_Click()
             !New_server = Null
             '!Is_Network_Db = IsNetworkFile(rst.Fields("New_path").Value) ' <<<<< ERROR 94 TRIGGERED HERE
             .Update
-            .Bookmark = .LastModified
+            .Bookmark = .lastModified
         End With
 
 NextBackEnd:
@@ -1570,7 +1570,7 @@ Private Sub btnClose_Click()
             !New_path = Null
             !New_server = Null
             .Update
-            .Bookmark = .LastModified
+            .Bookmark = .lastModified
         End With
         rst.MoveNext
     Loop

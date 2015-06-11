@@ -12,10 +12,10 @@ Begin Form
     GridY =24
     DatasheetFontHeight =11
     ItemSuffix =22
-    Left =330
-    Top =450
-    Right =7785
-    Bottom =4575
+    Left =336
+    Top =456
+    Right =7788
+    Bottom =4584
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xc1f3db6ed487e440
@@ -216,10 +216,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin ListBox
@@ -236,8 +236,8 @@ Begin Form
                     BorderColor =10921638
                     Name ="lbxParks"
                     RowSourceType ="Table/Query"
-                    RowSource ="SELECT DISTINCT tbl_Target_Species.Park_Code FROM tbl_Target_Species ORDER BY tb"
-                        "l_Target_Species.Park_Code; "
+                    RowSource ="SELECT DISTINCT tbl_Target_List.Park_Code FROM tbl_Target_List ORDER BY tbl_Targ"
+                        "et_List.Park_Code;"
                     OnClick ="[Event Procedure]"
                     GridlineColor =10921638
 
@@ -276,8 +276,8 @@ Begin Form
                     BorderColor =10921638
                     Name ="lbxYears"
                     RowSourceType ="Table/Query"
-                    RowSource ="SELECT DISTINCT tbl_Target_Species.Target_Year FROM tbl_Target_Species ORDER BY "
-                        "tbl_Target_Species.Target_Year; "
+                    RowSource ="SELECT DISTINCT tbl_Target_List.Target_Year FROM tbl_Target_List ORDER BY tbl_Ta"
+                        "rget_List.Target_Year;"
                     OnClick ="[Event Procedure]"
                     GridlineColor =10921638
 
@@ -509,18 +509,27 @@ On Error GoTo Err_Handler
       
     'determine the selected park(s) & year(s)
     If Len(TempVars.item("parks")) > 0 And Len(TempVars.item("years")) > 0 Then
-        strWhere = "WHERE Park_Code IN (" & TempVars.item("parks") & ") " _
-                 & "AND Target_Year IN (" & TempVars.item("years") & ")"
+'        strWhere = "WHERE Park_Code IN (" & TempVars.item("parks") & ") " _
+'                 & "AND Target_Year IN (" & TempVars.item("years") & ")"
+        strWhere = "WHERE tbl_Target_List.Park_Code IN (" & TempVars.item("parks") & ") " _
+                 & "AND tbl_Target_List.Target_Year IN (" & TempVars.item("years") & ")"
     End If
     
     'prep WHERE clause
     If Len(Replace(strWhere, "WHERE", "")) = 0 Then strWhere = ""
     
     'build SQL statement
+'    strSQL = "SELECT DISTINCT Master_Plant_Code_FK AS Code, Species_Name AS Species, " _
+'            & "LU_Code AS LUCode,  Transect_Only, Target_Area_ID " _
+'            & "FROM tbl_Target_Species " _
+'            & strWhere & ";"
+            
     strSQL = "SELECT DISTINCT Master_Plant_Code_FK AS Code, Species_Name AS Species, " _
             & "LU_Code AS LUCode,  Transect_Only, Target_Area_ID " _
             & "FROM tbl_Target_Species " _
+            & "INNER JOIN tbl_Target_List ON tbl_Target_Species.Tgt_List_ID_FK = tbl_Target_List.Tgt_List_ID " _
             & strWhere & ";"
+            
             
     'fetch data
     Set rs = CurrentDb.OpenRecordset(strSQL, dbOpenDynaset)

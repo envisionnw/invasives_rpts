@@ -272,7 +272,6 @@ Err_Handler:
     Resume Exit_Sub
 End Sub
 
-
 ' ---------------------------------
 ' FUNCTION:     getParkState
 ' Description:  Retrieve the state associated with a park (via tlu_Parks)
@@ -322,6 +321,60 @@ Err_Handler:
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
             "Error encountered (#" & Err.Number & " - getParkState[mod_App_Data])"
+    End Select
+    Resume Exit_Function
+End Function
+
+' ---------------------------------
+' FUNCTION:     getListLastModifiedDate
+' Description:  Retrieve the last modified date with a park (via tbl_Target_List)
+' Assumptions:  -
+' Parameters:   tgtYear - 4 digit year of list (integer)
+'               parkCode - 4 character park designator (string)
+' Returns:      date - last modified date for the specified target list (string)
+' Throws:       none
+' References:   none
+' Source/date:
+' Adapted:      Bonnie Campbell, June 10, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 6/10/2015  - initial version
+' ---------------------------------
+Public Function getListLastModifiedDate(TgtYear As Integer, parkCode As String) As String
+
+On Error GoTo Err_Handler
+    
+    Dim db As DAO.Database
+    Dim rs As DAO.Recordset
+    Dim lastModified As String, strSQL As String
+   
+    'handle only appropriate park codes
+    If Len(parkCode) <> 4 Or TgtYear < 2000 Then
+        GoTo Exit_Function
+    End If
+    
+    'generate SQL ==> NOTE: LIMIT 1; syntax not viable for Access, use SELECT TOP x instead
+    strSQL = "SELECT TOP 1 LastModified FROM tbl_Target_List WHERE ParkCode LIKE '" & parkCode & "' AND Tgt_Year = tgtYear;"
+            
+    'fetch data
+    Set db = CurrentDb
+    Set rs = db.OpenRecordset(strSQL)
+    
+    'assume only 1 record returned
+    If rs.RecordCount > 0 Then
+        lastModified = rs.Fields("LastModified").Value
+    End If
+   
+    'return value
+    getListLastModifiedDate = lastModified
+    
+Exit_Function:
+    Exit Function
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - getListLastModifiedDate[mod_App_Data])"
     End Select
     Resume Exit_Function
 End Function
