@@ -3,7 +3,6 @@ VersionRequired =20
 Begin Report
     LayoutForPrint = NotDefault
     DividingLines = NotDefault
-    FilterOn = NotDefault
     DateGrouping =1
     GrpKeepTogether =1
     PictureAlignment =2
@@ -13,14 +12,13 @@ Begin Report
     Width =11400
     DatasheetFontHeight =11
     ItemSuffix =50
-    Left =1284
-    Top =336
-    Right =12792
-    Bottom =8316
+    Left =720
+    Top =2355
+    Right =12735
+    Bottom =11175
     DatasheetGridlinesColor =14806254
-    Filter ="TgtList IN ('BLCA-2015')"
     RecSrcDt = Begin
-        0xc99e3ea7b896e440
+        0x93926d5acb96e440
     End
     RecordSource ="qry_Park_Tgt_Species_Lists"
     Caption ="INVASIVE LIST"
@@ -151,7 +149,7 @@ Begin Report
                     TextAlign =1
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =1380
+                    Left =1500
                     Top =600
                     Width =4140
                     Height =315
@@ -160,14 +158,13 @@ Begin Report
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxLastModified"
-                    ControlSource ="=IIf([OpenArgs]=\"preview\",\"-\",Format([Last_Modified],\"mmmm d\"\", \"\"yyyy "
-                        "h:nn ampm\"))"
+                    ControlSource ="=Format([Last_Modified],\"mmmm d\"\", \"\"yyyy h:nn ampm\")"
                     Format ="General Number"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =1380
+                    LayoutCachedLeft =1500
                     LayoutCachedTop =600
-                    LayoutCachedWidth =5520
+                    LayoutCachedWidth =5640
                     LayoutCachedHeight =915
                 End
                 Begin Label
@@ -363,7 +360,7 @@ Begin Report
                     TextAlign =1
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =1380
+                    Left =1500
                     Top =60
                     Width =3300
                     Height =315
@@ -374,9 +371,9 @@ Begin Report
                     Format ="Medium Date"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =1380
+                    LayoutCachedLeft =1500
                     LayoutCachedTop =60
-                    LayoutCachedWidth =4680
+                    LayoutCachedWidth =4800
                     LayoutCachedHeight =375
                 End
                 Begin TextBox
@@ -814,6 +811,9 @@ Option Explicit
 ' Revisions:
 '   BLC - 4/1/2015 - initial version
 '   BLC - 6/3/2015 - added check for "preview" openarg to handle list previews
+'   BLC - 6/11/2015 - added Last_Modified to qry_Tgt_Species_List_Preview to handle Last_Modified date
+'                     in header vs. setting using IIF(Me.OpenArgs = "preview"... in vba or report tbx design
+'                     which failed to display data
 ' ---------------------------------
 Private Sub Report_Open(Cancel As Integer)
 
@@ -845,7 +845,7 @@ On Error GoTo Err_Handler
                 'set headers
                 '=IIf([OpenArgs]="preview",[TempVars]![park] & " - " & [TempVars]![TgtYear],[Park] & " - " & [TgtYear])
                 '=IIf([OpenArgs] = "preview", "-", Format([Last_Modified], "mmmm d"", ""yyyy h:nn ampm"))
-                tbxLastModified.ControlSource = IIf(Me.OpenArgs = "preview", "-", Format([Last_Modified], "mmmm d"", ""yyyy h:nn ampm"))
+                'tbxLastModified.ControlSource = IIf(Me.OpenArgs = "preview", "-", Format([Last_Modified], "mmmm d"", ""yyyy h:nn ampm"))
                 tbxListName.ControlSource = IIf([Page] > 1, "Invasives List for " & TempVars("park") & "-" & TempVars("TgtYear"), "")
                 lblReportHdr.Caption = "INVASIVES TARGET LIST PREVIEW"
         End Select

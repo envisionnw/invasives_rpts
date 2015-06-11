@@ -12,8 +12,8 @@ Begin Form
     Width =10935
     DatasheetFontHeight =11
     ItemSuffix =30
-    Right =10608
-    Bottom =5988
+    Right =11190
+    Bottom =5985
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x72574db34b86e440
@@ -316,10 +316,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -361,10 +361,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -406,10 +406,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -451,10 +451,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -498,10 +498,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -544,10 +544,10 @@ Begin Form
                     PressedForeColor =0
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -592,10 +592,10 @@ Begin Form
                     PressedForeColor =0
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =3
-                    WebImagePaddingBottom =3
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -640,10 +640,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =3
-                    WebImagePaddingBottom =3
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -685,10 +685,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                 End
             End
         End
@@ -1391,6 +1391,7 @@ End Sub
 '   BLC - 6/4/2015 - renamed tempTgtSpecies to temp_Tgt_Species
 '   BLC - 6/10/2015 - adjusted SQL strings to accommodate new tbl_Target_List and changes to tbl_Target_Species
 '                     (park & year shift to tbl_Target_List)
+'   BLC - 6/11/2015 - added check to retrieve Tgt_List_ID when list previously existed to populate new species records
 ' ---------------------------------
 Private Sub btnSaveList_Click()
 On Error GoTo Err_Handler
@@ -1400,9 +1401,13 @@ On Error GoTo Err_Handler
     Dim strSQL As String, strInsert As String
     Dim varReturn As Variant
     Dim blnAddToList As Boolean
+    Dim wrkCurrent As DAO.Workspace
     
     'default
     blnAddToList = False
+    
+    'show action
+    DoCmd.Hourglass True
     
     'delete the full list for current or future years
     If CInt(TempVars("TgtYear")) > 0 And CInt(TempVars("TgtYear")) > Year(Now()) + 1 Then
@@ -1416,19 +1421,13 @@ On Error GoTo Err_Handler
         varReturn = SysCmd(acSysCmdSetStatus, "Removing old list...")
         
         'remove the old list
-'        strSQL = "DELETE * FROM tbl_Target_Species " & _
-'                    "WHERE Park_Code = '" & TempVars("park") & _
-'                    "' AND Target_Year = " & TempVars("TgtYear") & ";"
-        
         strSQL = "DELETE DISTINCTROW  tbl_Target_Species.* " & _
                 "FROM tbl_Target_Species " & _
                 "INNER JOIN tbl_Target_List ON tbl_Target_Species.Tgt_List_ID_FK = tbl_Target_List.Tgt_List_ID " & _
                 "WHERE tbl_Target_List.Park_Code = '" & TempVars("park") & "' " & _
                 "AND tbl_Target_List.Target_Year = " & TempVars("TgtYear") & ";"
         
-        DoCmd.SetWarnings False
-        DoCmd.RunSQL strSQL
-        DoCmd.SetWarnings True
+        CurrentDb.Execute strSQL, dbFailOnError
         
          'pause to view status bar
         Pause 5
@@ -1479,19 +1478,27 @@ On Error GoTo Err_Handler
         strSQL = "INSERT INTO tbl_Target_List(Park_Code, Target_Year, Created) " & _
                  "VALUES ('" & TempVars("park") & "', " & TempVars("TgtYear") & ", Now() );"
         
-        CurrentDb.Execute strSQL
+        CurrentDb.Execute strSQL, dbFailOnError
         
         tgtListID = CurrentDb.OpenRecordset("SELECT @@IDENTITY")(0)
     
     Else
     
-        'update the last modified date
+        'update the last modified date & retrieve the list ID
         strSQL = "UPDATE tbl_Target_List " & _
                 "SET Last_Modified = Now() " & _
                 "WHERE Park_Code = '" & TempVars("park") & "' AND Target_Year = " & TempVars("TgtYear") & ";"
+
+        CurrentDb.Execute strSQL, dbFailOnError
         
-        CurrentDb.Execute (strSQL)
-        
+        'fetch the ID
+        strSQL = "SELECT TOP 1 tbl_Target_List.Tgt_List_ID FROM tbl_Target_List " & _
+                "WHERE Park_Code = '" & TempVars("park") & "' AND Target_Year = " & TempVars("TgtYear") & ";"
+
+        Set rs = CurrentDb.OpenRecordset(strSQL)
+
+        If Not (rs.BOF And rs.EOF) Then tgtListID = rs("Tgt_List_ID")
+    
     End If
     
     'start @ row 1 (headers = row 0)
@@ -1509,17 +1516,11 @@ On Error GoTo Err_Handler
        ' ---------------------------------------------------
        '  Check if item exists in tbl_TgtSpecies for Park, Year, Species combo
        ' ---------------------------------------------------
-'        strSQL = "SELECT * FROM tbl_Target_Species " & _
-'                 "WHERE Master_PLANT_Code_FK = '" & strMasterCode & _
-'                 "' AND Park_Code = '" & TempVars("park") & _
-'                 "' AND Target_Year = " & TempVars("TgtYear") & ";"
-        
         strSQL = "SELECT * FROM tbl_Target_Species " & _
                  "INNER JOIN tbl_Target_List ON tbl_Target_Species.Tgt_List_ID_FK = tbl_Target_List.Tgt_List_ID " & _
                  "WHERE tbl_Target_Species.Master_PLANT_Code_FK ='" & strMasterCode & "' " & _
                  "AND tbl_Target_List.Park_Code = '" & TempVars("park") & "' " & _
                  "AND tbl_Target_List.Target_Year = " & TempVars("TgtYear") & ";"
-        
 
         Set rs = CurrentDb.OpenRecordset(strSQL) 'CurrentDb.Execute(strSQL, dbFailOnError) >> doesn't compile expected function or variable
       
@@ -1530,17 +1531,11 @@ On Error GoTo Err_Handler
             varReturn = SysCmd(acSysCmdSetStatus, "Saving " & strSpecies & "...")
             
             'prepare SQL
-'            strSQL = "INSERT INTO tbl_Target_Species" _
-'                    & "(Master_Plant_Code_FK, Park_Code, Target_Year, Species_Name, LU_Code, " _
-'                    & "Transect_Only, Target_Area_ID)" _
-'                    & "VALUES "
-    
             strSQL = "INSERT INTO tbl_Target_Species" _
                     & "(Tgt_List_ID_FK, Master_Plant_Code_FK, Species_Name, LU_Code, " _
-                    & "Transect_Only, Target_Area_ID)" _
+                    & "Transect_Only, Target_Area_ID) " _
                     & "VALUES "
-    
-    
+
             'prepare insert value
             strInsert = "(" & tgtListID & ",'" & strMasterCode & "','" & strSpecies & "','" & strLUCode _
                         & "'," & iTransectOnly & "," & iTgtAreaID & ");"
@@ -1569,15 +1564,6 @@ On Error GoTo Err_Handler
         Set qdf = CurrentDb.QueryDefs("qry_Tgt_Species_List")
         
         strSQL = qdf.sql
-        
-'        strSQL = "SELECT tbl_Target_Species.Park_Code AS Park, " & _
-'                 "tbl_Target_Species.Target_Year AS TgtYear, " & _
-'                 "Master_Plant_Code_FK, Species_Name, LU_Code, " & _
-'                 "Priority, Transect_Only, Target_Area_ID " & _
-'                 "FROM tbl_Target_Species " & _
-'                 "WHERE (((tbl_Target_Species.Target_Year) = CInt(tgtYear)) " & _
-'                 "And ((LCase([tbl_Target_Species].[Park_Code])) = LCase(park))) " & _
-'                 "ORDER BY tbl_Target_Species.Species_Name;"
         
         strSQL = "SELECT tbl_Target_List.Park_Code AS Park, " & _
                  "tbl_Target_List.Target_Year AS TgtYear, " & _
@@ -1610,6 +1596,8 @@ On Error GoTo Err_Handler
 
     'close form
     DoCmd.Close acForm, Me.name
+
+    DoCmd.Hourglass False
 
 Exit_Sub:
     Exit Sub
