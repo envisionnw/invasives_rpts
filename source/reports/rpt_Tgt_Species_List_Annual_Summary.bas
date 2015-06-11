@@ -12,14 +12,14 @@ Begin Report
     GridY =24
     Width =15264
     DatasheetFontHeight =11
-    ItemSuffix =125
-    Top =528
-    Right =15504
-    Bottom =8508
+    ItemSuffix =134
+    Top =684
+    Right =15252
+    Bottom =8664
     DatasheetGridlinesColor =14806254
     Filter ="TgtYear=2017"
     RecSrcDt = Begin
-        0xf59e8f680195e440
+        0x63b56f12bb96e440
     End
     RecordSource ="qry_Tgt_Species_List_Annual_Summary"
     Caption ="INVASIVE LIST"
@@ -297,27 +297,6 @@ Begin Report
                 End
                 Begin TextBox
                     OldBorderStyle =0
-                    TextAlign =1
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =120
-                    Top =60
-                    Width =5820
-                    Height =312
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxDate"
-                    ControlSource ="=\"Printed:   \" & Now()"
-                    Format ="Long Date"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =120
-                    LayoutCachedTop =60
-                    LayoutCachedWidth =5940
-                    LayoutCachedHeight =372
-                End
-                Begin TextBox
-                    OldBorderStyle =0
                     TextAlign =3
                     BackStyle =0
                     IMESentenceMode =3
@@ -325,7 +304,6 @@ Begin Report
                     Top =60
                     Width =5040
                     Height =312
-                    TabIndex =1
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxPage"
@@ -516,7 +494,7 @@ Begin Report
                     Left =6360
                     Width =2880
                     Height =312
-                    TabIndex =2
+                    TabIndex =1
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxListName"
@@ -526,6 +504,45 @@ Begin Report
                     LayoutCachedLeft =6360
                     LayoutCachedWidth =9240
                     LayoutCachedHeight =312
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    OldBorderStyle =0
+                    TextAlign =1
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =1440
+                    Top =60
+                    Width =3300
+                    Height =315
+                    TabIndex =2
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxDate"
+                    ControlSource ="=Format(Now(),\"mmmm d\"\", \"\"yyyy h:nn ampm\")"
+                    Format ="Medium Date"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =1440
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =4740
+                    LayoutCachedHeight =375
+                End
+                Begin Label
+                    Left =120
+                    Top =60
+                    Width =1320
+                    Height =300
+                    BorderColor =8355711
+                    ForeColor =4210752
+                    Name ="lblPrinted"
+                    Caption ="Printed:"
+                    GridlineColor =10921638
+                    LayoutCachedLeft =120
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =1440
+                    LayoutCachedHeight =360
+                    ForeTint =75.0
                 End
             End
         End
@@ -1309,6 +1326,7 @@ Begin Report
         End
         Begin FormFooter
             KeepTogether = NotDefault
+            Height =2580
             Name ="ReportFooter"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -1971,6 +1989,198 @@ Begin Report
                     LayoutCachedWidth =9240
                     LayoutCachedHeight =708
                     BackThemeColorIndex =-1
+                End
+                Begin TextBox
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =9480
+                    Top =1440
+                    Width =300
+                    Height =1080
+                    FontSize =9
+                    TabIndex =17
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxLastModBLCA"
+                    ControlSource ="=getListLastModifiedDate(TempVars(\"TgtYear\"),\"BLCA\")"
+                    StatusBarText ="List Last Modification Date (BLCA)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =9480
+                    LayoutCachedTop =1440
+                    LayoutCachedWidth =9780
+                    LayoutCachedHeight =2520
+                End
+                Begin TextBox
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =10020
+                    Top =1440
+                    Width =300
+                    Height =1080
+                    FontSize =9
+                    TabIndex =18
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxLastModCARE"
+                    ControlSource ="=getListLastModifiedDate(TempVars(\"TgtYear\"),\"CARE\")"
+                    StatusBarText ="List Last Modification Date (CARE)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =10020
+                    LayoutCachedTop =1440
+                    LayoutCachedWidth =10320
+                    LayoutCachedHeight =2520
+                End
+                Begin TextBox
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =10620
+                    Top =1440
+                    Width =300
+                    Height =1080
+                    FontSize =9
+                    TabIndex =19
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxLastModCOLM"
+                    ControlSource ="=getListLastModifiedDate(TempVars(\"TgtYear\"),\"COLM\")"
+                    StatusBarText ="List Last Modification Date (COLM)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =10620
+                    LayoutCachedTop =1440
+                    LayoutCachedWidth =10920
+                    LayoutCachedHeight =2520
+                End
+                Begin TextBox
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =11220
+                    Top =1440
+                    Width =300
+                    Height =1080
+                    FontSize =9
+                    TabIndex =20
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxLastModCURE"
+                    ControlSource ="=getListLastModifiedDate(TempVars(\"TgtYear\"),\"CURE\")"
+                    StatusBarText ="List Last Modification Date (CURE)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =11220
+                    LayoutCachedTop =1440
+                    LayoutCachedWidth =11520
+                    LayoutCachedHeight =2520
+                End
+                Begin TextBox
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =11820
+                    Top =1440
+                    Width =300
+                    Height =1080
+                    FontSize =9
+                    TabIndex =21
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxLastModDINO"
+                    ControlSource ="=getListLastModifiedDate(TempVars(\"TgtYear\"),\"DINO\")"
+                    StatusBarText ="List Last Modification Date (DINO)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =11820
+                    LayoutCachedTop =1440
+                    LayoutCachedWidth =12120
+                    LayoutCachedHeight =2520
+                End
+                Begin TextBox
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =12420
+                    Top =1440
+                    Width =300
+                    Height =1080
+                    FontSize =9
+                    TabIndex =22
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxLastModFOBU"
+                    ControlSource ="=getListLastModifiedDate(TempVars(\"TgtYear\"),\"FOBU\")"
+                    StatusBarText ="List Last Modification Date (FOBU)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =12420
+                    LayoutCachedTop =1440
+                    LayoutCachedWidth =12720
+                    LayoutCachedHeight =2520
+                End
+                Begin TextBox
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =13080
+                    Top =1440
+                    Width =300
+                    Height =1080
+                    FontSize =9
+                    TabIndex =23
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxLastModGOSP"
+                    ControlSource ="=getListLastModifiedDate(TempVars(\"TgtYear\"),\"GOSP\")"
+                    StatusBarText ="List Last Modification Date (GOSP)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =13080
+                    LayoutCachedTop =1440
+                    LayoutCachedWidth =13380
+                    LayoutCachedHeight =2520
+                End
+                Begin TextBox
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =13740
+                    Top =1440
+                    Width =300
+                    Height =1080
+                    FontSize =9
+                    TabIndex =24
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxLastModZION"
+                    ControlSource ="=getListLastModifiedDate(TempVars(\"TgtYear\"),\"ZION\")"
+                    StatusBarText ="List Last Modification Date (ZION)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =13740
+                    LayoutCachedTop =1440
+                    LayoutCachedWidth =14040
+                    LayoutCachedHeight =2520
                 End
             End
         End

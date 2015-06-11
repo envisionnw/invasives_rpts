@@ -12,14 +12,15 @@ Begin Report
     GridY =24
     Width =11400
     DatasheetFontHeight =11
-    ItemSuffix =43
-    Top =540
-    Right =11760
-    Bottom =8520
+    ItemSuffix =46
+    Left =1728
+    Top =480
+    Right =13488
+    Bottom =8460
     DatasheetGridlinesColor =14806254
-    Filter ="TgtList IN ('BLCA-2012','BLCA-2017','CARE-2009','CARE-2010')"
+    Filter ="TgtList IN ('BLCA-2012','BLCA-2015','CARE-2009')"
     RecSrcDt = Begin
-        0x75c142d25493e440
+        0xcd00c8efb996e440
     End
     RecordSource ="qry_Park_Tgt_Species_Lists"
     Caption ="INVASIVE LIST"
@@ -107,10 +108,9 @@ Begin Report
         End
         Begin FormHeader
             KeepTogether = NotDefault
-            Height =948
+            Height =600
             BackColor =15849926
             Name ="ReportHeader"
-            AutoHeight =1
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
             BackThemeColorIndex =2
@@ -314,6 +314,46 @@ Begin Report
                     LayoutCachedWidth =5880
                     LayoutCachedHeight =924
                 End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    OldBorderStyle =0
+                    TextAlign =1
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =1379
+                    Top =60
+                    Width =5940
+                    Height =312
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxDate"
+                    ControlSource ="=Format(Now(),\"mmmm d\"\", \"\"yyyy h:nn ampm\")"
+                    Format ="Long Date"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =1379
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =7319
+                    LayoutCachedHeight =372
+                    Begin
+                        Begin Label
+                            Left =120
+                            Top =60
+                            Width =1320
+                            Height =300
+                            BorderColor =8355711
+                            ForeColor =4210752
+                            Name ="lblPrinted"
+                            Caption ="Printed:"
+                            GridlineColor =10921638
+                            LayoutCachedLeft =120
+                            LayoutCachedTop =60
+                            LayoutCachedWidth =1440
+                            LayoutCachedHeight =360
+                            ForeTint =75.0
+                        End
+                    End
+                End
                 Begin Line
                     BorderWidth =2
                     Left =180
@@ -325,27 +365,6 @@ Begin Report
                     LayoutCachedTop =1320
                     LayoutCachedWidth =11280
                     LayoutCachedHeight =1320
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    TextAlign =1
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =120
-                    Top =60
-                    Width =5940
-                    Height =312
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxDate"
-                    ControlSource ="=\"Printed:   \" & Now()"
-                    Format ="Long Date"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =120
-                    LayoutCachedTop =60
-                    LayoutCachedWidth =6060
-                    LayoutCachedHeight =372
                 End
                 Begin TextBox
                     OldBorderStyle =0
@@ -511,6 +530,49 @@ Begin Report
                     LayoutCachedTop =120
                     LayoutCachedWidth =6645
                     LayoutCachedHeight =419
+                End
+                Begin Label
+                    FontItalic = NotDefault
+                    TextAlign =1
+                    Left =1320
+                    Top =120
+                    Width =1497
+                    Height =299
+                    BorderColor =8355711
+                    ForeColor =8355711
+                    Name ="lblLastModified"
+                    Caption ="Last Modified:"
+                    Tag ="DetachedLabel"
+                    GridlineStyleBottom =1
+                    GridlineColor =10921638
+                    LayoutCachedLeft =1320
+                    LayoutCachedTop =120
+                    LayoutCachedWidth =2817
+                    LayoutCachedHeight =419
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    OldBorderStyle =0
+                    TextAlign =1
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =2760
+                    Top =120
+                    Width =2220
+                    Height =297
+                    TabIndex =4
+                    BorderColor =10921638
+                    ForeColor =8355711
+                    Name ="tbxLastModified"
+                    ControlSource ="=Format([Last_Modified],\"mmmm d\"\", \"\"yyyy h:nn ampm\")"
+                    StatusBarText ="Target Species name (ITIS species name from tlu_NCPN_Plants.Master_Species)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =2760
+                    LayoutCachedTop =120
+                    LayoutCachedWidth =4980
+                    LayoutCachedHeight =417
+                    ForeTint =50.0
                 End
             End
         End

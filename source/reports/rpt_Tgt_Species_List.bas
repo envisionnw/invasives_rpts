@@ -3,6 +3,7 @@ VersionRequired =20
 Begin Report
     LayoutForPrint = NotDefault
     DividingLines = NotDefault
+    FilterOn = NotDefault
     DateGrouping =1
     GrpKeepTogether =1
     PictureAlignment =2
@@ -11,13 +12,15 @@ Begin Report
     GridY =24
     Width =11400
     DatasheetFontHeight =11
-    ItemSuffix =46
-    Top =1416
-    Right =12000
-    Bottom =9108
+    ItemSuffix =50
+    Left =1284
+    Top =336
+    Right =12792
+    Bottom =8316
     DatasheetGridlinesColor =14806254
+    Filter ="TgtList IN ('BLCA-2015')"
     RecSrcDt = Begin
-        0xfc71c0649b96e440
+        0xc99e3ea7b896e440
     End
     RecordSource ="qry_Park_Tgt_Species_Lists"
     Caption ="INVASIVE LIST"
@@ -95,7 +98,7 @@ Begin Report
         End
         Begin FormHeader
             KeepTogether = NotDefault
-            Height =660
+            Height =960
             BackColor =15849926
             Name ="ReportHeader"
             AlternateBackThemeColorIndex =1
@@ -127,7 +130,7 @@ Begin Report
                     Left =9000
                     Width =2340
                     Height =540
-                    ColumnOrder =0
+                    ColumnOrder =1
                     FontSize =20
                     BorderColor =10921638
                     ForeColor =8355711
@@ -141,6 +144,47 @@ Begin Report
                     LayoutCachedWidth =11340
                     LayoutCachedHeight =540
                     ForeTint =50.0
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    OldBorderStyle =0
+                    TextAlign =1
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =1380
+                    Top =600
+                    Width =4140
+                    Height =315
+                    ColumnOrder =0
+                    TabIndex =1
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxLastModified"
+                    ControlSource ="=IIf([OpenArgs]=\"preview\",\"-\",Format([Last_Modified],\"mmmm d\"\", \"\"yyyy "
+                        "h:nn ampm\"))"
+                    Format ="General Number"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =1380
+                    LayoutCachedTop =600
+                    LayoutCachedWidth =5520
+                    LayoutCachedHeight =915
+                End
+                Begin Label
+                    Left =60
+                    Top =612
+                    Width =1320
+                    Height =300
+                    BorderColor =8355711
+                    ForeColor =4210752
+                    Name ="lblLastModified"
+                    Caption ="Last Modified:"
+                    GridlineColor =10921638
+                    LayoutCachedLeft =60
+                    LayoutCachedTop =612
+                    LayoutCachedWidth =1380
+                    LayoutCachedHeight =912
+                    ForeTint =75.0
                 End
             End
         End
@@ -314,24 +358,25 @@ Begin Report
                     LayoutCachedHeight =1320
                 End
                 Begin TextBox
+                    FontItalic = NotDefault
                     OldBorderStyle =0
                     TextAlign =1
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =120
+                    Left =1380
                     Top =60
-                    Width =4140
+                    Width =3300
                     Height =315
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxDate"
-                    ControlSource ="=\"Printed:   \" & Now()"
-                    Format ="Long Date"
+                    ControlSource ="=Format(Now(),\"mmmm d\"\", \"\"yyyy h:nn ampm\")"
+                    Format ="Medium Date"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =120
+                    LayoutCachedLeft =1380
                     LayoutCachedTop =60
-                    LayoutCachedWidth =4260
+                    LayoutCachedWidth =4680
                     LayoutCachedHeight =375
                 End
                 Begin TextBox
@@ -375,6 +420,22 @@ Begin Report
                     LayoutCachedTop =60
                     LayoutCachedWidth =7200
                     LayoutCachedHeight =372
+                End
+                Begin Label
+                    Left =60
+                    Top =60
+                    Width =1320
+                    Height =300
+                    BorderColor =8355711
+                    ForeColor =4210752
+                    Name ="Label49"
+                    Caption ="Printed:"
+                    GridlineColor =10921638
+                    LayoutCachedLeft =60
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =1380
+                    LayoutCachedHeight =360
+                    ForeTint =75.0
                 End
             End
         End
@@ -783,6 +844,8 @@ On Error GoTo Err_Handler
                           
                 'set headers
                 '=IIf([OpenArgs]="preview",[TempVars]![park] & " - " & [TempVars]![TgtYear],[Park] & " - " & [TgtYear])
+                '=IIf([OpenArgs] = "preview", "-", Format([Last_Modified], "mmmm d"", ""yyyy h:nn ampm"))
+                tbxLastModified.ControlSource = IIf(Me.OpenArgs = "preview", "-", Format([Last_Modified], "mmmm d"", ""yyyy h:nn ampm"))
                 tbxListName.ControlSource = IIf([Page] > 1, "Invasives List for " & TempVars("park") & "-" & TempVars("TgtYear"), "")
                 lblReportHdr.Caption = "INVASIVES TARGET LIST PREVIEW"
         End Select

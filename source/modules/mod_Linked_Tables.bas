@@ -15,6 +15,7 @@ Option Explicit
 '               BLC, 4/30/2015 - 1.00 - added fxnVerifyLinks, fxnRefreshLinks, fxnVerifyLinkTableInfo,
 '                                fxnMakeBackup from mod_Custom_Functions
 '               BLC, 5/19/2015 - 1.01 - renamed functions, removed fxn prefix
+'               BLC, 6/10/2015 - 1.02 - fixed VerifyLinkTableInfo to add new linked tables to tsys_Link_Tables
 ' =================================
 
 ' ---------------------------------
@@ -873,6 +874,9 @@ End Function
 '               BLC, 4/30/2015 - moved to mod_Linked_Tables from mod_Custom_Functions
 '               BLC, 5/18/2015 - renamed, removed fxn prefix
 '               BLC, 5/19/2015 - added check for FIX_LINKED_DBS flag when DbAdmin is not fully implemented
+'               BLC, 6/10/2015 - updated SQL insert into tsys_Link_Tables for missing MSysObjects tables
+'                                captured by qsys_Linked_tables_not_in_tsys_Link_Tables (missing Link_type)
+'                                bug resulted in new linked tables never being inserted into tsys_Link_Tables & subsequent errors
 ' =================================
 Public Function VerifyLinkTableInfo() As Boolean
     On Error GoTo Err_Handler
@@ -933,10 +937,15 @@ Public Function VerifyLinkTableInfo() As Boolean
         DoCmd.OpenQuery "qsys_Linked_dbs_not_in_tsys_Link_Dbs"
         ' Append missing table records to tsys_Link_Tables
         strSQL = "INSERT INTO tsys_Link_Tables " & _
-            "( Link_table, Link_db ) " & _
+               "( Link_table, Link_db,  Link_type ) " & _
             "SELECT qsys_Linked_tables_not_in_tsys_Link_Tables.CurrTable, " & _
-            "qsys_Linked_tables_not_in_tsys_Link_Tables.CurrDb " & _
-            "FROM qsys_Linked_tables_not_in_tsys_Link_Tables;"
+            "qsys_Linked_tables_not_in_tsys_Link_Tables.CurrDb, tsys_Link_Dbs.Db_desc " & _
+            "FROM qsys_Linked_tables_not_in_tsys_Link_Tables " & _
+            "INNER JOIN tsys_Link_Dbs ON qsys_Linked_tables_not_in_tsys_Link_Tables.CurrDb = tsys_Link_Dbs.Link_db;"
+
+'            "SELECT qsys_Linked_tables_not_in_tsys_Link_Tables.CurrTable, " & _
+'            "qsys_Linked_tables_not_in_tsys_Link_Tables.CurrDb " & _
+'            "FROM qsys_Linked_tables_not_in_tsys_Link_Tables;"
         DoCmd.RunSQL strSQL
         DoCmd.SetWarnings True
         ' Update descriptions

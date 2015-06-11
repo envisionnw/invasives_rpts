@@ -13,10 +13,10 @@ Begin Form
     Width =9120
     DatasheetFontHeight =11
     ItemSuffix =17
-    Left =570
-    Top =1560
-    Right =4260
-    Bottom =5580
+    Left =324
+    Top =-3096
+    Right =4020
+    Bottom =672
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x72f936e78d96e440
@@ -583,6 +583,7 @@ End Sub
 '   BLC - 5/27/2015 - added check for missing LU Codes
 '                     (species w/ missing codes cannot be added to target list)
 '   BLC - 6/9/2015 -  enable preview and save list buttons on species double click
+'   BLC - 6/10/2015 - enable reset button on species double click
 ' ---------------------------------
 Public Sub tbxCode_DblClick(Cancel As Integer)
 On Error GoTo Err_Handler
@@ -626,9 +627,12 @@ On Error GoTo Err_Handler
         
     End With
     
-    'enable preview & save
-    Forms("frm_Tgt_Species").Controls("btnPreviewList").Enabled = True
-    Forms("frm_Tgt_Species").Controls("btnSaveList").Enabled = True
+    'enable reset, preview & save
+    With Forms("frm_Tgt_Species")
+        .Controls("btnReset").Enabled = True
+        .Controls("btnPreviewList").Enabled = True
+        .Controls("btnSaveList").Enabled = True
+    End With
     
 Exit_Sub:
     Exit Sub
