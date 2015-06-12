@@ -325,18 +325,14 @@ Err_Handler:
     Resume Exit_Function
 End Function
 
-Public Sub test()
-TempVars.Add "TgtYear", 2017
- getListLastModifiedDate TempVars("TgtYear"), "BLCA"
-End Sub
-
 ' ---------------------------------
 ' FUNCTION:     getListLastModifiedDate
 ' Description:  Retrieve the last modified date with a park (via tbl_Target_List)
 ' Assumptions:  -
 ' Parameters:   tgtYear - 4 digit year of list (integer)
 '               parkCode - 4 character park designator (string)
-' Returns:      date - last modified date for the specified target list (string)
+' Returns:      date - last modified date (mmm-d-yyyy H:nn AMPM format) for the specified target list (string)
+'                      if NULL (no last modified date) returns empty string
 ' Throws:       none
 ' References:   none
 ' Source/date:
@@ -348,76 +344,20 @@ Public Function getListLastModifiedDate(TgtYear As Integer, parkCode As String) 
 
 On Error GoTo Err_Handler
     
-    Dim db As DAO.Database
-    Dim rs As DAO.Recordset
-    Dim lastModified As String, strSQL As String
-   
+    Dim strCriteria As String
+
     'handle only appropriate park codes
     If Len(parkCode) <> 4 Or TgtYear < 2000 Then
         GoTo Exit_Function
     End If
     
-    Dim strCriteria As String
-    'strExp =
-    'strExp = DLookup("Last_Modified", "tbl_Target_List", "Park_Code LIKE '" & parkCode & "' AND Target_Year = " & CInt(TgtYear) & "")
-'    DLookup "Last_Modified", "tbl_Target_List", _
-'        "[Park_Code] LIKE '" & [parkCode] & "'AND [Target_Year] = " & CInt([TgtYear])
-    Dim varDate As Variant
-    
-    'strCriteria = "[Park_Code] LIKE '" & [parkCode] & "' AND [Target_Year] = " & CInt([TgtYear])
+    'set lookup criteria
     strCriteria = "Park_Code LIKE '" & parkCode & "' AND CInt(Target_Year) = " & CInt(TgtYear)
     
-    Debug.Print strCriteria
-    
-    '---------- Yield NULL for varDate ----------------
-    
-    varDate = DLookup("Last_Modified", "tbl_Target_List", strCriteria)
-
-    varDate = DLookup("Last_Modified", "tbl_Target_List", _
-        "[Park_Code] LIKE '" & [parkCode] & "' AND [Target_Year] = " & [TgtYear])
-
-    varDate = DLookup("Last_Modified", "tbl_Target_List", _
-        "[Park_Code] LIKE '" & [parkCode] & "' AND CStr([Target_Year]) = '" & CStr(TgtYear) & "'")
-    
-    varDate = DLookup("Last_Modified", "tbl_Target_List", _
-        "[Park_Code] LIKE '" & [parkCode] & "' AND CInt([Target_Year]) = " & CInt([TgtYear]))
-    
-    varDate = DLookup("Last_Modified", "tbl_Target_List", _
-        "[Park_Code] LIKE '" & [parkCode] & "' AND [Target_Year] = 2017")
-
-    varDate = DLookup("Last_Modified", "tbl_Target_List", _
-        "[Park_Code] LIKE '" & [parkCode] & "' AND [Target_Year] = " & 2017)
-    
-    varDate = DLookup("Last_Modified", "tbl_Target_List", _
-        "[Park_Code] LIKE '" & [parkCode] & "' AND [Target_Year] = [TempVars]![TgtYear]")
-    '---------------------------------------------------
-
-    '*** Yield value for varDate ***
-    varDate = DLookup("Last_Modified", "tbl_Target_List", _
-        "[Park_Code] LIKE '" & [parkCode] & "'")
-    '*******************************
-    
-    varDate = DLookup("Last_Modified", "tbl_Target_List", _
-        "[Park_Code] LIKE '" & [parkCode] & "' AND [Target_Year] = [TempVars]![TgtYear]")
-
-    'generate SQL ==> NOTE: LIMIT 1; syntax not viable for Access, use SELECT TOP x instead
-    'strSQL = "SELECT Last_Modified FROM tbl_Target_List WHERE Park_Code LIKE '" & parkCode & "' AND Target_Year = " & CInt(TgtYear) & ";"
-            
-    'fetch data
-    'Set db = CurrentDb
-    'Set rs = db.OpenRecordset(strSQL, dbOpenDynaset)
-    
-    'assume only 1 record returned
-    'If rs.RecordCount > 0 Then
-    '    lastModified = rs.Fields("Last_Modified").Value
-    'End If
-   
-    'If Not (rs.BOF And rs.EOF) Then
-    '    lastModified = rs.Fields("Last_Modified").Value
-    'End If
-   
-    'return value
-    getListLastModifiedDate = lastModified
+    'Debug.Print strCriteria
+        
+    'lookup last modified date & return value
+    getListLastModifiedDate = Nz(Format(DLookup("Last_Modified", "tbl_Target_List", strCriteria), "mmm-d-yyyy H:nn AMPM"), "")
     
 Exit_Function:
     Exit Function
