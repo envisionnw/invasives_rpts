@@ -19,10 +19,10 @@ Begin Form
     Width =10320
     DatasheetFontHeight =9
     ItemSuffix =27
-    Left =1530
-    Top =4425
-    Right =12075
-    Bottom =9510
+    Left =1965
+    Top =4305
+    Right =12510
+    Bottom =9390
     DatasheetGridlinesColor =15062992
     RecSrcDt = Begin
         0x3438fc614e6fe440
@@ -2309,6 +2309,7 @@ Option Explicit
 '                                added initApp since subforms load BEFORE main form,
 '                                so frmSwitchboard open calling initApp would load *AFTER* fsub_DbAdmin
 '               BLC, 8/22/2014 - removed setting tbxAppMode since it is set w/ setUserAccess & on form open
+'               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub Form_Open(Cancel As Integer)
 
@@ -2320,10 +2321,10 @@ Private Sub Form_Open(Cancel As Integer)
     
     ' If there is an Access back-end, open the always-open form (to maintain a connection
     '   to the back-end and avoid unnecessary create/delete/updates to its .ldb lock file)
-    If TempVars.item("HasAccessBE") Then DoCmd.OpenForm "frm_Lock_BE", , , , , acHidden
+    If TempVars("HasAccessBE") Then DoCmd.OpenForm "frm_Lock_BE", , , , , acHidden
 
     ' If there is an Access back-end, make the backups button visible
-    Me!cmdBackup.visible = TempVars.item("HasAccessBE")
+    Me!cmdBackup.visible = TempVars("HasAccessBE")
 
 End Sub
 
@@ -2373,16 +2374,17 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC, 7/29/2014 - updated to use TempVars.Item("UserAccessLevel") vs. cAppMode
 '               BLC, 7/31/2014 - changed gvars to TempVars
+'               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdSetRoles_Click()
     On Error GoTo Err_Handler
 
     ' Open the form to set user roles for this project (if in admin / power user mode)
-    If TempVars.item("Connected") = False Then
+    If TempVars("Connected") = False Then
         MsgBox "The back-end connections must be fixed first", vbOKOnly, _
             "Not connected to back-end database"
     Else
-        Select Case TempVars.item("UserAccessLevel")
+        Select Case TempVars("UserAccessLevel")
           Case "admin", "power user"
             DoCmd.OpenForm "frm_User_Roles"
         End Select
@@ -2433,20 +2435,21 @@ End Sub
 ' Source/date:  John Boetsch - NCCN Landbirds db by DbAdmin control set
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - Changed gvarConnected, gvarHasAccessBE, gvarWritePermission to TempVars
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdBackup_Click()
     On Error GoTo Err_Handler
 
     ' Make sure that the database is connected
-    If TempVars.item("Connected") = False Then
+    If TempVars("Connected") = False Then
         MsgBox "The back-end connections must be fixed first", vbOKOnly, _
             "Not connected to back-end database"
         GoTo Exit_Procedure
-    ElseIf TempVars.item("HasAccessBE") = False Then
+    ElseIf TempVars("HasAccessBE") = False Then
         MsgBox "There are no Access back-ends currently connected ...", _
             vbExclamation, "No backup made"
         GoTo Exit_Procedure
-    ElseIf TempVars.item("WritePermission") = False Then
+    ElseIf TempVars("WritePermission") = False Then
         MsgBox "The back-end database is in a read-only state ...", _
             vbExclamation, "No backup made"
         GoTo Exit_Procedure
@@ -2485,12 +2488,13 @@ End Sub
 ' Source/date:  John Boetsch - NCCN Landbirds db by DbAdmin control set
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - Changed gvars to TempVars
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdChangeDefaults_Click()
     On Error GoTo Err_Handler
 
     ' Perform data validation
-    If TempVars.item("Connected") Then
+    If TempVars("Connected") Then
         DoCmd.OpenForm "frm_Set_Defaults", , , , , , 4
     Else
         MsgBox "The back-end connections must be fixed first", vbOKOnly, _
@@ -2553,13 +2557,14 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC, 7/28/2014 - updated to use TempVars.Item("UserAccessLevel") vs. cAppMode
 '               BLC, 7/31/2014 - changed gvars to TempVars
+'               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdReleaseHistory_Click()
     On Error GoTo Err_Handler
 
     ' View the release history form
-    If TempVars.item("Connected") Then
-        If TempVars.item("UserAccessLevel") = "admin" Then
+    If TempVars("Connected") Then
+        If TempVars("UserAccessLevel") = "admin" Then
             DoCmd.OpenForm "frm_App_Releases"
         Else    ' read-only for all but admin users
             DoCmd.OpenForm "frm_App_Releases", , , , acFormReadOnly
@@ -2588,6 +2593,7 @@ End Sub
 ' Source/date:  John Boetsch - NCCN Landbirds db by DbAdmin control set
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - changed gvars to TempVars
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdReportBug_Click()
     On Error GoTo Err_Handler
@@ -2604,7 +2610,7 @@ Private Sub cmdReportBug_Click()
         & vbCrLf & vbTab & "  message appears when entering the site code for a new record')."
 
     ' Change the instructions statement depending on whether or not the form will be opened
-    If TempVars.item("Connected") Then
+    If TempVars("Connected") Then
         strMsg = "Please fill out the following form to describe the problem" & strMsg
     Else
         strMsg = "The database is not properly connected." & vbCrLf & vbCrLf & _
@@ -2617,7 +2623,7 @@ Private Sub cmdReportBug_Click()
     MsgBox strMsg, , "Report a database problem or error"
 
     ' If connected, open the form along with instructions
-    If TempVars.item("Connected") Then DoCmd.OpenForm "fsub_Bug_Reports", , , , acFormAdd, acDialog, 1
+    If TempVars("Connected") Then DoCmd.OpenForm "fsub_Bug_Reports", , , , acFormAdd, acDialog, 1
 
 Exit_Procedure:
     Exit Sub
@@ -2645,12 +2651,13 @@ End Sub
 ' Source/date:  John Boetsch - NCCN Landbirds db by DbAdmin control set
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 6/19/2014 - Replaced Me.cAppMode with TempVars.Item("UserAccessLevel")
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdChangeDbInfo_Click()
     On Error GoTo Err_Handler
 
     ' Update database version and contact info
-    If TempVars.item("UserAccessLevel") = "admin" Then
+    If TempVars("UserAccessLevel") = "admin" Then
         DoCmd.OpenForm "frm_Set_Db_Info"
     End If
 
@@ -2677,15 +2684,16 @@ End Sub
 ' Source/date:  John Boetsch - NCCN Landbirds db by DbAdmin control set
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - changed gvars to TempVars
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdEnter_Click()
     On Error GoTo Err_Handler
     
     ' Open the main data entry forms
-    If TempVars.item("Connected") Then
+    If TempVars("Connected") Then
         ' Prompt to make a backup, depending on application settings
         '   Note:  only relevant for Access back-end files
-        If Me.chkBackupOnStartup And TempVars.item("HasAccessBE") Then MakeBackup
+        If Me.chkBackupOnStartup And TempVars("HasAccessBE") Then MakeBackup
         DoCmd.OpenForm "frm_Set_Defaults", , , , , , 1
     Else
         MsgBox "The back-end connections must be fixed first", vbOKOnly, _
@@ -2711,12 +2719,13 @@ End Sub
 ' Source/date:  John Boetsch - NCCN Landbirds db by DbAdmin control set
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - changed gvars to TempVars
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdTaskList_Click()
     On Error GoTo Err_Handler
 
     ' View the list of tasks associated with sample locations
-    If TempVars.item("Connected") Then
+    If TempVars("Connected") Then
         DoCmd.OpenForm "frm_Task_List"
     Else
         MsgBox "The back-end connections must be fixed first", vbOKOnly, _
@@ -2742,12 +2751,13 @@ End Sub
 ' Source/date:  John Boetsch - NCCN Landbirds db by DbAdmin control set
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - changed gvars to TempVars
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdIncidentalObs_Click()
     On Error GoTo Err_Handler
 
     ' View and enter incidental observation data
-    If TempVars.item("Connected") Then
+    If TempVars("Connected") Then
         DoCmd.OpenForm "frm_Incidental_Obs"
     Else
         MsgBox "The back-end connections must be fixed first", vbOKOnly, _
@@ -2777,12 +2787,13 @@ End Sub
 ' Source/date:  John Boetsch - NCCN Landbirds db by DbAdmin control set
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - changed gvars to TempVars
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdBrowser_Click()
     On Error GoTo Err_Handler
 
     ' Open the data browser
-    If TempVars.item("Connected") Then
+    If TempVars("Connected") Then
         DoCmd.OpenForm "frm_Set_Defaults", , , , , , 2
     Else
         MsgBox "The back-end connections must be fixed first", vbOKOnly, _
@@ -2808,12 +2819,13 @@ End Sub
 ' Source/date:  John Boetsch - NCCN Landbirds db by DbAdmin control set
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - changed gvars to TempVars
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdLookups_Click()
     On Error GoTo Err_Handler
 
     ' Review and edit lookup tables
-    If TempVars.item("Connected") = False Then
+    If TempVars("Connected") = False Then
         MsgBox "The back-end connections must be fixed first", vbOKOnly, _
             "Not connected to back-end database"
     Else
@@ -2839,12 +2851,13 @@ End Sub
 ' Source/date:  John Boetsch - NCCN Landbirds db by DbAdmin control set
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - change gvars to TempVars
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdSchedule_Click()
     On Error GoTo Err_Handler
 
     ' Open the sampling schedule browser
-    If TempVars.item("Connected") Then
+    If TempVars("Connected") Then
         DoCmd.OpenForm "frm_Schedule"
     Else
         MsgBox "The back-end connections must be fixed first", vbOKOnly, _
@@ -2870,12 +2883,13 @@ End Sub
 ' Source/date:  John Boetsch - NCCN Landbirds db by DbAdmin control set
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - changed gvars to TempVars
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdQA_Click()
     On Error GoTo Err_Handler
 
     ' Open the data validation tool
-    If TempVars.item("Connected") Then
+    If TempVars("Connected") Then
         DoCmd.OpenForm "frm_QA_Tool"
     Else
         MsgBox "The back-end connections must be fixed first", vbOKOnly, _
@@ -2901,12 +2915,13 @@ End Sub
 ' Source/date:  John Boetsch - NCCN Landbirds db by DbAdmin control set
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - changed gvars to TempVars
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdEditLog_Click()
     On Error GoTo Err_Handler
 
     ' Open the edit log form
-    If TempVars.item("Connected") Then
+    If TempVars("Connected") Then
         DoCmd.OpenForm "frm_Edit_Log"
     Else
         MsgBox "The back-end connections must be fixed first", vbOKOnly, _
@@ -2932,12 +2947,13 @@ End Sub
 ' Source/date:  John Boetsch - NCCN Landbirds db by DbAdmin control set
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - changed gvars to TempVars
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdTrainingNotes_Click()
     On Error GoTo Err_Handler
 
     ' Enter field season training notes
-    If TempVars.item("Connected") Then
+    If TempVars("Connected") Then
         DoCmd.OpenForm "frm_Training_Notes"
     Else
         MsgBox "The back-end connections must be fixed first", vbOKOnly, _
@@ -2967,12 +2983,13 @@ End Sub
 ' Source/date:  John Boetsch - NCCN Landbirds db by DbAdmin control set
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - changed gvars to TempVars
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdSummaries_Click()
     On Error GoTo Err_Handler
 
     ' Open the data summary tool
-    If TempVars.item("Connected") Then
+    If TempVars("Connected") Then
         DoCmd.OpenForm "frm_Summary_Tool"
     Else
         MsgBox "The back-end connections must be fixed first", vbOKOnly, _
@@ -2999,12 +3016,13 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC, 7/29/2014 - updated to use TempVars.Item("Timeframe") vs. cTimeframe
 '               BLC - 7/31/2014 - changed gvars to TempVars
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdTaskListRpt_Click()
     On Error GoTo Err_Handler
 
     ' Notify if not connected
-    If TempVars.item("Connected") = False Then
+    If TempVars("Connected") = False Then
         MsgBox "The back-end connections must be fixed first", vbOKOnly, _
             "Not connected to back-end database"
         GoTo Exit_Procedure
@@ -3027,7 +3045,7 @@ Private Sub cmdTaskListRpt_Click()
 
     strFilter = ""
     bFilterOn = False
-    strTimeframe = TempVars.item("Timeframe")
+    strTimeframe = TempVars("Timeframe")
 
     strMsg = "This will generate the task list report ..." & vbCrLf & vbCrLf & _
         "Would you like to limit task list output to " & vbCrLf & _
@@ -3108,12 +3126,13 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC, 7/29/2014 - updated to use TempVars.Item("Timeframe") vs. cTimeframe
 '               BLC - 7/31/2014 - changed gvars to TempVars
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdSpeciesListRpt_Click()
     On Error GoTo Err_Handler
 
     ' Notify if not connected
-    If TempVars.item("Connected") = False Then
+    If TempVars("Connected") = False Then
         MsgBox "The back-end connections must be fixed first", vbOKOnly, _
             "Not connected to back-end database"
         GoTo Exit_Procedure
@@ -3136,7 +3155,7 @@ Private Sub cmdSpeciesListRpt_Click()
 
     strFilter = ""
     bFilterOn = False
-    strTimeframe = TempVars.item("Timeframe")
+    strTimeframe = TempVars("Timeframe")
 
     strMsg = "This will generate the transect species report ..." & vbCrLf & vbCrLf & _
         "Would you like to show only scheduled sites for " & strTimeframe & "?" & vbCrLf & _
@@ -3215,12 +3234,13 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC, 7/29/2014 - updated to use TempVars.Item("Timeframe") vs. cTimeframe
 '               BLC - 7/31/2014 - changed gvars to TempVars
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdNavReport_Click()
     On Error GoTo Err_Handler
 
     ' Notify if not connected
-    If TempVars.item("Connected") = False Then
+    If TempVars("Connected") = False Then
         MsgBox "The back-end connections must be fixed first", vbOKOnly, _
             "Not connected to back-end database"
         GoTo Exit_Procedure
@@ -3243,7 +3263,7 @@ Private Sub cmdNavReport_Click()
 
     strFilter = ""
     bFilterOn = False
-    strTimeframe = TempVars.item("Timeframe")
+    strTimeframe = TempVars("Timeframe")
 
     strMsg = "This will generate the navigation report ..." & vbCrLf & vbCrLf & _
         "Output will be limited to scheduled sampling locations for " & strTimeframe & "."
@@ -3317,12 +3337,13 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC, 7/29/2014 - updated to use TempVars.Item("Timeframe") vs. cTimeframe
 '               BLC - 7/31/2014 - changed gvars to TempVars
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdQAReport_Click()
     On Error GoTo Err_Handler
 
     ' Notify if not connected
-    If TempVars.item("Connected") = False Then
+    If TempVars("Connected") = False Then
         MsgBox "The back-end connections must be fixed first", vbOKOnly, _
             "Not connected to back-end database"
         GoTo Exit_Procedure
@@ -3340,19 +3361,19 @@ Private Sub cmdQAReport_Click()
     strRptName = "rpt_QA_Results"
 
     strMsg = "This will open the quality assurance report ..." & vbCrLf & vbCrLf & _
-        "Would you like to limit report results to " & TempVars.item("Timeframe") & "?"
+        "Would you like to limit report results to " & TempVars("Timeframe") & "?"
     varResponse = MsgBox(strMsg, vbYesNoCancel, "Quality assurance report")
 
     Select Case varResponse
       Case vbCancel
         GoTo Exit_Procedure
       Case vbYes
-        strTimeframe = TempVars.item("Timeframe")
+        strTimeframe = TempVars("Timeframe")
         strFilter = "[Time_frame]=""" & strTimeframe & """"
       Case Else
         strTimeframe = Trim(InputBox("Enter the time frame to filter by" & vbCrLf & _
             "(or leave blank to show all):", "Filter by data time frame", _
-            TempVars.item("Timeframe")))
+            TempVars("Timeframe")))
         If strTimeframe <> "" Then
             strFilter = "[Time_frame]=""" & strTimeframe & """"
         Else
@@ -3404,12 +3425,13 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC, 7/29/2014 - updated to use TempVars.Item("Timeframe") vs. cTimeframe
 '               BLC - 7/31/2014 - changed gvars to TempVars
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdNavCoords_Click()
     On Error GoTo Err_Handler
 
     ' Notify if not connected
-    If TempVars.item("Connected") = False Then
+    If TempVars("Connected") = False Then
         MsgBox "The back-end connections must be fixed first", vbOKOnly, _
             "Not connected to back-end database"
         GoTo Exit_Procedure
@@ -3423,7 +3445,7 @@ Private Sub cmdNavCoords_Click()
     Dim varResponse As VbMsgBoxResult
 
     strMsg = "This will generate the navigation target coordinates ..." & vbCrLf & vbCrLf & _
-        "Would you like to show only scheduled sites for " & TempVars.item("Timeframe") & "?" & vbCrLf & _
+        "Would you like to show only scheduled sites for " & TempVars("Timeframe") & "?" & vbCrLf & _
         vbCrLf & "Select NO to output navigation coordinates for all sites ..."
     varResponse = MsgBox(strMsg, vbYesNoCancel, "Navigation target coordinates")
 
@@ -3432,8 +3454,8 @@ Private Sub cmdNavCoords_Click()
         GoTo Exit_Procedure
       Case vbYes
         ' Verify that there are scheduled locations for the current year
-        If DCount("*", "tbl_Schedule", "[Calendar_year]=""" & TempVars.item("Timeframe") & """") = 0 Then
-            If MsgBox("There are no scheduled sites for " & TempVars.item("Timeframe") & "." & vbCrLf & _
+        If DCount("*", "tbl_Schedule", "[Calendar_year]=""" & TempVars("Timeframe") & """") = 0 Then
+            If MsgBox("There are no scheduled sites for " & TempVars("Timeframe") & "." & vbCrLf & _
                 "Show all sites instead?", vbYesNo + vbDefaultButton2, _
                 "No scheduled sites") = vbYes Then
                 strQryName = "qrpt_Navigation_target_coordinates_all"

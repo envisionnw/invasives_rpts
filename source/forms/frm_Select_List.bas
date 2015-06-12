@@ -12,10 +12,10 @@ Begin Form
     GridY =24
     DatasheetFontHeight =11
     ItemSuffix =22
-    Left =336
-    Top =456
-    Right =7788
-    Bottom =4584
+    Left =330
+    Top =450
+    Right =7785
+    Bottom =4590
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xc1f3db6ed487e440
@@ -216,10 +216,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin ListBox
@@ -460,11 +460,12 @@ End Sub
 ' Adapted:      -
 ' Revisions:
 '   BLC - 5/26/2015 - initial version
+'   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
 On Error GoTo Err_Handler
 
-    If Len(TempVars.item("parks")) > 0 And Len(TempVars.item("years")) > 0 Then
+    If Len(TempVars("parks")) > 0 And Len(TempVars("years")) > 0 Then
         Me.btnLoadList.Enabled True
     Else
         Me.btnLoadList.Enabled False
@@ -499,6 +500,7 @@ End Sub
 '   BLC - 5/26/2015 - added merge from temp_Listbox_Recordset table vs listbox & table removal
 '   BLC - 5/27/2015 - modified to use AddListRecordset and GetListRecordset vs.  MergeRecordsets to capture
 '                     all records from
+'   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub btnLoadList_Click()
 On Error GoTo Err_Handler
@@ -508,11 +510,9 @@ On Error GoTo Err_Handler
     Dim aryFieldTypes() As Variant
       
     'determine the selected park(s) & year(s)
-    If Len(TempVars.item("parks")) > 0 And Len(TempVars.item("years")) > 0 Then
-'        strWhere = "WHERE Park_Code IN (" & TempVars.item("parks") & ") " _
-'                 & "AND Target_Year IN (" & TempVars.item("years") & ")"
-        strWhere = "WHERE tbl_Target_List.Park_Code IN (" & TempVars.item("parks") & ") " _
-                 & "AND tbl_Target_List.Target_Year IN (" & TempVars.item("years") & ")"
+    If Len(TempVars("parks")) > 0 And Len(TempVars("years")) > 0 Then
+        strWhere = "WHERE tbl_Target_List.Park_Code IN (" & TempVars("parks") & ") " _
+                 & "AND tbl_Target_List.Target_Year IN (" & TempVars("years") & ")"
     End If
     
     'prep WHERE clause

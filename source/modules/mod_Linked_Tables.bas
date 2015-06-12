@@ -67,6 +67,7 @@ Option Explicit
 '               BLC, 4/30/2015 - switched from fxnSwitchboardIsOpen to FormIsOpen(frmSwitchboard)
 '               BLC, 5/18/2015 - renamed, removed fxn prefix
 '               BLC, 5/22/2015 - moved from mod_Initialize_App to mod_Linked_Tables
+'               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Public Function VerifyConnections()
     On Error GoTo Err_Handler
@@ -82,8 +83,8 @@ Public Function VerifyConnections()
     Dim blnHasError As Boolean
 
     Set db = CurrentDb
-    TempVars.item("Connected") = False           ' Default in case of error
-    TempVars.item("HasAccessBE") = False         ' Flag to indicate that at least 1 Access BE exists
+    TempVars("Connected") = False           ' Default in case of error
+    TempVars("HasAccessBE") = False         ' Flag to indicate that at least 1 Access BE exists
     strSysTable = "tsys_Link_Dbs"   ' System table listing linked tables
     blnHasError = False             ' Flag to indicate error status
 
@@ -118,7 +119,7 @@ Public Function VerifyConnections()
             End If
         Else
             ' Access back-end - update the global variable
-            TempVars.item("HasAccessBE") = True
+            TempVars("HasAccessBE") = True
             If Not IsNull(rst![File_path]) Then
                 strDbPath = rst![File_path]
                 If FileExists(strDbPath) = False Then
@@ -152,7 +153,7 @@ Public Function VerifyConnections()
         ' Check the status of individual table links, depending on application settings
         If FormIsOpen("frmSwitchboard") And blnHasError = False Then
             If Forms!frm_Switchboard.fsub_DbAdmin.Form.chkVerifyOnStartup Then
-                If TempVars.item("HasAccessBE") = True Then
+                If TempVars("HasAccessBE") = True Then
                     If MsgBox("Would you like all linked table connections to be tested?", _
                         vbYesNo + vbDefaultButton2, _
                         "Checking back-end connections ...") = vbNo Then GoTo Proc_Final_Status
@@ -183,7 +184,7 @@ Proc_Final_Status:
             DoCmd.OpenForm "frm_Connect_Dbs"
         End If
     Else  ' If no connection errors, then set the global variable flag to True
-        TempVars.item("Connected") = True
+        TempVars("Connected") = True
     End If
 
 Exit_Procedure:

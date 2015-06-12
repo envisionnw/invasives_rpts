@@ -270,12 +270,13 @@ End Sub
 ' Adapted:      -
 ' Revisions:
 '   BLC - 6/4/2015  - initial version
+'   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Public Sub EnableTargetTool(ctrl As Control)
 On Error GoTo Err_Handler
     
     'enable button if connected
-    If TempVars.item("Connected") Then
+    If TempVars("Connected") Then
         ctrl.Enabled = True
     Else
         ctrl.Enabled = False

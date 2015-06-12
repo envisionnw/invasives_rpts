@@ -283,6 +283,8 @@ Option Explicit
 '
 ' Source/date:  Bonnie Campbell, 5/1/2015
 ' Revisions:    BLC - 5/1/2015 - initial version
+'               BLC - 6/12/2015 - added Continue button enable,
+'                                 replaced TempVars.item("... with TempVars("...
 ' =================================
 
 ' ---------------------------------
@@ -297,6 +299,7 @@ Option Explicit
 ' Adapted:      Bonnie Campbell, May 1, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 5/1/2015 - initial version
+'   BLC - 6/12/2015 - disabled Continue button to start
 ' ---------------------------------
 Private Sub Form_Load()
 
@@ -304,8 +307,8 @@ On Error GoTo Err_Handler
     
     Initialize
     
-    'set action
-    'TempVars.item("action") = Form.OpenArgs
+    'disable continue to start
+    btnContinue.Enabled = False
     
 Exit_Sub:
     Exit Sub
@@ -330,6 +333,7 @@ End Sub
 ' Source/date:  Bonnie Campbell, March 5, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 5/1/2015 - initial version
+'   BLC - 6/12/2015 - added logic to enable Continue button
 ' ---------------------------------
 Private Sub lbxTgtLists_Click()
 On Error GoTo Err_Handler
@@ -347,6 +351,11 @@ Dim item As Variant
     strTgtLists = IIf(Right(strTgtLists, 1) = ",", Left(strTgtLists, Len(strTgtLists) - 1), strTgtLists)
     
     TempVars.Add "TgtLists", strTgtLists
+    
+    'enable Continue button
+    If Len(strTgtLists) > 0 Then
+        btnContinue.Enabled = True
+    End If
     
 Exit_Sub:
     Exit Sub
@@ -372,20 +381,21 @@ End Sub
 ' Adapted:      Bonnie Campbell, February 12, 2015 - for NCPN tools
 ' Revisions:
 '   BLC, 5/1/2015 - initial version
+'   BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub btnContinue_Click()
 On Error GoTo Err_Handler
     Dim strReport As String, strWhere As String
     
-    Select Case TempVars.item("rpt")
+    Select Case TempVars("rpt")
         
         Case "CrewSpeciesList" ' Reports > Field Crew Species List
             strReport = "rpt_Tgt_Species_List"
-            strWhere = "TgtList IN (" & TempVars.item("TgtLists") & ")"
+            strWhere = "TgtList IN (" & TempVars("TgtLists") & ")"
         
         Case "SpeciesListByPark" ' Reports > Species List By Park
             strReport = "rpt_Tgt_Species_List_By_Park"
-            strWhere = "TgtList IN (" & TempVars.item("TgtLists") & ")"
+            strWhere = "TgtList IN (" & TempVars("TgtLists") & ")"
         
         Case "TgtListAnnualSummary" ' Reports > Annual Species List Summary
             strReport = "rpt_Tgt_Species_List_Annual_Summary"

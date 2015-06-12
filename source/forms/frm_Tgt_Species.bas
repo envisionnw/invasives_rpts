@@ -828,6 +828,7 @@ End Property
 '                    set btnAdd to enabled to start vs disabled
 '   BLC - 6/9/2015 - toggle preview & save list buttons (enabled if lbx has species)
 '   BLC - 6/10/2015 - added toggle for reset button
+'   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub Form_Load()
 
@@ -837,15 +838,15 @@ On Error GoTo Err_Handler
     Initialize
        
     'set state
-    TempVars.item("state") = getParkState(TempVars.item("park"))
+    TempVars("state") = getParkState(TempVars("park"))
     
     'set year
-    TempVars.item("TgtYear") = Form.OpenArgs
+    TempVars("TgtYear") = Form.OpenArgs
     
     'prep headers
-    lblParkHdr.Caption = TempVars.item("park")
+    lblParkHdr.Caption = TempVars("park")
     lblYear.Caption = "Target Species List for " & Form.OpenArgs
-    lblSpeciesListbox.Caption = TempVars.item("state") & " Species"
+    lblSpeciesListbox.Caption = TempVars("state") & " Species"
     
     'clear headers
     lbxTgtSpecies.RowSource = ""
@@ -1298,6 +1299,7 @@ End Sub
 '   BLC - 5/10/2015 - added update for species count
 '   BLC - 6/9/2015 - enable preview and save list buttons if species in list
 '   BLC - 6/10/2015 - enable reset button if species in list
+'   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub btnAddAll_Click()
 On Error GoTo Err_Handler
@@ -1307,7 +1309,7 @@ On Error GoTo Err_Handler
     
     'fetch recordset
     Set db = CurrentDb
-    Set rs = db.OpenRecordset(TempVars.item("strSQL"))
+    Set rs = db.OpenRecordset(TempVars("strSQL"))
     
     'MoveAllItems Me, "lbxSpecies", "lbxTgtSpecies"
     MoveAllItems Me, "", "lbxTgtSpecies"
@@ -1392,6 +1394,7 @@ End Sub
 '   BLC - 6/10/2015 - adjusted SQL strings to accommodate new tbl_Target_List and changes to tbl_Target_Species
 '                     (park & year shift to tbl_Target_List)
 '   BLC - 6/11/2015 - added check to retrieve Tgt_List_ID when list previously existed to populate new species records
+'   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub btnSaveList_Click()
 On Error GoTo Err_Handler
@@ -1410,7 +1413,7 @@ On Error GoTo Err_Handler
     DoCmd.Hourglass True
     
     'delete the full list for current or future years
-    If CInt(TempVars("TgtYear")) > 0 And CInt(TempVars("TgtYear")) > Year(Now()) + 1 Then
+    If CInt(TempVars("TgtYear")) > 0 And CInt(TempVars("TgtYear")) > Year(Now()) Then
     
         MsgBox "Removing previously saved " & TempVars("park") & " - " & TempVars("TgtYear") & _
                 " species. " & vbCrLf & vbCrLf & _
@@ -1430,18 +1433,23 @@ On Error GoTo Err_Handler
         CurrentDb.Execute strSQL, dbFailOnError
         
          'pause to view status bar
-        Pause 5
+        Pause 3
         
         blnAddToList = True
     Else
     
         'warn the user, but allow them to choose to add to the previous year list (or not)
-        iResponse = MsgBox("The list you are saving is from a previous year ( " & _
+        Dim strCurrPrev As String
+        strCurrPrev = IIf(CInt(TempVars("TgtYear")) = Year(Now()), "the current", "a previous")
+
+        iResponse = MsgBox("The list you are saving is for " & strCurrPrev & " year ( " & _
                 TempVars("park") & " - " & TempVars("TgtYear") & " )." & vbCrLf & vbCrLf & _
+                "If necessary, species can be added to current/prior year lists, but they cannot be removed." & vbCrLf & vbCrLf & _
                 "If the list you are saving has new species, they will be added." & vbCrLf & vbCrLf & _
-               "Do you really want to add species to the " & _
-               TempVars("park") & " - " & TempVars("TgtYear") & "?", _
-                vbYesNoCancel, "Altering List for a Previous Year!")
+                "Removed species will be ignored." & vbCrLf & vbCrLf & _
+                "Do you really want to add species to the " & _
+                TempVars("park") & " - " & TempVars("TgtYear") & "?", _
+                vbYesNoCancel, "Altering List for a Current/Previous Year!")
         
         'check response - vbOK(1), vbCancel(2), vbAbort(3), vbRetry(4), vbIgnore(5), vbYes(6), vbNo(7)
         'allow addition only if user says "Yes!"
@@ -1553,43 +1561,43 @@ On Error GoTo Err_Handler
         
     Next
 
-        ' check for temp query & clear if it exists
-        If QueryExists("temp_Tgt_Species") Then
-            CurrentDb.QueryDefs.Delete "temp_Tgt_Species"
-        End If
-        
-        'open target list
-        Dim qdf As QueryDef
-        
-        Set qdf = CurrentDb.QueryDefs("qry_Tgt_Species_List")
-        
-        strSQL = qdf.sql
-        
-        strSQL = "SELECT tbl_Target_List.Park_Code AS Park, " & _
-                 "tbl_Target_List.Target_Year AS TgtYear, " & _
-                 "Master_Plant_Code_FK, Species_Name, LU_Code, " & _
-                 "Priority, Transect_Only, Target_Area_ID " & _
-                 "FROM tbl_Target_Species " & _
-                 "INNER JOIN tbl_Target_List ON tbl_Target_Species.Tgt_List_ID_FK = tbl_Target_List.Tgt_List_ID " & _
-                 "WHERE (((tbl_Target_List.Target_Year) = CInt(tgtYear)) " & _
-                 "And ((LCase([tbl_Target_List].[Park_Code])) = LCase(park))) " & _
-                 "ORDER BY tbl_Target_Species.Species_Name;"
-        
-        'replace values
-        strSQL = Replace(strSQL, "(park)", "('" & TempVars.item("park") & "')")
-        strSQL = Replace(strSQL, "(tgtYear)", "(" & TempVars.item("TgtYear") & ")")
-        
-        'DoCmd.OpenQuery "qryTgtSpeciesList", acViewNormal, acReadOnly
-        'DoCmd.RunSQL strSQL <=== NO! not on a SELECT...
-        
-        CurrentDb.CreateQueryDef("temp_Tgt_Species").sql = strSQL
-        DoCmd.OpenQuery "temp_Tgt_Species"
+    ' check for temp query & clear if it exists
+    If QueryExists("temp_Tgt_Species") Then
+        CurrentDb.QueryDefs.Delete "temp_Tgt_Species"
+    End If
+    
+    'open target list
+    Dim qdf As QueryDef
+    
+    Set qdf = CurrentDb.QueryDefs("qry_Tgt_Species_List")
+    
+    strSQL = qdf.sql
+    
+    strSQL = "SELECT tbl_Target_List.Park_Code AS Park, " & _
+             "tbl_Target_List.Target_Year AS TgtYear, " & _
+             "Master_Plant_Code_FK, Species_Name, LU_Code, " & _
+             "Priority, Transect_Only, Target_Area_ID " & _
+             "FROM tbl_Target_Species " & _
+             "INNER JOIN tbl_Target_List ON tbl_Target_Species.Tgt_List_ID_FK = tbl_Target_List.Tgt_List_ID " & _
+             "WHERE (((tbl_Target_List.Target_Year) = CInt(tgtYear)) " & _
+             "And ((LCase([tbl_Target_List].[Park_Code])) = LCase(park))) " & _
+             "ORDER BY tbl_Target_Species.Species_Name;"
+    
+    'replace values
+    strSQL = Replace(strSQL, "(park)", "('" & TempVars("park") & "')")
+    strSQL = Replace(strSQL, "(tgtYear)", "(" & TempVars("TgtYear") & ")")
+    
+    'DoCmd.OpenQuery "qryTgtSpeciesList", acViewNormal, acReadOnly
+    'DoCmd.RunSQL strSQL <=== NO! not on a SELECT...
+    
+    CurrentDb.CreateQueryDef("temp_Tgt_Species").sql = strSQL
+    DoCmd.OpenQuery "temp_Tgt_Species"
     
     'set statusbar notice
     varReturn = SysCmd(acSysCmdSetStatus, "Targetlist save complete.")
     
     'pause to view status bar
-    Pause 20
+    Pause 4
     
     'reset status bar
     varReturn = SysCmd(acSysCmdSetStatus, " ")
@@ -1597,9 +1605,8 @@ On Error GoTo Err_Handler
     'close form
     DoCmd.Close acForm, Me.name
 
-    DoCmd.Hourglass False
-
 Exit_Sub:
+    DoCmd.Hourglass False
     Exit Sub
 
 Err_Handler:
