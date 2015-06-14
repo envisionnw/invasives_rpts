@@ -67,34 +67,4 @@ Begin
         dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.Master_Common_Name"
         dbLong "AggregateType" ="-1"
     End
-    Begin
-        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.Created"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.Last_Modified"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.ParkListCreated"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="qry_Annual_Complete_Tgt_Species_Lists.ParkListLastModified"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="ParkListCreated"
-        dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0x1462382b14553b4ea5d28291462b8bc6
-        End
-    End
-    Begin
-        dbText "Name" ="ParkListLastModified"
-        dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0x3b7c63386bf838409aa836dc2e285812
-        End
-    End
 End

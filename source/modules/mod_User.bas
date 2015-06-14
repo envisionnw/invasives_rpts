@@ -39,6 +39,7 @@ Option Explicit
 ' Revisions:    BLC, 8/21/2014 - initial version
 '               BLC, 4/22/2015 - handle global USER_ACCESS_CONTROL setting to enable full access
 '                                for apps w/o user access controls
+'               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Public Function getDbUserAccess() As String
 On Error GoTo Err_Handler
@@ -57,17 +58,17 @@ Dim rs As DAO.Recordset
         Set rs = dbCurrent.OpenRecordset(strSQL)
         If Not rs.BOF And Not rs.EOF Then
             'db user role
-            TempVars.item("UserAccessLevel") = CStr(rs!User_role)
+            TempVars("UserAccessLevel") = CStr(rs!User_role)
         Else
             'default
-            TempVars.item("UserAccessLevel") = "read only"
+            TempVars("UserAccessLevel") = "read only"
         End If
     Else
         'default for apps w/o user access controls
-        TempVars.item("UserAccessLevel") = "admin"
+        TempVars("UserAccessLevel") = "admin"
     End If
     
-    getDbUserAccess = TempVars.item("UserAccessLevel")
+    getDbUserAccess = TempVars("UserAccessLevel")
     
 Exit_Function:
     Exit Function
@@ -94,6 +95,7 @@ End Function
 ' Source/date:  Bonnie Campbell, July, 2014 for NCPN WQ Utilities tool
 ' Adapted:      -
 ' Revisions:    BLC, 7/29/2014 - initial version
+'               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Public Sub setUserAccess(frm As Form, Optional flag As String)
 On Error GoTo Err_Handler
@@ -101,7 +103,7 @@ On Error GoTo Err_Handler
     '-------------------------------
     ' set defaults
     '-------------------------------
-Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
+Debug.Print "useraccesslvl=" & TempVars("UserAccessLevel")
 
     '-------------------------------
     ' get db user access level
@@ -116,7 +118,7 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
     '-------------------------------
     ' set functionality based on access level
     '-------------------------------
-        Select Case TempVars.item("UserAccessLevel")
+        Select Case TempVars("UserAccessLevel")
 
         '-------------------------------
         ' admin (full control)
@@ -148,7 +150,7 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                                 
                                 '!tbxAppMode.Locked = False
                                 '!tbxAppMode.Enabled = True
-                                !tbxAppMode = TempVars.item("UserAccessLevel")
+                                !tbxAppMode = TempVars("UserAccessLevel")
                                 '!tbxAppMode.Enabled = False
                                 '!tbxAppMode.Locked = True
                             End With
@@ -189,7 +191,7 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                                 !pgSettings.Enabled = True
                                 !cmdChangeDbInfo.Enabled = False
                                 '!tbxAppMode.Locked = False
-                                !tbxAppMode = TempVars.item("UserAccessLevel")
+                                !tbxAppMode = TempVars("UserAccessLevel")
                                 '!tbxAppMode.Locked = True
                             End With
                             CurrentDb.Properties("AllowFullMenus") = True
@@ -232,7 +234,7 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                             !pgSettings.Enabled = True
                             !cmdChangeDbInfo.Enabled = False
                             '!tbxAppMode.Locked = False
-                            !tbxAppMode = TempVars.item("UserAccessLevel")
+                            !tbxAppMode = TempVars("UserAccessLevel")
                             '!tbxAppMode.Locked = True
                         End With
                         ' Turn off options (only apparent after the next time app is opened)
@@ -328,7 +330,7 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                             .pgSettings.Enabled = False
                             .cmdChangeDbInfo.Enabled = False
                             '!tbxAppMode.Locked = False
-                            '!tbxAppMode = TempVars.Item("UserAccessLevel")
+                            '!tbxAppMode = TempVars("UserAccessLevel")
                             '!tbxAppMode.Locked = True
                         End With
                         
@@ -590,6 +592,7 @@ End Sub
 ' Source/date:  Bonnie Campbell, August, 2014 for NCPN WQ Utilities tool
 ' Adapted:      -
 ' Revisions:    BLC, 8/8/2014 - initial version
+'               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Public Sub logUserAction(frm As Form)
 On Error GoTo Err_Handler
@@ -603,7 +606,7 @@ Dim strSQL As String
         Select Case .name
             Case "frm_Switchboard"
                 ' Log the user exit time if the back end is connected and the user has write privileges
-                If TempVars.item("Connected") And TempVars.item("WritePermission") Then
+                If TempVars("Connected") And TempVars("WritePermission") Then
                     strSQL = "INSERT INTO tsys_Logins ( User_name, Action_taken ) SELECT '" _
                         & Environ("Username") & "' AS User, 'close' AS Action;"
                 End If

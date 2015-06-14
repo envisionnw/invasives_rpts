@@ -13,10 +13,9 @@ Begin Report
     Width =15264
     DatasheetFontHeight =11
     ItemSuffix =135
-    Left =-3672
-    Top =456
-    Right =9948
-    Bottom =8436
+    Top =450
+    Right =9945
+    Bottom =8430
     DatasheetGridlinesColor =14806254
     Filter ="TgtYear=2017"
     RecSrcDt = Begin
@@ -2228,6 +2227,7 @@ Option Explicit
 '
 ' Source/date:  Bonnie Campbell, 4/7/2015
 ' Revisions:    BLC - 4/7/2015 - initial version
+'               BLC - 6/12/2015 - changed wait times on report open
 ' =================================
 
 ' ---------------------------------
@@ -2248,6 +2248,7 @@ Option Explicit
 '   BLC - 5/19/2015 - added pause & increased wait for 15 seconds
 '   BLC - 5/27/2015 - added comments for possible query modifications
 '   BLC - 5/29/2015 - added notes and adjusted status message to note report was still being generated
+'   BLC - 6/12/2015 - changed waits to 5 & 10 vs. 15 & 30
 ' ---------------------------------
 Private Sub Report_Open(Cancel As Integer)
 
@@ -2286,11 +2287,11 @@ On Error GoTo Err_Handler
 
 If ReportIsLoaded("rpt_Tgt_Species_List_Annual_Summary") Then
      DoEvents
-     Pause (15)
+     Pause (5) 'was 15
      DoCmd.Close acForm, "frm_Progress_Bar"
      DoEvents
     
-    Pause (30)
+    Pause (10) 'was 30
     ' clear statusbar note running report
     SysCmd acSysCmdSetStatus, "Calculations complete! Fetching report..."
 End If

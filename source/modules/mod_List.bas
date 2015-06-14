@@ -271,6 +271,7 @@ End Function
 ' Revisions:
 '   BLC - 3/5/2015 - initial version
 '   BLC - 5/10/2015 - moved to mod_List from mod_Lists
+'   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Public Sub SortList(lbx As ListBox) ', orderCol As Integer)
 
@@ -282,7 +283,7 @@ On Error GoTo Err_Handler
   
   'skip first row if lbx has headers
   iHdr = 0
-  If Len(TempVars.item("lbxHdr")) > 0 Then
+  If Len(TempVars("lbxHdr")) > 0 Then
     iHdr = 1
   End If
   
@@ -953,6 +954,7 @@ End Sub
 '   BLC - 3/5/2015 - added ability to remove from list w/o adding to target if strSourceControl = strTargetControl
 '   BLC - 5/10/2015 - moved to mod_List from mod_Lists
 '   BLC - 5/22/2015 - updated documentation
+'   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Public Sub MoveSelectedItems(frm As Form, strSourceControl As String, strTargetControl As String)
     
@@ -983,7 +985,7 @@ On Error GoTo Err_Handler
     
     'add back the header if it doesn't exist
     If frm.Controls(strTargetControl).ColumnHeads = True And frm.Controls(strTargetControl).ListCount = 0 Then
-       stritem = TempVars.item("lbxHdr") & stritem
+       stritem = TempVars("lbxHdr") & stritem
        frm.Controls(strTargetControl).AddItem stritem
     End If
     

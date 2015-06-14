@@ -13,10 +13,10 @@ Begin Form
     Width =4320
     DatasheetFontHeight =11
     ItemSuffix =15
-    Left =7365
-    Top =6285
-    Right =11250
-    Bottom =8895
+    Left =7350
+    Top =5430
+    Right =10305
+    Bottom =8040
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xc1f3db6ed487e440
@@ -312,6 +312,8 @@ Option Explicit
 '
 ' Source/date:  Bonnie Campbell, 2/11/2015
 ' Revisions:    BLC - 2/11/2015 - initial version
+'               BLC - 6/12/2015 - added Continue button enable,
+'                                 replaced TempVars.item("... with TempVars("...
 ' =================================
 
 ' ---------------------------------
@@ -326,6 +328,7 @@ Option Explicit
 ' Adapted:      Bonnie Campbell, February 12, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/12/2015 - initial version
+'   BLC - 6/12/2015 - disabled Continue button to start
 ' ---------------------------------
 Private Sub Form_Load()
 
@@ -347,7 +350,10 @@ On Error GoTo Err_Handler
     
     cbxYear.RowSource = strValueList
     cbxYear.Value = "SEL"
-        
+
+    'disable continue to start
+    btnContinue.Enabled = False
+
 Exit_Sub:
     Exit Sub
     
@@ -372,20 +378,21 @@ End Sub
 ' Adapted:      Bonnie Campbell, February 12, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/12/2015 - initial version
+'   BLC - 6/12/2015 - changed the check from 0 to 3 (Park_Code = 4 characters) and
+'                     added enabling continue button, changed TempVars.item("... to TempVars("...
 ' ---------------------------------
 Private Sub cbxPark_Change()
 On Error GoTo Err_Handler
     
-    If Len(cbxPark.Value) > 0 Then
+    'set park & enable continue when a 4-letter park code is selected
+    If Len(cbxPark.Value) > 3 Then
         'set park
-        TempVars.item("park") = Trim(cbxPark.Value)
+        TempVars("park") = Trim(cbxPark.Value)
+        
         'enable the continue button
-  '      EnableControl btnContinue, TempVars.item("ctrlAddEnabled"), TempVars.item("textEnabled")
-  '      btnContinue.Enabled = True
-    Else
-        'disable the continue button"
-   '     btnContinue.Enabled = False
-   '     DisableControl btnContinue
+        If Len(cbxPark) > 3 And TempVars("TgtYear") > 0 Then
+            btnContinue.Enabled = True
+        End If
     End If
 Exit_Sub:
     Exit Sub
@@ -411,13 +418,19 @@ End Sub
 ' Adapted:      Bonnie Campbell, February 23, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/23/2015 - initial version
+'   BLC - 6/12/2015 - added enabling continue button, changed TempVars.item("... to TempVars("...
 ' ---------------------------------
 Private Sub cbxYear_Change()
 On Error GoTo Err_Handler
 
     If Len(Trim(cbxYear)) > 0 Then
         'set year
-        TempVars.item("TgtYear") = cbxYear.Value
+        TempVars("TgtYear") = cbxYear.Value
+        
+        'enable the continue button
+        If Len(cbxPark) > 3 And TempVars("TgtYear") > 0 Then
+            btnContinue.Enabled = True
+        End If
     End If
 
 Exit_Sub:
@@ -455,7 +468,7 @@ On Error GoTo Err_Handler
     cbxPark.Value = ""
        
     'open target species list
-    DoCmd.OpenForm "frm_Tgt_Species", acNormal, , , , , TempVars.item("TgtYear")
+    DoCmd.OpenForm "frm_Tgt_Species", acNormal, , , , , TempVars("TgtYear")
         
 Exit_Sub:
     Exit Sub

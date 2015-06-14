@@ -106,6 +106,7 @@ Option Explicit
 ' Adapted:      Bonnie Campbell, June, 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC, 7/29/2014 - updated to use TempVars.Item("Timeframe") vs. cTimeframe
 '               BLC, 8/22/2014 - shifted to mod_QA & dropped fxn prefix
+'               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Public Function UpdateQAResults(Optional blnUpdateAll As Boolean = True, _
     Optional strSingleQName As String, Optional blnCreateNew As Boolean = False)
@@ -161,8 +162,8 @@ Public Function UpdateQAResults(Optional blnUpdateAll As Boolean = True, _
     If IsNull(Forms!frm_QA_Tool.cmbTimeframe) = False Then
         strTimeframe = Forms!frm_QA_Tool.cmbTimeframe
     Else
-        If IsNull(TempVars.item("Timeframe")) = False Then _
-            strTimeframe = TempVars.item("Timeframe")
+        If IsNull(TempVars("Timeframe")) = False Then _
+            strTimeframe = TempVars("Timeframe")
     End If
     intScope = Forms!frm_QA_Tool.optgScope ' Me.optgScope
 

@@ -115,6 +115,7 @@ End Sub
 ' Source/date:  Bonnie Campbell, July 31, 2014 for NCPN WQ Utilities tool
 ' Adapted:      -
 ' Revisions:    BLC, 7/31/2014 - initial version
+'               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Public Sub initApp()
 On Error GoTo Err_Handler:
@@ -139,7 +140,7 @@ On Error GoTo Err_Handler:
 
     ' Verify the back-end database connections, and run the setup function if okay
     VerifyConnections
-    If TempVars.item("Connected") Then AppSetup
+    If TempVars("Connected") Then AppSetup
 
 Exit_Procedure:
     Exit Sub
@@ -180,6 +181,7 @@ End Sub
 '               BLC, 5/18/2015 - renamed, removed fxn prefix
 '               BLC, 5/28/2015 - added MAIN_APP_FORM open check to prevent Error #2450 where
 '                                frm_Tgt_List_Tool is not found on exit from frm_Connect_Dbs
+'               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' =================================
 Public Function AppSetup()
     On Error GoTo Err_Handler
@@ -193,7 +195,7 @@ Public Function AppSetup()
     End If
 
     Set frm = Forms(MAIN_APP_FORM) 'Forms!frm_Switchboard
-    TempVars.item("WritePermission") = False
+    TempVars("WritePermission") = False
     
     If DB_ADMIN_CONTROL Then
         strReleaseID = APP_RELEASE_ID
@@ -247,22 +249,22 @@ Public Function AppSetup()
     setUserAccess frm, "update"
 
     ' Log the user, login time, release number, and application mode in the systems table
-    strRelease = Left(strReleaseID, 8) & " / " & TempVars.item("UserAccessLevel")
+    strRelease = Left(strReleaseID, 8) & " / " & TempVars("UserAccessLevel")
     If IsODBC("tsys_Logins") Then
         ' Use a pass-through query to test the connection for write privileges
         strSQL = "INSERT INTO dbo.tsys_Logins " & _
             "SELECT GETDATE() AS Time_stamp, '" & strUser & "' AS User_name, '" & _
             strRelease & "' AS Action_taken"
-        TempVars.item("WritePermission") = TestODBCConnection("tsys_Logins", , strSQL, False)
+        TempVars("WritePermission") = TestODBCConnection("tsys_Logins", , strSQL, False)
         ' Notify the user if their back-end privileges are insufficient to use the application
-        If TempVars.item("WritePermission") = False And TempVars.item("UserAccessLevel") <> "read only" Then
+        If TempVars("WritePermission") = False And TempVars("UserAccessLevel") <> "read only" Then
             MsgBox "Your login does not have modify privileges to the database." & _
                 vbCrLf & "Notify the database administrator before using this application." _
                 & vbCrLf & vbCrLf & "User: " & strUser & vbCrLf & "Db:   " & _
                 LinkedDatabase("tsys_Logins")
         End If
     Else
-        TempVars.item("WritePermission") = True
+        TempVars("WritePermission") = True
         strSQL = "INSERT INTO tsys_Logins ( User_name, Action_taken ) SELECT '" _
             & strUser & "' AS User, """ & strRelease & """ AS Action;"
         DoCmd.SetWarnings False
@@ -274,7 +276,7 @@ Public Function AppSetup()
     '   Note: Needed where there are one or more back-end copies at remote locations that
     '   cannot be updated with new release information by the developer
     If DCount("*", "tsys_App_Releases", "[Release_ID]=""" & strReleaseID & """") = 0 Then
-        If TempVars.item("WritePermission") Then BEUpdates (True)
+        If TempVars("WritePermission") Then BEUpdates (True)
         ' Check once more to make sure that the release was added properly - if not notify
         If DCount("*", "tsys_App_Releases", "[Release_ID]=""" & strReleaseID & """") = 0 Then
             MsgBox "Unable to determine the application version." & vbCrLf & vbCrLf & _
@@ -284,7 +286,7 @@ Public Function AppSetup()
         End If
     ' Or run updates only on new update lines (avoids issuing a new version for minor updates)
     ElseIf DCount("*", "tsys_BE_Updates", "[Is_done]=False") > 0 Then
-        If TempVars.item("WritePermission") Then BEUpdates (False)
+        If TempVars("WritePermission") Then BEUpdates (False)
     End If
 
     ' Set the table-driven caption of the switchboard
@@ -304,10 +306,10 @@ Update_Settings:
     If DB_ADMIN_CONTROL Then
         ' If there is an Access back-end, open the always-open form (to maintain a connection
         '   to the back-end and avoid unnecessary create/delete/updates to its .ldb lock file)
-        If TempVars.item("HasAccessBE") Then DoCmd.OpenForm "frm_Lock_BE", , , , , acHidden
+        If TempVars("HasAccessBE") Then DoCmd.OpenForm "frm_Lock_BE", , , , , acHidden
     
         ' If there is an Access back-end, make the backups button visible
-        frm!fsub_DbAdmin.Form!cmdBackup.visible = TempVars.item("HasAccessBE")
+        frm!fsub_DbAdmin.Form!cmdBackup.visible = TempVars("HasAccessBE")
     
         ' Requery the control that shows the linked back-ends
         frm!lbxLinkedDbs.Requery
@@ -323,7 +325,7 @@ Err_Handler:
             "Close the application and uncheck the read-only box in the" & vbCrLf & _
             "file properties window before using this application.", vbCritical, _
             "Application error (#" & Err.Number & " - AppSetup[mod_Initialize_App])"
-        TempVars.item("WritePermission") = False
+        TempVars("WritePermission") = False
       Case 3078   ' Can't find the system table
         MsgBox "Error #" & Err.Number & ":  Missing a system table. Please notify" & _
             vbCrLf & "the database administrator before using this application.", _
@@ -421,7 +423,7 @@ Missing_Table:
             strMsg = strMsg & _
                 "Either link to the correct back-end or quit and notify the" & vbCrLf & _
                 "database administrator before using this application."
-            TempVars.item("Connected") = False
+            TempVars("Connected") = False
         Case ""
     End Select
     

@@ -11,8 +11,8 @@ Begin Form
     GridY =24
     DatasheetFontHeight =11
     ItemSuffix =13
-    Right =7248
-    Bottom =4596
+    Right =7245
+    Bottom =4590
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xc1f3db6ed487e440
@@ -268,10 +268,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin Label
@@ -423,10 +423,10 @@ Begin Form
                     PressedColor =9592887
                     HoverForeColor =4210752
                     PressedForeColor =4210752
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =3
-                    WebImagePaddingBottom =3
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin TextBox
@@ -573,12 +573,10 @@ On Error GoTo Err_Handler
     
     If Len(tbxTgtArea.Value) > 0 Then
         'enable the search "button"
-        'EnableControl btnAddTgtArea, TempVars.item("ctrlAddEnabled"), TempVars.item("textEnabled")
         btnAddTgtArea.Enabled = True
     Else
         'disable the search "button"
         btnAddTgtArea.Enabled = False
-        'DisableControl btnAddTgtArea
     End If
     
 Exit_Sub:
@@ -612,8 +610,7 @@ On Error GoTo Err_Handler
     
     If Len(tbxTgtArea.Value) > 0 Then
         'enable the search "button"
-        'EnableControl lblAddTgtArea, TempVars.item("ctrlAddEnabled"), TempVars.item("textEnabled")
-        btnAddTgtArea.Enabled = True
+         btnAddTgtArea.Enabled = True
         EnableControl btnAddTgtArea, lngLtLime, lngBlue, lngDkLime, lngBrtLime, lngLtGreen, lngDkGray, lngLtLime
     Else
         'disable the search "button"
