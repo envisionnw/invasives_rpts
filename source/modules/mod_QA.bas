@@ -3,11 +3,12 @@ Option Explicit
 
 ' =================================
 ' MODULE:       mod_QA
-' VERSION:      1.00
+' VERSION:      1.01
 ' Description:  QA related properties, functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, 8/22/2014
 ' Revisions:    BLC, 8/22/2014 - 1.00 - initial version
+'               BLC, 6/12/2015 - 1.01 - replaced TempVars.item(... with TempVars("...
 ' =================================
 
 ' ---------------------------------

@@ -14,7 +14,7 @@ Option Explicit
 ' ---------------------------------
 ' SUB:          initializeControls
 ' Description:  set initial control values
-' Parameters:   -
+' Parameters:   frm - form to initialize (form object)
 ' Returns:      -
 ' Throws:       -
 ' References:   -

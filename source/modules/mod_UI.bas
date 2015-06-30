@@ -4,11 +4,15 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_UI
 ' Level:        Framework module
-' Version:      1.00
+' Version:      1.03
 ' Description:  User interface related functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, April 2015
 ' Revisions:    BLC, 4/30/2015 - 1.00 - initial version
+'               BLC, 5/10/2015 - 1.01 - added GetRibbonXML()
+'               BLC, 5/27/2015 - 1.02 - added functions
+'               BLC, 6/30/2015 - 1.03 - moved to mod_Forms: FormIsOpen, FormIsLoaded, SwitchboardIsOpen
+'                                       moved from mod_Forms: ChangeBackColor
 ' =================================
 
 ' ---------------------------------
@@ -182,136 +186,13 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - FormIsOpen[mod_UI])"
+            "Error encountered (#" & Err.Number & " - PopulateSubformControl[mod_UI])"
     End Select
     Resume Exit_Procedure
 End Sub
 
-' =================================
-' FUNCTION:     FormIsOpen
-' Description:  Indicates whether or not the specific form is open in form view
-' Parameters:   none
-' Returns:      True or False
-' Throws:       none
-' References:   none
-' Source/date:  John R. Boetsch, 5/5/2006 as fxnSwitchboardIsOpen
-' Adapted:      Bonnie Campbell, 4/30/2015 for NCPN tools
-' Revisions:    BLC, 4/30/2015 - initial version
-' =================================
-Public Function FormIsOpen(strFormName As String) As Boolean
-    On Error GoTo Err_Handler
-
-    Dim frm As Form
-
-    FormIsOpen = False    ' Default in case of error
- 
-    'search for form in Forms collection (all open forms)
-    For Each frm In Forms
-      If frm.name = strFormName Then
-        'check form is in Form view: 0 - Design View, 1 - Form View, 2 - Datasheet View
-        If frm.CurrentView = 1 Then
-            FormIsOpen = True
-            'Exit Function
-        End If
-      End If
-    Next
-
-Exit_Function:
-    Exit Function
-
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - FormIsOpen[mod_UI])"
-    End Select
-    Resume Exit_Function
-End Function
-
-' =================================
-' FUNCTION:     SwitchboardIsOpen
-' Description:  Indicates whether or not the switchboard form is open in form view
-' Parameters:   none
-' Returns:      True or False
-' Throws:       none
-' References:   none
-' Source/date:  John R. Boetsch, 5/5/2006
-' Revisions:    JRB, 5/5/2006 - initial version
-'               BLC, 4/30/2015  - moved to mod_Db framework module from mod_Custom_Functions
-'               BLC, 5/18/2015 - renamed, removed fxn prefix
-' =================================
-Public Function SwitchboardIsOpen() As Boolean
-    On Error GoTo Err_Handler
-
-    SwitchboardIsOpen = False    ' Default in case of error
-
-    Dim strSwitchboardName As String
-
-    strSwitchboardName = "frm_Switchboard"
-
-    'check for switchboard in all open forms ( AllForms.IsLoaded() )
-    If CurrentProject.AllForms(strSwitchboardName).IsLoaded = True Then
-        If CurrentProject.AllForms(strSwitchboardName).CurrentView = 1 Then
-            SwitchboardIsOpen = True
-        End If
-    End If
-
-Exit_Function:
-    Exit Function
-
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - SwitchboardIsOpen[mod_UI])"
-    End Select
-    Resume Exit_Function
-End Function
-
-' =================================
-' FUNCTION:     FormIsLoaded
-' Description:  Returns whether the specified form is loaded in Form or Datasheet view
-' Parameters:   strFormName - string for the name of the form to check
-' Returns:      True if the specified form is open in Form view or Datasheet view
-' Throws:       none
-' References:   none
-' Source/date:  From Northwind sample database, date unknown
-' Revisions:    John R. Boetsch, 6/17/2009 - error trapping, documentation
-'               BLC, 4/30/2015 - moved from mod_Utilities to mod_UI
-'               BLC, 5/18/2015 - renamed, removed fxn prefix
-' =================================
-Public Function FormIsLoaded(ByVal strFormName As String) As Integer
-    On Error GoTo Err_Handler
- 
-    ' These variables are used to test the return values of the SysCmd function
-    '  and the CurrentView property of the requested form.
-    Const cObjStateClosed = 0
-    Const cDesignView = 0
-
-    ' Use the SysCmd function to check the current state of the requested form.
-    '  Possible states: not open or nonexistent, open, new, or changed but not saved
-    If SysCmd(acSysCmdGetObjectState, acForm, strFormName) <> cObjStateClosed Then
-        ' Checks for the current view of the requested form, assuming the previous statement
-        '   found it to be open ... return True if open and not in design view
-        If Forms(strFormName).CurrentView <> cDesignView Then
-            FormIsLoaded = True
-        End If
-    End If
-    
-Exit_Function:
-    Exit Function
-
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - FormIsLoaded[mod_UI])"
-    End Select
-    Resume Exit_Function
-End Function
-
 ' ---------------------------------
-' SUB:          repaintParentForm
+' SUB:          RepaintParentForm
 ' Description:  Repaints the control's parent(or grandparent or great grandparent...) form
 ' Parameters:   ctl - control whose parent form you're looking to repaint
 ' Returns:      -
@@ -322,7 +203,7 @@ End Function
 ' Revisions:    BLC, 8/20/2014 - initial version
 '               BLC, 4/30/2015 - moved from mod_Common_UI to mod_UI
 ' ---------------------------------
-Public Sub repaintParentForm(ctl As Control)
+Public Sub RepaintParentForm(ctl As Control)
 On Error GoTo Err_Handler:
 Dim parentControl As Object
         
@@ -332,7 +213,7 @@ Dim parentControl As Object
       
         If TypeName(parentControl.name) = "String" Then
             'form? -> refresh the display
-            If getAccessObjectType(parentControl.name) = -32768 Then
+            If GetAccessObjectType(parentControl.name) = -32768 Then
                 parentControl.Repaint
                 Exit Do
             End If
@@ -353,9 +234,197 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - repaintParentForm[mod_UI])"
+            "Error encountered (#" & Err.Number & " - RepaintParentForm[mod_UI])"
     End Select
     Resume Exit_Procedure
+End Sub
+
+' ---------------------------------
+' FUNCTION:     ChangeBackColor
+' Description:  change background color of control
+' Assumptions:  -
+' Parameters:   ctrl- control to change color
+'               lngColor = color (long)
+' Returns:      N/A
+' Throws:       none
+' References:   none
+' Note:         MUST be a function vs. sub to be called w/in form event ( =ChangeBackColor(Me,lngYelLime) )
+' Source/date:  Bonnie Campbell, March 4, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 3/4/2015  - initial version
+' ---------------------------------
+Public Function ChangeBackColor(ctrl As Control, lngColor As Long)
+On Error GoTo Err_Handler
+
+    ctrl.backcolor = lngColor
+    
+Exit_Function:
+    Exit Function
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - ChangeBackColor[mod_Forms])"
+    End Select
+    Resume Exit_Function
+End Function
+
+' ---------------------------------
+' SUB:          ResetHeaders
+' Description:  reset header fields to their
+' Assumptions:  if only a subset of form controls are to be reset, these controls should have the same Tag property value
+' Parameters:   frm - form to reset headers on
+'               allCtrls - if all form controls should be reset (boolean) (true = reset all controls,
+'                           false = reset one control [requires oCtrl to be populated])
+'               ctrlTag - control's tag string if resetting only a subset of forms controls (string)
+'               fontBold - whether text should be bold (boolean) (true = make font bold, false not bold),  (optional)
+'               backstyle - if back control back color is normal or transparent (integer) (1-normal 0-transparent) (optional)
+'               forecolor - text color (long) (optional)
+'               backcolor - backgound color of control (long) (optional)
+'               oCtrl - control to change, if only one control is to be changed (optional)
+' Returns:      N/A
+' Throws:       none
+' References:   none
+' Source/date:
+' Fionnuala January 20, 2013
+' http://stackoverflow.com/questions/3344649/how-to-loop-through-all-controls-in-a-form-including-controls-in-a-subform-ac
+' Adapted:      Bonnie Campbell, February 20, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 2/20/2015  - initial version
+' ---------------------------------
+Public Sub ResetHeaders(frm As Form, _
+                        allCtrls As Boolean, _
+                        ctrlTag As String, _
+                        Optional fontBold As Boolean = True, _
+                        Optional backstyle As Integer = 1, _
+                        Optional forecolor As Long, _
+                        Optional backcolor As Long, _
+                        Optional oCtrl As Control)
+On Error GoTo Err_Handler
+
+Dim ctrl As Control
+
+    If allCtrls = True Then
+    
+        'iterate through all form controls
+        For Each ctrl In frm
+            
+            'check control type
+             If ctrl.ControlType = acTextBox Or _
+                ctrl.ControlType = acComboBox Or _
+                ctrl.ControlType = acListBox Or _
+                ctrl.ControlType = acLabel _
+             Then
+             
+                'check tag
+                If ctrl.tag = ctrlTag Then
+                    If varType(fontBold) = vbBoolean Then ctrl.fontBold = fontBold
+                    If varType(backstyle) = vbInteger Then ctrl.backstyle = backstyle
+                    If varType(backcolor) = vbLong Then ctrl.backcolor = backcolor
+                    If varType(forecolor) = vbLong Then ctrl.forecolor = forecolor
+                End If
+                
+          End If
+          
+        Next
+    Else
+        'reset only oCtrl
+
+        'check tag
+        If oCtrl.tag = ctrlTag Then
+        
+            'check control type
+            If oCtrl.ControlType = acTextBox Or _
+                oCtrl.ControlType = acComboBox Or _
+                oCtrl.ControlType = acListBox Or _
+                oCtrl.ControlType = acLabel _
+            Then
+          
+                If varType(fontBold) = vbBoolean Then oCtrl.fontBold = fontBold
+                If varType(backstyle) = vbInteger Then oCtrl.backstyle = backstyle
+                If varType(backcolor) = vbLong Then oCtrl.backcolor = backcolor
+                If varType(forecolor) = vbLong Then oCtrl.forecolor = forecolor
+             
+            End If
+            
+        End If
+
+    End If
+
+Exit_Sub:
+    Exit Sub
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - ResetHeaders[form_frmSpeciesSearch])"
+    End Select
+    Resume Exit_Sub
+End Sub
+
+' ---------------------------------
+' SUB:          ShowControls
+' Description:  toggle control visibility
+' Assumptions:  if only a subset of form controls are to be reset, these controls should have the same Tag property value
+' Parameters:   frm - form to reset headers on
+'               allCtrls - if all form controls should be reset (boolean) (true = reset all controls,
+'                           false = reset one control [requires oCtrl to be populated])
+'               ctrlTag - control's tag string if resetting only a subset of forms controls (string)
+'               visibility - whether control should be visible or not (boolean) (true = make font bold, false not bold),  (optional)
+'               oCtrl - control to change, if only one control is to be changed (optional)
+' Returns:      N/A
+' Throws:       none
+' References:   none
+' Source/date:
+' Fionnuala January 20, 2013
+' http://stackoverflow.com/questions/3344649/how-to-loop-through-all-controls-in-a-form-including-controls-in-a-subform-ac
+' Adapted:      Bonnie Campbell, February 20, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 2/20/2015 - initial version
+'   BLC - 6/30/2015 - update documentation
+' ---------------------------------
+Public Sub ShowControls(frm As Form, _
+                        allCtrls As Boolean, _
+                        ctrlTag As String, _
+                        visibility As Boolean, _
+                        Optional oCtrl As Control)
+On Error GoTo Err_Handler
+
+Dim ctrl As Control
+
+    If allCtrls = True Then
+    
+        'iterate through all form controls
+        For Each ctrl In frm
+
+            'check tag
+            If ctrl.tag = ctrlTag Then
+                ctrl.visible = visibility
+            End If
+
+        Next
+    Else
+        'reset only oCtrl
+
+        'check tag
+        If oCtrl.tag = ctrlTag Then
+                oCtrl.visible = visibility
+        End If
+
+    End If
+
+Exit_Sub:
+    Exit Sub
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - ShowControls[form_frmSpeciesSearch])"
+    End Select
+    Resume Exit_Sub
 End Sub
 
 ' ---------------------------------
@@ -636,7 +705,7 @@ Dim ctl As Control
     
 Exit_Procedure:
     'update display
-    repaintParentForm btn
+    RepaintParentForm btn
     Exit Sub
 
 Err_Handler:
@@ -781,7 +850,7 @@ On Error GoTo Err_Handler:
     
 Exit_Procedure:
     'update display
-    repaintParentForm Forms(frmName).Controls(btnName)
+    RepaintParentForm Forms(frmName).Controls(btnName)
     Exit Sub
 
 Err_Handler:

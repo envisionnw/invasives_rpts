@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_Dev_Debug
 ' Level:        Development module
-' Version:      1.01
+' Version:      1.00
 '
 ' Description:  Debugging related functions & procedures for version control
 '
@@ -246,6 +246,18 @@ On Error GoTo Err_Handler
     strDb = ParseFileName(strDbPath)
 
     SetDebugDbPaths strDbPath
+
+
+    'progress bar test
+    DoCmd.OpenForm "frm_ProgressBar", acNormal
+    
+    For i = 1 To 10
+        
+        Forms("frm_ProgressBar").Increment i * 10, "Preparing report..."
+    Next
+
+    'test parsing
+    ParseFileName ("C:\___TEST_DATA\test_BE_new\Invasives_be.accdb")
 
 
 Exit_Sub:

@@ -4,12 +4,13 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_Time
 ' Level:        Framework module
-' Version:      1.01
+' Version:      1.02
 ' Description:  File and directory related functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, April 2015
 ' Revisions:    BLC, 4/30/2015 - 1.00 - initial version
-'               BLC, 5/26/2015 - 1.01 - added sapiSleep, Delay from mod_Zip_Files
+'               BLC, 5/18/2015 - 1.01 - removed fxn prefixes
+'               BLC, 5/26/2015 - 1.02 - added sapiSleep, Delay from mod_Zip_Files
 ' =================================
 
 ' ---------------------------------

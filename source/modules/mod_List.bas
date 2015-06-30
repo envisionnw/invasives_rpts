@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_List
 ' Level:        Framework module
-' Version:      1.00
+' Version:      1.02
 ' Description:  Listview & listbox related functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, April 2015

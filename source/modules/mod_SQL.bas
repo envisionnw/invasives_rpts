@@ -4,13 +4,14 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_SQL
 ' Level:        Framework module
-' VERSION:      1.02
+' VERSION:      1.03
 ' Description:  Database/SQL properties, functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, 7/24/2014
 ' Revisions:    BLC, 7/24/2014 - 1.00 - initial version
 '               BLC, 8/19/2014 - 1.01 - added versioning
 '               BLC, 5/26/2015 - 1.02 - added mod_db_Templates subs/functions - GetQuerySQL, GetSQLDbTemplate
+'               BLC, 6/30/2015 - 1.03 - combined GetDbQuerySQL with GetQuerySQL, renamed get... to Get... functions
 ' =================================
 
 ' ---------------------------------
@@ -43,7 +44,7 @@ End Property
 ' ---------------------------------
 
 ' ---------------------------------
-' FUNCTION:     getSQL
+' FUNCTION:     GetSQL
 ' Description:  Retrieve query SQL string using query name
 ' Parameters:   -
 ' Returns:      -
@@ -56,11 +57,12 @@ End Property
 '   http://www.devhut.net/2010/06/10/ms-access-vba-edit-a-querys-sql-statement/
 ' Adapted:      Bonnie Campbell, July, 2014 for NCPN tools
 ' Revisions:    BLC, 7/23/2014 - initial version
+'               BLC, 6/30/2015 - rename get... to Get...
 ' ---------------------------------
-Public Function getSQL(strQuery As String) As String
+Public Function GetSQL(strQuery As String) As String
 On Error GoTo Err_Handler:
 
-   getSQL = dbCurrent.QueryDefs(strQuery).sql
+   GetSQL = dbCurrent.QueryDefs(strQuery).sql
    
 Exit_Function:
     Exit Function
@@ -69,13 +71,13 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - getSql[mod_Point_Intercept])"
+            "Error encountered (#" & Err.Number & " - GetSQL[mod_Point_Intercept])"
     End Select
     Resume Exit_Function
 End Function
 
 ' ---------------------------------
-' FUNCTION:     getWhereSQL
+' FUNCTION:     GetWhereSQL
 ' Description:  Prepare a SQL WHERE clause based on the parameters, parameter types, fields, and
 '               current WHERE clause (strWhere) passed into the function
 ' Assumptions:  Assumes parameters passed through params will each have the parameter name, type, and field name
@@ -92,8 +94,9 @@ End Function
 ' Source/date:  Bonnie Campbell, August, 2014 for NCPN tools
 ' Adapted:      Bonnie Campbell, July, 2014 for NCPN tools
 ' Revisions:    BLC, 8/11/2014 - initial version
+'               BLC, 6/30/2015 - rename from get... to Get...
 ' ---------------------------------
-Public Function getWhereSQL(strWhere As String, params As Variant) As String
+Public Function GetWhereSQL(strWhere As String, params As Variant) As String
 On Error GoTo Err_Handler:
 Dim blnCheck As Boolean
 Dim strParam As String
@@ -130,7 +133,7 @@ Dim i As Integer
         End If
     Next
     
-   getWhereSQL = strWhere
+   GetWhereSQL = strWhere
    
 Exit_Function:
     Exit Function
@@ -139,7 +142,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - getSql[mod_SQL])"
+            "Error encountered (#" & Err.Number & " - GetWhereSql[mod_SQL])"
     End Select
     Resume Exit_Function
 End Function
@@ -148,8 +151,8 @@ End Function
 ' FUNCTION:     GetQuerySQL
 ' Description:  Get SQL for a query
 ' Assumptions:  -
-' Parameters:   qryName - Name of query to fetch SQL for (string)
-' Returns:      qrySQL - full SQL for the query (string)
+' Parameters:   strQueryName - Name of query to fetch SQL for (string)
+' Returns:      full SQL for the query (string)
 ' Throws:       none
 ' References:   -
 ' Source/date:
@@ -159,12 +162,17 @@ End Function
 ' Revisions:
 '   BLC, 2/23/2015 - initial version
 '   BLC, 5/1/2015 - moved from mod_App_Data to mod_SQL
+'   ----------------- GetDbQuerySQL revisions -----------
+'   BLC, 6/16/2014 - initial version
+'   BLC, 5/26/2015 - moved from mod_db_Templates to mod_SQL, added error handling
+'   ------------------------------------------------------
+'   BLC, 6/30/2015 - combined with GetDbQuerySQL (similar functions)
 ' ---------------------------------
-Private Function GetQuerySQL(qryName As String) As String
+Private Function GetQuerySQL(strQueryName As String) As String
 Dim qdf As DAO.QueryDef
  
     'fetch query
-    Set qdf = CurrentDb.QueryDefs(qryName)
+    Set qdf = CurrentDb.QueryDefs(strQueryName)
     
     'return SQL
     GetQuerySQL = qdf.sql
@@ -177,40 +185,6 @@ Err_Handler:
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
             "Error encountered (#" & Err.Number & " - GetQuerySQL[mod_SQL])"
-    End Select
-    Resume Exit_Function
-End Function
-
-' ---------------------------------
-' SUB:     GetDbQuerySQL
-' Description:  gets SQL from existing database queries via QueryDef object
-' Parameters:   strQueryName - name of the Access query
-' Returns:      SQL string
-' Assumptions:  -
-' Throws:       none
-' References:   -
-' Source/date:  sphinney, 7/13/2009 comment on
-'               http://bytes.com/topic/access/answers/871500-getting-sql-string-query
-' Adapted:      Bonnie Campbell, June 2014
-' Revisions:    BLC, 6/16/2014 - initial version
-'               BLC, 5/26/2015 - moved from mod_db_Templates to mod_SQL, added error handling
-' ---------------------------------
-Private Function GetDbQuerySQL(strQueryName As String) As String
-On Error GoTo Err_Handler
-
-Dim QD As DAO.QueryDef
- 
-Set QD = CurrentDb.QueryDefs(strQueryName)
-GetDbQuerySQL = QD.sql
- 
-Exit_Function:
-    Exit Function
-
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - GetDbQuerySQL[mod_SQL])"
     End Select
     Resume Exit_Function
 End Function

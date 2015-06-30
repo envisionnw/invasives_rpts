@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_Linked_Tables
 ' Level:        Framework module
-' Version:      1.02
+' Version:      1.03
 ' Description:  Linked table related functions & subroutines
 '
 ' Adapted from: John R. Boetsch, May 24, 2006
@@ -16,6 +16,7 @@ Option Explicit
 '                                fxnMakeBackup from mod_Custom_Functions
 '               BLC, 5/19/2015 - 1.01 - renamed functions, removed fxn prefix
 '               BLC, 6/10/2015 - 1.02 - fixed VerifyLinkTableInfo to add new linked tables to tsys_Link_Tables
+'               BLC, 6/12/2015 - 1.03 - replaced TempVars.item(... with TempVars("...
 ' =================================
 
 ' ---------------------------------

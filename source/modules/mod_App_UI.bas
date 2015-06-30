@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_App_UI
 ' Level:        Application module
-' Version:      1.03
+' Version:      1.04
 ' Description:  Application User Interface related functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, April 2015
@@ -12,6 +12,7 @@ Option Explicit
 '               BLC, 5/26/2015 - 1.01 - added PopulateSpeciesPriorities function from mod_Species
 '               BLC, 6/1/2015  - 1.02 - changed View to Search tab
 '               BLC, 6/12/2015 - 1.03 - added EnableTargetTool button
+'               BLC, 6/30/2015 - 1.04 - added ClearFields()
 ' =================================
 
 ' =================================
@@ -292,6 +293,46 @@ Err_Handler:
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
             "Error encountered (#" & Err.Number & " - EnableTargetTool[mod_Init])"
+    End Select
+    Resume Exit_Sub
+End Sub
+
+' ---------------------------------
+' SUB:          ClearFields
+' Description:  initialize application values
+' Assumptions:  -
+' Parameters:   frm - Form whose fields should be cleared
+' Returns:      -
+' Throws:       none
+' References:   none
+' Source/date:  Bonnie Campbell, February 20, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 2/20/2015  - initial version
+'   BLC - 5/18/2015  - fixed error documentation ClearFields vs. ITIS_Click, mod_Forms vs. frm_SpeciesSearch
+'   BLC - 6/30/2015  - moved to mod_App_UI
+' ---------------------------------
+Public Sub ClearFields(frm As Form)
+On Error GoTo Err_Handler
+
+    Select Case frm.name
+    
+        Case "frm_Species_Search"
+            frm.Controls("cbxCO").DefaultValue = False
+            frm.Controls("cbxUT").DefaultValue = False
+            frm.Controls("cbxWY").DefaultValue = False
+            frm.Controls("cbxITIS").DefaultValue = False
+            frm.Controls("cbxCommon").DefaultValue = False
+            frm.Controls("tbxSearchFor").Value = ""
+    End Select
+    
+Exit_Sub:
+    Exit Sub
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - ClearFields[form_Forms])"
     End Select
     Resume Exit_Sub
 End Sub

@@ -4,11 +4,16 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_Forms
 ' Level:        Framework module
-' Version:      1.00
+' Version:      1.03
 ' Description:  generic form functions & procedures
 '
 ' Source/date:  Bonnie Campbell, 2/19/2015
 ' Revisions:    BLC - 2/19/2015 - 1.00 - initial version
+'               BLC - 5/18/2015 - 1.01 - fixed ClearFields documentation
+'               BLC - 6/9/2015  - 1.02 - added CloseFormsReports()
+'               BLC - 6/30/2015 - 1.03 - shifted to mod_UI: ChangeBackColor
+'                                        shifted from mod_UI: FormIsOpen, FormIsLoaded, SwitchboardIsOpen
+'                                        shifted to mod_App_UI: ClearFields
 ' =================================
 
 '=================================================================
@@ -97,24 +102,116 @@ Err_Handler:
     Resume Exit_Function
 End Function
 
-' ---------------------------------
-' FUNCTION:     ChangeBackColor
-' Description:  change background color of control
-' Assumptions:  -
-' Parameters:   ctrl- control to change color
-'               lngColor = color (long)
-' Returns:      N/A
+' =================================
+' FUNCTION:     FormIsOpen
+' Description:  Indicates whether or not the specific form is open in form view
+' Parameters:   none
+' Returns:      True or False
 ' Throws:       none
 ' References:   none
-' Note:         MUST be a function vs. sub to be called w/in form event ( =ChangeBackColor(Me,lngYelLime) )
-' Source/date:  Bonnie Campbell, March 4, 2015 - for NCPN tools
-' Revisions:
-'   BLC - 3/4/2015  - initial version
-' ---------------------------------
-Public Function ChangeBackColor(ctrl As Control, lngColor As Long)
-On Error GoTo Err_Handler
+' Source/date:  John R. Boetsch, 5/5/2006 as fxnSwitchboardIsOpen
+' Adapted:      Bonnie Campbell, 4/30/2015 for NCPN tools
+' Revisions:    BLC, 4/30/2015 - initial version
+' =================================
+Public Function FormIsOpen(strFormName As String) As Boolean
+    On Error GoTo Err_Handler
 
-    ctrl.backcolor = lngColor
+    Dim frm As Form
+
+    FormIsOpen = False    ' Default in case of error
+ 
+    'search for form in Forms collection (all open forms)
+    For Each frm In Forms
+      If frm.name = strFormName Then
+        'check form is in Form view: 0 - Design View, 1 - Form View, 2 - Datasheet View
+        If frm.CurrentView = 1 Then
+            FormIsOpen = True
+            'Exit Function
+        End If
+      End If
+    Next
+
+Exit_Function:
+    Exit Function
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - FormIsOpen[mod_UI])"
+    End Select
+    Resume Exit_Function
+End Function
+
+' =================================
+' FUNCTION:     SwitchboardIsOpen
+' Description:  Indicates whether or not the switchboard form is open in form view
+' Parameters:   none
+' Returns:      True or False
+' Throws:       none
+' References:   none
+' Source/date:  John R. Boetsch, 5/5/2006
+' Revisions:    JRB, 5/5/2006 - initial version
+'               BLC, 4/30/2015  - moved to mod_Db framework module from mod_Custom_Functions
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
+' =================================
+Public Function SwitchboardIsOpen() As Boolean
+    On Error GoTo Err_Handler
+
+    SwitchboardIsOpen = False    ' Default in case of error
+
+    Dim strSwitchboardName As String
+
+    strSwitchboardName = "frm_Switchboard"
+
+    'check for switchboard in all open forms ( AllForms.IsLoaded() )
+    If CurrentProject.AllForms(strSwitchboardName).IsLoaded = True Then
+        If CurrentProject.AllForms(strSwitchboardName).CurrentView = 1 Then
+            SwitchboardIsOpen = True
+        End If
+    End If
+
+Exit_Function:
+    Exit Function
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - SwitchboardIsOpen[mod_UI])"
+    End Select
+    Resume Exit_Function
+End Function
+
+' =================================
+' FUNCTION:     FormIsLoaded
+' Description:  Returns whether the specified form is loaded in Form or Datasheet view
+' Parameters:   strFormName - string for the name of the form to check
+' Returns:      True if the specified form is open in Form view or Datasheet view
+' Throws:       none
+' References:   none
+' Source/date:  From Northwind sample database, date unknown
+' Revisions:    John R. Boetsch, 6/17/2009 - error trapping, documentation
+'               BLC, 4/30/2015 - moved from mod_Utilities to mod_UI
+'               BLC, 5/18/2015 - renamed, removed fxn prefix
+' =================================
+Public Function FormIsLoaded(ByVal strFormName As String) As Integer
+    On Error GoTo Err_Handler
+ 
+    ' These variables are used to test the return values of the SysCmd function
+    '  and the CurrentView property of the requested form.
+    Const cObjStateClosed = 0
+    Const cDesignView = 0
+
+    ' Use the SysCmd function to check the current state of the requested form.
+    '  Possible states: not open or nonexistent, open, new, or changed but not saved
+    If SysCmd(acSysCmdGetObjectState, acForm, strFormName) <> cObjStateClosed Then
+        ' Checks for the current view of the requested form, assuming the previous statement
+        '   found it to be open ... return True if open and not in design view
+        If Forms(strFormName).CurrentView <> cDesignView Then
+            FormIsLoaded = True
+        End If
+    End If
     
 Exit_Function:
     Exit Function
@@ -123,205 +220,10 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - ChangeBackColor[mod_Forms])"
+            "Error encountered (#" & Err.Number & " - FormIsLoaded[mod_UI])"
     End Select
     Resume Exit_Function
 End Function
-
-' ---------------------------------
-' SUB:          ClearFields
-' Description:  initialize application values
-' Assumptions:  -
-' Parameters:   frm - Form whose fields should be cleared
-' Returns:      -
-' Throws:       none
-' References:   none
-' Source/date:  Bonnie Campbell, February 20, 2015 - for NCPN tools
-' Revisions:
-'   BLC - 2/20/2015  - initial version
-'   BLC - 5/18/2015  - fixed error documentation ClearFields vs. ITIS_Click, mod_Forms vs. frm_SpeciesSearch
-' ---------------------------------
-Public Sub ClearFields(frm As Form)
-On Error GoTo Err_Handler
-
-    Select Case frm.name
-    
-        Case "frm_Species_Search"
-            frm.Controls("cbxCO").DefaultValue = False
-            frm.Controls("cbxUT").DefaultValue = False
-            frm.Controls("cbxWY").DefaultValue = False
-            frm.Controls("cbxITIS").DefaultValue = False
-            frm.Controls("cbxCommon").DefaultValue = False
-            frm.Controls("tbxSearchFor").Value = ""
-    End Select
-    
-Exit_Sub:
-    Exit Sub
-
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - ClearFields[form_Forms])"
-    End Select
-    Resume Exit_Sub
-End Sub
-
-' ---------------------------------
-' SUB:          ResetHeaders
-' Description:  reset header fields to their
-' Assumptions:  if only a subset of form controls are to be reset, these controls should have the same Tag property value
-' Parameters:   frm - form to reset headers on
-'               allCtrls - if all form controls should be reset (boolean) (true = reset all controls,
-'                           false = reset one control [requires oCtrl to be populated])
-'               ctrlTag - control's tag string if resetting only a subset of forms controls (string)
-'               fontBold - whether text should be bold (boolean) (true = make font bold, false not bold),  (optional)
-'               backstyle - if back control back color is normal or transparent (integer) (1-normal 0-transparent) (optional)
-'               forecolor - text color (long) (optional)
-'               backcolor - backgound color of control (long) (optional)
-'               oCtrl - control to change, if only one control is to be changed (optional)
-' Returns:      N/A
-' Throws:       none
-' References:   none
-' Source/date:
-' Fionnuala January 20, 2013
-' http://stackoverflow.com/questions/3344649/how-to-loop-through-all-controls-in-a-form-including-controls-in-a-subform-ac
-' Adapted:      Bonnie Campbell, February 20, 2015 - for NCPN tools
-' Revisions:
-'   BLC - 2/20/2015  - initial version
-' ---------------------------------
-Public Sub ResetHeaders(frm As Form, _
-                        allCtrls As Boolean, _
-                        ctrlTag As String, _
-                        Optional fontBold As Boolean = True, _
-                        Optional backstyle As Integer = 1, _
-                        Optional forecolor As Long, _
-                        Optional backcolor As Long, _
-                        Optional oCtrl As Control)
-On Error GoTo Err_Handler
-
-Dim ctrl As Control
-
-    If allCtrls = True Then
-    
-        'iterate through all form controls
-        For Each ctrl In frm
-            
-            'check control type
-             If ctrl.ControlType = acTextBox Or _
-                ctrl.ControlType = acComboBox Or _
-                ctrl.ControlType = acListBox Or _
-                ctrl.ControlType = acLabel _
-             Then
-             
-                'check tag
-                If ctrl.tag = ctrlTag Then
-                    If varType(fontBold) = vbBoolean Then ctrl.fontBold = fontBold
-                    If varType(backstyle) = vbInteger Then ctrl.backstyle = backstyle
-                    If varType(backcolor) = vbLong Then ctrl.backcolor = backcolor
-                    If varType(forecolor) = vbLong Then ctrl.forecolor = forecolor
-                End If
-                
-          End If
-          
-        Next
-    Else
-        'reset only oCtrl
-
-        'check tag
-        If oCtrl.tag = ctrlTag Then
-        
-            'check control type
-            If oCtrl.ControlType = acTextBox Or _
-                oCtrl.ControlType = acComboBox Or _
-                oCtrl.ControlType = acListBox Or _
-                oCtrl.ControlType = acLabel _
-            Then
-          
-                If varType(fontBold) = vbBoolean Then oCtrl.fontBold = fontBold
-                If varType(backstyle) = vbInteger Then oCtrl.backstyle = backstyle
-                If varType(backcolor) = vbLong Then oCtrl.backcolor = backcolor
-                If varType(forecolor) = vbLong Then oCtrl.forecolor = forecolor
-             
-            End If
-            
-        End If
-
-    End If
-
-Exit_Sub:
-    Exit Sub
-
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - ResetHeaders[form_frmSpeciesSearch])"
-    End Select
-    Resume Exit_Sub
-End Sub
-
-' ---------------------------------
-' SUB:          ResetHeaders
-' Description:  reset header fields to their default
-' Assumptions:  if only a subset of form controls are to be reset, these controls should have the same Tag property value
-' Parameters:   frm - form to reset headers on
-'               allCtrls - if all form controls should be reset (boolean) (true = reset all controls,
-'                           false = reset one control [requires oCtrl to be populated])
-'               ctrlTag - control's tag string if resetting only a subset of forms controls (string)
-'               visibility - whether control should be visible or not (boolean) (true = make font bold, false not bold),  (optional)
-'               oCtrl - control to change, if only one control is to be changed (optional)
-' Returns:      N/A
-' Throws:       none
-' References:   none
-' Source/date:
-' Fionnuala January 20, 2013
-' http://stackoverflow.com/questions/3344649/how-to-loop-through-all-controls-in-a-form-including-controls-in-a-subform-ac
-' Adapted:      Bonnie Campbell, February 20, 2015 - for NCPN tools
-' Revisions:
-'   BLC - 2/20/2015  - initial version
-' ---------------------------------
-Public Sub ShowControls(frm As Form, _
-                        allCtrls As Boolean, _
-                        ctrlTag As String, _
-                        visibility As Boolean, _
-                        Optional oCtrl As Control)
-On Error GoTo Err_Handler
-
-Dim ctrl As Control
-
-    If allCtrls = True Then
-    
-        'iterate through all form controls
-        For Each ctrl In frm
-
-            'check tag
-            If ctrl.tag = ctrlTag Then
-                ctrl.visible = visibility
-            End If
-
-        Next
-    Else
-        'reset only oCtrl
-
-        'check tag
-        If oCtrl.tag = ctrlTag Then
-                oCtrl.visible = visibility
-        End If
-
-    End If
-
-Exit_Sub:
-    Exit Sub
-
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - ShowControls[form_frmSpeciesSearch])"
-    End Select
-    Resume Exit_Sub
-End Sub
 
 ' ---------------------------------
 ' SUB:          AddControl
@@ -360,7 +262,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - cbxITIS_Click[form_frmSpeciesSearch])"
+            "Error encountered (#" & Err.Number & " - AddControl[form_frmSpeciesSearch])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -368,7 +270,7 @@ End Sub
 ' ---------------------------------
 ' SUB:          ContinuousUpDown
 ' Description:  Respond to Up/Down in a continuous form by moving to next record
-' Assumptions:  Active control's EnterKeyBehaviro is OFF
+' Assumptions:  Active control's EnterKeyBehavior is OFF
 ' Usage:        Call ContinuousUpDown(Me, KeyCode)
 ' Parameters:   frm - form for key behavior
 '               KeyCode - code for key being pressed (integer)
@@ -440,7 +342,7 @@ End Sub
 ' Description:  Suppress moving up/down a record in a continuous form if:
 '                - control is not in the Detail section
 '                - multi-line text box (vertical scrollbar or EnterKeyBehavior true)
-' Assumptions:  Active control's EnterKeyBehaviro is OFF
+' Assumptions:  Active control's EnterKeyBehavior is OFF
 ' Usage:        Called by ContinuousUpDown SUB
 ' Parameters:   N/A
 ' Returns:      boolean - true if moving up/down a record in continuous form is ok, false if not
