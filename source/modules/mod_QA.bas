@@ -11,21 +11,6 @@ Option Explicit
 ' =================================
 
 ' ---------------------------------
-' PROPERTY:     dbCurrent
-' Description:  Gets a single instance of the current db to avoid multiple calls
-'               to CurrentDb which can yield to Error 3048 "Cannot open any more databases" errors
-'               due to multiple open db
-' Parameters:   -
-' Returns:      current database object
-' Throws:       -
-' References:   -
-' Source/date:  Dirk Goldgar, MS Access MVP - May 22, 2013
-'   http://social.msdn.microsoft.com/Forums/office/en-US/9993d229-8a00-4a59-a796-dfa2dad505bc/cannot-open-any-more-databases?forum=accessdev
-' Adapted:      Bonnie Campbell, July, 2014 for NCPN Riparian tools
-' Revisions:    BLC, 7/23/2014 - initial version
-' ---------------------------------
-
-' ---------------------------------
 ' FUNCTION:     UpdateQAResults
 ' Description:  Updates the data validation results table
 '

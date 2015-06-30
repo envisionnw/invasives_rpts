@@ -85,7 +85,7 @@ End Function
 '               NOTE: The function does not currently handle dependent parameters which require
 '                     the presence of other parameters to be included in the WHERE clause
 '                     These have to be accommodated separately.
-' Parameters:   -
+' Parameters:   Completed SQL WHERE clause (string)
 ' Returns:      -
 ' Throws:       -
 ' References:   -
@@ -475,7 +475,7 @@ End Function
 
 ' ---------------------------------
 ' SUB:          Coalesce
-' Description:  Used in SQL queries to generate concatenated string of related records
+' Description:  Used in SQL queries to generate concatenated string of records
 ' Assumptions:  used in Access SQL or control
 ' Parameters:   strSQL - field to retrieve results from & concatenate (string)
 '               NameList() - list of items to concatenate (string)

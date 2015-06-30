@@ -15,9 +15,9 @@ Begin Form
     DatasheetFontHeight =11
     ItemSuffix =64
     Left =5280
-    Top =2790
-    Right =18615
-    Bottom =8970
+    Top =2796
+    Right =18600
+    Bottom =10188
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x0a915c95ff94e440
@@ -588,10 +588,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                 End
                 Begin Label
                     OverlapFlags =93
@@ -988,6 +988,7 @@ Option Explicit
 '
 ' Source/date:  Bonnie Campbell, 2/9/2015
 ' Revisions:    BLC - 2/9/2015 - initial version
+'               BLC - 6/26/2015 - added LU_Code to search
 ' =================================
 
 '=================================================================
@@ -1562,6 +1563,7 @@ End Sub
 '   BLC - 5/29/2015 - added Master_PLANT_Code to selection (bugfix for search species missing proper LUcode)
 '                     renamed tbxResultCode to tbxLUCode
 '   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'   BLC - 6/26/2015 - added LU_Code to search to enable search against code to find species
 ' ---------------------------------
 Private Sub btnSearch_Click()
 On Error GoTo Err_Handler
@@ -1595,6 +1597,12 @@ On Error GoTo Err_Handler
             
     'determine which species names to check
     Dim listTypes() As String
+    'add the 6-letter code to the search matches
+    If Len(TempVars("speciestype")) > 0 Then
+        TempVars("speciestype") = TempVars("speciestype") & "CODE;"
+    Else
+        TempVars("speciestype") = "CODE;"
+    End If
     listTypes = Split(TempVars("speciestype"), ";")
     
     For Each speciestype In listTypes
@@ -1626,6 +1634,8 @@ On Error GoTo Err_Handler
                 Case "CMN"  'Common
                     strSpecies = "Master_Common_Name"
                     ResetHeaders Me, False, "*", True, 1, 16737792, 15788753, lblCommonHdr
+                Case "CODE"
+                    strSpecies = "LU_Code"
             End Select
                     
             strWhere = strWhere & " " & strSpecies & " LIKE '*" & strSearch & "*'"

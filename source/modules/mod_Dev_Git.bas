@@ -467,7 +467,6 @@ TableInfoErr:
    Resume TableInfoExit
 End Function
 
-
 ' ---------------------------------
 ' FUNCTION:     GetDescrip
 ' Description:  Returns table descriptions

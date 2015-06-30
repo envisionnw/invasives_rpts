@@ -74,7 +74,7 @@ End Function
 
 ' =================================
 ' FUNCTION:     Pause
-' Description:  Pauses for specified number of section
+' Description:  Pauses for specified number of seconds
 ' Parameters:   NumberOfSeconds - number of seconds to pause (variant)
 ' Returns:      -
 ' Throws:       none

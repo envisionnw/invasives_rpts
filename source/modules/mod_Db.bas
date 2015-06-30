@@ -216,7 +216,6 @@ Err_Handler:
     Resume Exit_Function
 End Function
 
-
 ' ---------------------------------
 ' FUNCTION:     ClearTable
 ' Description:  Deletes records from table

@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_Linked_Tables
 ' Level:        Framework module
-' Version:      1.01
+' Version:      1.02
 ' Description:  Linked table related functions & subroutines
 '
 ' Adapted from: John R. Boetsch, May 24, 2006

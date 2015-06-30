@@ -4,11 +4,15 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_App_Data
 ' Level:        Application module
-' Version:      1.00
+' Version:      1.04
 ' Description:  data functions & procedures specific to this application
 '
 ' Source/date:  Bonnie Campbell, 2/9/2015
-' Revisions:    BLC - 2/9/2015 - initial version
+' Revisions:    BLC - 2/9/2015  - 1.00 - initial version
+'               BLC - 2/18/2015 - 1.01 - included subforms in fillList
+'               BLC - 5/1/2015  - 1.02 - integerated into Invasives Reporting tool
+'               BLC - 5/22/2015 - 1.03 - added PopulateList
+'               BLC - 6/3/2015  - 1.04 - added IsUsedTargetArea
 ' =================================
 
 ' ---------------------------------

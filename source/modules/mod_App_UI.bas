@@ -4,22 +4,24 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_App_UI
 ' Level:        Application module
-' Version:      1.00
+' Version:      1.03
 ' Description:  Application User Interface related functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, April 2015
 ' Revisions:    BLC, 4/30/2015 - 1.00 - initial version
 '               BLC, 5/26/2015 - 1.01 - added PopulateSpeciesPriorities function from mod_Species
+'               BLC, 6/1/2015  - 1.02 - changed View to Search tab
+'               BLC, 6/12/2015 - 1.03 - added EnableTargetTool button
 ' =================================
 
 ' =================================
 ' SUB:     PopulateInsetTitle
 ' Description:  Sets inset title on form
 ' Assumptions:
-' Parameters:   frm - form holding crumb labels
-'               aryCrumbs - breadcrumb array
-'               separator - non-clickable value between crumbs, default = >
-' Returns:      aryCrumbs - array of breadcrumb values
+' Parameters:   ctrl - control whose text is being set (control)
+'               strContext - identifies which title to use,
+'                            specifies the context for the title (string)
+' Returns:      -
 ' Throws:       none
 ' References:   none
 ' Source/date:

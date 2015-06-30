@@ -15,7 +15,7 @@ Option Explicit
 '  Ribbon
 ' ---------------------------------
 ' =================================
-' SUB:          GetRibbonXML
+' FUNCTION:     GetRibbonXML
 ' Description:  gets ribbon UI XML specified, if found
 ' Assumes:      USysRibbon table exists
 ' Parameters:   ribbon - name of the ribbon to retrieve, RibbonName in USysRibbon (string)
@@ -84,7 +84,7 @@ End Sub
 
 ' =================================
 ' SUB:          GetRibbonVisibility
-' Description:
+' Description:  Callback function to indicate if ribbon control should be displayed or not
 ' Parameters:   ctrl - office ribbon control (IRibbonControl object)
 '               visible - true (boolean)
 ' Returns:      -
@@ -411,6 +411,7 @@ End Function
 ' Description:  sets desired tab visible, all others hidden
 ' Parameters:   strTabName - tab page name to make visible
 '               ctrl - tab control
+'               blnHideOnly - true to hide tabs only (Boolean)
 ' Returns:      -
 ' Throws:       none
 ' References:   none
@@ -526,6 +527,9 @@ End Function
 ' Parameters:   btn      - name of the button to change
 '                          accommodates command and label as control buttons
 '               strColor - color as a string (hex)
+'               solo - display only this control & leave others transparent (Boolean)
+'               toggle - change the display for a control (Boolean)
+'               intEffect - control display effect (integer)
 ' Returns:      -
 ' Throws:       none
 ' References:   none
@@ -595,6 +599,7 @@ End Sub
 ' Description:  Toggles all other buttons to transparent if already colored
 ' Parameters:   btn - name of the button control to change
 '                     accommodates command and label as control buttons
+'               blnToggle - toggle only the identified button (Boolean)
 ' Returns:      -
 ' Throws:       none
 ' References:   none

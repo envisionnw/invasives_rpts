@@ -9,6 +9,8 @@ Option Explicit
 '
 ' Source/date:  Bonnie Campbell, April 2015
 ' Revisions:    BLC, 4/30/2015 - 1.00 - initial version
+'               BLC, 6/12/2015 - 1.01 - updated documentation, TempVars("... vs. TempVars.item("...
+'               BLC, 6/18/2015 - 1.02 - updated lvwPopulateFromQuery to use aryHeadings vs aryFields
 ' =================================
 
 ' ---------------------------------
@@ -32,8 +34,9 @@ Option Explicit
 '                   http://support2.microsoft.com/default.aspx?scid=kb;en-us;194784
 '                   http://forums.esri.com/Thread.asp?c=93&f=992&t=198775
 '               BLC, 4/30/2015 - added error handling & moved from mod_Common_UI to mod_List
+'               BLC, 6/18/2015 - renamed aryFields to aryHeadings per documentation
 ' =================================
-Public Sub lvwPopulateFromQuery(ctrl As MSComctlLib.ListView, strSQL As String, aryFields As Variant)
+Public Sub lvwPopulateFromQuery(ctrl As MSComctlLib.ListView, strSQL As String, aryHeadings As Variant)
 On Error GoTo Err_Handler
     Dim dbs As Database
     Dim rs As Recordset
@@ -50,9 +53,9 @@ On Error GoTo Err_Handler
     If rs.RecordCount > 0 Then
         rs.MoveFirst
         Do Until rs.EOF
-            Set item = ctrl.ListItems.Add(, , rs(aryFields(i)))
-            For i = 1 To UBound(aryFields)
-              item.SubItems(i) = rs(aryFields(i))
+            Set item = ctrl.ListItems.Add(, , rs(aryHeadings(i)))
+            For i = 1 To UBound(aryHeadings)
+              item.SubItems(i) = rs(aryHeadings(i))
             Next
             On Error Resume Next 'continue even in error
             rs.MoveNext
@@ -402,8 +405,10 @@ End Function
 ' SUB:          SaveListToTable
 ' Description:  Save list items to table
 ' Assumptions:  -
-' Parameters:   ctrl - control to iterate through
-'               tbl - table being populated
+' Parameters:   ctrl - control to iterate through (control object)
+'               tbl - table being populated (string)
+'               tblFields - array of fields to populate (variant)
+'               blnSelectedOnly - copy only selected list items (boolean)
 ' Returns:      N/A
 ' Throws:       none
 ' References:   none
@@ -412,6 +417,7 @@ End Function
 ' Revisions:
 '   BLC - 2/8/2015  - initial version
 '   BLC - 5/10/2015 - moved to mod_List from mod_Lists
+'   BLC - 6/18/2015 - updated documentation
 ' ---------------------------------
 Public Sub SaveListToTable(ctrl As Control, tbl As String, tblFields As Variant, blnSelectedOnly As Boolean)
 
