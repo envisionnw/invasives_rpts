@@ -11,11 +11,11 @@ Begin Report
     GridY =24
     Width =11400
     DatasheetFontHeight =11
-    ItemSuffix =50
-    Left =720
-    Top =2355
-    Right =12735
-    Bottom =11175
+    ItemSuffix =51
+    Left =105
+    Top =1485
+    Right =12120
+    Bottom =10305
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x93926d5acb96e440
@@ -765,6 +765,22 @@ Begin Report
                     LayoutCachedTop =540
                     LayoutCachedWidth =9900
                     LayoutCachedHeight =864
+                End
+                Begin Label
+                    Visible = NotDefault
+                    Left =1080
+                    Top =120
+                    Width =1350
+                    Height =300
+                    BorderColor =8355711
+                    ForeColor =8355711
+                    Name ="lblPunchMargin"
+                    Caption ="|<< .75margin"
+                    GridlineColor =10921638
+                    LayoutCachedLeft =1080
+                    LayoutCachedTop =120
+                    LayoutCachedWidth =2430
+                    LayoutCachedHeight =420
                 End
             End
         End

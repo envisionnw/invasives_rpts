@@ -13,10 +13,10 @@ Begin Report
     Width =11400
     DatasheetFontHeight =11
     ItemSuffix =46
-    Left =1728
+    Left =1725
     Top =480
-    Right =13488
-    Bottom =8460
+    Right =13980
+    Bottom =8550
     DatasheetGridlinesColor =14806254
     Filter ="TgtList IN ('BLCA-2012','BLCA-2015','CARE-2009')"
     RecSrcDt = Begin
@@ -930,6 +930,22 @@ Begin Report
                     LayoutCachedTop =480
                     LayoutCachedWidth =9900
                     LayoutCachedHeight =804
+                End
+                Begin Label
+                    Visible = NotDefault
+                    Left =1080
+                    Top =120
+                    Width =1350
+                    Height =300
+                    BorderColor =8355711
+                    ForeColor =8355711
+                    Name ="lblPunchMargin"
+                    Caption ="|<< .75margin"
+                    GridlineColor =10921638
+                    LayoutCachedLeft =1080
+                    LayoutCachedTop =120
+                    LayoutCachedWidth =2430
+                    LayoutCachedHeight =420
                 End
             End
         End
