@@ -19,10 +19,10 @@ Begin Form
     Width =10320
     DatasheetFontHeight =9
     ItemSuffix =27
-    Left =1965
-    Top =4305
-    Right =12510
-    Bottom =9390
+    Left =-1395
+    Top =4995
+    Right =9150
+    Bottom =10080
     DatasheetGridlinesColor =15062992
     RecSrcDt = Begin
         0x3438fc614e6fe440
@@ -236,7 +236,7 @@ Begin Form
                                     Height =369
                                     FontSize =9
                                     FontWeight =700
-                                    Name ="cmdChangeDefaults"
+                                    Name ="btnChangeDefaults"
                                     Caption ="Change"
                                     OnClick ="[Event Procedure]"
                                     FontName ="Arial"
@@ -1064,7 +1064,7 @@ Begin Form
                                     FontWeight =700
                                     TabIndex =6
                                     ForeColor =-2147483630
-                                    Name ="cmdReleaseHistory"
+                                    Name ="btnReleaseHistory"
                                     Caption ="View release history"
                                     OnClick ="[Event Procedure]"
                                     FontName ="Arial"
@@ -1096,7 +1096,7 @@ Begin Form
                                     FontWeight =700
                                     TabIndex =7
                                     ForeColor =-2147483630
-                                    Name ="cmdReportBug"
+                                    Name ="btnReportBug"
                                     Caption ="Report a bug"
                                     OnClick ="[Event Procedure]"
                                     FontName ="Arial"
@@ -1329,7 +1329,7 @@ Begin Form
                                     FontSize =9
                                     FontWeight =700
                                     TabIndex =4
-                                    Name ="cmdChangeDbInfo"
+                                    Name ="btnChangeDbInfo"
                                     Caption ="Set application info"
                                     OnClick ="[Event Procedure]"
                                     FontName ="Arial"
@@ -1363,7 +1363,7 @@ Begin Form
                                     FontSize =9
                                     FontWeight =700
                                     TabIndex =5
-                                    Name ="cmdManageLinks"
+                                    Name ="btnManageLinks"
                                     Caption ="Manage back-end links"
                                     FontName ="Arial"
                                     ControlTipText ="Manage back-end links"
@@ -1400,7 +1400,7 @@ Begin Form
                     FontWeight =700
                     TabIndex =1
                     ForeColor =-2147483630
-                    Name ="cmdBrowser"
+                    Name ="btnBrowser"
                     Caption ="&Data browser"
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
@@ -1434,7 +1434,7 @@ Begin Form
                     FontWeight =700
                     TabIndex =2
                     ForeColor =-2147483630
-                    Name ="cmdNavCoords"
+                    Name ="btnNavCoords"
                     Caption ="Navigation coords"
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
@@ -1467,7 +1467,7 @@ Begin Form
                     FontWeight =700
                     TabIndex =3
                     ForeColor =-2147483630
-                    Name ="cmdTaskListRpt"
+                    Name ="btnTaskListRpt"
                     Caption ="Task list report"
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
@@ -1501,7 +1501,7 @@ Begin Form
                     FontWeight =700
                     TabIndex =4
                     ForeColor =-2147483630
-                    Name ="cmdEnter"
+                    Name ="btnEnter"
                     Caption ="&Enter / edit data"
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
@@ -1536,7 +1536,7 @@ Begin Form
                     FontWeight =700
                     TabIndex =5
                     ForeColor =-2147483630
-                    Name ="cmdLookups"
+                    Name ="btnLookups"
                     Caption ="&Lookup tables"
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
@@ -1571,7 +1571,7 @@ Begin Form
                     FontWeight =700
                     TabIndex =6
                     ForeColor =-2147483630
-                    Name ="cmdQA"
+                    Name ="btnQA"
                     Caption ="&QA checks"
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
@@ -1620,7 +1620,7 @@ Begin Form
                     FontWeight =700
                     TabIndex =7
                     ForeColor =-2147483630
-                    Name ="cmdTaskList"
+                    Name ="btnTaskList"
                     Caption ="&Task list"
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
@@ -1729,7 +1729,7 @@ Begin Form
                     FontWeight =700
                     TabIndex =8
                     ForeColor =-2147483630
-                    Name ="cmdEditLog"
+                    Name ="btnEditLog"
                     Caption ="Edit log"
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
@@ -1763,7 +1763,7 @@ Begin Form
                     FontWeight =700
                     TabIndex =9
                     ForeColor =-2147483630
-                    Name ="cmdSchedule"
+                    Name ="btnSchedule"
                     Caption ="&Sampling schedule"
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
@@ -1797,7 +1797,7 @@ Begin Form
                     FontWeight =700
                     TabIndex =10
                     ForeColor =-2147483630
-                    Name ="cmdQAReport"
+                    Name ="btnQAReport"
                     Caption ="Quality review report"
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
@@ -1830,7 +1830,7 @@ Begin Form
                     FontWeight =700
                     TabIndex =11
                     ForeColor =-2147483630
-                    Name ="cmdNavReport"
+                    Name ="btnNavReport"
                     Caption ="Navigation report"
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
@@ -1863,7 +1863,7 @@ Begin Form
                     FontWeight =700
                     TabIndex =12
                     ForeColor =-2147483630
-                    Name ="cmdSummaries"
+                    Name ="btnSummaries"
                     Caption ="Data summaries"
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
@@ -1939,7 +1939,7 @@ Begin Form
                     FontWeight =700
                     TabIndex =13
                     ForeColor =-2147483630
-                    Name ="cmdIncidentalObs"
+                    Name ="btnIncidentalObs"
                     Caption ="&Incidental obs data"
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
@@ -1974,7 +1974,7 @@ Begin Form
                     FontWeight =700
                     TabIndex =14
                     ForeColor =-2147483630
-                    Name ="cmdTrainingNotes"
+                    Name ="btnTrainingNotes"
                     Caption ="Training &notes"
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
@@ -2008,7 +2008,7 @@ Begin Form
                     FontWeight =700
                     TabIndex =15
                     ForeColor =-2147483630
-                    Name ="cmdSpeciesListRpt"
+                    Name ="btnSpeciesListRpt"
                     Caption ="Species lists"
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
@@ -2042,7 +2042,7 @@ Begin Form
                     FontWeight =700
                     TabIndex =16
                     ForeColor =-2147483630
-                    Name ="cmdBackup"
+                    Name ="btnBackup"
                     Caption ="&Backup data"
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
@@ -2077,7 +2077,7 @@ Begin Form
                     FontWeight =700
                     TabIndex =17
                     ForeColor =-2147483630
-                    Name ="cmdReconnect"
+                    Name ="btnReconnect"
                     Caption ="Db &connections"
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
@@ -2112,7 +2112,7 @@ Begin Form
                     FontWeight =700
                     TabIndex =18
                     ForeColor =-2147483630
-                    Name ="cmdSetRoles"
+                    Name ="btnSetRoles"
                     Caption ="Set &user roles"
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
@@ -2172,7 +2172,7 @@ Begin Form
                     FontWeight =700
                     TabIndex =19
                     ForeColor =-2147483630
-                    Name ="cmdDbWindow"
+                    Name ="btnDbWindow"
                     Caption ="View db &objects"
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
@@ -2292,7 +2292,8 @@ Option Explicit
 ' References:
 ' Source/date:  John Boetsch - NCCN Landbirds db by DbAdmin control set
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
-' Revisions:    BLC, 5/12/2014 - ###
+' Revisions:    BLC, 5/12/2014 - initial version
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' =================================
 
 ' ---------------------------------
@@ -2310,6 +2311,7 @@ Option Explicit
 '                                so frmSwitchboard open calling initApp would load *AFTER* fsub_DbAdmin
 '               BLC, 8/22/2014 - removed setting tbxAppMode since it is set w/ setUserAccess & on form open
 '               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
 Private Sub Form_Open(Cancel As Integer)
 
@@ -2324,7 +2326,7 @@ Private Sub Form_Open(Cancel As Integer)
     If TempVars("HasAccessBE") Then DoCmd.OpenForm "frm_Lock_BE", , , , , acHidden
 
     ' If there is an Access back-end, make the backups button visible
-    Me!cmdBackup.visible = TempVars("HasAccessBE")
+    Me!btnBackup.visible = TempVars("HasAccessBE")
 
 End Sub
 
@@ -2338,7 +2340,7 @@ End Sub
 ' Subforms:     fsub_DbAdmin
 ' =================================
 ' ---------------------------------
-' SUB:     cmdReconnect_Click
+' SUB:          btnReconnect_Click
 ' Description:  Opens form for reconnecting backend dbs
 ' Parameters:   -
 ' Returns:      -
@@ -2348,7 +2350,7 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 6/13/2014 - initial version
 ' ---------------------------------
-Private Sub cmdReconnect_Click()
+Private Sub btnReconnect_Click()
     On Error GoTo Err_Handler
 
     ' Reconnect back end tables
@@ -2364,7 +2366,7 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:     cmdSetRoles_Click
+' SUB:          btnSetRoles_Click
 ' Description:  Open form for setting user roles
 ' Parameters:   -
 ' Returns:      -
@@ -2375,8 +2377,9 @@ End Sub
 ' Revisions:    BLC, 7/29/2014 - updated to use TempVars.Item("UserAccessLevel") vs. cAppMode
 '               BLC, 7/31/2014 - changed gvars to TempVars
 '               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdSetRoles_Click()
+Private Sub btnSetRoles_Click()
     On Error GoTo Err_Handler
 
     ' Open the form to set user roles for this project (if in admin / power user mode)
@@ -2400,7 +2403,7 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:     cmdDbWindow_Click
+' SUB:          btnDbWindow_Click
 ' Description:  opens database window
 ' Parameters:   -
 ' Returns:      -
@@ -2409,8 +2412,9 @@ End Sub
 ' Source/date:  John Boetsch - NCCN Landbirds db by DbAdmin control set
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 6/13/2014 - initial version
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdDbWindow_Click()
+Private Sub btnDbWindow_Click()
     On Error GoTo Err_Handler
 
     ' Show the database window.  To re-hide: DoCmd.RunCommand acCmdWindowHide
@@ -2426,7 +2430,7 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:     cmdBackup_Click
+' SUB:     btnBackup_Click
 ' Description:  Backup the current backend databases
 ' Parameters:   -
 ' Returns:      -
@@ -2436,8 +2440,9 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - Changed gvarConnected, gvarHasAccessBE, gvarWritePermission to TempVars
 '               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdBackup_Click()
+Private Sub btnBackup_Click()
     On Error GoTo Err_Handler
 
     ' Make sure that the database is connected
@@ -2474,13 +2479,13 @@ End Sub
 ' PAGE NAME:    Application Defaults (pgDefaults)
 ' Description:  system defaults for the run-time environment
 ' Bound ctls:   various fields for displaying default values
-' Unbound ctls: cmdChangeDefaults - opens a popup for changing default values
+' Unbound ctls: btnChangeDefaults - opens a popup for changing default values
 ' Subforms:     none
 ' ---------------------------------
 
 ' ---------------------------------
-' SUB:     cmdChangeDefaults_Click
-' Description: Open form for setting database defaults
+' SUB:          btnChangeDefaults_Click
+' Description:  Open form for setting database defaults
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       -
@@ -2489,8 +2494,9 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - Changed gvars to TempVars
 '               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdChangeDefaults_Click()
+Private Sub btnChangeDefaults_Click()
     On Error GoTo Err_Handler
 
     ' Perform data validation
@@ -2513,13 +2519,13 @@ End Sub
 ' ---------------------------------
 ' PAGE NAME:    Database Information (pgAbout)
 ' Description:  database development and release information
-' Unbound ctls: cmdReleaseHistory, cmdReportBug
+' Unbound ctls: btnReleaseHistory, btnReportBug
 ' Subforms:     none
 ' ---------------------------------
 
 ' ---------------------------------
-' SUB:     tbxWeb_address_DblClick
-' Description: Opens website address
+' SUB:          tbxWeb_address_DblClick
+' Description:  Opens website address
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       -
@@ -2547,8 +2553,8 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:     cmdReleaseHistory_Click
-' Description: Opens database release history
+' SUB:          btnReleaseHistory_Click
+' Description:  Opens database release history
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       -
@@ -2558,8 +2564,9 @@ End Sub
 ' Revisions:    BLC, 7/28/2014 - updated to use TempVars.Item("UserAccessLevel") vs. cAppMode
 '               BLC, 7/31/2014 - changed gvars to TempVars
 '               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdReleaseHistory_Click()
+Private Sub btnReleaseHistory_Click()
     On Error GoTo Err_Handler
 
     ' View the release history form
@@ -2584,8 +2591,8 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:     cmdReportBug_Click
-' Description: Opens bug reporting form
+' SUB:          btnReportBug_Click
+' Description:  Opens bug reporting form
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       -
@@ -2594,8 +2601,9 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - changed gvars to TempVars
 '               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdReportBug_Click()
+Private Sub btnReportBug_Click()
     On Error GoTo Err_Handler
 
     Dim strMsg As String
@@ -2637,13 +2645,13 @@ End Sub
 ' ---------------------------------
 ' PAGE NAME:    Application settings (pgSettings)
 ' Description:  administrative application settings
-' Unbound ctls: cmdChangeDbInfo
+' Unbound ctls: btnChangeDbInfo
 ' Subforms:     none
 ' ---------------------------------
 
 ' ---------------------------------
-' SUB:     cmdChangeDbInfo_Click
-' Description: Opens form for changing database info
+' SUB:          btnChangeDbInfo_Click
+' Description:  Opens form for changing database info
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       -
@@ -2652,8 +2660,9 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 6/19/2014 - Replaced Me.cAppMode with TempVars.Item("UserAccessLevel")
 '               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdChangeDbInfo_Click()
+Private Sub btnChangeDbInfo_Click()
     On Error GoTo Err_Handler
 
     ' Update database version and contact info
@@ -2675,7 +2684,7 @@ End Sub
 ' =================================
 
 ' ---------------------------------
-' SUB:     cmdEnter_Click
+' SUB:          btnEnter_Click
 ' Description:  Reconnect to backend dbs
 ' Parameters:   -
 ' Returns:      -
@@ -2685,8 +2694,9 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - changed gvars to TempVars
 '               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdEnter_Click()
+Private Sub btnEnter_Click()
     On Error GoTo Err_Handler
     
     ' Open the main data entry forms
@@ -2710,7 +2720,7 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:     cmdTaskList_Click
+' SUB:          btnTaskList_Click
 ' Description:  Open sample locations task list
 ' Parameters:   -
 ' Returns:      -
@@ -2720,8 +2730,9 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - changed gvars to TempVars
 '               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdTaskList_Click()
+Private Sub btnTaskList_Click()
     On Error GoTo Err_Handler
 
     ' View the list of tasks associated with sample locations
@@ -2742,7 +2753,7 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:     cmdIncidentalObs_Click
+' SUB:          btnIncidentalObs_Click
 ' Description:  Open form to enter/view incidental observations
 ' Parameters:   -
 ' Returns:      -
@@ -2752,8 +2763,9 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - changed gvars to TempVars
 '               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdIncidentalObs_Click()
+Private Sub btnIncidentalObs_Click()
     On Error GoTo Err_Handler
 
     ' View and enter incidental observation data
@@ -2778,7 +2790,7 @@ End Sub
 ' =================================
 
 ' ---------------------------------
-' SUB:     cmdBrowser_Click
+' SUB:          btnBrowser_Click
 ' Description:  Open form for data browsing
 ' Parameters:   -
 ' Returns:      -
@@ -2788,8 +2800,9 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - changed gvars to TempVars
 '               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdBrowser_Click()
+Private Sub btnBrowser_Click()
     On Error GoTo Err_Handler
 
     ' Open the data browser
@@ -2810,7 +2823,7 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:     cmdLookups_Click
+' SUB:          btnLookups_Click
 ' Description:  Open form for viewing lookup tables
 ' Parameters:   -
 ' Returns:      -
@@ -2820,8 +2833,9 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - changed gvars to TempVars
 '               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdLookups_Click()
+Private Sub btnLookups_Click()
     On Error GoTo Err_Handler
 
     ' Review and edit lookup tables
@@ -2842,7 +2856,7 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:     cmdSchedule_Click
+' SUB:          btnSchedule_Click
 ' Description:  Open form to view/edit the sampling schedule
 ' Parameters:   -
 ' Returns:      -
@@ -2852,8 +2866,9 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - change gvars to TempVars
 '               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdSchedule_Click()
+Private Sub btnSchedule_Click()
     On Error GoTo Err_Handler
 
     ' Open the sampling schedule browser
@@ -2874,7 +2889,7 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:     cmdQA_Click
+' SUB:          btnQA_Click
 ' Description:  Open the QA form tool
 ' Parameters:   -
 ' Returns:      -
@@ -2884,8 +2899,9 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - changed gvars to TempVars
 '               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdQA_Click()
+Private Sub btnQA_Click()
     On Error GoTo Err_Handler
 
     ' Open the data validation tool
@@ -2906,7 +2922,7 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:     cmdEditLog_Click
+' SUB:          btnEditLog_Click
 ' Description:  Open edit log form
 ' Parameters:   -
 ' Returns:      -
@@ -2916,8 +2932,9 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - changed gvars to TempVars
 '               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdEditLog_Click()
+Private Sub btnEditLog_Click()
     On Error GoTo Err_Handler
 
     ' Open the edit log form
@@ -2938,7 +2955,7 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:          cmdTrainingNotes_Click
+' SUB:          btnTrainingNotes_Click
 ' Description:  Open form to view/edit training notes
 ' Parameters:   -
 ' Returns:      -
@@ -2948,8 +2965,9 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - changed gvars to TempVars
 '               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdTrainingNotes_Click()
+Private Sub btnTrainingNotes_Click()
     On Error GoTo Err_Handler
 
     ' Enter field season training notes
@@ -2974,7 +2992,7 @@ End Sub
 ' =================================
 
 ' ---------------------------------
-' SUB:     cmdSummaries_Click
+' SUB:          btnSummaries_Click
 ' Description:  Open the summaries tool
 ' Parameters:   -
 ' Returns:      -
@@ -2984,8 +3002,9 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC - 7/31/2014 - changed gvars to TempVars
 '               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdSummaries_Click()
+Private Sub btnSummaries_Click()
     On Error GoTo Err_Handler
 
     ' Open the data summary tool
@@ -3006,8 +3025,8 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:     cmdTaskListRpt_Click
-' Description: Open & generate task list report
+' SUB:          btnTaskListRpt_Click
+' Description:  Open & generate task list report
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       -
@@ -3017,8 +3036,9 @@ End Sub
 ' Revisions:    BLC, 7/29/2014 - updated to use TempVars.Item("Timeframe") vs. cTimeframe
 '               BLC - 7/31/2014 - changed gvars to TempVars
 '               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdTaskListRpt_Click()
+Private Sub btnTaskListRpt_Click()
     On Error GoTo Err_Handler
 
     ' Notify if not connected
@@ -3116,8 +3136,8 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:     cmdSpeciesList_Click
-' Description: Open & generate species list report
+' SUB:          btnSpeciesList_Click
+' Description:  Open & generate species list report
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       -
@@ -3127,8 +3147,9 @@ End Sub
 ' Revisions:    BLC, 7/29/2014 - updated to use TempVars.Item("Timeframe") vs. cTimeframe
 '               BLC - 7/31/2014 - changed gvars to TempVars
 '               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdSpeciesListRpt_Click()
+Private Sub btnSpeciesListRpt_Click()
     On Error GoTo Err_Handler
 
     ' Notify if not connected
@@ -3224,8 +3245,8 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:     cmdNavReport_Click
-' Description: Open & generate transect navigation reports
+' SUB:          btnNavReport_Click
+' Description:  Open & generate transect navigation reports
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       -
@@ -3235,8 +3256,9 @@ End Sub
 ' Revisions:    BLC, 7/29/2014 - updated to use TempVars.Item("Timeframe") vs. cTimeframe
 '               BLC - 7/31/2014 - changed gvars to TempVars
 '               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdNavReport_Click()
+Private Sub btnNavReport_Click()
     On Error GoTo Err_Handler
 
     ' Notify if not connected
@@ -3327,8 +3349,8 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:     cmdQAReport_Click
-' Description: Open & generate QA reports
+' SUB:          btnQAReport_Click
+' Description:  Open & generate QA reports
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       -
@@ -3338,8 +3360,9 @@ End Sub
 ' Revisions:    BLC, 7/29/2014 - updated to use TempVars.Item("Timeframe") vs. cTimeframe
 '               BLC - 7/31/2014 - changed gvars to TempVars
 '               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdQAReport_Click()
+Private Sub btnQAReport_Click()
     On Error GoTo Err_Handler
 
     ' Notify if not connected
@@ -3415,8 +3438,8 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
-' SUB:     cmdNavCoords_Click
-' Description: Open & generate navigation coordinates listing
+' SUB:          btnNavCoords_Click
+' Description:  Open & generate navigation coordinates listing
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       -
@@ -3426,8 +3449,9 @@ End Sub
 ' Revisions:    BLC, 7/29/2014 - updated to use TempVars.Item("Timeframe") vs. cTimeframe
 '               BLC - 7/31/2014 - changed gvars to TempVars
 '               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
-Private Sub cmdNavCoords_Click()
+Private Sub btnNavCoords_Click()
     On Error GoTo Err_Handler
 
     ' Notify if not connected

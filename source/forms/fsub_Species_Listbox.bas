@@ -13,13 +13,13 @@ Begin Form
     Width =9120
     DatasheetFontHeight =11
     ItemSuffix =17
-    Left =324
-    Top =-3096
-    Right =4020
-    Bottom =672
+    Left =570
+    Top =1560
+    Right =4260
+    Bottom =5580
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
-        0x72f936e78d96e440
+        0x5897ca243799e440
     End
     RecordSource ="SELECT tlu_NCPN_Plants.Master_PLANT_Code AS Code, tlu_NCPN_Plants.Master_Species"
         " AS Species, Switch(tlu_NCPN_Plants.LU_Code Is Null,\" \",tlu_NCPN_Plants.LU_Cod"
@@ -234,7 +234,6 @@ Begin Form
                     ForeColor =4210752
                     Name ="tbxSpecies"
                     ControlSource ="Species"
-                    OnDblClick ="[Event Procedure]"
                     OnClick ="[Event Procedure]"
                     GridlineColor =10921638
 
@@ -350,6 +349,7 @@ Option Explicit
 ' Source/date:  Bonnie Campbell, 2/18/2015
 ' Revisions:    BLC - 2/18/2015 - initial version
 '               BLC, 5/1/2015 - renamed from sfrmSpeciesListbox to fsub_Species_Listbox
+'               BLC, 6/30/2015 - removed unused private version of tbxCode_DblClick (public sub used)
 ' =================================
 
 '=================================================================
@@ -642,79 +642,6 @@ Err_Handler:
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
             "Error encountered (#" & Err.Number & " - tbxCode_DblClick[Form_fsub_Species_Listbox])"
-    End Select
-    Resume Exit_Sub
-End Sub
-
-' ---------------------------------
-' SUB:          tbxSpecies_DblClick
-' Description:  Actions for clicking tbxSpecies
-' Assumptions:  -
-' Parameters:   N/A
-' Returns:      N/A
-' Throws:       none
-' References:   none
-' Source/date:
-' Adapted:      Bonnie Campbell, February 19, 2015 - for NCPN tools
-' Revisions:
-'   BLC - 2/19/2015 - initial version
-'   BLC - 2/23/2015 - added lblTgtSpeciesCount update
-'   BLC - 5/20/2015 - switched from tbxMasterCode to tbxLUCode,
-'                     added transect only & tgt area ID
-'   BLC - 5/27/2015 - added check for missing LU Codes
-'                     (species w/ missing codes cannot be added to target list)
-'                     fixed error (variable not defined) on tbxMasterCode - replaced w/ tbxLUCode
-'                     in call to IsListDuplicate
-' ---------------------------------
-Private Sub tbxSpecies_DblClick(Cancel As Integer)
-On Error GoTo Err_Handler
-    Dim item As String
-    Dim lbx As ListBox
-    
-    'check for empty Lookup code (LUCode)
-    If IsNull(tbxLUCode) Or IsEmpty(tbxLUCode) Or Len(Trim(tbxLUCode)) = 0 Then
-
-        MsgBox "Species " & tbxSpecies & " is missing a lookup code (LUCode). " & _
-            vbCrLf & vbCrLf & "This code is required before the species can be added to a target list. " & _
-            vbCrLf & vbCrLf & "Please determine the appropriate code and enter it into the master " & _
-            "plant species list." & _
-            vbCrLf & vbCrLf & "Contact the project ecologist/data manager to add the species. ", _
-            vbExclamation, "Missing Lookup Code!"
-        
-        'email species desired
-        
-        GoTo Exit_Sub
-    End If
-    
-    'add components of item (code, species (UT or whatever), & ITIS) to listbox
-
-    'prepare item for listbox value (default TransectOnly & TgtAreaID to 0)
-    item = tbxCode & ";" & tbxSpecies & ";" & tbxLUCode & ";0;0;"  ' & ";" & tbxTransectOnly & ";" & tbxTgtAreaID & ";" 'tbxMasterCode
-    
-    'check listbox for duplicate & skip if already present was col 2
-    If IsListDuplicate(Forms("frm_Tgt_Species").Controls("lbxTgtSpecies"), 0, tbxLUCode) Then
-        'duplicate, so exit
-        GoTo Exit_Sub
-    End If
-
-    Set lbx = Forms("frm_Tgt_Species").Controls("lbxTgtSpecies")
-    
-    With lbx
-        'add item if not duplicate
-        .AddItem item
-    
-        'update target species count
-        Forms("frm_Tgt_Species").Controls("lblTgtSpeciesCount").Caption = .ListCount - 1 & " species"
-    End With
-    
-Exit_Sub:
-    Exit Sub
-    
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - tbxSpecies_DblClick[Form_fsub_Species_Listbox])"
     End Select
     Resume Exit_Sub
 End Sub

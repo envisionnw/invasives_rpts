@@ -429,7 +429,7 @@ On Error GoTo Err_Handler:
 '  Run Report
 ' --------------
     'process query
-    If qryExists(strQuery) Then
+    If QryExists(strQuery) Then
         DoCmd.SetWarnings False
         DoCmd.Hourglass True
         SysCmd acSysCmdSetStatus, "Running " & strQuery & " query... "

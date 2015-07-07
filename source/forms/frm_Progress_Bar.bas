@@ -449,13 +449,3 @@ Err_Handler:
     End Select
     Resume Exit_Function
 End Function
-
-Public Sub testme()
-    DoCmd.OpenForm "frm_ProgressBar", acNormal
-    
-    For i = 1 To 10
-        
-        Forms("frm_ProgressBar").Increment i * 10, "Preparing report..."
-    Next
-
-End Sub

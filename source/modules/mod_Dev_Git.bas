@@ -4,13 +4,14 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_Git
 ' Level:        Development module
-' Version:      1.01
+' Version:      1.02
 '
 ' Description:  Git related functions & procedures for version control
 '
 ' Source/date:  Bonnie Campbell, 2/12/2015
 ' Revisions:    BLC - 2/12/2015 - 1.00 - initial version
 '               BLC - 5/27/2015 - 1.01 - renamed to note as development module
+'               BLC - 6/30/2015 - 1.02 - added error handling to FieldTypeName()
 ' =================================
 
 ' ===================================================================================
@@ -292,7 +293,7 @@ End Sub
 
 ' ---------------------------------
 ' FUNCTION:     SetPropertyDAO
-' Description:  Export VB components (forms, modules, classes) as text files for later use
+' Description:  Set the property of a database object
 ' Assumptions:  -
 ' Parameters:   obj - object to set property for (object)
 '               strPropertyName - property name (string)
@@ -501,8 +502,10 @@ End Function
 ' Adapted:      Bonnie Campbell, February 13, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/13/2015 - initial version
+'   BLC - 6/30/2015 - added error handling
 ' ---------------------------------
 Function FieldTypeName(fld As DAO.Field) As String
+On Err GoTo Err_Handler
 
     Dim strReturn As String    'Name to return
 
@@ -560,6 +563,17 @@ Function FieldTypeName(fld As DAO.Field) As String
     End Select
 
     FieldTypeName = strReturn
+    
+Exit_Function:
+    Exit Function
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - FieldTypeName[mod_Git])"
+    End Select
+    Resume Exit_Function
 End Function
 
 ' ---------------------------------

@@ -135,7 +135,9 @@ Begin Form
                     BorderColor =10921638
                     Name ="lbxTgtSpecies"
                     RowSourceType ="Value List"
-                    RowSource ="Code;Species;LUCode;'';''"
+                    RowSource ="Code;Species;LUCode;;;ABAR;Abronia argillosa;ABRARG;0;0;ABTH;Abutilon theophrast"
+                        "i;ABUTHE;0;0;ACSP;Acamptopappus sphaerocephalus;ACASPH;0;0;ACNE2;Acer negundo;AC"
+                        "ENEG;0;0"
                     ColumnWidths ="1440;2520;720;288;288"
                     OnDblClick ="[Event Procedure]"
                     OnKeyUp ="[Event Procedure]"
@@ -176,7 +178,7 @@ Begin Form
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblParkHdr"
-                    Caption ="ZION"
+                    Caption ="CARE"
                     GridlineColor =10921638
                     LayoutCachedLeft =60
                     LayoutCachedTop =60
@@ -230,7 +232,7 @@ Begin Form
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblTgtSpeciesCount"
-                    Caption ="0 species"
+                    Caption ="4 species"
                     ControlTipText ="Number of species in the current list"
                     GridlineColor =10921638
                     LayoutCachedLeft =8340
@@ -270,7 +272,7 @@ Begin Form
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblYear"
-                    Caption ="Target Species List for "
+                    Caption ="Target Species List for 2017"
                     GridlineColor =10921638
                     LayoutCachedLeft =2880
                     LayoutCachedTop =120
@@ -512,7 +514,7 @@ Begin Form
                     Height =480
                     FontWeight =600
                     TabIndex =7
-                    ForeColor =8224125
+                    ForeColor =16711680
                     Name ="btnRemoveAll"
                     Caption ="<<"
                     StatusBarText ="Remove all"
@@ -526,10 +528,10 @@ Begin Form
                     ForeThemeColorIndex =-1
                     ForeTint =100.0
                     Gradient =0
-                    BackColor =13882323
+                    BackColor =52479
                     BackThemeColorIndex =-1
                     BackTint =100.0
-                    BorderColor =8224125
+                    BorderColor =0
                     BorderThemeColorIndex =-1
                     BorderTint =100.0
                     HoverColor =0
@@ -558,7 +560,7 @@ Begin Form
                     Height =480
                     FontWeight =600
                     TabIndex =8
-                    ForeColor =8224125
+                    ForeColor =16711680
                     Name ="btnRemove"
                     Caption ="<"
                     StatusBarText ="Remove all"
@@ -573,11 +575,11 @@ Begin Form
                     ForeThemeColorIndex =-1
                     ForeTint =100.0
                     Gradient =0
-                    BackColor =13882323
+                    BackColor =52479
                     BackThemeColorIndex =-1
                     BackTint =100.0
                     OldBorderStyle =0
-                    BorderColor =8224125
+                    BorderColor =0
                     BorderThemeColorIndex =-1
                     BorderTint =100.0
                     HoverColor =0

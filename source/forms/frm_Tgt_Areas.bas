@@ -11,8 +11,8 @@ Begin Form
     GridY =24
     DatasheetFontHeight =11
     ItemSuffix =13
-    Right =7245
-    Bottom =4590
+    Right =9900
+    Bottom =6330
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xc1f3db6ed487e440
@@ -336,7 +336,7 @@ Begin Form
                 End
                 Begin Image
                     PictureType =2
-                    Left =4140
+                    Left =4320
                     Top =2820
                     Width =540
                     Height =300
@@ -345,9 +345,9 @@ Begin Form
                     Picture ="delete"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =4140
+                    LayoutCachedLeft =4320
                     LayoutCachedTop =2820
-                    LayoutCachedWidth =4680
+                    LayoutCachedWidth =4860
                     LayoutCachedHeight =3120
                     TabIndex =2
                 End
@@ -477,6 +477,7 @@ Option Explicit
 ' Source/date:  Bonnie Campbell, 2/11/2015
 ' Revisions:    BLC - 2/11/2015 - initial version
 '               BLC - 6/3/2015  - prevent existing list target area deletion
+'               BLC - 6/30/2015 - removed unused lblAddTgtArea_Click()
 ' =================================
 
 ' ---------------------------------
@@ -626,58 +627,6 @@ Err_Handler:
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
             "Error encountered (#" & Err.Number & " - tbxTgtArea_LostFocus[form_frm_Tgt_Areas])"
-    End Select
-    Resume Exit_Sub
-End Sub
-
-' ---------------------------------
-' SUB:          lblAddTgtArea_Click
-' Description:  Open add target area form
-' Assumptions:  -
-' Parameters:   N/A
-' Returns:      N/A
-' Throws:       none
-' References:   none
-' Source/date:
-' Adapted:      Bonnie Campbell, February 12, 2015 - for NCPN tools
-' Revisions:
-'   BLC - 2/12/2015 - initial version
-' ---------------------------------
-Private Sub lblAddTgtArea_Click()
-On Error GoTo Err_Handler
-    Dim strTgtArea As String
-    'Dim strSQL As String
-    
-    'strSQL = "INSERT INTO tbl_Target_Areas(Target_Area) VALUES "
-    
-    If ValidateString(tbxTgtArea.Value, "alphaspace") = True Then
-        strTgtArea = Trim(tbxTgtArea.Value)
-        
-        'strSQL = strSQL & "('" & strTgtArea & "')"
-        
-        Dim rs As Recordset
-    
-        Set rs = CurrentDb.OpenRecordset("SELECT * FROM [tbl_Target_Areas]")
-        rs.AddNew
-        
-        rs![Target_Area] = strTgtArea
-        rs.Update
-        rs.Close
-        Set rs = Nothing
-        DoCmd.Close
-    End If
-    
-    'refresh form
-    DoCmd.OpenForm "frm_Tgt_Areas", acNormal
-    
-Exit_Sub:
-    Exit Sub
-    
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - lblAddTgtArea_Click[form_frm_Tgt_Areas])"
     End Select
     Resume Exit_Sub
 End Sub

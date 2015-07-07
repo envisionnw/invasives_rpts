@@ -4,12 +4,13 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_Color
 ' Level:        Framework module
-' Version:      1.01
+' Version:      1.02
 ' Description:  initialize functions & procedures
 '
 ' Source/date:  Bonnie Campbell, 2/9/2015
 ' Revisions:    BLC, 2/9/2015 - 1.00 - initial version
 '               BLC, 5/1/2015 - 1.01 - integrated into Invasives Reporting tool
+'               BLC, 5/18/2015 - 1.02 - renamed & removed fxn prefix
 ' =================================
 
 ' ---------------------------------

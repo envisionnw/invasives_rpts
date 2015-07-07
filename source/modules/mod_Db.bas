@@ -4,12 +4,13 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_Db
 ' Level:        Framework module
-' Version:      1.01
+' Version:      1.02
 ' Description:  Database related functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, April 2015
 ' Revisions:    BLC, 4/30/2015 - 1.00 - initial version
 '               BLC, 5/26/2015 - 1.01 - added mod_db_Templates subs/functions - qryExists
+'               BLC, 5/27/2015 - 1.02 - added ClearTable()
 ' =================================
 
 ' ---------------------------------
@@ -329,7 +330,7 @@ Err_Handler:
 End Function
 
 ' ---------------------------------
-' SUB:          qryExists
+' SUB:          QryExists
 ' Description:  Checks if query exists in database as a permanent query(QueryDefs)
 ' Parameters:   strQueryName - query name as a string
 ' Returns:      true - if found (boolean); false - if not found
@@ -339,18 +340,19 @@ End Function
 '               http://bytes.com/topic/access/answers/765384-determine-if-query-x-exists
 ' Adapted:      Bonnie Campbell, June 17, 2014
 ' Revisions:    6/17/2014 - BLC - initial version
+'               6/30/2015 - BLC - renamed qry... to Qry...
 ' ---------------------------------
-Public Function qryExists(strQueryName As String) As Boolean
+Public Function QryExists(strQueryName As String) As Boolean
 
     Dim qdf As DAO.QueryDef
     
     'default
-    qryExists = False
+    QryExists = False
   
     For Each qdf In CurrentDb.QueryDefs
 '        Debug.Print qdf.Name
         If qdf.name = strQueryName Then
-            qryExists = True
+            QryExists = True
             Exit For
         End If
     Next
@@ -362,7 +364,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - qryExists[mod_Db])"
+            "Error encountered (#" & Err.Number & " - QryExists[mod_Db])"
     End Select
     Resume Exit_Function
 End Function
@@ -372,7 +374,7 @@ End Function
 ' ---------------------------------
 
 ' ---------------------------------
-' FUNCTION:     getAccessObjectType
+' FUNCTION:     GetAccessObjectType
 ' Description:  looks up object type in Access sys tables
 ' Parameters:   strName  - name of object w/in Access
 ' Returns:      long (type) or NULL if object doesn't exist
@@ -393,11 +395,12 @@ End Function
 ' Adapted:      -
 ' Revisions:    BLC, 8/20/2014 - initial vesrion
 '               BLC, 4/30/2015 - moved from mod_Common_UI
+'               BLC, 6/30/2015 - renamed for standardization Get... vs. get...
 ' ---------------------------------
-Public Function getAccessObjectType(strObject As String)
+Public Function GetAccessObjectType(strObject As String)
 On Error GoTo Err_Handler:
 
-    getAccessObjectType = DLookup("Type", "MSysObjects", "NAME = '" & strObject & "'")
+    GetAccessObjectType = DLookup("Type", "MSysObjects", "NAME = '" & strObject & "'")
    
 Exit_Function:
     Exit Function
@@ -406,7 +409,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - getAccessObjectType[mod_Db])"
+            "Error encountered (#" & Err.Number & " - GetAccessObjectType[mod_Db])"
     End Select
     Resume Exit_Function
 End Function
