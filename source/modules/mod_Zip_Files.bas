@@ -47,7 +47,7 @@ Public Const VER_PLATFORM_WIN32_NT = 2      ' Windows NT/2000/XP, or Windows Ser
 ' ---------------------------------
 
 ' =================================
-' FUNCTION:     fxnZipFiles
+' FUNCTION:     ZipFiles
 ' Description:  Creates a Zip file using WinXP Compressed (Zipped) Folders (Won't work on Win2K)
 ' Parameters:   varSourceFiles = Individual file path or a Directory path
 '               varZipFileName = Name of Zip file to create or add file(s) to
@@ -159,7 +159,7 @@ End Function
 ' FUNCTION:     GetVersion
 ' Description:  Extracts OS Version info and returns it
 ' Parameters:   Optional VersionNumber
-' Returns:      none
+' Returns:      operating system version information (string)
 ' Throws:       none
 ' References:   none
 ' Source/date:  http://www.tek-tips.com/faqs.cfm?fid=4599

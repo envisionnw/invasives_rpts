@@ -139,6 +139,7 @@ End Function
 ' Source/date:  Bonnie Campbell, February 20, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/20/2015  - initial version
+'   BLC - 5/18/2015  - fixed error documentation ClearFields vs. ITIS_Click, mod_Forms vs. frm_SpeciesSearch
 ' ---------------------------------
 Public Sub ClearFields(frm As Form)
 On Error GoTo Err_Handler
@@ -161,7 +162,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - cbxITIS_Click[form_frmSpeciesSearch])"
+            "Error encountered (#" & Err.Number & " - ClearFields[form_Forms])"
     End Select
     Resume Exit_Sub
 End Sub

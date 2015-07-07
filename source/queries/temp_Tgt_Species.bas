@@ -7,5 +7,6 @@
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
+dbText "Description" ="Temporary target species query\015\012(Target List Tool update)"
 Begin
 End
