@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_Initialize_App
 ' Level:        Framework module
-' Version:      1.02
+' Version:      1.03
 ' Description:  Standard module for setting initial app & database values/settings & global variables
 ' Source/date:  Bonnie Campbell, July 2014
 ' Adapted:      -
@@ -19,6 +19,8 @@ Option Explicit
 '               BLC, 4/30/2015 - 1.02 - shifted USER_ACCESS_CONTROL, DB_SYS_TABLES, APP_SYS_TABLES to mod_App_Settings
 '                                since these are application vs. framework specific, added Level & Version #
 '                                added blnRunQueries & blnUpdateAll from mod_User
+'               BLC, 7/7/2015  - 1.03 - added SafeStart() to set error trapping for the application
+'                                to "Break in Class Module"
 ' =================================
 ' HISTORY:
 ' MERGED MODULE: mod_Global_Variables (merged with mod_Initialize_App)
@@ -69,6 +71,40 @@ Public blnUpdateAll As Boolean      ' flag to indicate whether to run all querie
 ' ---------------------------------
 
 ' ---------------------------------
+' SUB:          SafeStart
+' Description:  Sets error trapping/handling for database to ensure clear error trapping.
+' Note:         Trapping is set to "Break in Class Module" (1) vs. "Break on Unhandled Errors" (1) since
+'               the latter breaks on class calling code vs. class code. "Break on All Errors" (0) is not
+'               used since this breaks even on handled errors.
+' Assumptions:  -
+' Parameters:   -
+' Returns:      -
+' Throws:       -
+' References:   -
+' Source/date:  Luke Chung, date unkown
+'               http://www.fmsinc.com/tpapers/vbacode/debug.asp
+' Adapted:      Bonnie Campbell, July 7, 2015 for NCPN WQ Utilities tool
+' Revisions:    BLC, 7/7/2015 - initial version
+' ---------------------------------
+Sub SafeStart()
+On Error GoTo Err_Handler
+
+  Application.SetOption "Error Trapping", 1
+  
+
+Exit_Procedure:
+    Exit Sub
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - SafeStart[mod_Initialize_App])"
+    End Select
+    Resume Exit_Procedure
+End Sub
+
+' ---------------------------------
 ' SUB:          initGlobalTempVars
 ' Description:  Initializes database TempVars which cannot be initialized outside of sub/function
 ' Assumptions:  -
@@ -81,7 +117,7 @@ Public blnUpdateAll As Boolean      ' flag to indicate whether to run all querie
 ' Revisions:    BLC, 7/31/2014 - initial version
 ' ---------------------------------
 Public Sub initGlobalTempVars()
-On Error GoTo Err_Handler:
+On Error GoTo Err_Handler
 Dim aryStdVars() As Variant
 Dim i As Integer
 
@@ -99,7 +135,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - initGlobalTempVars[mod_Global_Variables])"
+            "Error encountered (#" & Err.Number & " - initGlobalTempVars[mod_Initialize_App])"
     End Select
     Resume Exit_Procedure
 End Sub
