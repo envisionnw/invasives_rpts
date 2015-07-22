@@ -16,8 +16,8 @@ Begin Form
     ItemSuffix =13
     Left =3480
     Top =2370
-    Right =10425
-    Bottom =5700
+    Right =10680
+    Bottom =5955
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x3d34192b53bbe340
@@ -79,10 +79,10 @@ Begin Form
                     Caption ="Close Form"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                 End
                 Begin ComboBox
                     OverlapFlags =85
@@ -153,10 +153,10 @@ Begin Form
                     Caption ="Preview Report"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                 End
             End
         End
@@ -271,7 +271,14 @@ On Error GoTo Err_Infest_Click
      End If  ' End if for new route compare
      If Not IsNull(Infest!Master_Code) Then
        InfestSum = InfestSum + 1
-       Priority = DLookup("[Priority]", "tbl_Target_Plant_lists", "[Unit_Code]= '" & Me!Park_Code & "' AND [Master_Plant_Code] = '" & Infest!Master_Code & "' AND [Visit_Year] = " & Me!Visit_Year)
+'--------------------------------------------------------------------------
+' Revised: 7/22/2015 - B. Campbell - Adjusted to pull data from new target
+'                                    list tables via qry_Annual_Complete_Tgt_Species_Lists
+'--------------------------------------------------------------------------
+'       Priority = DLookup("[Priority]", "tbl_Target_Plant_lists", "[Unit_Code]= '" & Me!Park_Code & "' AND [Master_Plant_Code] = '" & Infest!Master_Code & "' AND [Visit_Year] = " & Me!Visit_Year)
+Priority = DLookup("[Priority]", "qry_Annual_Complete_Tgt_Species_Lists", "[Park]= '" & Me!Park_Code & _
+        "' AND [Master_Plant_Code_FK] = '" & Infest!Master_Code & "' AND [TgtYear] = " & Me!Visit_Year)
+'--------------------------------------------------------------------------
        '   Priority = DLookup("[Priority]", "tbl_Target_Plant_lists", "[Unit_Code]= '" & Me!Park_Code & "' AND [Master_Plant_Code] = '" & CodeSave & "' AND [Visit_Year] = " & 2008)   ' For testing purposes
        If Not IsNull(Priority) And Priority = 1 Then
          PrioritySum = PrioritySum + 1
