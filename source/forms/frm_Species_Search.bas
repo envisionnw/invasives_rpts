@@ -16,8 +16,8 @@ Begin Form
     ItemSuffix =64
     Left =5280
     Top =2790
-    Right =18600
-    Bottom =10185
+    Right =18315
+    Bottom =10155
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x0a915c95ff94e440
@@ -992,6 +992,7 @@ Option Explicit
 '               BLC - 6/30/2015 - removed unused subroutines
 '                                 btnSearch_Enter() and SpeciesSearch()
 '                                 both handled by btnSearch_Click()
+'               BLC - 7/22/2015 - fixed search header highlighting
 ' =================================
 
 '=================================================================
@@ -1567,6 +1568,7 @@ End Sub
 '                     renamed tbxResultCode to tbxLUCode
 '   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 '   BLC - 6/26/2015 - added LU_Code to search to enable search against code to find species
+'   BLC - 7/22/2015 - fixed search header highlighting
 ' ---------------------------------
 Private Sub btnSearch_Click()
 On Error GoTo Err_Handler
@@ -1602,9 +1604,10 @@ On Error GoTo Err_Handler
     Dim listTypes() As String
     'add the 6-letter code to the search matches
     If Len(TempVars("speciestype")) > 0 Then
-        TempVars("speciestype") = TempVars("speciestype") & "CODE;"
-    Else
-        TempVars("speciestype") = "CODE;"
+        'TempVars("speciestype") = TempVars("speciestype") & "CODE;"
+        cbxAddToList "speciestype", "CODE", ";"
+    'Else
+    '    TempVars("speciestype") = "CODE;"
     End If
     listTypes = Split(TempVars("speciestype"), ";")
     
@@ -1707,7 +1710,8 @@ On Error GoTo Err_Handler
     ClearFields Me
     
     'leave last selections for checkboxes (don't clear TempVars.item("speciestype"))
-    ' TempVars.item("speciestype") = ""
+    'must clear to clear highlighting & reset speciestypes
+    TempVars.item("speciestype") = ""
 
 Exit_Sub:
     Exit Sub
