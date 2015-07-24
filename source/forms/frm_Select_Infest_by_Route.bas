@@ -14,10 +14,10 @@ Begin Form
     GridY =24
     DatasheetFontHeight =9
     ItemSuffix =13
-    Left =3480
-    Top =2370
-    Right =10680
-    Bottom =5955
+    Left =5715
+    Top =4470
+    Right =12915
+    Bottom =8055
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x3d34192b53bbe340
@@ -216,8 +216,12 @@ On Error GoTo Err_Infest_Click
   DoCmd.OpenQuery "qry_Clear_Infest_Route"
   DoCmd.SetWarnings True
 
+'--------------------------------------------------------------------------
+' Revised: 7/24/2015 - B. Campbell - Rewrote strSQL to clear ghost breakpoint
+'--------------------------------------------------------------------------
 '  Build SQL statement
-  strSQL = "SELECT * FROM qry_Infest_by_Route where Unit_Code = '" & Me!Park_Code & "' AND Visit_Year = " & Me!Visit_Year
+  strSQL = "SELECT * FROM qry_Infest_by_Route WHERE Unit_Code = '" & Me!Park_Code & _
+            "' AND Visit_Year = " & Me!Visit_Year
   Set db = CurrentDb
 
   ' Get first infestation record
