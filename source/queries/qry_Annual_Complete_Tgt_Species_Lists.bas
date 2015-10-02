@@ -7,13 +7,14 @@
     ".Wy_Species, IIf(tbl_Target_Species.Target_Area_ID>0,tbl_Target_Areas.Target_Are"
     "a,IIf\015\015\012(tbl_Target_Species.Transect_Only>0,\"Transect\",tbl_Target_Spe"
     "cies.Priority)) AS PriorityTarget, (tbl_Target_List.Park_Code+\"-\"+PriorityTarg"
-    "et) AS ParkPriority, (tbl_Target_Species.Species_Name+\"-\"+CStr(tbl_Target_List"
-    ".Target_Year)) AS SpeciesYear\015\012FROM ((tbl_Target_Species LEFT JOIN tbl_Tar"
-    "get_Areas ON tbl_Target_Species.Target_Area_ID = tbl_Target_Areas.Target_Area_ID"
-    ") LEFT JOIN tbl_Target_List ON tbl_Target_Species.Tgt_List_ID_FK = tbl_Target_Li"
-    "st.Tgt_List_ID) LEFT JOIN tlu_NCPN_Plants ON tbl_Target_Species.Master_Plant_Cod"
-    "e_FK = tlu_NCPN_Plants.Master_Plant_Code\015\012ORDER BY tbl_Target_Species.Spec"
-    "ies_Name;\015\012"
+    "et) AS ParkPriority, (tbl_Target_List.Park_Code+\"-\"+CStr(tbl_Target_List.Targe"
+    "t_Year)+\"-\"+PriorityTarget) AS ParkYearPriority, (tbl_Target_Species.Species_N"
+    "ame+\"-\"+CStr(tbl_Target_List.Target_Year)) AS SpeciesYear\015\012FROM ((tbl_Ta"
+    "rget_Species LEFT JOIN tbl_Target_Areas ON tbl_Target_Species.Target_Area_ID = t"
+    "bl_Target_Areas.Target_Area_ID) LEFT JOIN tbl_Target_List ON tbl_Target_Species."
+    "Tgt_List_ID_FK = tbl_Target_List.Tgt_List_ID) LEFT JOIN tlu_NCPN_Plants ON tbl_T"
+    "arget_Species.Master_Plant_Code_FK = tlu_NCPN_Plants.Master_Plant_Code\015\012OR"
+    "DER BY tbl_Target_Species.Species_Name;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -146,6 +147,15 @@ Begin
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x7597b113575789469ca53d2a7dc20e54
+        End
+    End
+    Begin
+        dbText "Name" ="ParkYearPriority"
+        dbInteger "ColumnWidth" ="2160"
+        dbBoolean "ColumnHidden" ="0"
+        dbLong "AggregateType" ="-1"
+        dbBinary "GUID" = Begin
+            0xe45579b30f2f164e9ad135588e19add6
         End
     End
 End

@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_App_UI
 ' Level:        Application module
-' Version:      1.04
+' Version:      1.05
 ' Description:  Application User Interface related functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, April 2015
@@ -13,6 +13,7 @@ Option Explicit
 '               BLC, 6/1/2015  - 1.02 - changed View to Search tab
 '               BLC, 6/12/2015 - 1.03 - added EnableTargetTool button
 '               BLC, 6/30/2015 - 1.04 - added ClearFields()
+'               BLC, 9/21/2015 - 1.05 - added park species list, park summary report
 ' =================================
 
 ' =================================
@@ -33,6 +34,7 @@ Option Explicit
 '                                Converted QAQC to Create, Logs to View
 '               BLC, 5/26/2015 - Added error handling
 '               BLC, 6/4/2015 - Changed View to Search tab, added "or modify" for create tab
+'               BLC, 9/21/2015 - added park species list, park summary report
 ' =================================
 Public Sub PopulateInsetTitle(ctrl As Control, strContext As String)
 On Error GoTo Err_Handler
@@ -57,10 +59,14 @@ On Error GoTo Err_Handler
             strTitle = "Reports"
         Case "CrewSpeciesList" ' Reports > Field Crew Species List
             strTitle = "Reports > Field Crew Species List"
+        Case "ParkSpeciesList" ' Reports > Park Personnel Species List
+            strTitle = "Reports > Park Personnel Species List"
         Case "SpeciesListByPark" ' Reports > Species List By Park
             strTitle = "Reports > Species List By Park"
         Case "TgtListAnnualSummary" ' Reports > Annual Species List Summary
             strTitle = "Reports > Annual Species List Summary"
+        Case "TgtListParkSummary" ' Reports > Park Species List Summary
+            strTitle = "Reports > Park Species List Summary"
         Case "Precision", "Effectiveness", "Bias", "Stage", "Flow" ' Reports > Precision etc.
             strTitle = "Reports > " & strContext
         Case "Export" ' Export main
@@ -107,6 +113,7 @@ End Sub
 '                                Converted QAQC to Create, Logs to View
 '               BLC, 5/26/2015 - Added error handling
 '               BLC, 6/4/2015  - Changed View to Search
+'               BLC, 9/21/2015 - added park species list, park summary report
 ' =================================
 Public Sub PopulateInstructions(ctrl As Control, strContext As String)
 On Error GoTo Err_Handler
@@ -137,8 +144,15 @@ On Error GoTo Err_Handler
             strInstructions = "Choose the report you would like to run."
         Case "CrewSpeciesList" ' Reports > Field Crew Species List
             strInstructions = "Choose the park and year for your list. Click 'Continue' to prepare your report."
+        Case "ParkSpeciesList" ' Reports > Park Personnel Species List
+            strInstructions = "Choose the park and year for your list. Click 'Continue' to prepare your report."
         Case "SpeciesListByPark" ' Reports > Species List By Park
             strInstructions = "Choose the park and year for your list. Click 'Continue' to prepare your report."
+        Case "TgtListParkSummary"
+            strInstructions = "Choose the park for your list. Click 'Continue' to prepare your report." & vbCrLf & vbCrLf & _
+                            "This report may take a minute to create and display. " & vbCrLf & _
+                            "Calculated summary values will display once the report has finished rendering. " & vbCrLf & vbCrLf & _
+                            "Your patience is appreciated."
         Case "TgtListAnnualSummary"
             strInstructions = "Choose the year(s) for your list. Click 'Continue' to prepare your report." & vbCrLf & vbCrLf & _
                             "This report may take a minute to create and display. " & vbCrLf & _
@@ -179,8 +193,9 @@ End Sub
 ' FUNCTION:     PopulateSpeciesPriorities
 ' Description:  Populate species priority values from species priority concatenation
 ' Assumptions:  Park priority textboxes are named tbxPARKPriority (e.g. tbxZIONPriority)
-' Parameters:   parkCode - 4 character park code (string)
+' Parameters:   ParkCode - 4 character park code (string)
 '               priorities - species priority string concatenation for all parks (e.g. "BLCA-1|COLM-Transect|FOBU-1")
+'               TargetYear - year for target species (integer)
 ' Returns:      Priority - value for park species priority (string)
 ' Throws:       none
 ' References:   none
@@ -189,25 +204,42 @@ End Sub
 ' Revisions:
 '   BLC - 4/9/2015 - initial version
 '   BLC - 5/26/2015 - moved from mod_Species to mod_App_UI
+'   BLC - 9/30/2015 - added optional TargetYear for park summary report
 ' ---------------------------------
-Public Function PopulateSpeciesPriorities(parkCode As String, priorities As String) As String
+Public Function PopulateSpeciesPriorities(ParkCode As String, priorities As String, Optional TargetYear As Integer = -1) As String
 
 On Error GoTo Err_Handler
 
 Dim ParkPriorities As Variant
-Dim i As Integer
+Dim i As Integer, z As Integer
 
     'check if parkCode is in priorities string
-    If Len(priorities) > Len(Replace(priorities, parkCode, "")) Then
+    If Len(priorities) > Len(Replace(priorities, ParkCode, "")) Then
     
         'prepare the Park Priority values
         ParkPriorities = Split(priorities, "|")
         
         'set park priority values
         For i = 0 To UBound(ParkPriorities)
+
             'does Park have a priority value?
-            If parkCode = Left(ParkPriorities(i), 4) Then
-                PopulateSpeciesPriorities = Replace(ParkPriorities(i), parkCode + "-", "")
+            If ParkCode = Left(ParkPriorities(i), 4) Then
+                'park summary report check
+                If TargetYear > 0 Then
+                
+                    If TargetYear = CInt(Mid(ParkPriorities(i), 6, 4)) Then
+                        'priority is for park & target year
+                        PopulateSpeciesPriorities = Replace(ParkPriorities(i), ParkCode + "-" + CStr(TargetYear) + "-", "")
+                        Exit For
+                    Else
+                        'not listed
+                        PopulateSpeciesPriorities = "X"
+                    End If
+                    
+                Else
+                'annual summary report
+                    PopulateSpeciesPriorities = Replace(ParkPriorities(i), ParkCode + "-", "")
+                End If
             End If
         Next
         
@@ -228,6 +260,7 @@ Err_Handler:
     End Select
     Resume Exit_Function
 End Function
+
 
 ' ---------------------------------
 ' SUB:          Initialize

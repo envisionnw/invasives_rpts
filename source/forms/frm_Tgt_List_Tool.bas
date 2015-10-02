@@ -21,9 +21,9 @@ Begin Form
     GridY =24
     Width =12300
     DatasheetFontHeight =10
-    ItemSuffix =194
-    Left =3525
-    Right =15825
+    ItemSuffix =196
+    Left =60
+    Right =12360
     Bottom =10560
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
@@ -185,10 +185,10 @@ Begin Form
                             PressedColor =16772300
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -222,10 +222,10 @@ Begin Form
                             PressedShade =90.0
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -255,10 +255,10 @@ Begin Form
                             PressedColor =13434828
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -289,10 +289,10 @@ Begin Form
                             PressedColor =14211288
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Overlaps =1
                         End
                         Begin ToggleButton
@@ -322,10 +322,10 @@ Begin Form
                             PressedColor =16764108
                             HoverForeColor =9974127
                             PressedForeColor =0
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Overlaps =1
                         End
                     End
@@ -428,24 +428,24 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabCreate"
                             StatusBarText ="Create"
                             ControlTipText ="Click to create lists"
                             Caption ="QA/QC"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Begin
                                 Begin Rectangle
                                     BackStyle =1
@@ -517,22 +517,22 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabSearch"
                             Caption ="SEARCH"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Begin
                                 Begin Rectangle
                                     BackStyle =1
@@ -618,22 +618,22 @@ Begin Form
                         End
                         Begin Page
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabReports"
                             Caption ="REPORTS"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Begin
                                 Begin Rectangle
                                     BackStyle =1
@@ -661,8 +661,8 @@ Begin Form
                                     BorderWidth =1
                                     OverlapFlags =247
                                     TextAlign =2
-                                    Left =2305
-                                    Top =3595
+                                    Left =2295
+                                    Top =3300
                                     Width =2340
                                     Height =420
                                     FontSize =11
@@ -675,10 +675,10 @@ Begin Form
                                     OnClick ="[Event Procedure]"
                                     ShortcutMenuBar ="Run Species List report"
                                     ControlTipText ="Prepare field crew target species list"
-                                    LayoutCachedLeft =2305
-                                    LayoutCachedTop =3595
-                                    LayoutCachedWidth =4645
-                                    LayoutCachedHeight =4015
+                                    LayoutCachedLeft =2295
+                                    LayoutCachedTop =3300
+                                    LayoutCachedWidth =4635
+                                    LayoutCachedHeight =3720
                                     ThemeFontIndex =1
                                 End
                                 Begin Label
@@ -686,8 +686,8 @@ Begin Form
                                     BorderWidth =1
                                     OverlapFlags =247
                                     TextAlign =2
-                                    Left =2305
-                                    Top =4135
+                                    Left =2295
+                                    Top =4275
                                     Width =2340
                                     Height =420
                                     FontSize =11
@@ -699,10 +699,10 @@ Begin Form
                                     OnClick ="[Event Procedure]"
                                     ShortcutMenuBar ="Run target species list by park report"
                                     ControlTipText ="Run target species list by park report"
-                                    LayoutCachedLeft =2305
-                                    LayoutCachedTop =4135
-                                    LayoutCachedWidth =4645
-                                    LayoutCachedHeight =4555
+                                    LayoutCachedLeft =2295
+                                    LayoutCachedTop =4275
+                                    LayoutCachedWidth =4635
+                                    LayoutCachedHeight =4695
                                     ThemeFontIndex =1
                                 End
                                 Begin Label
@@ -710,8 +710,8 @@ Begin Form
                                     BorderWidth =1
                                     OverlapFlags =247
                                     TextAlign =2
-                                    Left =2305
-                                    Top =4675
+                                    Left =2295
+                                    Top =5220
                                     Width =2340
                                     Height =420
                                     FontSize =11
@@ -724,10 +724,60 @@ Begin Form
                                     OnClick ="[Event Procedure]"
                                     ShortcutMenuBar ="Run species list annual summary report"
                                     ControlTipText ="Run species list annual summary report"
-                                    LayoutCachedLeft =2305
-                                    LayoutCachedTop =4675
-                                    LayoutCachedWidth =4645
-                                    LayoutCachedHeight =5095
+                                    LayoutCachedLeft =2295
+                                    LayoutCachedTop =5220
+                                    LayoutCachedWidth =4635
+                                    LayoutCachedHeight =5640
+                                    ThemeFontIndex =1
+                                End
+                                Begin Label
+                                    FontUnderline = NotDefault
+                                    BorderWidth =1
+                                    OverlapFlags =247
+                                    TextAlign =2
+                                    Left =2295
+                                    Top =3780
+                                    Width =2340
+                                    Height =420
+                                    FontSize =11
+                                    TopMargin =72
+                                    BackColor =8648143
+                                    ForeColor =16711680
+                                    Name ="btnParkSpeciesList"
+                                    Caption ="Park Species List"
+                                    FontName ="Calibri"
+                                    OnClick ="[Event Procedure]"
+                                    ShortcutMenuBar ="Run Park Personnel Species List report"
+                                    ControlTipText ="Prepare park personnel target species list"
+                                    LayoutCachedLeft =2295
+                                    LayoutCachedTop =3780
+                                    LayoutCachedWidth =4635
+                                    LayoutCachedHeight =4200
+                                    ThemeFontIndex =1
+                                End
+                                Begin Label
+                                    FontUnderline = NotDefault
+                                    BorderWidth =1
+                                    OverlapFlags =247
+                                    TextAlign =2
+                                    Left =2295
+                                    Top =4740
+                                    Width =2340
+                                    Height =420
+                                    FontSize =11
+                                    TopMargin =72
+                                    BackColor =8648143
+                                    ForeColor =16711680
+                                    Name ="btnTgtListParkSummary"
+                                    Caption ="Park Summary"
+                                    FontName ="Calibri"
+                                    OnClick ="[Event Procedure]"
+                                    ShortcutMenuBar ="Run species list park summary report"
+                                    ControlTipText ="Run species list park summary report"
+                                    LayoutCachedLeft =2295
+                                    LayoutCachedTop =4740
+                                    LayoutCachedWidth =4635
+                                    LayoutCachedHeight =5160
                                     ThemeFontIndex =1
                                 End
                             End
@@ -735,44 +785,44 @@ Begin Form
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabExport"
                             Caption ="EXPORT"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                         End
                         Begin Page
                             Visible = NotDefault
                             OverlapFlags =247
-                            Left =75
-                            Top =555
-                            Width =12090
-                            Height =8490
+                            Left =60
+                            Top =540
+                            Width =12120
+                            Height =8520
                             BorderColor =10921638
                             Name ="tabDbAdmin"
                             StatusBarText ="Database Administration"
                             ControlTipText ="Database Administration Tasks"
                             Caption ="DB ADMIN"
                             GridlineColor =10921638
-                            LayoutCachedLeft =75
-                            LayoutCachedTop =555
-                            LayoutCachedWidth =12165
-                            LayoutCachedHeight =9045
-                            WebImagePaddingLeft =2
-                            WebImagePaddingTop =2
-                            WebImagePaddingRight =2
-                            WebImagePaddingBottom =2
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =540
+                            LayoutCachedWidth =12180
+                            LayoutCachedHeight =9060
+                            WebImagePaddingLeft =3
+                            WebImagePaddingTop =3
+                            WebImagePaddingRight =3
+                            WebImagePaddingBottom =3
                             Begin
                                 Begin Subform
                                     OverlapFlags =247
@@ -878,6 +928,7 @@ Option Explicit
 '                   Converted tabQAQC to tabCreate, tabLogs to tabView
 '               BLC, 4/22/2015 - Renamed
 '               BLC, 6/4/2015  - Changed View to Search tab
+'               BLC, 9/21/2015 - Added park personnel species list, park summary reports
 ' =================================
 
 ' ********************************************************************************************
@@ -1326,6 +1377,7 @@ End Sub
 '               BLC - 5/13/2015 - fixed so "Select Year" is displayed initially for cbxYear
 '               BLC - 6/4/2015  - added "Search" action for alternate fsub_Filter subform control handling
 '               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 9/21/2015 - Added park personnel species list, park summary reports
 ' ---------------------------------
 Public Sub OpenFilterSubform(ctrl As Control)
         
@@ -1374,8 +1426,10 @@ On Error GoTo Err_Handler:
             fsub_Filter.SourceObject = "fsub_Select_Park_Year"
         Case "rpt"
             Select Case TempVars("rpt")
-                Case "CrewSpeciesList", "SpeciesListByPark"
+                Case "CrewSpeciesList", "ParkSpeciesList", "SpeciesListByPark"
                     fsub_Filter.SourceObject = "fsub_Select_Tgt_Lists"
+                Case "TgtListParkSummary"
+                    fsub_Filter.SourceObject = "fsub_Select_Park"
                 Case "TgtListAnnualSummary"
                     fsub_Filter.SourceObject = "fsub_Select_Year"
             End Select
@@ -1390,7 +1444,9 @@ On Error GoTo Err_Handler:
                 !cbxYear.Value = "SEL"
             Case "fsub_Select_Tgt_Lists"
             Case "fsub_Select_Year"
-        End Select
+            Case "fsub_Select_Park"
+                !cbxPark.Value = ""
+            End Select
     End With
     
     'hide filter subform for unused tabs
@@ -1472,6 +1528,25 @@ Private Sub btnCrewSpeciesList_Click()
 End Sub
 
 ' ---------------------------------
+' SUB:     btnParkSpeciesList_Click
+' Description:  Opens the park personnel species target list report
+' Parameters:   -
+' Returns:      -
+' Throws:       -
+' References:   -
+' Source/date:  Bonnie Campbell, September 21, 2015
+' Revisions:    BLC - 9/21/2015 - initial version
+' ---------------------------------
+Private Sub btnParkSpeciesList_Click()
+
+    TempVars("rpt") = "ParkSpeciesList"
+
+    'button actions
+    ActionButton_Click btnParkSpeciesList
+    
+End Sub
+
+' ---------------------------------
 ' SUB:     btnSpeciesListByPark_Click
 ' Description:  Opens the species target list by park report
 ' Parameters:   -
@@ -1508,6 +1583,25 @@ Private Sub btnTgtListAnnualSummary_Click()
 
     'button actions
     ActionButton_Click btnTgtListAnnualSummary
+    
+End Sub
+
+' ---------------------------------
+' SUB:     btnTgtListParkSummary_Click
+' Description:  Opens the species target list park summary report
+' Parameters:   -
+' Returns:      -
+' Throws:       -
+' References:   -
+' Source/date:  Bonnie Campbell, September 21, 2015
+' Revisions:    BLC - 9/21/2015 - initial version
+' ---------------------------------
+Private Sub btnTgtListParkSummary_Click()
+
+    TempVars("rpt") = "TgtListParkSummary"
+
+    'button actions
+    ActionButton_Click btnTgtListParkSummary
     
 End Sub
 
