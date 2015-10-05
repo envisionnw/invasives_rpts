@@ -289,7 +289,7 @@ End Sub
 ' Revisions:
 '   BLC - 2/19/2015  - initial version
 ' ---------------------------------
-Public Function getParkState(parkCode As String) As String
+Public Function getParkState(ParkCode As String) As String
 
 On Error GoTo Err_Handler
     
@@ -298,12 +298,12 @@ On Error GoTo Err_Handler
     Dim state As String, strSQL As String
    
     'handle only appropriate park codes
-    If Len(parkCode) <> 4 Then
+    If Len(ParkCode) <> 4 Then
         GoTo Exit_Function
     End If
     
     'generate SQL ==> NOTE: LIMIT 1; syntax not viable for Access, use SELECT TOP x instead
-    strSQL = "SELECT TOP 1 ParkState FROM tlu_Parks WHERE ParkCode LIKE '" & parkCode & "';"
+    strSQL = "SELECT TOP 1 ParkState FROM tlu_Parks WHERE ParkCode LIKE '" & ParkCode & "';"
             
     'fetch data
     Set db = CurrentDb
@@ -344,19 +344,19 @@ End Function
 ' Revisions:
 '   BLC - 6/10/2015  - initial version
 ' ---------------------------------
-Public Function getListLastModifiedDate(TgtYear As Integer, parkCode As String) As String
+Public Function getListLastModifiedDate(TgtYear As Integer, ParkCode As String) As String
 
 On Error GoTo Err_Handler
     
     Dim strCriteria As String
 
     'handle only appropriate park codes
-    If Len(parkCode) <> 4 Or TgtYear < 2000 Then
+    If Len(ParkCode) <> 4 Or TgtYear < 2000 Then
         GoTo Exit_Function
     End If
     
     'set lookup criteria
-    strCriteria = "Park_Code LIKE '" & parkCode & "' AND CInt(Target_Year) = " & CInt(TgtYear)
+    strCriteria = "Park_Code LIKE '" & ParkCode & "' AND CInt(Target_Year) = " & CInt(TgtYear)
     
     'Debug.Print strCriteria
         

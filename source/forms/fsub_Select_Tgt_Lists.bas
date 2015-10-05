@@ -15,8 +15,8 @@ Begin Form
     ItemSuffix =16
     Left =1320
     Top =1890
-    Right =6210
-    Bottom =6000
+    Right =5460
+    Bottom =4755
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x9f832d99b891e440
@@ -382,6 +382,7 @@ End Sub
 ' Revisions:
 '   BLC, 5/1/2015 - initial version
 '   BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'   BLC, 9/21/2015 - Added park personnel species list, park summary reports
 ' ---------------------------------
 Private Sub btnContinue_Click()
 On Error GoTo Err_Handler
@@ -393,9 +394,17 @@ On Error GoTo Err_Handler
             strReport = "rpt_Tgt_Species_List"
             strWhere = "TgtList IN (" & TempVars("TgtLists") & ")"
         
+        Case "ParkSpeciesList" ' Reports > Park Personnel Species List
+            strReport = "rpt_Tgt_Species_List_for_Park"
+            strWhere = "TgtList IN (" & TempVars("TgtLists") & ")"
+        
         Case "SpeciesListByPark" ' Reports > Species List By Park
             strReport = "rpt_Tgt_Species_List_By_Park"
             strWhere = "TgtList IN (" & TempVars("TgtLists") & ")"
+        
+        Case "TgtListParkSummary" ' Reports > Park Species List Summary
+            strReport = "rpt_Tgt_Species_List_Park_Summary"
+            strWhere = ""
         
         Case "TgtListAnnualSummary" ' Reports > Annual Species List Summary
             strReport = "rpt_Tgt_Species_List_Annual_Summary"

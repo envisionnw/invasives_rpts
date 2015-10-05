@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_Linked_Tables
 ' Level:        Framework module
-' Version:      1.03
+' Version:      1.04
 ' Description:  Linked table related functions & subroutines
 '
 ' Adapted from: John R. Boetsch, May 24, 2006
@@ -17,6 +17,7 @@ Option Explicit
 '               BLC, 5/19/2015 - 1.01 - renamed functions, removed fxn prefix
 '               BLC, 6/10/2015 - 1.02 - fixed VerifyLinkTableInfo to add new linked tables to tsys_Link_Tables
 '               BLC, 6/12/2015 - 1.03 - replaced TempVars.item(... with TempVars("...
+'               BLC, 9/30/2015 - 1.04 - added check & resolve double quotes in table descriptions in RefreshLinks
 ' =================================
 
 ' ---------------------------------
@@ -643,6 +644,7 @@ End Function
 '               BLC, 5/18/2015 - renamed, removed fxn prefix
 '               BLC, 5/20/2015 - updated progress meter control naming, added connection component for non-"DATABASE="
 '                                connection strings (e.g. Access 2010 w/ "Dbq=")
+'               BLC, 9/30/2015 - add description parsing to avoid errors due to quotes
 ' =================================
 Public Function RefreshLinks(strDbName As String, ByVal strNewConnStr As String, _
     Optional strComponent As String = "DATABASE=", _
@@ -739,6 +741,8 @@ Debug.Print strTable
             ' Set default description in case there is none
             strDesc = " - no description - "
             strDesc = tdf.Properties("Description") ' Throws trapped error 3270 if none
+            'replace double quotes with singles
+            strDesc = Replace(strDesc, """", "'")
             strSQL = "UPDATE tsys_Link_Tables " & _
                 "SET tsys_Link_Tables.Description_text=""" & strDesc & _
                 """ WHERE (((tsys_Link_Tables.Link_table)=""" & strTable & """));"
@@ -832,11 +836,15 @@ Err_Handler:
             vbCrLf & vbCrLf & varFileName, vbCritical, _
             "Error encountered (#" & Err.Number & " - RefreshLinks[mod_Linked_Tables])"
       Case 3078   ' Also got this error if the function call SQL string has a bad
-                '   reference to the system table
+                  '   reference to the system table
         MsgBox "Error #" & Err.Number & ":  The following table is not native " & _
             "to the selected database file." & vbCrLf & "Please make sure you " & _
             "browsed to to the correct file." & vbCrLf & vbCrLf & strTable, _
             vbCritical, "Error encountered (#" & Err.Number & " - RefreshLinks[mod_Linked_Tables])"
+      Case 3074   ' Missing operator, get this error also if SQL string contains double quotes
+        MsgBox "Error #" & Err.Number & ": " & Err.Description & vbCrLf & _
+            "This can be caused by double quotes in the SQL string.", vbCritical, _
+            "Error encountered (#" & Err.Number & " - RefreshLinks[mod_Linked_Tables])"
       Case 3061   ' Bad parameters for the SQL string
         MsgBox "Error #" & Err.Number & ":  SQL syntax error. Please notify the " & _
             "database administrator before using this application.", vbCritical, _
