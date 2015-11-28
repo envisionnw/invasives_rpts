@@ -15,14 +15,11 @@ dbInteger "ODBCTimeout" ="60"
 dbBoolean "OrderByOn" ="0"
 dbByte "Orientation" ="0"
 dbByte "DefaultView" ="2"
+dbBinary "GUID" = Begin
+    0xcd8a5cddd5173047a5b3664ba74fabd3
+End
 dbBoolean "FilterOnLoad" ="0"
 dbBoolean "OrderByOnLoad" ="-1"
-dbByte "RecordsetType" ="0"
-dbBoolean "TotalsRow" ="0"
-dbText "Description" ="Target species summary for all parks for a given year  (Target List Tool update)"
-dbBinary "GUID" = Begin
-    0xb6562f19d91a3243baff7772e3fb414a
-End
 Begin
     Begin
         dbText "Name" ="Master_Plant_Code_FK"
@@ -54,31 +51,29 @@ Begin
     End
     Begin
         dbText "Name" ="Master_Common_Name"
-        dbInteger "ColumnWidth" ="2835"
-        dbBoolean "ColumnHidden" ="0"
         dbLong "AggregateType" ="-1"
     End
     Begin
         dbText "Name" ="ParkYearPriorities"
-        dbInteger "ColumnWidth" ="5616"
+        dbInteger "ColumnWidth" ="3795"
         dbBoolean "ColumnHidden" ="0"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
-            0x5ec14cdbeee6b24692bbb072243193ec
-        End
-    End
-    Begin
-        dbText "Name" ="MaxYear"
-        dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0xd78b395b8132ca41b15eb659766f00a8
+            0xde2df9d68faab943a6484a041894c5d5
         End
     End
     Begin
         dbText "Name" ="MinYear"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
-            0x7de942c117e9774aa1d2208220f92ef3
+            0x92e445d5cf62464b89318b01d3b84632
+        End
+    End
+    Begin
+        dbText "Name" ="MaxYear"
+        dbLong "AggregateType" ="-1"
+        dbBinary "GUID" = Begin
+            0x90c380e6f6c2b0499f57f8934bfda966
         End
     End
 End

@@ -15,7 +15,7 @@ Begin Report
     ItemSuffix =135
     Left =195
     Top =225
-    Right =14130
+    Right =13935
     Bottom =10080
     DatasheetGridlinesColor =14806254
     Filter ="TgtYear=2013"
@@ -110,18 +110,18 @@ Begin Report
                 Begin Label
                     Left =60
                     Top =60
-                    Width =4260
-                    Height =528
+                    Width =7260
+                    Height =525
                     FontSize =20
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblReportHdr"
-                    Caption ="INVASIVES TARGET LIST"
+                    Caption ="INVASIVES ANNUAL SPECIES LIST SUMMARY"
                     GridlineColor =10921638
                     LayoutCachedLeft =60
                     LayoutCachedTop =60
-                    LayoutCachedWidth =4320
-                    LayoutCachedHeight =588
+                    LayoutCachedWidth =7320
+                    LayoutCachedHeight =585
                 End
                 Begin TextBox
                     OldBorderStyle =0

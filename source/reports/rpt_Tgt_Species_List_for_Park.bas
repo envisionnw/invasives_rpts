@@ -13,7 +13,6 @@ Begin Report
     Width =11400
     DatasheetFontHeight =11
     ItemSuffix =51
-    Left =-1800
     Top =1530
     Right =9960
     Bottom =9660
@@ -112,7 +111,7 @@ Begin Report
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblReportHdr"
-                    Caption ="INVASIVES TARGET LIST"
+                    Caption ="INVASIVES PARK PERSONNEL SPECIES LIST"
                     GridlineColor =10921638
                     LayoutCachedLeft =60
                     LayoutCachedTop =60

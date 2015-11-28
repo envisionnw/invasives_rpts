@@ -3,7 +3,7 @@ VersionRequired =20
 Begin Report
     LayoutForPrint = NotDefault
     DividingLines = NotDefault
-    FilterOn = NotDefault
+    AllowDesignChanges = NotDefault
     DateGrouping =1
     GrpKeepTogether =1
     PictureAlignment =2
@@ -12,14 +12,13 @@ Begin Report
     GridY =24
     Width =15264
     DatasheetFontHeight =11
-    ItemSuffix =60
-    Left =228
-    Top =264
-    Right =15600
-    Bottom =8040
+    ItemSuffix =8
+    Top =135
+    Right =7380
+    Bottom =9780
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
-        0xb8d0f89fb3abe440
+        0xb9e8c7e0afabe440
     End
     RecordSource ="qry_Tgt_Species_List_Park_Summary"
     OnOpen ="[Event Procedure]"
@@ -32,7 +31,6 @@ Begin Report
     FilterOnLoad =0
     FitToPage =1
     DisplayOnSharePointSite =1
-    AllowLayoutView =0
     DatasheetAlternateBackColor =15921906
     DatasheetGridlinesColor12 =0
     FitToScreen =1
@@ -634,7 +632,7 @@ Begin Report
         End
         Begin Section
             KeepTogether = NotDefault
-            Height =490
+            Height =492
             Name ="Detail"
             AlternateBackColor =15921906
             AlternateBackThemeColorIndex =1
@@ -647,7 +645,7 @@ Begin Report
                     IMESentenceMode =3
                     Width =15264
                     Height =490
-                    TabIndex =1
+                    TabIndex =2
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxDetail"
@@ -662,7 +660,7 @@ Begin Report
                     BackStyle =0
                     IMESentenceMode =3
                     Left =1500
-                    Top =60
+                    Top =39
                     Width =2580
                     Height =312
                     FontSize =9
@@ -673,9 +671,54 @@ Begin Report
                     GridlineColor =10921638
 
                     LayoutCachedLeft =1500
-                    LayoutCachedTop =60
+                    LayoutCachedTop =39
                     LayoutCachedWidth =4080
-                    LayoutCachedHeight =372
+                    LayoutCachedHeight =351
+                End
+                Begin TextBox
+                    TabStop = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    IMESentenceMode =3
+                    Left =9240
+                    Top =39
+                    Width =677
+                    Height =432
+                    FontSize =7
+                    TabIndex =1
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxYear1Priority"
+                    ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([MinYear]))"
+                    StatusBarText ="Park priority"
+                    ConditionalFormat = Begin
+                        0x010000001a010000010000000100000000000000000000005c00000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x280043006f0075006e00740049006e0053007400720069006e00670028005b00 ,
+                        0x5000610072006b005000720069006f007200690074006900650073005d002c00 ,
+                        0x220042004c00430041002d003100220029002b00490049006600280043006f00 ,
+                        0x75006e00740049006e0053007400720069006e00670028005b00500061007200 ,
+                        0x6b005000720069006f007200690074006900650073005d002c0022007c002200 ,
+                        0x29003e0030002c0032002c003000290029003d00310000000000
+                    End
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =9240
+                    LayoutCachedTop =39
+                    LayoutCachedWidth =9917
+                    LayoutCachedHeight =471
+                    ConditionalFormat14 = Begin
+                        0x01000100000001000000000000000100000000000000ccffff005b0000002800 ,
+                        0x43006f0075006e00740049006e0053007400720069006e00670028005b005000 ,
+                        0x610072006b005000720069006f007200690074006900650073005d002c002200 ,
+                        0x42004c00430041002d003100220029002b00490049006600280043006f007500 ,
+                        0x6e00740049006e0053007400720069006e00670028005b005000610072006b00 ,
+                        0x5000720069006f007200690074006900650073005d002c0022007c0022002900 ,
+                        0x3e0030002c0032002c003000290029003d003100000000000000000000000000 ,
+                        0x000000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
@@ -683,11 +726,11 @@ Begin Report
                     BackStyle =0
                     IMESentenceMode =3
                     Left =7260
-                    Top =60
+                    Top =39
                     Width =2400
                     Height =312
                     FontSize =9
-                    TabIndex =12
+                    TabIndex =21
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxCommon"
@@ -695,9 +738,9 @@ Begin Report
                     GridlineColor =10921638
 
                     LayoutCachedLeft =7260
-                    LayoutCachedTop =60
+                    LayoutCachedTop =39
                     LayoutCachedWidth =9660
-                    LayoutCachedHeight =372
+                    LayoutCachedHeight =351
                 End
                 Begin TextBox
                     TabStop = NotDefault
@@ -705,11 +748,11 @@ Begin Report
                     BackStyle =0
                     IMESentenceMode =3
                     Left =4080
-                    Top =60
+                    Top =39
                     Width =2040
                     Height =312
                     FontSize =9
-                    TabIndex =13
+                    TabIndex =22
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxSpeciesCO"
@@ -717,9 +760,9 @@ Begin Report
                     GridlineColor =10921638
 
                     LayoutCachedLeft =4080
-                    LayoutCachedTop =60
+                    LayoutCachedTop =39
                     LayoutCachedWidth =6120
-                    LayoutCachedHeight =372
+                    LayoutCachedHeight =351
                 End
                 Begin TextBox
                     TabStop = NotDefault
@@ -727,11 +770,11 @@ Begin Report
                     BackStyle =0
                     IMESentenceMode =3
                     Left =6180
-                    Top =60
+                    Top =39
                     Width =840
                     Height =312
                     FontSize =9
-                    TabIndex =14
+                    TabIndex =23
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxLUCode"
@@ -739,9 +782,9 @@ Begin Report
                     GridlineColor =10921638
 
                     LayoutCachedLeft =6180
-                    LayoutCachedTop =60
+                    LayoutCachedTop =39
                     LayoutCachedWidth =7020
-                    LayoutCachedHeight =372
+                    LayoutCachedHeight =351
                 End
                 Begin TextBox
                     TabStop = NotDefault
@@ -749,11 +792,11 @@ Begin Report
                     BackStyle =0
                     IMESentenceMode =3
                     Left =60
-                    Top =60
+                    Top =39
                     Width =1500
                     Height =312
                     FontSize =9
-                    TabIndex =15
+                    TabIndex =24
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxFamily"
@@ -761,9 +804,9 @@ Begin Report
                     GridlineColor =10921638
 
                     LayoutCachedLeft =60
-                    LayoutCachedTop =60
+                    LayoutCachedTop =39
                     LayoutCachedWidth =1560
-                    LayoutCachedHeight =372
+                    LayoutCachedHeight =351
                 End
                 Begin TextBox
                     Visible = NotDefault
@@ -771,22 +814,22 @@ Begin Report
                     OldBorderStyle =0
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =5820
-                    Top =180
+                    Left =4860
+                    Top =165
                     Width =5280
                     Height =300
                     FontSize =9
-                    TabIndex =2
+                    TabIndex =3
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxAll"
                     ControlSource ="ParkYearPriorities"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =5820
-                    LayoutCachedTop =180
-                    LayoutCachedWidth =11100
-                    LayoutCachedHeight =480
+                    LayoutCachedLeft =4860
+                    LayoutCachedTop =165
+                    LayoutCachedWidth =10140
+                    LayoutCachedHeight =465
                 End
                 Begin TextBox
                     Visible = NotDefault
@@ -796,12 +839,12 @@ Begin Report
                     OldBorderStyle =0
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =720
-                    Top =180
+                    Left =2340
+                    Top =165
                     Width =240
                     Height =300
                     FontSize =9
-                    TabIndex =3
+                    TabIndex =4
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxYear1"
@@ -809,10 +852,10 @@ Begin Report
                         "1\")"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =720
-                    LayoutCachedTop =180
-                    LayoutCachedWidth =960
-                    LayoutCachedHeight =480
+                    LayoutCachedLeft =2340
+                    LayoutCachedTop =165
+                    LayoutCachedWidth =2580
+                    LayoutCachedHeight =465
                 End
                 Begin TextBox
                     Visible = NotDefault
@@ -822,12 +865,12 @@ Begin Report
                     OldBorderStyle =0
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =1020
-                    Top =180
+                    Left =2640
+                    Top =165
                     Width =240
                     Height =300
                     FontSize =9
-                    TabIndex =4
+                    TabIndex =5
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxYear2"
@@ -835,10 +878,10 @@ Begin Report
                         "1\")"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =1020
-                    LayoutCachedTop =180
-                    LayoutCachedWidth =1260
-                    LayoutCachedHeight =480
+                    LayoutCachedLeft =2640
+                    LayoutCachedTop =165
+                    LayoutCachedWidth =2880
+                    LayoutCachedHeight =465
                 End
                 Begin TextBox
                     Visible = NotDefault
@@ -848,12 +891,12 @@ Begin Report
                     OldBorderStyle =0
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =1320
-                    Top =180
+                    Left =2940
+                    Top =165
                     Width =240
                     Height =300
                     FontSize =9
-                    TabIndex =5
+                    TabIndex =6
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxYear3"
@@ -861,10 +904,10 @@ Begin Report
                         "1\")"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =1320
-                    LayoutCachedTop =180
-                    LayoutCachedWidth =1560
-                    LayoutCachedHeight =480
+                    LayoutCachedLeft =2940
+                    LayoutCachedTop =165
+                    LayoutCachedWidth =3180
+                    LayoutCachedHeight =465
                 End
                 Begin TextBox
                     Visible = NotDefault
@@ -874,12 +917,12 @@ Begin Report
                     OldBorderStyle =0
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =1620
-                    Top =180
+                    Left =3240
+                    Top =165
                     Width =240
                     Height =300
                     FontSize =9
-                    TabIndex =6
+                    TabIndex =7
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxYear4"
@@ -887,10 +930,10 @@ Begin Report
                         "1\")"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =1620
-                    LayoutCachedTop =180
-                    LayoutCachedWidth =1860
-                    LayoutCachedHeight =480
+                    LayoutCachedLeft =3240
+                    LayoutCachedTop =165
+                    LayoutCachedWidth =3480
+                    LayoutCachedHeight =465
                 End
                 Begin TextBox
                     Visible = NotDefault
@@ -900,12 +943,12 @@ Begin Report
                     OldBorderStyle =0
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =1920
-                    Top =180
+                    Left =3540
+                    Top =165
                     Width =240
                     Height =300
                     FontSize =9
-                    TabIndex =7
+                    TabIndex =8
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxYear5"
@@ -913,10 +956,10 @@ Begin Report
                         "1\")"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =1920
-                    LayoutCachedTop =180
-                    LayoutCachedWidth =2160
-                    LayoutCachedHeight =480
+                    LayoutCachedLeft =3540
+                    LayoutCachedTop =165
+                    LayoutCachedWidth =3780
+                    LayoutCachedHeight =465
                 End
                 Begin TextBox
                     Visible = NotDefault
@@ -926,12 +969,12 @@ Begin Report
                     OldBorderStyle =0
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =2220
-                    Top =180
+                    Left =3840
+                    Top =165
                     Width =240
                     Height =300
                     FontSize =9
-                    TabIndex =8
+                    TabIndex =9
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxYear6"
@@ -939,10 +982,10 @@ Begin Report
                         "1\")"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =2220
-                    LayoutCachedTop =180
-                    LayoutCachedWidth =2460
-                    LayoutCachedHeight =480
+                    LayoutCachedLeft =3840
+                    LayoutCachedTop =165
+                    LayoutCachedWidth =4080
+                    LayoutCachedHeight =465
                 End
                 Begin TextBox
                     Visible = NotDefault
@@ -952,12 +995,12 @@ Begin Report
                     OldBorderStyle =0
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =2520
-                    Top =180
+                    Left =4140
+                    Top =165
                     Width =240
                     Height =300
                     FontSize =9
-                    TabIndex =9
+                    TabIndex =10
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxYear7"
@@ -965,10 +1008,10 @@ Begin Report
                         "1\")"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =2520
-                    LayoutCachedTop =180
-                    LayoutCachedWidth =2760
-                    LayoutCachedHeight =480
+                    LayoutCachedLeft =4140
+                    LayoutCachedTop =165
+                    LayoutCachedWidth =4380
+                    LayoutCachedHeight =465
                 End
                 Begin TextBox
                     Visible = NotDefault
@@ -978,12 +1021,12 @@ Begin Report
                     OldBorderStyle =0
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =2820
-                    Top =180
+                    Left =4440
+                    Top =165
                     Width =240
                     Height =300
                     FontSize =9
-                    TabIndex =10
+                    TabIndex =11
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxYear8"
@@ -991,448 +1034,338 @@ Begin Report
                         "1\")"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =2820
-                    LayoutCachedTop =180
-                    LayoutCachedWidth =3060
-                    LayoutCachedHeight =480
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    RunningSum =2
-                    OldBorderStyle =0
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =60
-                    Top =180
-                    Width =660
-                    Height =300
-                    FontSize =9
-                    TabIndex =11
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxRunSumPri1"
-                    ControlSource ="=CountInString([ParkYearPriorities],\"-1\")"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =60
-                    LayoutCachedTop =180
-                    LayoutCachedWidth =720
-                    LayoutCachedHeight =480
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    RunningSum =2
-                    OldBorderStyle =0
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =3360
-                    Top =180
-                    Width =240
-                    Height =300
-                    FontSize =9
-                    TabIndex =16
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxUniquePri1Year1"
-                    ControlSource ="=IIf(Len(Replace([ParkYearPriorities],[TempVars]![Park] & \"-\" & [MinYear] & \""
-                        "-1\",\"\"))=0,1,0)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =3360
-                    LayoutCachedTop =180
-                    LayoutCachedWidth =3600
-                    LayoutCachedHeight =480
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    RunningSum =2
-                    OldBorderStyle =0
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =3660
-                    Top =180
-                    Width =240
-                    Height =300
-                    FontSize =9
-                    TabIndex =17
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxUniquePri1Year2"
-                    ControlSource ="=IIf(Len(Replace([ParkYearPriorities],[TempVars]![Park] & \"-\" & [MinYear]+1 & "
-                        "\"-1\",\"\"))=0,1,0)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =3660
-                    LayoutCachedTop =180
-                    LayoutCachedWidth =3900
-                    LayoutCachedHeight =480
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    RunningSum =2
-                    OldBorderStyle =0
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =3960
-                    Top =180
-                    Width =240
-                    Height =300
-                    FontSize =9
-                    TabIndex =18
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxUniquePri1Year3"
-                    ControlSource ="=IIf(Len(Replace([ParkYearPriorities],[TempVars]![Park] & \"-\" & [MinYear]+2 & "
-                        "\"-1\",\"\"))=0,1,0)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =3960
-                    LayoutCachedTop =180
-                    LayoutCachedWidth =4200
-                    LayoutCachedHeight =480
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    RunningSum =2
-                    OldBorderStyle =0
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =4260
-                    Top =180
-                    Width =240
-                    Height =300
-                    FontSize =9
-                    TabIndex =19
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxUniquePri1Year4"
-                    ControlSource ="=IIf(Len(Replace([ParkYearPriorities],[TempVars]![Park] & \"-\" & [MinYear]+3 & "
-                        "\"-1\",\"\"))=0,1,0)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =4260
-                    LayoutCachedTop =180
-                    LayoutCachedWidth =4500
-                    LayoutCachedHeight =480
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    RunningSum =2
-                    OldBorderStyle =0
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =4560
-                    Top =180
-                    Width =240
-                    Height =300
-                    FontSize =9
-                    TabIndex =20
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxUniquePri1Year5"
-                    ControlSource ="=IIf(Len(Replace([ParkYearPriorities],[TempVars]![Park] & \"-\" & [MinYear]+4 & "
-                        "\"-1\",\"\"))=0,1,0)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =4560
-                    LayoutCachedTop =180
-                    LayoutCachedWidth =4800
-                    LayoutCachedHeight =480
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    RunningSum =2
-                    OldBorderStyle =0
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =4860
-                    Top =180
-                    Width =240
-                    Height =300
-                    FontSize =9
-                    TabIndex =21
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxUniquePri1Year6"
-                    ControlSource ="=IIf(Len(Replace([ParkYearPriorities],[TempVars]![Park] & \"-\" & [MinYear]+5 & "
-                        "\"-1\",\"\"))=0,1,0)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =4860
-                    LayoutCachedTop =180
-                    LayoutCachedWidth =5100
-                    LayoutCachedHeight =480
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    RunningSum =2
-                    OldBorderStyle =0
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =5160
-                    Top =180
-                    Width =240
-                    Height =300
-                    FontSize =9
-                    TabIndex =22
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxUniquePri1Year7"
-                    ControlSource ="=IIf(Len(Replace([ParkYearPriorities],[TempVars]![Park] & \"-\" & [MinYear]+6 & "
-                        "\"-1\",\"\"))=0,1,0)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =5160
-                    LayoutCachedTop =180
-                    LayoutCachedWidth =5400
-                    LayoutCachedHeight =480
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    RunningSum =2
-                    OldBorderStyle =0
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =5460
-                    Top =180
-                    Width =240
-                    Height =300
-                    FontSize =9
-                    TabIndex =23
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxUniquePri1Year8"
-                    ControlSource ="=IIf(Len(Replace([ParkYearPriorities],[TempVars]![Park] & \"-\" & [MinYear]+7 & "
-                        "\"-1\",\"\"))=0,1,0)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =5460
-                    LayoutCachedTop =180
-                    LayoutCachedWidth =5700
-                    LayoutCachedHeight =480
+                    LayoutCachedLeft =4440
+                    LayoutCachedTop =165
+                    LayoutCachedWidth =4680
+                    LayoutCachedHeight =465
                 End
                 Begin TextBox
                     TabStop = NotDefault
                     DecimalPlaces =0
-                    RunningSum =2
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
-                    Left =9240
+                    Left =9828
+                    Top =39
                     Width =677
                     Height =432
-                    FontSize =9
-                    TabIndex =24
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxYear1Priority"
-                    ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([MinYear]))"
-                    ControlTipText ="Park Priority"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =9240
-                    LayoutCachedWidth =9917
-                    LayoutCachedHeight =432
-                End
-                Begin TextBox
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    RunningSum =2
-                    OldBorderStyle =0
-                    TextAlign =2
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =9792
-                    Width =677
-                    Height =432
-                    FontSize =9
-                    TabIndex =25
+                    FontSize =7
+                    TabIndex =12
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxYear2Priority"
-                    ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([MinYear]+1))"
-                    ControlTipText ="Park Priority"
+                    ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([lblYear2]))"
+                    StatusBarText ="Park priority"
+                    ConditionalFormat = Begin
+                        0x010000001a010000010000000100000000000000000000005c00000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x280043006f0075006e00740049006e0053007400720069006e00670028005b00 ,
+                        0x5000610072006b005000720069006f007200690074006900650073005d002c00 ,
+                        0x220043004100520045002d003100220029002b00490049006600280043006f00 ,
+                        0x75006e00740049006e0053007400720069006e00670028005b00500061007200 ,
+                        0x6b005000720069006f007200690074006900650073005d002c0022007c002200 ,
+                        0x29003e0030002c0032002c003000290029003d00310000000000
+                    End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =9792
-                    LayoutCachedWidth =10469
-                    LayoutCachedHeight =432
+                    LayoutCachedLeft =9828
+                    LayoutCachedTop =39
+                    LayoutCachedWidth =10505
+                    LayoutCachedHeight =471
+                    ConditionalFormat14 = Begin
+                        0x01000100000001000000000000000100000000000000ccffff005b0000002800 ,
+                        0x43006f0075006e00740049006e0053007400720069006e00670028005b005000 ,
+                        0x610072006b005000720069006f007200690074006900650073005d002c002200 ,
+                        0x43004100520045002d003100220029002b00490049006600280043006f007500 ,
+                        0x6e00740049006e0053007400720069006e00670028005b005000610072006b00 ,
+                        0x5000720069006f007200690074006900650073005d002c0022007c0022002900 ,
+                        0x3e0030002c0032002c003000290029003d003100000000000000000000000000 ,
+                        0x000000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
                     DecimalPlaces =0
-                    RunningSum =2
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
-                    Left =10392
+                    Left =10428
+                    Top =39
                     Width =677
                     Height =432
-                    FontSize =9
-                    TabIndex =26
+                    FontSize =7
+                    TabIndex =13
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxYear3Priority"
-                    ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([MinYear]+2))"
-                    ControlTipText ="Park Priority"
+                    ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([lblYear3]))"
+                    StatusBarText ="Park priority"
+                    ConditionalFormat = Begin
+                        0x010000001a010000010000000100000000000000000000005c00000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x280043006f0075006e00740049006e0053007400720069006e00670028005b00 ,
+                        0x5000610072006b005000720069006f007200690074006900650073005d002c00 ,
+                        0x220043004f004c004d002d003100220029002b00490049006600280043006f00 ,
+                        0x75006e00740049006e0053007400720069006e00670028005b00500061007200 ,
+                        0x6b005000720069006f007200690074006900650073005d002c0022007c002200 ,
+                        0x29003e0030002c0032002c003000290029003d00310000000000
+                    End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =10392
-                    LayoutCachedWidth =11069
-                    LayoutCachedHeight =432
+                    LayoutCachedLeft =10428
+                    LayoutCachedTop =39
+                    LayoutCachedWidth =11105
+                    LayoutCachedHeight =471
+                    ConditionalFormat14 = Begin
+                        0x01000100000001000000000000000100000000000000ccffff005b0000002800 ,
+                        0x43006f0075006e00740049006e0053007400720069006e00670028005b005000 ,
+                        0x610072006b005000720069006f007200690074006900650073005d002c002200 ,
+                        0x43004f004c004d002d003100220029002b00490049006600280043006f007500 ,
+                        0x6e00740049006e0053007400720069006e00670028005b005000610072006b00 ,
+                        0x5000720069006f007200690074006900650073005d002c0022007c0022002900 ,
+                        0x3e0030002c0032002c003000290029003d003100000000000000000000000000 ,
+                        0x000000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
                     DecimalPlaces =0
-                    RunningSum =2
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
-                    Left =10980
+                    Left =11028
+                    Top =39
                     Width =677
                     Height =432
-                    FontSize =9
-                    TabIndex =27
+                    FontSize =7
+                    TabIndex =14
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxYear4Priority"
-                    ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([MinYear]+3))"
-                    ControlTipText ="Park Priority"
+                    ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([lblYear4]))"
+                    StatusBarText ="Park priority"
+                    ConditionalFormat = Begin
+                        0x010000001a010000010000000100000000000000000000005c00000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x280043006f0075006e00740049006e0053007400720069006e00670028005b00 ,
+                        0x5000610072006b005000720069006f007200690074006900650073005d002c00 ,
+                        0x220043005500520045002d003100220029002b00490049006600280043006f00 ,
+                        0x75006e00740049006e0053007400720069006e00670028005b00500061007200 ,
+                        0x6b005000720069006f007200690074006900650073005d002c0022007c002200 ,
+                        0x29003e0030002c0032002c003000290029003d00310000000000
+                    End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =10980
-                    LayoutCachedWidth =11657
-                    LayoutCachedHeight =432
+                    LayoutCachedLeft =11028
+                    LayoutCachedTop =39
+                    LayoutCachedWidth =11705
+                    LayoutCachedHeight =471
+                    ConditionalFormat14 = Begin
+                        0x01000100000001000000000000000100000000000000ccffff005b0000002800 ,
+                        0x43006f0075006e00740049006e0053007400720069006e00670028005b005000 ,
+                        0x610072006b005000720069006f007200690074006900650073005d002c002200 ,
+                        0x43005500520045002d003100220029002b00490049006600280043006f007500 ,
+                        0x6e00740049006e0053007400720069006e00670028005b005000610072006b00 ,
+                        0x5000720069006f007200690074006900650073005d002c0022007c0022002900 ,
+                        0x3e0030002c0032002c003000290029003d003100000000000000000000000000 ,
+                        0x000000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
                     DecimalPlaces =0
-                    RunningSum =2
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
-                    Left =11640
+                    Left =11628
+                    Top =39
                     Width =677
-                    Height =444
-                    FontSize =9
-                    TabIndex =28
+                    Height =432
+                    FontSize =7
+                    TabIndex =15
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxYear5Priority"
-                    ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([MinYear]+4))"
-                    ControlTipText ="Park Priority"
+                    ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([lblYear5]))"
+                    StatusBarText ="Park priority"
+                    ConditionalFormat = Begin
+                        0x010000001a010000010000000100000000000000000000005c00000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x280043006f0075006e00740049006e0053007400720069006e00670028005b00 ,
+                        0x5000610072006b005000720069006f007200690074006900650073005d002c00 ,
+                        0x2200440049004e004f002d003100220029002b00490049006600280043006f00 ,
+                        0x75006e00740049006e0053007400720069006e00670028005b00500061007200 ,
+                        0x6b005000720069006f007200690074006900650073005d002c0022007c002200 ,
+                        0x29003e0030002c0032002c003000290029003d00310000000000
+                    End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =11640
-                    LayoutCachedWidth =12317
-                    LayoutCachedHeight =444
+                    LayoutCachedLeft =11628
+                    LayoutCachedTop =39
+                    LayoutCachedWidth =12305
+                    LayoutCachedHeight =471
+                    ConditionalFormat14 = Begin
+                        0x01000100000001000000000000000100000000000000ccffff005b0000002800 ,
+                        0x43006f0075006e00740049006e0053007400720069006e00670028005b005000 ,
+                        0x610072006b005000720069006f007200690074006900650073005d002c002200 ,
+                        0x440049004e004f002d003100220029002b00490049006600280043006f007500 ,
+                        0x6e00740049006e0053007400720069006e00670028005b005000610072006b00 ,
+                        0x5000720069006f007200690074006900650073005d002c0022007c0022002900 ,
+                        0x3e0030002c0032002c003000290029003d003100000000000000000000000000 ,
+                        0x000000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
                     DecimalPlaces =0
-                    RunningSum =2
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
-                    Left =12312
+                    Left =12288
+                    Top =39
                     Width =677
-                    Height =444
-                    FontSize =9
-                    TabIndex =29
+                    Height =432
+                    FontSize =7
+                    TabIndex =16
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxYear6Priority"
-                    ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([MinYear]+5))"
-                    ControlTipText ="Park Priority"
+                    ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([lblYear6]))"
+                    StatusBarText ="Park priority"
+                    ConditionalFormat = Begin
+                        0x010000001a010000010000000100000000000000000000005c00000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x280043006f0075006e00740049006e0053007400720069006e00670028005b00 ,
+                        0x5000610072006b005000720069006f007200690074006900650073005d002c00 ,
+                        0x220046004f00420055002d003100220029002b00490049006600280043006f00 ,
+                        0x75006e00740049006e0053007400720069006e00670028005b00500061007200 ,
+                        0x6b005000720069006f007200690074006900650073005d002c0022007c002200 ,
+                        0x29003e0030002c0032002c003000290029003d00310000000000
+                    End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =12312
-                    LayoutCachedWidth =12989
-                    LayoutCachedHeight =444
+                    LayoutCachedLeft =12288
+                    LayoutCachedTop =39
+                    LayoutCachedWidth =12965
+                    LayoutCachedHeight =471
+                    ConditionalFormat14 = Begin
+                        0x01000100000001000000000000000100000000000000ccffff005b0000002800 ,
+                        0x43006f0075006e00740049006e0053007400720069006e00670028005b005000 ,
+                        0x610072006b005000720069006f007200690074006900650073005d002c002200 ,
+                        0x46004f00420055002d003100220029002b00490049006600280043006f007500 ,
+                        0x6e00740049006e0053007400720069006e00670028005b005000610072006b00 ,
+                        0x5000720069006f007200690074006900650073005d002c0022007c0022002900 ,
+                        0x3e0030002c0032002c003000290029003d003100000000000000000000000000 ,
+                        0x000000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
                     DecimalPlaces =0
-                    RunningSum =2
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
-                    Left =12902
+                    Left =12888
+                    Top =39
                     Width =677
-                    Height =444
-                    FontSize =9
-                    TabIndex =30
+                    Height =432
+                    FontSize =7
+                    TabIndex =17
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxYear7Priority"
-                    ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([MinYear]+6))"
-                    ControlTipText ="Park Priority"
+                    ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([lblYear7]))"
+                    StatusBarText ="Park priority"
+                    ConditionalFormat = Begin
+                        0x010000001a010000010000000100000000000000000000005c00000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x280043006f0075006e00740049006e0053007400720069006e00670028005b00 ,
+                        0x5000610072006b005000720069006f007200690074006900650073005d002c00 ,
+                        0x220047004f00530050002d003100220029002b00490049006600280043006f00 ,
+                        0x75006e00740049006e0053007400720069006e00670028005b00500061007200 ,
+                        0x6b005000720069006f007200690074006900650073005d002c0022007c002200 ,
+                        0x29003e0030002c0032002c003000290029003d00310000000000
+                    End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =12902
-                    LayoutCachedWidth =13579
-                    LayoutCachedHeight =444
+                    LayoutCachedLeft =12888
+                    LayoutCachedTop =39
+                    LayoutCachedWidth =13565
+                    LayoutCachedHeight =471
+                    ConditionalFormat14 = Begin
+                        0x01000100000001000000000000000100000000000000ccffff005b0000002800 ,
+                        0x43006f0075006e00740049006e0053007400720069006e00670028005b005000 ,
+                        0x610072006b005000720069006f007200690074006900650073005d002c002200 ,
+                        0x47004f00530050002d003100220029002b00490049006600280043006f007500 ,
+                        0x6e00740049006e0053007400720069006e00670028005b005000610072006b00 ,
+                        0x5000720069006f007200690074006900650073005d002c0022007c0022002900 ,
+                        0x3e0030002c0032002c003000290029003d003100000000000000000000000000 ,
+                        0x000000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
                     DecimalPlaces =0
-                    RunningSum =2
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
-                    Left =13503
+                    Left =13548
+                    Top =39
                     Width =677
-                    Height =444
-                    FontSize =9
-                    TabIndex =31
+                    Height =432
+                    FontSize =7
+                    TabIndex =18
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxYear8Priority"
-                    ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([MinYear]+7))"
-                    ControlTipText ="Park Priority"
+                    ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([lblYear8]))"
+                    StatusBarText ="Park priority"
+                    ConditionalFormat = Begin
+                        0x010000001a010000010000000100000000000000000000005c00000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x280043006f0075006e00740049006e0053007400720069006e00670028005b00 ,
+                        0x5000610072006b005000720069006f007200690074006900650073005d002c00 ,
+                        0x22005a0049004f004e002d003100220029002b00490049006600280043006f00 ,
+                        0x75006e00740049006e0053007400720069006e00670028005b00500061007200 ,
+                        0x6b005000720069006f007200690074006900650073005d002c0022007c002200 ,
+                        0x29003e0030002c0032002c003000290029003d00310000000000
+                    End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =13503
-                    LayoutCachedWidth =14180
-                    LayoutCachedHeight =444
+                    LayoutCachedLeft =13548
+                    LayoutCachedTop =39
+                    LayoutCachedWidth =14225
+                    LayoutCachedHeight =471
+                    ConditionalFormat14 = Begin
+                        0x01000100000001000000000000000100000000000000ccffff005b0000002800 ,
+                        0x43006f0075006e00740049006e0053007400720069006e00670028005b005000 ,
+                        0x610072006b005000720069006f007200690074006900650073005d002c002200 ,
+                        0x5a0049004f004e002d003100220029002b00490049006600280043006f007500 ,
+                        0x6e00740049006e0053007400720069006e00670028005b005000610072006b00 ,
+                        0x5000720069006f007200690074006900650073005d002c0022007c0022002900 ,
+                        0x3e0030002c0032002c003000290029003d003100000000000000000000000000 ,
+                        0x000000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
                     DecimalPlaces =0
                     OldBorderStyle =0
-                    TextAlign =2
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =14400
+                    Left =14148
+                    Top =15
                     Width =660
                     Height =300
                     FontSize =9
-                    TabIndex =32
+                    TabIndex =19
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxSumSpeciesPri1"
@@ -1440,9 +1373,35 @@ Begin Report
                     StatusBarText ="Park priority"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =14400
-                    LayoutCachedWidth =15060
-                    LayoutCachedHeight =300
+                    LayoutCachedLeft =14148
+                    LayoutCachedTop =15
+                    LayoutCachedWidth =14808
+                    LayoutCachedHeight =315
+                End
+                Begin TextBox
+                    Visible = NotDefault
+                    TabStop = NotDefault
+                    DecimalPlaces =0
+                    RunningSum =2
+                    OldBorderStyle =0
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =1680
+                    Top =165
+                    Width =660
+                    Height =300
+                    FontSize =9
+                    TabIndex =20
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxRunSumPri1"
+                    ControlSource ="=CountInString([ParkYearPriorities],\"-1\")"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =1680
+                    LayoutCachedTop =165
+                    LayoutCachedWidth =2340
+                    LayoutCachedHeight =465
                 End
             End
         End
@@ -1461,27 +1420,594 @@ Begin Report
             AlternateBackShade =95.0
             BackThemeColorIndex =1
             Begin
+                Begin TextBox
+                    TabStop = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =9420
+                    Width =300
+                    Height =300
+                    FontSize =9
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxSumBLCA"
+                    ControlSource ="=[tbxYear1]"
+                    StatusBarText ="=\"Total # priority 1 (\"&[lblYear1]&\")\""
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =9420
+                    LayoutCachedWidth =9720
+                    LayoutCachedHeight =300
+                End
+                Begin TextBox
+                    TabStop = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =10020
+                    Width =300
+                    Height =300
+                    FontSize =9
+                    TabIndex =1
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxSumCARE"
+                    ControlSource ="=[tbxYear2]"
+                    StatusBarText ="Total # priority 1 (CARE)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =10020
+                    LayoutCachedWidth =10320
+                    LayoutCachedHeight =300
+                End
+                Begin TextBox
+                    TabStop = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =10620
+                    Width =300
+                    Height =300
+                    FontSize =9
+                    TabIndex =2
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxSumCOLM"
+                    ControlSource ="=[tbxYear3]"
+                    StatusBarText ="Total # priority 1 (COLM)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =10620
+                    LayoutCachedWidth =10920
+                    LayoutCachedHeight =300
+                End
+                Begin TextBox
+                    TabStop = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =11220
+                    Width =300
+                    Height =300
+                    FontSize =9
+                    TabIndex =3
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxSumCURE"
+                    ControlSource ="=[tbxYear4]"
+                    StatusBarText ="Total # priority 1 (CURE)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =11220
+                    LayoutCachedWidth =11520
+                    LayoutCachedHeight =300
+                End
+                Begin TextBox
+                    TabStop = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =11820
+                    Width =300
+                    Height =300
+                    FontSize =9
+                    TabIndex =4
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxSumDINO"
+                    ControlSource ="=[tbxYear5]"
+                    StatusBarText ="Total # priority 1 (DINO)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =11820
+                    LayoutCachedWidth =12120
+                    LayoutCachedHeight =300
+                End
+                Begin TextBox
+                    TabStop = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =12420
+                    Width =300
+                    Height =300
+                    FontSize =9
+                    TabIndex =5
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxSumFOBU"
+                    ControlSource ="=[tbxYear6]"
+                    StatusBarText ="Total # priority 1 (FOBU)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =12420
+                    LayoutCachedWidth =12720
+                    LayoutCachedHeight =300
+                End
+                Begin TextBox
+                    TabStop = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =13080
+                    Width =300
+                    Height =300
+                    FontSize =9
+                    TabIndex =6
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxSumGOSP"
+                    ControlSource ="=[tbxYear7]"
+                    StatusBarText ="Total # priority 1 (GOSP)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =13080
+                    LayoutCachedWidth =13380
+                    LayoutCachedHeight =300
+                End
+                Begin TextBox
+                    TabStop = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =13740
+                    Width =300
+                    Height =270
+                    FontSize =9
+                    TabIndex =7
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxSumZION"
+                    ControlSource ="=[tbxYear8]"
+                    StatusBarText ="Total # priority 1 (ZION)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =13740
+                    LayoutCachedWidth =14040
+                    LayoutCachedHeight =270
+                End
                 Begin Label
                     TextAlign =3
-                    Left =5760
+                    Left =5700
                     Width =3480
                     Height =324
                     FontSize =10
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblParkYearPriorities"
-                    Caption ="Total # Priority 1 Species by Year =>"
+                    Caption ="Total # Priority 1 Species by Park =>"
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
-                    LayoutCachedLeft =5760
-                    LayoutCachedWidth =9240
+                    LayoutCachedLeft =5700
+                    LayoutCachedWidth =9180
                     LayoutCachedHeight =324
+                End
+                Begin TextBox
+                    TabStop = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    IMESentenceMode =3
+                    Left =9420
+                    Top =360
+                    Width =300
+                    Height =300
+                    FontSize =9
+                    TabIndex =8
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxUniqueYear1"
+                    ControlSource ="=Sum(IIf(CountInString([ParkYearPriorities],\"-1\")=1,CountInString([ParkYearPri"
+                        "orities],[TempVars]![Park] & \"-\" & [MinYear] & \"-1\"),0))"
+                    StatusBarText ="Total # unique priority 1 (Year 1)"
+                    ConditionalFormat = Begin
+                        0x010000002e010000010000000100000000000000000000006600000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x4900490066002800530075006d002800490049006600280043006f0075006e00 ,
+                        0x740049006e0053007400720069006e00670028005b005000610072006b005000 ,
+                        0x720069006f007200690074006900650073005d002c0022003100220029003d00 ,
+                        0x31002c0043006f0075006e00740049006e0053007400720069006e0067002800 ,
+                        0x5b005000610072006b005000720069006f007200690074006900650073005d00 ,
+                        0x2c00220042004c00430041002d003100220029002c003000290029003e003000 ,
+                        0x2c0031002c003000290000000000
+                    End
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =9420
+                    LayoutCachedTop =360
+                    LayoutCachedWidth =9720
+                    LayoutCachedHeight =660
+                    ConditionalFormat14 = Begin
+                        0x01000100000001000000000000000100000000000000ccffff00650000004900 ,
+                        0x490066002800530075006d002800490049006600280043006f0075006e007400 ,
+                        0x49006e0053007400720069006e00670028005b005000610072006b0050007200 ,
+                        0x69006f007200690074006900650073005d002c0022003100220029003d003100 ,
+                        0x2c0043006f0075006e00740049006e0053007400720069006e00670028005b00 ,
+                        0x5000610072006b005000720069006f007200690074006900650073005d002c00 ,
+                        0x220042004c00430041002d003100220029002c003000290029003e0030002c00 ,
+                        0x31002c0030002900000000000000000000000000000000000000000000
+                    End
+                End
+                Begin TextBox
+                    TabStop = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =10020
+                    Top =360
+                    Width =300
+                    Height =300
+                    FontSize =9
+                    TabIndex =9
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxUniqueYear2"
+                    ControlSource ="=Sum(IIf(CountInString([ParkYearPriorities],\"-1\")=1,CountInString([ParkYearPri"
+                        "orities],[TempVars]![Park] & \"-\" & [MinYear]+1 & \"-1\"),0))"
+                    StatusBarText ="Total # unique priority 1 (Year 2)"
+                    ConditionalFormat = Begin
+                        0x010000002e010000010000000100000000000000000000006600000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x4900490066002800530075006d002800490049006600280043006f0075006e00 ,
+                        0x740049006e0053007400720069006e00670028005b005000610072006b005000 ,
+                        0x720069006f007200690074006900650073005d002c0022003100220029003d00 ,
+                        0x31002c0043006f0075006e00740049006e0053007400720069006e0067002800 ,
+                        0x5b005000610072006b005000720069006f007200690074006900650073005d00 ,
+                        0x2c00220043004100520045002d003100220029002c003000290029003e003000 ,
+                        0x2c0031002c003000290000000000
+                    End
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =10020
+                    LayoutCachedTop =360
+                    LayoutCachedWidth =10320
+                    LayoutCachedHeight =660
+                    ConditionalFormat14 = Begin
+                        0x01000100000001000000000000000100000000000000ccffff00650000004900 ,
+                        0x490066002800530075006d002800490049006600280043006f0075006e007400 ,
+                        0x49006e0053007400720069006e00670028005b005000610072006b0050007200 ,
+                        0x69006f007200690074006900650073005d002c0022003100220029003d003100 ,
+                        0x2c0043006f0075006e00740049006e0053007400720069006e00670028005b00 ,
+                        0x5000610072006b005000720069006f007200690074006900650073005d002c00 ,
+                        0x220043004100520045002d003100220029002c003000290029003e0030002c00 ,
+                        0x31002c0030002900000000000000000000000000000000000000000000
+                    End
+                End
+                Begin TextBox
+                    TabStop = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =10620
+                    Top =360
+                    Width =300
+                    Height =300
+                    FontSize =9
+                    TabIndex =10
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxUniqueYear3"
+                    ControlSource ="=Sum(IIf(CountInString([ParkYearPriorities],\"-1\")=1,CountInString([ParkYearPri"
+                        "orities],[TempVars]![Park] & \"-\" & [MinYear]+2 & \"-1\"),0))"
+                    StatusBarText ="Total # unique priority 1 (Year 3)"
+                    ConditionalFormat = Begin
+                        0x010000002e010000010000000100000000000000000000006600000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x4900490066002800530075006d002800490049006600280043006f0075006e00 ,
+                        0x740049006e0053007400720069006e00670028005b005000610072006b005000 ,
+                        0x720069006f007200690074006900650073005d002c0022003100220029003d00 ,
+                        0x31002c0043006f0075006e00740049006e0053007400720069006e0067002800 ,
+                        0x5b005000610072006b005000720069006f007200690074006900650073005d00 ,
+                        0x2c00220043004f004c004d002d003100220029002c003000290029003e003000 ,
+                        0x2c0031002c003000290000000000
+                    End
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =10620
+                    LayoutCachedTop =360
+                    LayoutCachedWidth =10920
+                    LayoutCachedHeight =660
+                    ConditionalFormat14 = Begin
+                        0x01000100000001000000000000000100000000000000ccffff00650000004900 ,
+                        0x490066002800530075006d002800490049006600280043006f0075006e007400 ,
+                        0x49006e0053007400720069006e00670028005b005000610072006b0050007200 ,
+                        0x69006f007200690074006900650073005d002c0022003100220029003d003100 ,
+                        0x2c0043006f0075006e00740049006e0053007400720069006e00670028005b00 ,
+                        0x5000610072006b005000720069006f007200690074006900650073005d002c00 ,
+                        0x220043004f004c004d002d003100220029002c003000290029003e0030002c00 ,
+                        0x31002c0030002900000000000000000000000000000000000000000000
+                    End
+                End
+                Begin TextBox
+                    TabStop = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =11220
+                    Top =360
+                    Width =300
+                    Height =300
+                    FontSize =9
+                    TabIndex =11
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxUniqueYear4"
+                    ControlSource ="=Sum(IIf(CountInString([ParkYearPriorities],\"-1\")=1,CountInString([ParkYearPri"
+                        "orities],[TempVars]![Park] & \"-\" & [MinYear]+3 & \"-1\"),0))"
+                    StatusBarText ="Total # unique priority 1 (Year 4)"
+                    ConditionalFormat = Begin
+                        0x010000002e010000010000000100000000000000000000006600000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x4900490066002800530075006d002800490049006600280043006f0075006e00 ,
+                        0x740049006e0053007400720069006e00670028005b005000610072006b005000 ,
+                        0x720069006f007200690074006900650073005d002c0022003100220029003d00 ,
+                        0x31002c0043006f0075006e00740049006e0053007400720069006e0067002800 ,
+                        0x5b005000610072006b005000720069006f007200690074006900650073005d00 ,
+                        0x2c00220043005500520045002d003100220029002c003000290029003e003000 ,
+                        0x2c0031002c003000290000000000
+                    End
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =11220
+                    LayoutCachedTop =360
+                    LayoutCachedWidth =11520
+                    LayoutCachedHeight =660
+                    ConditionalFormat14 = Begin
+                        0x01000100000001000000000000000100000000000000ccffff00650000004900 ,
+                        0x490066002800530075006d002800490049006600280043006f0075006e007400 ,
+                        0x49006e0053007400720069006e00670028005b005000610072006b0050007200 ,
+                        0x69006f007200690074006900650073005d002c0022003100220029003d003100 ,
+                        0x2c0043006f0075006e00740049006e0053007400720069006e00670028005b00 ,
+                        0x5000610072006b005000720069006f007200690074006900650073005d002c00 ,
+                        0x220043005500520045002d003100220029002c003000290029003e0030002c00 ,
+                        0x31002c0030002900000000000000000000000000000000000000000000
+                    End
+                End
+                Begin TextBox
+                    TabStop = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =11820
+                    Top =360
+                    Width =300
+                    Height =300
+                    FontSize =9
+                    TabIndex =12
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxUniqueYear5"
+                    ControlSource ="=Sum(IIf(CountInString([ParkYearPriorities],\"-1\")=1,CountInString([ParkYearPri"
+                        "orities],[TempVars]![Park] & \"-\" & [MinYear]+4 & \"-1\"),0))"
+                    StatusBarText ="Total # unique priority 1 (Year 5)"
+                    ConditionalFormat = Begin
+                        0x010000002e010000010000000100000000000000000000006600000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x4900490066002800530075006d002800490049006600280043006f0075006e00 ,
+                        0x740049006e0053007400720069006e00670028005b005000610072006b005000 ,
+                        0x720069006f007200690074006900650073005d002c0022003100220029003d00 ,
+                        0x31002c0043006f0075006e00740049006e0053007400720069006e0067002800 ,
+                        0x5b005000610072006b005000720069006f007200690074006900650073005d00 ,
+                        0x2c002200440049004e004f002d003100220029002c003000290029003e003000 ,
+                        0x2c0031002c003000290000000000
+                    End
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =11820
+                    LayoutCachedTop =360
+                    LayoutCachedWidth =12120
+                    LayoutCachedHeight =660
+                    ConditionalFormat14 = Begin
+                        0x01000100000001000000000000000100000000000000ccffff00650000004900 ,
+                        0x490066002800530075006d002800490049006600280043006f0075006e007400 ,
+                        0x49006e0053007400720069006e00670028005b005000610072006b0050007200 ,
+                        0x69006f007200690074006900650073005d002c0022003100220029003d003100 ,
+                        0x2c0043006f0075006e00740049006e0053007400720069006e00670028005b00 ,
+                        0x5000610072006b005000720069006f007200690074006900650073005d002c00 ,
+                        0x2200440049004e004f002d003100220029002c003000290029003e0030002c00 ,
+                        0x31002c0030002900000000000000000000000000000000000000000000
+                    End
+                End
+                Begin TextBox
+                    TabStop = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =12420
+                    Top =360
+                    Width =300
+                    Height =300
+                    FontSize =9
+                    TabIndex =13
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxUniqueYear6"
+                    ControlSource ="=Sum(IIf(CountInString([ParkYearPriorities],\"-1\")=1,CountInString([ParkYearPri"
+                        "orities],[TempVars]![Park] & \"-\" & [MinYear]+5 & \"-1\"),0))"
+                    StatusBarText ="Total # unique priority 1 (Year 6)"
+                    ConditionalFormat = Begin
+                        0x010000002e010000010000000100000000000000000000006600000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x4900490066002800530075006d002800490049006600280043006f0075006e00 ,
+                        0x740049006e0053007400720069006e00670028005b005000610072006b005000 ,
+                        0x720069006f007200690074006900650073005d002c0022003100220029003d00 ,
+                        0x31002c0043006f0075006e00740049006e0053007400720069006e0067002800 ,
+                        0x5b005000610072006b005000720069006f007200690074006900650073005d00 ,
+                        0x2c00220046004f00420055002d003100220029002c003000290029003e003000 ,
+                        0x2c0031002c003000290000000000
+                    End
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =12420
+                    LayoutCachedTop =360
+                    LayoutCachedWidth =12720
+                    LayoutCachedHeight =660
+                    ConditionalFormat14 = Begin
+                        0x01000100000001000000000000000100000000000000ccffff00650000004900 ,
+                        0x490066002800530075006d002800490049006600280043006f0075006e007400 ,
+                        0x49006e0053007400720069006e00670028005b005000610072006b0050007200 ,
+                        0x69006f007200690074006900650073005d002c0022003100220029003d003100 ,
+                        0x2c0043006f0075006e00740049006e0053007400720069006e00670028005b00 ,
+                        0x5000610072006b005000720069006f007200690074006900650073005d002c00 ,
+                        0x220046004f00420055002d003100220029002c003000290029003e0030002c00 ,
+                        0x31002c0030002900000000000000000000000000000000000000000000
+                    End
+                End
+                Begin TextBox
+                    TabStop = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =13080
+                    Top =360
+                    Width =300
+                    Height =300
+                    FontSize =9
+                    TabIndex =14
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxUniqueYear7"
+                    ControlSource ="=Sum(IIf(CountInString([ParkYearPriorities],\"-1\")=1,CountInString([ParkYearPri"
+                        "orities],[TempVars]![Park] & \"-\" & [MinYear]+6 & \"-1\"),0))"
+                    StatusBarText ="Total # unique priority 1 (Year 7)"
+                    ConditionalFormat = Begin
+                        0x010000002e010000010000000100000000000000000000006600000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x4900490066002800530075006d002800490049006600280043006f0075006e00 ,
+                        0x740049006e0053007400720069006e00670028005b005000610072006b005000 ,
+                        0x720069006f007200690074006900650073005d002c0022003100220029003d00 ,
+                        0x31002c0043006f0075006e00740049006e0053007400720069006e0067002800 ,
+                        0x5b005000610072006b005000720069006f007200690074006900650073005d00 ,
+                        0x2c00220047004f00530050002d003100220029002c003000290029003e003000 ,
+                        0x2c0031002c003000290000000000
+                    End
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =13080
+                    LayoutCachedTop =360
+                    LayoutCachedWidth =13380
+                    LayoutCachedHeight =660
+                    ConditionalFormat14 = Begin
+                        0x01000100000001000000000000000100000000000000ccffff00650000004900 ,
+                        0x490066002800530075006d002800490049006600280043006f0075006e007400 ,
+                        0x49006e0053007400720069006e00670028005b005000610072006b0050007200 ,
+                        0x69006f007200690074006900650073005d002c0022003100220029003d003100 ,
+                        0x2c0043006f0075006e00740049006e0053007400720069006e00670028005b00 ,
+                        0x5000610072006b005000720069006f007200690074006900650073005d002c00 ,
+                        0x220047004f00530050002d003100220029002c003000290029003e0030002c00 ,
+                        0x31002c0030002900000000000000000000000000000000000000000000
+                    End
+                End
+                Begin TextBox
+                    TabStop = NotDefault
+                    DecimalPlaces =0
+                    RunningSum =2
+                    OldBorderStyle =0
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =13740
+                    Top =360
+                    Width =300
+                    Height =270
+                    FontSize =9
+                    TabIndex =15
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxUniqueYear8"
+                    ControlSource ="=Sum(IIf(CountInString([ParkYearPriorities],\"-1\")=1,CountInString([ParkYearPri"
+                        "orities],[TempVars]![Park] & \"-\" & CStr([MinYear]+7) & \"-1\"),0))"
+                    StatusBarText ="Total # unique priority 1 (Year 8)"
+                    ConditionalFormat = Begin
+                        0x010000002e010000010000000100000000000000000000006600000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x4900490066002800530075006d002800490049006600280043006f0075006e00 ,
+                        0x740049006e0053007400720069006e00670028005b005000610072006b005000 ,
+                        0x720069006f007200690074006900650073005d002c0022003100220029003d00 ,
+                        0x31002c0043006f0075006e00740049006e0053007400720069006e0067002800 ,
+                        0x5b005000610072006b005000720069006f007200690074006900650073005d00 ,
+                        0x2c0022005a0049004f004e002d003100220029002c003000290029003e003000 ,
+                        0x2c0031002c003000290000000000
+                    End
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =13740
+                    LayoutCachedTop =360
+                    LayoutCachedWidth =14040
+                    LayoutCachedHeight =630
+                    ConditionalFormat14 = Begin
+                        0x01000100000001000000000000000100000000000000ccffff00650000004900 ,
+                        0x490066002800530075006d002800490049006600280043006f0075006e007400 ,
+                        0x49006e0053007400720069006e00670028005b005000610072006b0050007200 ,
+                        0x69006f007200690074006900650073005d002c0022003100220029003d003100 ,
+                        0x2c0043006f0075006e00740049006e0053007400720069006e00670028005b00 ,
+                        0x5000610072006b005000720069006f007200690074006900650073005d002c00 ,
+                        0x22005a0049004f004e002d003100220029002c003000290029003e0030002c00 ,
+                        0x31002c0030002900000000000000000000000000000000000000000000
+                    End
                 End
                 Begin Label
                     BackStyle =1
                     TextAlign =3
-                    Left =6852
+                    Left =6792
                     Top =360
                     Width =2388
                     Height =288
@@ -1494,15 +2020,40 @@ Begin Report
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
-                    LayoutCachedLeft =6852
+                    LayoutCachedLeft =6792
                     LayoutCachedTop =360
-                    LayoutCachedWidth =9240
+                    LayoutCachedWidth =9180
                     LayoutCachedHeight =648
                     BackThemeColorIndex =-1
                 End
+                Begin TextBox
+                    TabStop = NotDefault
+                    RunningSum =2
+                    OldBorderStyle =0
+                    TextAlign =1
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =10020
+                    Top =900
+                    Width =1140
+                    Height =312
+                    FontSize =12
+                    TabIndex =16
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxSumPriority1"
+                    ControlSource ="=[tbxRunSumPri1]"
+                    StatusBarText ="Standard park code (CANY, FOBU, etc.)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =10020
+                    LayoutCachedTop =900
+                    LayoutCachedWidth =11160
+                    LayoutCachedHeight =1212
+                End
                 Begin Label
                     TextAlign =3
-                    Left =7260
+                    Left =7200
                     Top =900
                     Width =2700
                     Height =324
@@ -1514,9 +2065,9 @@ Begin Report
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
-                    LayoutCachedLeft =7260
+                    LayoutCachedLeft =7200
                     LayoutCachedTop =900
-                    LayoutCachedWidth =9960
+                    LayoutCachedWidth =9900
                     LayoutCachedHeight =1224
                 End
                 Begin TextBox
@@ -1532,6 +2083,7 @@ Begin Report
                     Width =300
                     Height =2160
                     FontSize =8
+                    TabIndex =17
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxLastModYear1"
@@ -1557,7 +2109,7 @@ Begin Report
                     Width =300
                     Height =2160
                     FontSize =8
-                    TabIndex =1
+                    TabIndex =18
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxLastModYear2"
@@ -1583,7 +2135,7 @@ Begin Report
                     Width =300
                     Height =2160
                     FontSize =8
-                    TabIndex =2
+                    TabIndex =19
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxLastModYear3"
@@ -1609,7 +2161,7 @@ Begin Report
                     Width =300
                     Height =2160
                     FontSize =8
-                    TabIndex =3
+                    TabIndex =20
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxLastModYear4"
@@ -1635,7 +2187,7 @@ Begin Report
                     Width =300
                     Height =2160
                     FontSize =8
-                    TabIndex =4
+                    TabIndex =21
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxLastModYear5"
@@ -1661,7 +2213,7 @@ Begin Report
                     Width =300
                     Height =2160
                     FontSize =8
-                    TabIndex =5
+                    TabIndex =22
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxLastModYear6"
@@ -1687,7 +2239,7 @@ Begin Report
                     Width =300
                     Height =2160
                     FontSize =8
-                    TabIndex =6
+                    TabIndex =23
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxLastModYear7"
@@ -1713,7 +2265,7 @@ Begin Report
                     Width =300
                     Height =2160
                     FontSize =8
-                    TabIndex =7
+                    TabIndex =24
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxLastModYear8"
@@ -1728,7 +2280,7 @@ Begin Report
                 End
                 Begin Label
                     TextAlign =3
-                    Left =7860
+                    Left =7800
                     Top =1440
                     Width =1260
                     Height =960
@@ -1740,419 +2292,10 @@ Begin Report
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
-                    LayoutCachedLeft =7860
+                    LayoutCachedLeft =7800
                     LayoutCachedTop =1440
-                    LayoutCachedWidth =9120
+                    LayoutCachedWidth =9060
                     LayoutCachedHeight =2400
-                End
-                Begin TextBox
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    OldBorderStyle =0
-                    TextAlign =2
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =9420
-                    Width =300
-                    Height =300
-                    FontSize =9
-                    TabIndex =8
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxSumYear1"
-                    ControlSource ="=[tbxYear1]"
-                    StatusBarText ="=\"Total # priority 1 (\"&[lblYear1]&\")\""
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =9420
-                    LayoutCachedWidth =9720
-                    LayoutCachedHeight =300
-                End
-                Begin TextBox
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    OldBorderStyle =0
-                    TextAlign =2
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =10020
-                    Width =300
-                    Height =300
-                    FontSize =9
-                    TabIndex =9
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxSumYear2"
-                    ControlSource ="=[tbxYear2]"
-                    StatusBarText ="Total # priority 1 (CARE)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =10020
-                    LayoutCachedWidth =10320
-                    LayoutCachedHeight =300
-                End
-                Begin TextBox
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    OldBorderStyle =0
-                    TextAlign =2
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =10620
-                    Width =300
-                    Height =300
-                    FontSize =9
-                    TabIndex =10
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxSumYear3"
-                    ControlSource ="=[tbxYear3]"
-                    StatusBarText ="Total # priority 1 (COLM)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =10620
-                    LayoutCachedWidth =10920
-                    LayoutCachedHeight =300
-                End
-                Begin TextBox
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    OldBorderStyle =0
-                    TextAlign =2
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =11220
-                    Width =300
-                    Height =300
-                    FontSize =9
-                    TabIndex =11
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxSumYear4"
-                    ControlSource ="=[tbxYear4]"
-                    StatusBarText ="Total # priority 1 (CURE)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =11220
-                    LayoutCachedWidth =11520
-                    LayoutCachedHeight =300
-                End
-                Begin TextBox
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    OldBorderStyle =0
-                    TextAlign =2
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =11820
-                    Width =300
-                    Height =300
-                    FontSize =9
-                    TabIndex =12
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxSumYear5"
-                    ControlSource ="=[tbxyear5]"
-                    StatusBarText ="Total # priority 1 (DINO)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =11820
-                    LayoutCachedWidth =12120
-                    LayoutCachedHeight =300
-                End
-                Begin TextBox
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    OldBorderStyle =0
-                    TextAlign =2
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =12420
-                    Width =300
-                    Height =300
-                    FontSize =9
-                    TabIndex =13
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxSumYear6"
-                    ControlSource ="=[tbxyear6]"
-                    StatusBarText ="Total # priority 1 (FOBU)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =12420
-                    LayoutCachedWidth =12720
-                    LayoutCachedHeight =300
-                End
-                Begin TextBox
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    OldBorderStyle =0
-                    TextAlign =2
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =13080
-                    Width =300
-                    Height =300
-                    FontSize =9
-                    TabIndex =14
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxSumYear7"
-                    ControlSource ="=[tbxYear7]"
-                    StatusBarText ="Total # priority 1 (GOSP)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =13080
-                    LayoutCachedWidth =13380
-                    LayoutCachedHeight =300
-                End
-                Begin TextBox
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    OldBorderStyle =0
-                    TextAlign =2
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =13740
-                    Width =300
-                    Height =270
-                    FontSize =9
-                    TabIndex =15
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxSumYear8"
-                    ControlSource ="=[tbxYear8]"
-                    StatusBarText ="Total # priority 1 (ZION)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =13740
-                    LayoutCachedWidth =14040
-                    LayoutCachedHeight =270
-                End
-                Begin TextBox
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    OldBorderStyle =0
-                    TextAlign =2
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =9420
-                    Top =360
-                    Width =300
-                    Height =300
-                    FontSize =9
-                    TabIndex =16
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxUniqueSumYear1"
-                    ControlSource ="=[tbxUniquePri1Year1]"
-                    StatusBarText ="=\"Total # priority 1 (\"&[lblYear1]&\")\""
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =9420
-                    LayoutCachedTop =360
-                    LayoutCachedWidth =9720
-                    LayoutCachedHeight =660
-                End
-                Begin TextBox
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    OldBorderStyle =0
-                    TextAlign =2
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =10020
-                    Top =360
-                    Width =300
-                    Height =300
-                    FontSize =9
-                    TabIndex =17
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxUniqueSumYear2"
-                    ControlSource ="=[tbxUniquePri1Year2]"
-                    StatusBarText ="Total # priority 1"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =10020
-                    LayoutCachedTop =360
-                    LayoutCachedWidth =10320
-                    LayoutCachedHeight =660
-                End
-                Begin TextBox
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    OldBorderStyle =0
-                    TextAlign =2
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =10620
-                    Top =360
-                    Width =300
-                    Height =300
-                    FontSize =9
-                    TabIndex =18
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxUniqueSumYear3"
-                    ControlSource ="=[tbxUniquePri1Year3]"
-                    StatusBarText ="Total # priority 1"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =10620
-                    LayoutCachedTop =360
-                    LayoutCachedWidth =10920
-                    LayoutCachedHeight =660
-                End
-                Begin TextBox
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    OldBorderStyle =0
-                    TextAlign =2
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =11220
-                    Top =360
-                    Width =300
-                    Height =300
-                    FontSize =9
-                    TabIndex =19
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxUniqueSumYear4"
-                    ControlSource ="=[tbxUniquePri1Year4]"
-                    StatusBarText ="Total # priority 1 (CURE)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =11220
-                    LayoutCachedTop =360
-                    LayoutCachedWidth =11520
-                    LayoutCachedHeight =660
-                End
-                Begin TextBox
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    OldBorderStyle =0
-                    TextAlign =2
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =11820
-                    Top =360
-                    Width =300
-                    Height =300
-                    FontSize =9
-                    TabIndex =20
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxUniqueSumYear5"
-                    ControlSource ="=[tbxUniquePri1Year5]"
-                    StatusBarText ="Total # priority 1 (DINO)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =11820
-                    LayoutCachedTop =360
-                    LayoutCachedWidth =12120
-                    LayoutCachedHeight =660
-                End
-                Begin TextBox
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    OldBorderStyle =0
-                    TextAlign =2
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =12420
-                    Top =360
-                    Width =300
-                    Height =300
-                    FontSize =9
-                    TabIndex =21
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxUniqueSumYear6"
-                    ControlSource ="=[tbxUniquePri1Year6]"
-                    StatusBarText ="Total # priority 1 (FOBU)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =12420
-                    LayoutCachedTop =360
-                    LayoutCachedWidth =12720
-                    LayoutCachedHeight =660
-                End
-                Begin TextBox
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    OldBorderStyle =0
-                    TextAlign =2
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =13080
-                    Top =360
-                    Width =300
-                    Height =300
-                    FontSize =9
-                    TabIndex =22
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxUniqueSumYear7"
-                    ControlSource ="=[tbxUniquePri1Year7]"
-                    StatusBarText ="Total # priority 1 (GOSP)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =13080
-                    LayoutCachedTop =360
-                    LayoutCachedWidth =13380
-                    LayoutCachedHeight =660
-                End
-                Begin TextBox
-                    TabStop = NotDefault
-                    DecimalPlaces =0
-                    OldBorderStyle =0
-                    TextAlign =2
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =13740
-                    Top =360
-                    Width =300
-                    Height =270
-                    FontSize =9
-                    TabIndex =23
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxUniqueSumYear8"
-                    ControlSource ="=[tbxUniquePri1Year8]"
-                    StatusBarText ="Total # priority 1 (ZION)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =13740
-                    LayoutCachedTop =360
-                    LayoutCachedWidth =14040
-                    LayoutCachedHeight =630
-                End
-                Begin TextBox
-                    TabStop = NotDefault
-                    RunningSum =2
-                    OldBorderStyle =0
-                    TextAlign =1
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =10080
-                    Top =900
-                    Width =1140
-                    Height =312
-                    FontSize =12
-                    TabIndex =24
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxSumPriority1"
-                    ControlSource ="=[tbxRunSumPri1]"
-                    StatusBarText ="Standard park code (CANY, FOBU, etc.)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =10080
-                    LayoutCachedTop =900
-                    LayoutCachedWidth =11220
-                    LayoutCachedHeight =1212
                 End
             End
         End

@@ -13,10 +13,10 @@ Begin Report
     Width =11400
     DatasheetFontHeight =11
     ItemSuffix =46
-    Left =1725
-    Top =480
-    Right =13980
-    Bottom =8550
+    Left =555
+    Top =1185
+    Right =12765
+    Bottom =9255
     DatasheetGridlinesColor =14806254
     Filter ="TgtList IN ('BLCA-2012','BLCA-2015','CARE-2009')"
     RecSrcDt = Begin
@@ -125,7 +125,7 @@ Begin Report
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblReportHdr"
-                    Caption ="INVASIVES TARGET LIST"
+                    Caption ="INVASIVES SPECIES LIST BY PARK"
                     GridlineColor =10921638
                     LayoutCachedLeft =60
                     LayoutCachedTop =60

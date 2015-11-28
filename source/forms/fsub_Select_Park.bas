@@ -16,7 +16,7 @@ Begin Form
     Left =9732
     Top =6612
     Right =13884
-    Bottom =9228
+    Bottom =9108
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xc1f3db6ed487e440
@@ -367,7 +367,7 @@ On Error GoTo Err_Handler
     If Len(TempVars("Park")) > 0 Then
     
         'open report
-        DoCmd.OpenReport "rpt_Tgt_Species_List_Park_Summary", acViewReport, , "Park=" & TempVars("Park")
+        DoCmd.OpenReport "rpt_Tgt_Species_List_Park_Summary", acViewReport ', , "Park=" & TempVars("Park")
         
     End If
                
