@@ -116,7 +116,7 @@ Begin Report
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblReportHdr"
-                    Caption ="INVASIVES ANNUAL SPECIES LIST SUMMARY"
+                    Caption ="INVASIVES SPECIES LIST"
                     GridlineColor =10921638
                     LayoutCachedLeft =60
                     LayoutCachedTop =60
