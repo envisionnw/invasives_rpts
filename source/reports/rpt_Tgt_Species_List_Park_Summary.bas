@@ -10,27 +10,24 @@ Begin Report
     DatasheetGridlinesBehavior =3
     GridX =24
     GridY =24
-    Width =15105
+    Width =15005
     DatasheetFontHeight =11
     ItemSuffix =60
-    Left =285
-    Top =90
-    Right =15900
-    Bottom =9990
+    Left =-276
+    Top =516
+    Right =12972
+    Bottom =8496
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xb8d0f89fb3abe440
     End
     RecordSource ="qry_Tgt_Species_List_Park_Summary"
-    OnCurrent ="[Event Procedure]"
     OnOpen ="[Event Procedure]"
     DatasheetFontName ="Calibri"
     PrtMip = Begin
-        0x6a010000680100006801000068010000000000009d3a0000ea01000001000000 ,
+        0x6a01000068010000680100006d01000000000000043b0000ea01000001000000 ,
         0x010000006801000000000000a10700000100000001000000
     End
-    OnActivate ="[Event Procedure]"
-    OnGotFocus ="[Event Procedure]"
     OnLoad ="[Event Procedure]"
     FilterOnLoad =0
     FitToPage =1
@@ -91,7 +88,6 @@ Begin Report
             GridlineShade =65.0
         End
         Begin BreakLevel
-            GroupHeader = NotDefault
             KeepTogether =1
             ControlSource ="Family"
         End
@@ -639,18 +635,9 @@ Begin Report
                 End
             End
         End
-        Begin BreakHeader
-            KeepTogether = NotDefault
-            Height =0
-            Name ="GroupHeader0"
-            AlternateBackColor =16777215
-            AlternateBackThemeColorIndex =1
-            BackThemeColorIndex =1
-        End
         Begin Section
             KeepTogether = NotDefault
-            Height =490
-            OnFormat ="[Event Procedure]"
+            Height =540
             Name ="Detail"
             AlternateBackColor =15921906
             AlternateBackThemeColorIndex =1
@@ -1263,7 +1250,7 @@ Begin Report
                     Left =9240
                     Top =15
                     Width =677
-                    Height =432
+                    Height =420
                     FontSize =8
                     TabIndex =24
                     BorderColor =10921638
@@ -1271,13 +1258,27 @@ Begin Report
                     Name ="tbxYear1Priority"
                     ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([MinYear]))"
                     ControlTipText ="Park Priority"
+                    ConditionalFormat = Begin
+                        0x0100000090000000020000000000000003000000000000000200000001000000 ,
+                        0x00000000ffffff00000000000200000003000000170000000100000000000000 ,
+                        0xccffff0000000000000000000000000000000000000000000000000000000000 ,
+                        0x3100000000005b00740062007800530075006d00530070006500630069006500 ,
+                        0x730050007200690031005d0000000000
+                    End
                     GridlineColor =10921638
 
                     LayoutCachedLeft =9240
                     LayoutCachedTop =15
                     LayoutCachedWidth =9917
-                    LayoutCachedHeight =447
+                    LayoutCachedHeight =435
                     BackThemeColorIndex =-1
+                    ConditionalFormat14 = Begin
+                        0x01000200000000000000030000000100000000000000ffffff00010000003100 ,
+                        0x0000000000000000000000000000000000000000000000000002000000010000 ,
+                        0x0000000000ccffff00130000005b00740062007800530075006d005300700065 ,
+                        0x00630069006500730050007200690031005d0000000000000000000000000000 ,
+                        0x0000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
@@ -1285,12 +1286,11 @@ Begin Report
                     RunningSum =2
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
                     Left =9792
                     Top =15
                     Width =677
-                    Height =435
+                    Height =420
                     FontSize =8
                     TabIndex =25
                     BorderColor =10921638
@@ -1299,23 +1299,25 @@ Begin Report
                     ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([MinYear]+1))"
                     ControlTipText ="Park Priority"
                     ConditionalFormat = Begin
-                        0x010000008a000000010000000000000002000000000000001400000001000000 ,
-                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x5b00740062007800530075006d00530070006500630069006500730050007200 ,
-                        0x690031005d0000000000
+                        0x0100000090000000020000000000000003000000000000000200000001000000 ,
+                        0x00000000ffffff00000000000200000003000000170000000100000000000000 ,
+                        0xccffff0000000000000000000000000000000000000000000000000000000000 ,
+                        0x3100000000005b00740062007800530075006d00530070006500630069006500 ,
+                        0x730050007200690031005d0000000000
                     End
                     GridlineColor =10921638
 
                     LayoutCachedLeft =9792
                     LayoutCachedTop =15
                     LayoutCachedWidth =10469
-                    LayoutCachedHeight =450
+                    LayoutCachedHeight =435
                     BackThemeColorIndex =-1
                     ConditionalFormat14 = Begin
-                        0x01000100000000000000020000000100000000000000ccffff00130000005b00 ,
-                        0x740062007800530075006d005300700065006300690065007300500072006900 ,
-                        0x31005d00000000000000000000000000000000000000000000
+                        0x01000200000000000000030000000100000000000000ffffff00010000003100 ,
+                        0x0000000000000000000000000000000000000000000000000002000000010000 ,
+                        0x0000000000ccffff00130000005b00740062007800530075006d005300700065 ,
+                        0x00630069006500730050007200690031005d0000000000000000000000000000 ,
+                        0x0000000000000000
                     End
                 End
                 Begin TextBox
@@ -1324,12 +1326,11 @@ Begin Report
                     RunningSum =2
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
                     Left =10392
                     Top =15
                     Width =677
-                    Height =435
+                    Height =420
                     FontSize =8
                     TabIndex =26
                     BorderColor =10921638
@@ -1338,23 +1339,25 @@ Begin Report
                     ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([MinYear]+2))"
                     ControlTipText ="Park Priority"
                     ConditionalFormat = Begin
-                        0x010000008a000000010000000000000002000000000000001400000001000000 ,
-                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x5b00740062007800530075006d00530070006500630069006500730050007200 ,
-                        0x690031005d0000000000
+                        0x0100000090000000020000000000000003000000000000000200000001000000 ,
+                        0x00000000ffffff00000000000200000003000000170000000100000000000000 ,
+                        0xccffff0000000000000000000000000000000000000000000000000000000000 ,
+                        0x3100000000005b00740062007800530075006d00530070006500630069006500 ,
+                        0x730050007200690031005d0000000000
                     End
                     GridlineColor =10921638
 
                     LayoutCachedLeft =10392
                     LayoutCachedTop =15
                     LayoutCachedWidth =11069
-                    LayoutCachedHeight =450
+                    LayoutCachedHeight =435
                     BackThemeColorIndex =-1
                     ConditionalFormat14 = Begin
-                        0x01000100000000000000020000000100000000000000ccffff00130000005b00 ,
-                        0x740062007800530075006d005300700065006300690065007300500072006900 ,
-                        0x31005d00000000000000000000000000000000000000000000
+                        0x01000200000000000000030000000100000000000000ffffff00010000003100 ,
+                        0x0000000000000000000000000000000000000000000000000002000000010000 ,
+                        0x0000000000ccffff00130000005b00740062007800530075006d005300700065 ,
+                        0x00630069006500730050007200690031005d0000000000000000000000000000 ,
+                        0x0000000000000000
                     End
                 End
                 Begin TextBox
@@ -1363,12 +1366,11 @@ Begin Report
                     RunningSum =2
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
                     Left =10980
                     Top =15
                     Width =677
-                    Height =435
+                    Height =420
                     FontSize =8
                     TabIndex =27
                     BorderColor =10921638
@@ -1377,23 +1379,25 @@ Begin Report
                     ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([MinYear]+3))"
                     ControlTipText ="Park Priority"
                     ConditionalFormat = Begin
-                        0x010000008a000000010000000000000002000000000000001400000001000000 ,
-                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
-                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
-                        0x5b00740062007800530075006d00530070006500630069006500730050007200 ,
-                        0x690031005d0000000000
+                        0x0100000090000000020000000000000003000000000000000200000001000000 ,
+                        0x00000000ffffff00000000000200000003000000170000000100000000000000 ,
+                        0xccffff0000000000000000000000000000000000000000000000000000000000 ,
+                        0x3100000000005b00740062007800530075006d00530070006500630069006500 ,
+                        0x730050007200690031005d0000000000
                     End
                     GridlineColor =10921638
 
                     LayoutCachedLeft =10980
                     LayoutCachedTop =15
                     LayoutCachedWidth =11657
-                    LayoutCachedHeight =450
+                    LayoutCachedHeight =435
                     BackThemeColorIndex =-1
                     ConditionalFormat14 = Begin
-                        0x01000100000000000000020000000100000000000000ccffff00130000005b00 ,
-                        0x740062007800530075006d005300700065006300690065007300500072006900 ,
-                        0x31005d00000000000000000000000000000000000000000000
+                        0x01000200000000000000030000000100000000000000ffffff00010000003100 ,
+                        0x0000000000000000000000000000000000000000000000000002000000010000 ,
+                        0x0000000000ccffff00130000005b00740062007800530075006d005300700065 ,
+                        0x00630069006500730050007200690031005d0000000000000000000000000000 ,
+                        0x0000000000000000
                     End
                 End
                 Begin TextBox
@@ -1402,12 +1406,11 @@ Begin Report
                     RunningSum =2
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
                     Left =11640
                     Top =15
                     Width =677
-                    Height =444
+                    Height =420
                     FontSize =8
                     TabIndex =28
                     BorderColor =10921638
@@ -1415,13 +1418,27 @@ Begin Report
                     Name ="tbxYear5Priority"
                     ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([MinYear]+4))"
                     ControlTipText ="Park Priority"
+                    ConditionalFormat = Begin
+                        0x0100000090000000020000000000000003000000000000000200000001000000 ,
+                        0x00000000ffffff00000000000200000003000000170000000100000000000000 ,
+                        0xccffff0000000000000000000000000000000000000000000000000000000000 ,
+                        0x3100000000005b00740062007800530075006d00530070006500630069006500 ,
+                        0x730050007200690031005d0000000000
+                    End
                     GridlineColor =10921638
 
                     LayoutCachedLeft =11640
                     LayoutCachedTop =15
                     LayoutCachedWidth =12317
-                    LayoutCachedHeight =459
+                    LayoutCachedHeight =435
                     BackThemeColorIndex =-1
+                    ConditionalFormat14 = Begin
+                        0x01000200000000000000030000000100000000000000ffffff00010000003100 ,
+                        0x0000000000000000000000000000000000000000000000000002000000010000 ,
+                        0x0000000000ccffff00130000005b00740062007800530075006d005300700065 ,
+                        0x00630069006500730050007200690031005d0000000000000000000000000000 ,
+                        0x0000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
@@ -1429,12 +1446,10 @@ Begin Report
                     RunningSum =2
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
-                    Left =12312
-                    Top =15
+                    Left =12300
                     Width =677
-                    Height =444
+                    Height =420
                     FontSize =8
                     TabIndex =29
                     BorderColor =10921638
@@ -1442,13 +1457,26 @@ Begin Report
                     Name ="tbxYear6Priority"
                     ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([MinYear]+5))"
                     ControlTipText ="Park Priority"
+                    ConditionalFormat = Begin
+                        0x0100000090000000020000000000000003000000000000000200000001000000 ,
+                        0x00000000ffffff00000000000200000003000000170000000100000000000000 ,
+                        0xccffff0000000000000000000000000000000000000000000000000000000000 ,
+                        0x3100000000005b00740062007800530075006d00530070006500630069006500 ,
+                        0x730050007200690031005d0000000000
+                    End
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =12312
-                    LayoutCachedTop =15
-                    LayoutCachedWidth =12989
-                    LayoutCachedHeight =459
+                    LayoutCachedLeft =12300
+                    LayoutCachedWidth =12977
+                    LayoutCachedHeight =420
                     BackThemeColorIndex =-1
+                    ConditionalFormat14 = Begin
+                        0x01000200000000000000030000000100000000000000ffffff00010000003100 ,
+                        0x0000000000000000000000000000000000000000000000000002000000010000 ,
+                        0x0000000000ccffff00130000005b00740062007800530075006d005300700065 ,
+                        0x00630069006500730050007200690031005d0000000000000000000000000000 ,
+                        0x0000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
@@ -1456,12 +1484,11 @@ Begin Report
                     RunningSum =2
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
                     Left =12902
                     Top =15
                     Width =677
-                    Height =444
+                    Height =420
                     FontSize =8
                     TabIndex =30
                     BorderColor =10921638
@@ -1469,13 +1496,27 @@ Begin Report
                     Name ="tbxYear7Priority"
                     ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([MinYear]+6))"
                     ControlTipText ="Park Priority"
+                    ConditionalFormat = Begin
+                        0x0100000090000000020000000000000003000000000000000200000001000000 ,
+                        0x00000000ffffff00000000000200000003000000170000000100000000000000 ,
+                        0xccffff0000000000000000000000000000000000000000000000000000000000 ,
+                        0x3100000000005b00740062007800530075006d00530070006500630069006500 ,
+                        0x730050007200690031005d0000000000
+                    End
                     GridlineColor =10921638
 
                     LayoutCachedLeft =12902
                     LayoutCachedTop =15
                     LayoutCachedWidth =13579
-                    LayoutCachedHeight =459
+                    LayoutCachedHeight =435
                     BackThemeColorIndex =-1
+                    ConditionalFormat14 = Begin
+                        0x01000200000000000000030000000100000000000000ffffff00010000003100 ,
+                        0x0000000000000000000000000000000000000000000000000002000000010000 ,
+                        0x0000000000ccffff00130000005b00740062007800530075006d005300700065 ,
+                        0x00630069006500730050007200690031005d0000000000000000000000000000 ,
+                        0x0000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
@@ -1483,12 +1524,11 @@ Begin Report
                     RunningSum =2
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
                     Left =13503
                     Top =15
                     Width =677
-                    Height =444
+                    Height =420
                     FontSize =8
                     TabIndex =31
                     BorderColor =10921638
@@ -1496,25 +1536,38 @@ Begin Report
                     Name ="tbxYear8Priority"
                     ControlSource ="=PopulateSpeciesPriorities([TempVars]![Park],[tbxAll],CInt([MinYear]+7))"
                     ControlTipText ="Park Priority"
+                    ConditionalFormat = Begin
+                        0x0100000090000000020000000000000003000000000000000200000001000000 ,
+                        0x00000000ffffff00000000000200000003000000170000000100000000000000 ,
+                        0xccffff0000000000000000000000000000000000000000000000000000000000 ,
+                        0x3100000000005b00740062007800530075006d00530070006500630069006500 ,
+                        0x730050007200690031005d0000000000
+                    End
                     GridlineColor =10921638
 
                     LayoutCachedLeft =13503
                     LayoutCachedTop =15
                     LayoutCachedWidth =14180
-                    LayoutCachedHeight =459
+                    LayoutCachedHeight =435
                     BackThemeColorIndex =-1
+                    ConditionalFormat14 = Begin
+                        0x01000200000000000000030000000100000000000000ffffff00010000003100 ,
+                        0x0000000000000000000000000000000000000000000000000002000000010000 ,
+                        0x0000000000ccffff00130000005b00740062007800530075006d005300700065 ,
+                        0x00630069006500730050007200690031005d0000000000000000000000000000 ,
+                        0x0000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
                     DecimalPlaces =0
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
                     Left =14280
                     Top =15
                     Width =660
-                    Height =300
+                    Height =420
                     FontSize =9
                     TabIndex =32
                     BorderColor =10921638
@@ -1522,12 +1575,22 @@ Begin Report
                     Name ="tbxSumSpeciesPri1"
                     ControlSource ="=CountInString([ParkYearPriorities],\"-1\")"
                     StatusBarText ="Park priority"
+                    ConditionalFormat = Begin
+                        0x0100000066000000010000000000000002000000000000000200000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x310000000000
+                    End
                     GridlineColor =10921638
 
                     LayoutCachedLeft =14280
                     LayoutCachedTop =15
                     LayoutCachedWidth =14940
-                    LayoutCachedHeight =315
+                    LayoutCachedHeight =435
+                    ConditionalFormat14 = Begin
+                        0x01000100000000000000020000000100000000000000ccffff00010000003100 ,
+                        0x000000000000000000000000000000000000000000
+                    End
                 End
             End
         End
@@ -2019,12 +2082,11 @@ Begin Report
                     DecimalPlaces =0
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
                     Left =9420
                     Top =360
                     Width =300
-                    Height =300
+                    Height =252
                     FontSize =9
                     TabIndex =16
                     BorderColor =10921638
@@ -2032,24 +2094,33 @@ Begin Report
                     Name ="tbxUniqueSumYear1"
                     ControlSource ="=[tbxUniquePri1Year1]"
                     StatusBarText ="=\"Total # priority 1 (\"&[lblYear1]&\")\""
+                    ConditionalFormat = Begin
+                        0x0100000066000000010000000000000004000000000000000200000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x300000000000
+                    End
                     GridlineColor =10921638
 
                     LayoutCachedLeft =9420
                     LayoutCachedTop =360
                     LayoutCachedWidth =9720
-                    LayoutCachedHeight =660
+                    LayoutCachedHeight =612
+                    ConditionalFormat14 = Begin
+                        0x01000100000000000000040000000100000000000000ccffff00010000003000 ,
+                        0x000000000000000000000000000000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
                     DecimalPlaces =0
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
                     Left =10020
                     Top =360
                     Width =300
-                    Height =300
+                    Height =252
                     FontSize =9
                     TabIndex =17
                     BorderColor =10921638
@@ -2057,24 +2128,33 @@ Begin Report
                     Name ="tbxUniqueSumYear2"
                     ControlSource ="=[tbxUniquePri1Year2]"
                     StatusBarText ="Total # priority 1"
+                    ConditionalFormat = Begin
+                        0x0100000066000000010000000000000004000000000000000200000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x300000000000
+                    End
                     GridlineColor =10921638
 
                     LayoutCachedLeft =10020
                     LayoutCachedTop =360
                     LayoutCachedWidth =10320
-                    LayoutCachedHeight =660
+                    LayoutCachedHeight =612
+                    ConditionalFormat14 = Begin
+                        0x01000100000000000000040000000100000000000000ccffff00010000003000 ,
+                        0x000000000000000000000000000000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
                     DecimalPlaces =0
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
                     Left =10620
                     Top =360
                     Width =300
-                    Height =300
+                    Height =252
                     FontSize =9
                     TabIndex =18
                     BorderColor =10921638
@@ -2082,24 +2162,33 @@ Begin Report
                     Name ="tbxUniqueSumYear3"
                     ControlSource ="=[tbxUniquePri1Year3]"
                     StatusBarText ="Total # priority 1"
+                    ConditionalFormat = Begin
+                        0x0100000066000000010000000000000004000000000000000200000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x300000000000
+                    End
                     GridlineColor =10921638
 
                     LayoutCachedLeft =10620
                     LayoutCachedTop =360
                     LayoutCachedWidth =10920
-                    LayoutCachedHeight =660
+                    LayoutCachedHeight =612
+                    ConditionalFormat14 = Begin
+                        0x01000100000000000000040000000100000000000000ccffff00010000003000 ,
+                        0x000000000000000000000000000000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
                     DecimalPlaces =0
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
                     Left =11220
                     Top =360
                     Width =300
-                    Height =300
+                    Height =252
                     FontSize =9
                     TabIndex =19
                     BorderColor =10921638
@@ -2107,24 +2196,33 @@ Begin Report
                     Name ="tbxUniqueSumYear4"
                     ControlSource ="=[tbxUniquePri1Year4]"
                     StatusBarText ="Total # priority 1 (CURE)"
+                    ConditionalFormat = Begin
+                        0x0100000066000000010000000000000004000000000000000200000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x300000000000
+                    End
                     GridlineColor =10921638
 
                     LayoutCachedLeft =11220
                     LayoutCachedTop =360
                     LayoutCachedWidth =11520
-                    LayoutCachedHeight =660
+                    LayoutCachedHeight =612
+                    ConditionalFormat14 = Begin
+                        0x01000100000000000000040000000100000000000000ccffff00010000003000 ,
+                        0x000000000000000000000000000000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
                     DecimalPlaces =0
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
                     Left =11820
                     Top =360
                     Width =300
-                    Height =300
+                    Height =252
                     FontSize =9
                     TabIndex =20
                     BorderColor =10921638
@@ -2132,24 +2230,33 @@ Begin Report
                     Name ="tbxUniqueSumYear5"
                     ControlSource ="=[tbxUniquePri1Year5]"
                     StatusBarText ="Total # priority 1 (DINO)"
+                    ConditionalFormat = Begin
+                        0x0100000066000000010000000000000004000000000000000200000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x300000000000
+                    End
                     GridlineColor =10921638
 
                     LayoutCachedLeft =11820
                     LayoutCachedTop =360
                     LayoutCachedWidth =12120
-                    LayoutCachedHeight =660
+                    LayoutCachedHeight =612
+                    ConditionalFormat14 = Begin
+                        0x01000100000000000000040000000100000000000000ccffff00010000003000 ,
+                        0x000000000000000000000000000000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
                     DecimalPlaces =0
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
                     Left =12420
                     Top =360
                     Width =300
-                    Height =300
+                    Height =252
                     FontSize =9
                     TabIndex =21
                     BorderColor =10921638
@@ -2157,24 +2264,33 @@ Begin Report
                     Name ="tbxUniqueSumYear6"
                     ControlSource ="=[tbxUniquePri1Year6]"
                     StatusBarText ="Total # priority 1 (FOBU)"
+                    ConditionalFormat = Begin
+                        0x0100000066000000010000000000000004000000000000000200000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x300000000000
+                    End
                     GridlineColor =10921638
 
                     LayoutCachedLeft =12420
                     LayoutCachedTop =360
                     LayoutCachedWidth =12720
-                    LayoutCachedHeight =660
+                    LayoutCachedHeight =612
+                    ConditionalFormat14 = Begin
+                        0x01000100000000000000040000000100000000000000ccffff00010000003000 ,
+                        0x000000000000000000000000000000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
                     DecimalPlaces =0
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
                     Left =13080
                     Top =360
                     Width =300
-                    Height =300
+                    Height =252
                     FontSize =9
                     TabIndex =22
                     BorderColor =10921638
@@ -2182,24 +2298,33 @@ Begin Report
                     Name ="tbxUniqueSumYear7"
                     ControlSource ="=[tbxUniquePri1Year7]"
                     StatusBarText ="Total # priority 1 (GOSP)"
+                    ConditionalFormat = Begin
+                        0x0100000066000000010000000000000004000000000000000200000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x300000000000
+                    End
                     GridlineColor =10921638
 
                     LayoutCachedLeft =13080
                     LayoutCachedTop =360
                     LayoutCachedWidth =13380
-                    LayoutCachedHeight =660
+                    LayoutCachedHeight =612
+                    ConditionalFormat14 = Begin
+                        0x01000100000000000000040000000100000000000000ccffff00010000003000 ,
+                        0x000000000000000000000000000000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
                     DecimalPlaces =0
                     OldBorderStyle =0
                     TextAlign =2
-                    BackStyle =0
                     IMESentenceMode =3
                     Left =13740
                     Top =360
                     Width =300
-                    Height =270
+                    Height =252
                     FontSize =9
                     TabIndex =23
                     BorderColor =10921638
@@ -2207,12 +2332,22 @@ Begin Report
                     Name ="tbxUniqueSumYear8"
                     ControlSource ="=[tbxUniquePri1Year8]"
                     StatusBarText ="Total # priority 1 (ZION)"
+                    ConditionalFormat = Begin
+                        0x0100000066000000010000000000000004000000000000000200000001000000 ,
+                        0x00000000ccffff00000000000000000000000000000000000000000000000000 ,
+                        0x0000000000000000000000000000000000000000000000000000000000000000 ,
+                        0x300000000000
+                    End
                     GridlineColor =10921638
 
                     LayoutCachedLeft =13740
                     LayoutCachedTop =360
                     LayoutCachedWidth =14040
-                    LayoutCachedHeight =630
+                    LayoutCachedHeight =612
+                    ConditionalFormat14 = Begin
+                        0x01000100000000000000040000000100000000000000ccffff00010000003000 ,
+                        0x000000000000000000000000000000000000000000
+                    End
                 End
                 Begin TextBox
                     TabStop = NotDefault
@@ -2251,71 +2386,10 @@ Attribute VB_Exposed = False
 Option Compare Database
 Option Explicit
 
-'   BLC - 11/27/2015 - add conditional background colors for controls (unique priority 1s)
-
-    ' Background 1 = white --> lngWhite
-    ' #CCFFFF = lt blue --> Val("&H" & "FFFFFF")
-'    tbxYear1Priority.backcolor = IIf(tbxYear1Priority.Value = "1", IIf(tbxSumSpeciesPri1.Value = 1, val("&H" & "CCFFFF"), lngWhite), lngWhite)
-
-'http://allenbrowne.com/links.html
-'http://www.codeproject.com/Articles/16851/Uploading-and-Downloading-BLOBs-to-Microsoft-Acces
-'https://support.office.com/en-US/article/Order-of-events-for-database-objects-E76FBBFE-6180-4A52-8787-CE86553682F9#bm5
-'    Dim ctrl As Control
-'    Dim strName As String
-'
-'    ' Background 1 = white --> lngWhite
-'    ' #CCFFFF = lt blue --> Val("&H" & "FFFFFF")
-'
-'    ' iterate through priority grid checking for tbxYearXPriority (X = 1-8)
-'    For Each ctrl In Me.Controls
-'        strName = Replace(Replace(ctrl.name, "Priority", ""), "tbxYear", "")
-'        If IsNumeric(strName) Then
-'            ctrl.backcolor = IIf(ctrl = "1", IIf(tbxSumSpeciesPri1 = 1, val("&H" & "CCFFFF"), lngWhite), lngWhite)
-'        End If
-'    Next
-
-
-
-Private Sub Detail_Format(Cancel As Integer, FormatCount As Integer)
-End Sub
-
-Private Sub Report_Activate()
-'   BLC - 11/27/2015 - add conditional background colors for controls (unique priority 1s)
-
-    ' Background 1 = white --> lngWhite
-    ' #CCFFFF = lt blue --> Val("&H" & "FFFFFF")
-'    tbxYear1Priority.backcolor = IIf(tbxYear1Priority.Value = "1", IIf(tbxSumSpeciesPri1.Value = 1, val("&H" & "CCFFFF"), lngWhite), lngWhite)
-
-'http://allenbrowne.com/links.html
-'http://www.codeproject.com/Articles/16851/Uploading-and-Downloading-BLOBs-to-Microsoft-Acces
-'https://support.office.com/en-US/article/Order-of-events-for-database-objects-E76FBBFE-6180-4A52-8787-CE86553682F9#bm5
-'    Dim ctrl As Control
-'    Dim strName As String
-'
-'    ' Background 1 = white --> lngWhite
-'    ' #CCFFFF = lt blue --> Val("&H" & "FFFFFF")
-'
-'    ' iterate through priority grid checking for tbxYearXPriority (X = 1-8)
-'    For Each ctrl In Me.Controls
-'        strName = Replace(Replace(ctrl.name, "Priority", ""), "tbxYear", "")
-'        If IsNumeric(strName) Then
-'        '?ctrl 'runtime error 16389 reserved error
-'            ctrl.backcolor = IIf(ctrl = "1", IIf(tbxSumSpeciesPri1 = 1, val("&H" & "CCFFFF"), lngWhite), lngWhite)
-'        End If
-'    Next
-End Sub
-
-Private Sub Report_Current()
-    'tbxYear1Priority.backcolor = IIf(tbxYear1Priority = "1", IIf(tbxSumSpeciesPri1 = "1", "#CCFFFF", "Background 1"), "Background 1")
-End Sub
-
-Private Sub Report_GotFocus()
-End Sub
-
 ' =================================
 ' MODULE:       Report_rpt_Tgt_Species_List_Park_Summary
 ' Description:  Load species list to target species list functions and routines
-'
+'port
 ' Source/date:  Bonnie Campbell, 9/21/2015
 ' Revisions:    BLC - 9/21/2015 - initial version
 ' =================================
@@ -2336,6 +2410,7 @@ End Sub
 ' Revisions:
 '   BLC - 9/21/2015 - initial version
 '   BLC - 9/30/2015 - set report data source SQL to update to TempVars("Park")
+'   BLC - 11/27/2015 - cleanup commented out code
 ' ---------------------------------
 Private Sub Report_Open(Cancel As Integer)
 
@@ -2354,10 +2429,6 @@ On Error GoTo Err_Handler
     
     Next
 
-    'handle ParkPriorities parameter request
-    'Dim ParkPriorities As String
-    'ParkPriorities = "fix"
-
     'update data source
     Dim strSQL As String
     Dim qdf As DAO.QueryDef
@@ -2374,7 +2445,6 @@ On Error GoTo Err_Handler
 '    Target_Area_ID, Tgt_Area, utah_species, Co_Species, Wy_Species, Master_Common_Name, PriorityTarget,
 '    SpeciesYear;
     
-    
     Set qdf = CurrentDb.QueryDefs("qry_Tgt_Species_List_Park_Summary_Data") '("qry_Tgt_Species_List_Park_Summary")
     
     strSQL = "SELECT DISTINCT Master_Plant_Code_FK, LU_Code, Family, Species_Name, utah_species, " _
@@ -2388,51 +2458,10 @@ On Error GoTo Err_Handler
             & "Target_Area_ID, Tgt_Area, utah_species, Co_Species, Wy_Species, Master_Common_Name, " _
             & "PriorityTarget, SpeciesYear;"
             
-'    "SELECT DISTINCT Master_Plant_Code_FK, LU_Code, Family, Species_Name, utah_species, " _
-'        & "Co_Species, Wy_Species, Master_Common_Name, " _
-'        & "ConcatRelated("ParkYearPriority","qry_Annual_Complete_Tgt_Species_Lists","Park = 'PARKNAME' " _
-'        & "AND Species_Name='"+Species_Name+"'",'',"|") AS ParkYearPriorities, " _
-'        & "(SELECT Min(TgtYear) FROM qry_Annual_Complete_Tgt_Species_Lists WHERE Park = 'PARKNAME') AS MinYear, " _
-'        & "(SELECT Max(TgtYear) FROM qry_Annual_Complete_Tgt_Species_Lists WHERE Park = 'PARKNAME') AS MaxYear " _
-'        & "FROM (SELECT * FROM qry_Annual_Complete_Tgt_Species_Lists WHERE Park = 'PARKNAME')  AS [%$##@_Alias] " _
-'        & "GROUP BY Park, Master_Plant_Code_FK, LU_Code, Family, Species_Name, Priority, Transect_Only, " _
-'        & "Target_Area_ID, Tgt_Area, utah_species, Co_Species, Wy_Species, Master_Common_Name, " _
-'        & "PriorityTarget, SpeciesYear; "
-    
-    
-'    strSQL = qdf.sql
-Debug.Print strSQL
-    'strSQL = Replace(strSQL, ";", "") & " WHERE Park = 'PARKNAME';"
-    strSQL = Replace(strSQL, "PARKNAME", TempVars!Park) '"PARKNAME", TempVars!Park)
+    strSQL = Replace(strSQL, "PARKNAME", TempVars!Park)
 Debug.Print strSQL
     qdf.sql = strSQL
     
-'    strSQL = "SELECT DISTINCT Master_Plant_Code_FK, LU_Code, Family, Species_Name, utah_species, Co_Species, Wy_Species, & " _
-'                & "Master_Common_Name, ConcatRelated("ParkYearPriority","qry_Annual_Complete_Tgt_Species_Lists"," _
-'                & ""Park = '" & TempVars!Park & "' AND Species_Name='"+Species_Name+"'",'',"|") AS ParkYearPriorities, " _
-'                & "(SELECT Min(TgtYear) FROM qry_Annual_Complete_Tgt_Species_Lists WHERE Park = '" & TempVars!Park & "') AS MinYear, " _
-'                & "(SELECT Max(TgtYear) FROM qry_Annual_Complete_Tgt_Species_Lists WHERE Park = '" & TempVars!Park & "') AS MaxYear " _
-'                & "FROM (SELECT * FROM qry_Annual_Complete_Tgt_Species_Lists WHERE Park = '" & TempVars!Park & "')  AS [%$##@_Alias] " _
-'                & "GROUP BY Park, Master_Plant_Code_FK, LU_Code, Family, Species_Name, Priority, Transect_Only, " _
-'                & "Target_Area_ID, Tgt_Area, utah_species, Co_Species, Wy_Species, Master_Common_Name, PriorityTarget, " _
-'                & "ParkYearPriority, SpeciesYear;"
-
-    If Len(Me.OpenArgs) > 0 Then
-        ' Bob Larsen, January 28, 2012
-        ' https://social.msdn.microsoft.com/Forums/office/en-US/3e126484-112f-4854-a5c0-2e9ef48e02bc/how-to-change-recordsource-for-a-report-with-vba?forum=accessdev
-        'set recordset to passed in SQL via OpenArgs
-        'If Me.OpenArgs <> vbNullString Then
-        'Me.Recordset = Me.OpenArgs
-        ' dyDMA, Sept 8, 2008
-        ' http://www.utteraccess.com/forum/Run-time-error-32585-t1710296.html
-        '==> Run-time Error 32585: This feature is only available in an ADP
-        '==> Only Access ADP's can use this method (assign report recordset @ run-time)
-        '==> Not available for *.mdb or *.accdb's
-        
-        'set orderby
-        Me.OrderBy = Me.OpenArgs
-    End If
-    'sPercentage
 
 If ReportIsLoaded("rpt_Tgt_Species_List_Park_Summary") Then
      DoEvents
@@ -2446,14 +2475,6 @@ If ReportIsLoaded("rpt_Tgt_Species_List_Park_Summary") Then
 End If
 
 Screen.MousePointer = 1 'Standard Cursor
-    
-    'reset the query >>> cannot do this BEFORE report is rendered otherwise it will ask for "Park" param
-'    Set qdf = CurrentDb.QueryDefs("qry_Tgt_Species_List_Park_Summary")
-'    strSQL = qdf.sql
-'Debug.Print strSQL
-'    strSQL = Replace(strSQL, TempVars!Park, "PARKNAME")
-'Debug.Print strSQL
-'    qdf.sql = strSQL
 
 Exit_Sub:
     Exit Sub
