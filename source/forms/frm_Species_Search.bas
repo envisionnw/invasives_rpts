@@ -14,10 +14,10 @@ Begin Form
     Width =13584
     DatasheetFontHeight =11
     ItemSuffix =64
-    Left =3855
+    Left =5280
     Top =2790
-    Right =17700
-    Bottom =8970
+    Right =18315
+    Bottom =10155
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x0a915c95ff94e440
@@ -988,6 +988,11 @@ Option Explicit
 '
 ' Source/date:  Bonnie Campbell, 2/9/2015
 ' Revisions:    BLC - 2/9/2015 - initial version
+'               BLC - 6/26/2015 - added LU_Code to search
+'               BLC - 6/30/2015 - removed unused subroutines
+'                                 btnSearch_Enter() and SpeciesSearch()
+'                                 both handled by btnSearch_Click()
+'               BLC - 7/22/2015 - fixed search header highlighting
 ' =================================
 
 '=================================================================
@@ -1102,12 +1107,13 @@ End Property
 ' Revisions:
 '   BLC - 2/9/2015  - initial version
 '   BLC - 2/20/2015 - cleared selections & updated documentation
+'   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub Form_Load()
 On Error GoTo Err_Handler
     
     'set form caller
-    TempVars.item("originForm") = Forms!frm_Species_Search.OpenArgs
+    TempVars("originForm") = Forms!frm_Species_Search.OpenArgs
     
     Initialize
        
@@ -1146,13 +1152,14 @@ End Sub
 ' Revisions:
 '   BLC - 2/10/2015 - initial version
 '   BLC - 5/13/2015 - revised to use global constants vs. tempvars for enabled control
+'   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub tbxSearchFor_LostFocus()
 On Error GoTo Err_Handler
     
     If Len(tbxSearchFor.Value) > 0 Then
         'check if species list is identified
-        If Len(TempVars.item("speciestype")) > 0 Then
+        If Len(TempVars("speciestype")) > 0 Then
             'enable the search "button"
             btnSearch.Enabled = True
             'EnableControl btnSearch, CTRL_ADD_ENABLED, TEXT_ENABLED
@@ -1194,11 +1201,11 @@ Private Sub cbxCO_Click()
 On Error GoTo Err_Handler
 
 If cbxCO = True Then
-    'TempVars.Item("speciestype") = TempVars.Item("speciestype") & ";CO"
+
     cbxAddToList "speciestype", "CO", ";"
 
 Else
-    'TempVars.Item("speciestype") = Replace(Replace(TempVars.Item("speciestype"), "CO", ""), ";;", ";")
+
     cbxRemoveFromList "speciestype", "CO", ";"
 
 End If
@@ -1232,11 +1239,11 @@ Private Sub cbxUT_Click()
 On Error GoTo Err_Handler
 
 If cbxUT = True Then
-    'TempVars.Item("speciestype") = TempVars.Item("speciestype") & ";UT"
+    
     cbxAddToList "speciestype", "UT", ";"
 
 Else
-    'TempVars.Item("speciestype") = Replace(Replace(TempVars.Item("speciestype"), "UT", ""), ";;", ";")
+    
     cbxRemoveFromList "speciestype", "UT", ";"
 
 End If
@@ -1270,11 +1277,11 @@ Private Sub cbxWY_Click()
 On Error GoTo Err_Handler
 
 If cbxWY = True Then
-    'TempVars.Item("speciestype") = TempVars.Item("speciestype") & ";WY"
+
     cbxAddToList "speciestype", "WY", ";"
 
 Else
-    'TempVars.Item("speciestype") = Replace(Replace(TempVars.Item("speciestype"), "WY", ""), ";;", ";")
+
     cbxRemoveFromList "speciestype", "WY", ";"
 
 End If
@@ -1308,11 +1315,11 @@ Private Sub cbxITIS_Click()
 On Error GoTo Err_Handler
 
 If cbxITIS = True Then
-    'TempVars.Item("speciestype") = TempVars.Item("speciestype") & ";ITIS"
+
     cbxAddToList "speciestype", "ITIS", ";"
 
 Else
-    'TempVars.Item("speciestype") = Replace(Replace(TempVars.Item("speciestype"), "ITIS", ""), ";;", ";")
+
     cbxRemoveFromList "speciestype", "ITIS", ";"
 
 End If
@@ -1346,10 +1353,10 @@ Private Sub cbxCommon_Click()
 On Error GoTo Err_Handler
 
 If cbxCommon = True Then
-    'TempVars.Item("speciestype") = TempVars.Item("speciestype") & ";CMN"
+
     cbxAddToList "speciestype", "CMN", ";"
 Else
-    'TempVars.Item("speciestype") = Replace(Replace(TempVars.Item("speciestype"), "CMN", ""), ";;", ";")
+
     cbxRemoveFromList "speciestype", "CMN", ";"
 End If
 
@@ -1379,19 +1386,20 @@ End Sub
 ' Adapted:      Bonnie Campbell, February 9, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/9/2015 - initial version
+'   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cbxAddToList(list As String, cbxValue As String, separator As String)
 On Error GoTo Err_Handler
     
     'if list exists and item is in it, exit
-    If Len(TempVars.item(list)) > 0 Then
-        If CountInString(TempVars.item(list), cbxValue) > 0 Then
+    If Len(TempVars(list)) > 0 Then
+        If CountInString(TempVars(list), cbxValue) > 0 Then
             GoTo Exit_Sub
         End If
     End If
         
     'add item if it's not already in list
-    TempVars.item(list) = TempVars.item(list) & cbxValue & separator
+    TempVars(list) = TempVars(list) & cbxValue & separator
     
 Exit_Sub:
     Exit Sub
@@ -1419,14 +1427,15 @@ End Sub
 ' Adapted:      Bonnie Campbell, February 9, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/9/2015 - initial version
+'   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cbxRemoveFromList(list As String, cbxValue As String, separator As String)
 On Error GoTo Err_Handler
     
-    TempVars.item(list) = Replace(Replace(TempVars.item(list), cbxValue, ""), separator & separator, separator)
+    TempVars(list) = Replace(Replace(TempVars(list), cbxValue, ""), separator & separator, separator)
     
     'clear if only = separator
-    If Len(TempVars.item(list)) = 1 And TempVars.item(list) = separator Then TempVars.item(list) = ""
+    If Len(TempVars(list)) = 1 And TempVars(list) = separator Then TempVars(list) = ""
 
 Exit_Sub:
     Exit Sub
@@ -1463,6 +1472,7 @@ End Sub
 '                     changed order of tbxMasterPlantCode and tbxLUCode to populate listbox
 '                     (bugfix for search species missing proper LUcode)
 '   BLC - 6/4/2015  - added handling to disable double-click for path coming from Search tab
+'   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub tbxLUCode_DblClick(Cancel As Integer)
 On Error GoTo Err_Handler
@@ -1471,7 +1481,7 @@ On Error GoTo Err_Handler
     Dim lbx As ListBox
     
     'check if coming from search tab & disable
-    If TempVars.item("originForm") = "DisableDoubleClick" Then GoTo Exit_Sub
+    If TempVars("originForm") = "DisableDoubleClick" Then GoTo Exit_Sub
     
     'check for empty values --> tbxResultCode, tbxUTSpecies, tbxMasterSpecies - cannot be empty!
     If IsNull(tbxLUCode) Or Len(Trim(tbxLUCode)) = 0 Then
@@ -1516,7 +1526,7 @@ On Error GoTo Err_Handler
     
     'return focus to calling form
     Dim origin As String
-    origin = TempVars.item("originForm")
+    origin = TempVars("originForm")
     If Len(origin) > 0 Then
         DoCmd.SelectObject acForm, origin, False
         DoCmd.Restore
@@ -1556,6 +1566,9 @@ End Sub
 '                     when checkbox was left checked
 '   BLC - 5/29/2015 - added Master_PLANT_Code to selection (bugfix for search species missing proper LUcode)
 '                     renamed tbxResultCode to tbxLUCode
+'   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'   BLC - 6/26/2015 - added LU_Code to search to enable search against code to find species
+'   BLC - 7/22/2015 - fixed search header highlighting
 ' ---------------------------------
 Private Sub btnSearch_Click()
 On Error GoTo Err_Handler
@@ -1572,7 +1585,7 @@ On Error GoTo Err_Handler
     'check strSearch is alpha numeric
     
     'check if species list is selected
-    If Len(TempVars.item("speciestype")) > 0 Then
+    If Len(TempVars("speciestype")) > 0 Then
         'enable the search "button"
         btnSearch.Enabled = True
         'EnableControl btnSearch, CTRL_ADD_ENABLED, TEXT_ENABLED
@@ -1589,7 +1602,14 @@ On Error GoTo Err_Handler
             
     'determine which species names to check
     Dim listTypes() As String
-    listTypes = Split(TempVars.item("speciestype"), ";")
+    'add the 6-letter code to the search matches
+    If Len(TempVars("speciestype")) > 0 Then
+        'TempVars("speciestype") = TempVars("speciestype") & "CODE;"
+        cbxAddToList "speciestype", "CODE", ";"
+    'Else
+    '    TempVars("speciestype") = "CODE;"
+    End If
+    listTypes = Split(TempVars("speciestype"), ";")
     
     For Each speciestype In listTypes
         
@@ -1620,6 +1640,8 @@ On Error GoTo Err_Handler
                 Case "CMN"  'Common
                     strSpecies = "Master_Common_Name"
                     ResetHeaders Me, False, "*", True, 1, 16737792, 15788753, lblCommonHdr
+                Case "CODE"
+                    strSpecies = "LU_Code"
             End Select
                     
             strWhere = strWhere & " " & strSpecies & " LIKE '*" & strSearch & "*'"
@@ -1688,203 +1710,7 @@ On Error GoTo Err_Handler
     ClearFields Me
     
     'leave last selections for checkboxes (don't clear TempVars.item("speciestype"))
-    ' TempVars.item("speciestype") = ""
-
-Exit_Sub:
-    Exit Sub
-
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - btnSearch_Click[form_frm_Species_Search])"
-    End Select
-    Resume Exit_Sub
-End Sub
-
-' ---------------------------------
-' SUB:          btnSearch_Enter
-' Description:  Search for the name or portion of a name in the species/common names listed & return a result list
-' Assumptions:
-' Note:         Returns all species/common names from tlu_NCPN_Plants that contain the search string.
-'               The string may be found at the beginning, middle or end of a name to be included.
-'               Special search strings like "*" (not including quotes) will return ALL species in the table.
-' Parameters:   N/A
-' Returns:      N/A
-' Throws:       none
-' References:   none
-' Source/date:
-' http://codevba.com/msaccess/status_bar_and_progress_meter.htm#.VNb9X_lM4_4
-' Adapted:      Bonnie Campbell, February 7, 2015 - for NCPN tools
-' Revisions:
-'   BLC - 2/7/2015  - initial version
-'   BLC - 2/20/2015 - added header highlighting
-'   BLC - 2/23/2015 - fixed duplicate results (SELECT DISTINCT...)
-' ---------------------------------
-Private Sub btnSearch_Enter()
-On Error GoTo Err_Handler
-
-    'search for species
-    'SpeciesSearch
-
-Exit_Sub:
-    Exit Sub
-
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - btnSearch_Enter[form_frm_Species_Search])"
-    End Select
-    Resume Exit_Sub
-End Sub
-
-' ---------------------------------
-' SUB:          SpeciesSearch
-' Description:  Search for the name or portion of a name in the species/common names listed & return a result list
-' Assumptions:
-' Note:         Returns all species/common names from tlu_NCPN_Plants that contain the search string.
-'               The string may be found at the beginning, middle or end of a name to be included.
-'               Special search strings like "*" (not including quotes) will return ALL species in the table.
-' Parameters:   N/A
-' Returns:      N/A
-' Throws:       none
-' References:   none
-' Source/date:
-' http://codevba.com/msaccess/status_bar_and_progress_meter.htm#.VNb9X_lM4_4
-' Adapted:      Bonnie Campbell, February 7, 2015 - for NCPN tools
-' Revisions:
-'   BLC - 2/7/2015  - initial version
-'   BLC - 2/20/2015 - added header highlighting
-'   BLC - 2/23/2015 - fixed duplicate results (SELECT DISTINCT...)
-'   BLC - 5/13/2015 - revised to use global constants vs. tempvars for enabled control
-' ---------------------------------
-Public Sub SpeciesSearch()
-On Error GoTo Err_Handler
-    
-    Dim speciestype As Variant
-    Dim strSearch As String, strSpecies As String, strWhere As String, strSQL As String
-    Dim i As Integer
-
-    'ignore if disabled
-    If btnSearch.Enabled = False Then GoTo Exit_Sub
-
-    strSearch = Trim(tbxSearchFor.Value)
-            
-    'check strSearch is alpha numeric
-    
-    'check if species list is selected
-    If Len(TempVars.item("speciestype")) > 0 Then
-        'enable the search "button"
-        btnSearch.Enabled = True
-'        EnableControl btnSearch, CTRL_ADD_ENABLED, TEXT_ENABLED
-    Else
-        MsgBox "Please choose at least one species list to search.", vbOKOnly, "Oops! Missing Species List to Search"
-        GoTo Exit_Sub
-    End If
-    
-    'determine which species names are to be searched (ITIS, UT, CO, WY, Common)
-    strWhere = " WHERE "
-        
-    'reset headers
-    ResetHeaders Me, True, "*", False, 0, 8355711 ', vbWhite '#7F7F7F rgb(127,127,127)
-            
-    'determine which species names to check
-    Dim listTypes() As String
-    listTypes = Split(TempVars.item("speciestype"), ";")
-    
-    For Each speciestype In listTypes
-        
-        If Len(speciestype) > 0 Then
-            
-            'If CountInString(speciestype, ";") > 1 Then
-            i = i + 1
-            If i > 1 Then
-                strWhere = strWhere & " OR "
-            
-            End If
-        
-            'forecolor 16737792 '#0066FF rgb(0,102,255)
-            'backcolor 15788753 '#D1EAF0 rgb(209,234,240)
-            Select Case speciestype
-                Case "CO"   'Colorado
-                    strSpecies = "CO_Species"
-                    ResetHeaders Me, False, "*", True, 1, 16737792, 15788753, lblCOHdr
-                Case "UT"   'Utah
-                    strSpecies = "Utah_Species"
-                    ResetHeaders Me, False, "*", True, 1, 16737792, 15788753, lblUTHdr
-                Case "WY"   'Wyoming
-                    strSpecies = "WY_Species"
-                    ResetHeaders Me, False, "*", True, 1, 16737792, 15788753, lblWYHdr
-                Case "ITIS" 'Master
-                    strSpecies = "Master_Species"
-                    ResetHeaders Me, False, "*", True, 1, 16737792, 15788753, lblITISHdr
-                Case "CMN"  'Common
-                    strSpecies = "Master_Common_Name"
-                    ResetHeaders Me, False, "*", True, 1, 16737792, 15788753, lblCommonHdr
-            End Select
-                    
-            strWhere = strWhere & " " & strSpecies & " LIKE '*" & strSearch & "*'"
-            
-        End If
-    Next
-    
-    'prep WHERE clause
-    If Len(Replace(strWhere, "WHERE", "")) = 0 Then strWhere = ""
-    
-    'build SQL statement
-    strSQL = "SELECT DISTINCT LU_Code, Master_Species, Utah_Species, CO_Species, WY_Species, " _
-            & "Master_Common_Name " _
-            & "FROM tlu_NCPN_Plants " _
-            & strWhere & ";"
-               
-    'run search
-    Dim rs As DAO.Recordset
-      
-    'fetch data
-    Set rs = CurrentDb.OpenRecordset(strSQL) ', dbOpenSnapshot)
-
-    'set form results
-    Set Me.Recordset = rs
-    tbxLUCode.ControlSource = "LU_Code"
-    tbxMasterSpecies.ControlSource = "Master_Species"   'ITIS
-    tbxUTSpecies.ControlSource = "Utah_Species"
-    tbxCOSpecies.ControlSource = "CO_Species"
-    tbxWYSpecies.ControlSource = "WY_Species"
-    tbxCmnName.ControlSource = "Master_Common_Name"
-    tbxMasterPlantCode.ControlSource = "Master_PLANT_Code"
-
-    'turn fields on (includes lblNoRecords, controls w/o & w/ * tags)
-    ShowControls Me, True, "", True
-    ShowControls Me, True, "*", True
-    
-    ' determine record count
-    Dim count As Integer
-    If Not rs.EOF Then
-        rs.MoveLast
-        count = rs.RecordCount
-        rs.MoveFirst
-        
-        'set # species found
-        lblSpeciesFound.Caption = count & " species found"
-'        lblSpeciesFound.Visible = True
-        lblNoRecords.visible = False
-        
-    Else
-        lblSpeciesFound.visible = False
-'        lblNoRecords.Visible = True
-    End If
-        
-    'set search for caption
-    lblSearchForValue.Caption = """" & strSearch & """"
-    
-    'set statusbar notice
-    Dim varReturn As Variant
-    varReturn = SysCmd(acSysCmdSetStatus, "Searching for " & strSearch & "...")
-    
-    'clear fields
-    ClearFields Me
-    
+    'must clear to clear highlighting & reset speciestypes
     TempVars.item("speciestype") = ""
 
 Exit_Sub:

@@ -545,7 +545,7 @@ Private Sub cmdUpdateLinks_Click()
                 !New_file_name = Null
                 !New_file_path = Null
                 .Update
-                .Bookmark = .LastModified
+                .Bookmark = .lastModified
             End With
             
     ' -------------------------------------------------------

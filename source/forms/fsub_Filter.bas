@@ -19,10 +19,10 @@ Begin Form
     Width =4140
     DatasheetFontHeight =9
     ItemSuffix =50
-    Left =6612
-    Top =7272
-    Right =10752
-    Bottom =8316
+    Left =6615
+    Top =7275
+    Right =10755
+    Bottom =8310
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x1385341e7574e340
@@ -197,7 +197,6 @@ Begin Form
                     QuickStyle =39
                     QuickStyleMask =-513
                     WebImagePaddingTop =1
-                    WebImagePaddingBottom =1
                 End
                 Begin ComboBox
                     OverlapFlags =85
@@ -272,20 +271,22 @@ Option Explicit
 ' References:   -
 ' Source/date:  Adapted from John Boetsch
 '               Created 06/12/2014 blc; Last modified 06/12/2014 blc.
-' Revisions:    Bonnie Campbell, June 12, 2014 - initial version
+' Adapted:    Bonnie Campbell, June 12, 2014 - initial version
+' Revisions:    BLC - 6/12/2014 - initial version
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub btnRun_Click()
     Dim dictParams As New Dictionary
     
     'pass selected values to query/report
-    Select Case TempVars.item("analysis")
+    Select Case TempVars("analysis")
     'analysis
         Case "Outliers", "MissingData", "Duplicates"
         
             dictParams.Add "ProjectID", lbxProjectID.ListIndex
             dictParams.Add "Project", lbxProjectID.Value
             dictParams.Add "Year", lbxYear.ListIndex
-            dictParams.Add "qry", "qry_" & TempVars.item("analysis")
+            dictParams.Add "qry", "qry_" & TempVars("analysis")
 
             RunReport dictParams
 
@@ -295,7 +296,7 @@ Private Sub btnRun_Click()
             dictParams.Add "ProjectID", lbxProjectID.ListIndex
             dictParams.Add "Project", lbxProjectID.Value
             dictParams.Add "Year", lbxYear.ListIndex
-            dictParams.Add "qry", "qry_" & TempVars.item("analysis")
+            dictParams.Add "qry", "qry_" & TempVars("analysis")
 
             RunReport dictParams
         
@@ -309,7 +310,7 @@ Private Sub btnRun_Click()
             dictParams.Add "ProjectID", lbxProjectID.ListIndex
             dictParams.Add "Project", lbxProjectID.Value
             dictParams.Add "Year", lbxYear.ListIndex
-            dictParams.Add "qry", "qry_" & TempVars.item("analysis")
+            dictParams.Add "qry", "qry_" & TempVars("analysis")
 
             RunReport dictParams
             
@@ -337,7 +338,8 @@ End Sub
 ' Throws:       -
 ' References:   -
 ' Source/date:  Bonnie Campbell, June 17, 2014 - for NCPN WQ Utilities tool
-' Revisions:    6/17/2014 - BLC - initial version
+' Revisions:    BLC - 6/17/2014 - initial version
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Public Sub RunReport(varParams As Variant)
 On Error GoTo Err_Handler:
@@ -345,7 +347,7 @@ On Error GoTo Err_Handler:
     Dim Response As String
 
     'pass selected values to query/report
-    Select Case TempVars.item("analysis")
+    Select Case TempVars("analysis")
         
     ' --------------
     ' analysis
@@ -400,7 +402,7 @@ On Error GoTo Err_Handler:
         GoTo Not_Found
     End If
     
-    Select Case TempVars.item("action")
+    Select Case TempVars("action")
     ' --------------
     ' analysis (queries)
     ' --------------
@@ -427,7 +429,7 @@ On Error GoTo Err_Handler:
 '  Run Report
 ' --------------
     'process query
-    If qryExists(strQuery) Then
+    If QryExists(strQuery) Then
         DoCmd.SetWarnings False
         DoCmd.Hourglass True
         SysCmd acSysCmdSetStatus, "Running " & strQuery & " query... "
@@ -441,17 +443,17 @@ On Error GoTo Err_Handler:
         SysCmd acSysCmdSetStatus, "Calculations complete!"
         
         If rstQuery.EOF Then
-            MsgBox "Sorry, no valid " & TempVars.item("analysis") & " records were found" & vbCrLf & vbCrLf & _
+            MsgBox "Sorry, no valid " & TempVars("analysis") & " records were found" & vbCrLf & vbCrLf & _
              "for the park(s)/year(s) selected when running the query.", vbOKOnly, _
-             "No Records for " & TempVars.item("analysis") & " Analysis"
+             "No Records for " & TempVars("analysis") & " Analysis"
             GoTo Exit_Procedure
         Else
             'present user with the choice of viewing the records or not
              Response = MsgBox("Finished calculating!" & vbCrLf & vbCrLf & _
                                "Do you want to view your results in the " & _
-                               vbCrLf & vbCrLf & TempVars.item("analysis") & " query?" & _
+                               vbCrLf & vbCrLf & TempVars("analysis") & " query?" & _
                                vbCrLf & vbCrLf & "If not, they'll be there until you run this calculation again.", _
-                               vbYesNo, StrConv(TempVars.item("analysis"), vbProperCase) & " Complete!")
+                               vbYesNo, StrConv(TempVars("analysis"), vbProperCase) & " Complete!")
              
              If Response = vbYes Then    ' User chose Yes.
                 'open the query

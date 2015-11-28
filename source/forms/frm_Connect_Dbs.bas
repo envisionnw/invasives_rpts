@@ -22,9 +22,9 @@ Begin Form
     Width =10800
     DatasheetFontHeight =10
     ItemSuffix =110
-    Left =4020
+    Left =5280
     Top =2715
-    Right =14820
+    Right =16080
     Bottom =8760
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
@@ -727,6 +727,7 @@ Option Explicit
 ' Adapted:      Bonnie Campbell, June, 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC, 6/13/2014 - added to WQ utilities tool
 '               BLC, 5/21/2015 - added to invasives reporting tool & updated fxnSwitchboardIsOpen to FormIsOpen function
+'               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub Form_Open(Cancel As Integer)
 On Error GoTo Err_Handler
@@ -742,7 +743,7 @@ On Error GoTo Err_Handler
     End If
 
     ' Enable/disable subforms depending on user access level
-    Select Case TempVars.item("UserAccessLevel")
+    Select Case TempVars("UserAccessLevel")
       Case "admin"
         Me.cbxIs_ODBC.Locked = False
       Case Else
@@ -1380,6 +1381,7 @@ End Sub
 '                                comma after "strNewConnStr," new call is
 '                                RefreshLinks(strDbName, strNewConnStr, , False)
 '                                added frm_Main_Menu restore on exit
+'               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub btnUpdateLinks_Click()
     On Error GoTo Err_Handler
@@ -1400,7 +1402,7 @@ Private Sub btnUpdateLinks_Click()
     rst.MoveFirst
 
     bHasError = False       ' Default until an error is encountered
-    TempVars.item("HasAccessBE") = False
+    TempVars("HasAccessBE") = False
 
     ' If it is open, close the always-open form (used to maintain the connection to the
     '   back-end and avoid unnecessary create/delete/updates to its .ldb lock file)
@@ -1443,7 +1445,7 @@ Private Sub btnUpdateLinks_Click()
             End If
         Else
             ' Access back-end
-            TempVars.item("HasAccessBE") = True
+            TempVars("HasAccessBE") = True
             ' If the user didn't specify a different database,
             '   refresh the links to the current linked file
             If IsNull(rst.Fields("New_path")) Then
@@ -1475,7 +1477,7 @@ Private Sub btnUpdateLinks_Click()
             !New_server = Null
             '!Is_Network_Db = IsNetworkFile(rst.Fields("New_path").Value) ' <<<<< ERROR 94 TRIGGERED HERE
             .Update
-            .Bookmark = .LastModified
+            .Bookmark = .lastModified
         End With
 
 NextBackEnd:
@@ -1496,7 +1498,7 @@ NextBackEnd:
         If VerifyLinkTableInfo = True Then
             ' If no problems persist ...
             MsgBox "Update complete!", vbExclamation, "Back-end database connections"
-            TempVars.item("Connected") = True
+            TempVars("Connected") = True
             DoCmd.Close , , acSaveNo
             ' Call the function to set up the application using new connection info
             Call AppSetup
@@ -1570,7 +1572,7 @@ Private Sub btnClose_Click()
             !New_path = Null
             !New_server = Null
             .Update
-            .Bookmark = .LastModified
+            .Bookmark = .lastModified
         End With
         rst.MoveNext
     Loop

@@ -13,10 +13,10 @@ Begin Form
     Width =3960
     DatasheetFontHeight =11
     ItemSuffix =14
-    Left =26196
-    Top =5100
-    Right =30348
-    Bottom =7968
+    Left =7356
+    Top =5436
+    Right =11496
+    Bottom =8292
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x2cb45f3fbd91e440
@@ -205,6 +205,8 @@ Begin Form
                     ForeColor =4138256
                     Name ="cbxYear"
                     RowSourceType ="Value List"
+                    RowSource ="'SEL';'Select Year';'2017';'2017';'2015';'2015';'2014';'2014';'2013';'2013';'201"
+                        "2';'2012';'2011';'2011';'2010';'2010';'2009';'2009';'2008';'2008';'';'';"
                     ColumnWidths ="0;1440"
                     DefaultValue ="\"SEL\""
                     OnChange ="[Event Procedure]"
@@ -264,6 +266,8 @@ Option Explicit
 '
 ' Source/date:  Bonnie Campbell, 5/1/2015
 ' Revisions:    BLC - 5/1/2015 - initial version
+'               BLC - 6/12/2015 - added Continue button enable,
+'                                 replaced TempVars.item("... with TempVars("...
 ' =================================
 
 ' ---------------------------------
@@ -278,6 +282,7 @@ Option Explicit
 ' Adapted:      Bonnie Campbell, February 12, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 5/1/2015 - initial version
+'   BLC - 6/12/2015 - disabled Continue button to start
 ' ---------------------------------
 Private Sub Form_Load()
 
@@ -311,6 +316,9 @@ On Error GoTo Err_Handler
     cbxYear.RowSource = strValueList
     cbxYear.Value = "SEL"
     
+    'disable continue to start
+    btnContinue.Enabled = False
+    
 Exit_Sub:
     Exit Sub
     
@@ -335,13 +343,17 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 1, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 5/1/2015 - initial version
+'   BLC - 6/12/2015 - added enable Continue button when valid year value is selected,
+'                     replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cbxYear_Change()
 On Error GoTo Err_Handler
 
     If Len(Trim(cbxYear)) > 0 Then
         'set year
-        TempVars.item("TgtYear") = cbxYear.Value
+        TempVars("TgtYear") = cbxYear.Value
+        'enable continue
+        btnContinue.Enabled = True
     End If
 
 Exit_Sub:
@@ -369,21 +381,33 @@ End Sub
 ' Revisions:
 '   BLC, 2/12/2015 - initial version
 '   BLC, 5/1/2015  - switched from frmActions to launching popup frm_Tgt_Species form for Invasive Species Reporting tool
+'   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'                     added catch for Error #94 Invalid Use of Null which occasionally
+'                     happens w/ debugging, TempVars("TgtYear") is somehow lost
 ' ---------------------------------
 Private Sub btnContinue_Click()
 On Error GoTo Err_Handler
        
-    TempVars.item("TgtYear") = cbxYear.Value
+    TempVars("TgtYear") = cbxYear.Value
     
-    'open report
-    DoCmd.OpenReport "rpt_Tgt_Species_List_Annual_Summary", acViewReport, , "TgtYear=" & CInt(TempVars.item("TgtYear"))
+    If TempVars("TgtYear") > 0 Then
+    
+        'open report
+        DoCmd.OpenReport "rpt_Tgt_Species_List_Annual_Summary", acViewReport, , "TgtYear=" & CInt(TempVars("TgtYear"))
+        
+    End If
         
 Exit_Sub:
     Exit Sub
     
 Err_Handler:
     Select Case Err.Number
-      Case Else
+      Case 94 'Invalid Use of NULL
+        MsgBox "Error #" & Err.Number & ": " & Err.Description & vbCrLf & vbCrLf & _
+            "Re-select the year you desire. I've somehow forgotten it." & vbCrLf & vbCrLf & _
+            "Selected Target Year: " & TempVars("TgtYear"), vbCritical, _
+            "Error encountered (#" & Err.Number & " - Form_Load[form_fsub_Select_Year])"
+        Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
             "Error encountered (#" & Err.Number & " - btnContinue_Click[form_fsub_Select_Year])"
     End Select

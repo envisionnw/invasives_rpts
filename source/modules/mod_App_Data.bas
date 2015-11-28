@@ -4,11 +4,15 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_App_Data
 ' Level:        Application module
-' Version:      1.00
+' Version:      1.04
 ' Description:  data functions & procedures specific to this application
 '
 ' Source/date:  Bonnie Campbell, 2/9/2015
-' Revisions:    BLC - 2/9/2015 - initial version
+' Revisions:    BLC - 2/9/2015  - 1.00 - initial version
+'               BLC - 2/18/2015 - 1.01 - included subforms in fillList
+'               BLC - 5/1/2015  - 1.02 - integerated into Invasives Reporting tool
+'               BLC - 5/22/2015 - 1.03 - added PopulateList
+'               BLC - 6/3/2015  - 1.04 - added IsUsedTargetArea
 ' =================================
 
 ' ---------------------------------
@@ -272,7 +276,6 @@ Err_Handler:
     Resume Exit_Sub
 End Sub
 
-
 ' ---------------------------------
 ' FUNCTION:     getParkState
 ' Description:  Retrieve the state associated with a park (via tlu_Parks)
@@ -286,7 +289,7 @@ End Sub
 ' Revisions:
 '   BLC - 2/19/2015  - initial version
 ' ---------------------------------
-Public Function getParkState(parkCode As String) As String
+Public Function getParkState(ParkCode As String) As String
 
 On Error GoTo Err_Handler
     
@@ -295,12 +298,12 @@ On Error GoTo Err_Handler
     Dim state As String, strSQL As String
    
     'handle only appropriate park codes
-    If Len(parkCode) <> 4 Then
+    If Len(ParkCode) <> 4 Then
         GoTo Exit_Function
     End If
     
     'generate SQL ==> NOTE: LIMIT 1; syntax not viable for Access, use SELECT TOP x instead
-    strSQL = "SELECT TOP 1 ParkState FROM tlu_Parks WHERE ParkCode LIKE '" & parkCode & "';"
+    strSQL = "SELECT TOP 1 ParkState FROM tlu_Parks WHERE ParkCode LIKE '" & ParkCode & "';"
             
     'fetch data
     Set db = CurrentDb
@@ -322,6 +325,52 @@ Err_Handler:
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
             "Error encountered (#" & Err.Number & " - getParkState[mod_App_Data])"
+    End Select
+    Resume Exit_Function
+End Function
+
+' ---------------------------------
+' FUNCTION:     getListLastModifiedDate
+' Description:  Retrieve the last modified date with a park (via tbl_Target_List)
+' Assumptions:  -
+' Parameters:   tgtYear - 4 digit year of list (integer)
+'               parkCode - 4 character park designator (string)
+' Returns:      date - last modified date (mmm-d-yyyy H:nn AMPM format) for the specified target list (string)
+'                      if NULL (no last modified date) returns empty string
+' Throws:       none
+' References:   none
+' Source/date:
+' Adapted:      Bonnie Campbell, June 10, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 6/10/2015  - initial version
+' ---------------------------------
+Public Function getListLastModifiedDate(TgtYear As Integer, ParkCode As String) As String
+
+On Error GoTo Err_Handler
+    
+    Dim strCriteria As String
+
+    'handle only appropriate park codes
+    If Len(ParkCode) <> 4 Or TgtYear < 2000 Then
+        GoTo Exit_Function
+    End If
+    
+    'set lookup criteria
+    strCriteria = "Park_Code LIKE '" & ParkCode & "' AND CInt(Target_Year) = " & CInt(TgtYear)
+    
+    'Debug.Print strCriteria
+        
+    'lookup last modified date & return value
+    getListLastModifiedDate = Nz(Format(DLookup("Last_Modified", "tbl_Target_List", strCriteria), "mmm-d-yyyy H:nn AMPM"), "")
+    
+Exit_Function:
+    Exit Function
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - getListLastModifiedDate[mod_App_Data])"
     End Select
     Resume Exit_Function
 End Function

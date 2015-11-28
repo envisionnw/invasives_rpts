@@ -3,27 +3,13 @@ Option Explicit
 
 ' =================================
 ' MODULE:       mod_QA
-' VERSION:      1.00
+' VERSION:      1.01
 ' Description:  QA related properties, functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, 8/22/2014
 ' Revisions:    BLC, 8/22/2014 - 1.00 - initial version
+'               BLC, 6/12/2015 - 1.01 - replaced TempVars.item(... with TempVars("...
 ' =================================
-
-' ---------------------------------
-' PROPERTY:     dbCurrent
-' Description:  Gets a single instance of the current db to avoid multiple calls
-'               to CurrentDb which can yield to Error 3048 "Cannot open any more databases" errors
-'               due to multiple open db
-' Parameters:   -
-' Returns:      current database object
-' Throws:       -
-' References:   -
-' Source/date:  Dirk Goldgar, MS Access MVP - May 22, 2013
-'   http://social.msdn.microsoft.com/Forums/office/en-US/9993d229-8a00-4a59-a796-dfa2dad505bc/cannot-open-any-more-databases?forum=accessdev
-' Adapted:      Bonnie Campbell, July, 2014 for NCPN Riparian tools
-' Revisions:    BLC, 7/23/2014 - initial version
-' ---------------------------------
 
 ' ---------------------------------
 ' FUNCTION:     UpdateQAResults
@@ -106,6 +92,7 @@ Option Explicit
 ' Adapted:      Bonnie Campbell, June, 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC, 7/29/2014 - updated to use TempVars.Item("Timeframe") vs. cTimeframe
 '               BLC, 8/22/2014 - shifted to mod_QA & dropped fxn prefix
+'               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Public Function UpdateQAResults(Optional blnUpdateAll As Boolean = True, _
     Optional strSingleQName As String, Optional blnCreateNew As Boolean = False)
@@ -161,8 +148,8 @@ Public Function UpdateQAResults(Optional blnUpdateAll As Boolean = True, _
     If IsNull(Forms!frm_QA_Tool.cmbTimeframe) = False Then
         strTimeframe = Forms!frm_QA_Tool.cmbTimeframe
     Else
-        If IsNull(TempVars.item("Timeframe")) = False Then _
-            strTimeframe = TempVars.item("Timeframe")
+        If IsNull(TempVars("Timeframe")) = False Then _
+            strTimeframe = TempVars("Timeframe")
     End If
     intScope = Forms!frm_QA_Tool.optgScope ' Me.optgScope
 

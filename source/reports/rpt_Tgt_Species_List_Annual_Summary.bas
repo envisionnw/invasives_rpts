@@ -12,14 +12,15 @@ Begin Report
     GridY =24
     Width =15264
     DatasheetFontHeight =11
-    ItemSuffix =125
-    Top =528
-    Right =15504
-    Bottom =8508
+    ItemSuffix =135
+    Left =195
+    Top =225
+    Right =14130
+    Bottom =10080
     DatasheetGridlinesColor =14806254
-    Filter ="TgtYear=2017"
+    Filter ="TgtYear=2013"
     RecSrcDt = Begin
-        0xf59e8f680195e440
+        0x63b56f12bb96e440
     End
     RecordSource ="qry_Tgt_Species_List_Annual_Summary"
     Caption ="INVASIVE LIST"
@@ -297,27 +298,6 @@ Begin Report
                 End
                 Begin TextBox
                     OldBorderStyle =0
-                    TextAlign =1
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =120
-                    Top =60
-                    Width =5820
-                    Height =312
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxDate"
-                    ControlSource ="=\"Printed:   \" & Now()"
-                    Format ="Long Date"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =120
-                    LayoutCachedTop =60
-                    LayoutCachedWidth =5940
-                    LayoutCachedHeight =372
-                End
-                Begin TextBox
-                    OldBorderStyle =0
                     TextAlign =3
                     BackStyle =0
                     IMESentenceMode =3
@@ -325,7 +305,6 @@ Begin Report
                     Top =60
                     Width =5040
                     Height =312
-                    TabIndex =1
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxPage"
@@ -516,7 +495,7 @@ Begin Report
                     Left =6360
                     Width =2880
                     Height =312
-                    TabIndex =2
+                    TabIndex =1
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxListName"
@@ -526,6 +505,45 @@ Begin Report
                     LayoutCachedLeft =6360
                     LayoutCachedWidth =9240
                     LayoutCachedHeight =312
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    OldBorderStyle =0
+                    TextAlign =1
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =1440
+                    Top =60
+                    Width =3300
+                    Height =315
+                    TabIndex =2
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxDate"
+                    ControlSource ="=Format(Now(),\"mmmm d\"\", \"\"yyyy h:nn ampm\")"
+                    Format ="Medium Date"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =1440
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =4740
+                    LayoutCachedHeight =375
+                End
+                Begin Label
+                    Left =120
+                    Top =60
+                    Width =1320
+                    Height =300
+                    BorderColor =8355711
+                    ForeColor =4210752
+                    Name ="lblPrinted"
+                    Caption ="Printed:"
+                    GridlineColor =10921638
+                    LayoutCachedLeft =120
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =1440
+                    LayoutCachedHeight =360
+                    ForeTint =75.0
                 End
             End
         End
@@ -1309,6 +1327,7 @@ Begin Report
         End
         Begin FormFooter
             KeepTogether = NotDefault
+            Height =3960
             Name ="ReportFooter"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -1565,7 +1584,7 @@ Begin Report
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblParkPriorities"
-                    Caption ="Total # Priority 1 Species by Park ="
+                    Caption ="Total # Priority 1 Species by Park =>"
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
@@ -1953,24 +1972,243 @@ Begin Report
                 Begin Label
                     BackStyle =1
                     TextAlign =3
-                    Left =6948
+                    Left =6852
                     Top =420
-                    Width =2292
+                    Width =2388
                     Height =288
                     FontSize =10
                     BackColor =16777164
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblUniquePri1"
-                    Caption ="Unique Priority 1 Species ="
+                    Caption ="Unique Priority 1 Species =>"
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
-                    LayoutCachedLeft =6948
+                    LayoutCachedLeft =6852
                     LayoutCachedTop =420
                     LayoutCachedWidth =9240
                     LayoutCachedHeight =708
                     BackThemeColorIndex =-1
+                End
+                Begin TextBox
+                    Vertical = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =1
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =9480
+                    Top =1440
+                    Width =300
+                    Height =2160
+                    FontSize =8
+                    TabIndex =17
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxLastModBLCA"
+                    ControlSource ="=getListLastModifiedDate(TempVars(\"TgtYear\"),\"BLCA\")"
+                    StatusBarText ="List Last Modification Date (BLCA)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =9480
+                    LayoutCachedTop =1440
+                    LayoutCachedWidth =9780
+                    LayoutCachedHeight =3600
+                End
+                Begin TextBox
+                    Vertical = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =1
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =10020
+                    Top =1440
+                    Width =300
+                    Height =2160
+                    FontSize =8
+                    TabIndex =18
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxLastModCARE"
+                    ControlSource ="=getListLastModifiedDate(TempVars(\"TgtYear\"),\"CARE\")"
+                    StatusBarText ="List Last Modification Date (CARE)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =10020
+                    LayoutCachedTop =1440
+                    LayoutCachedWidth =10320
+                    LayoutCachedHeight =3600
+                End
+                Begin TextBox
+                    Vertical = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =1
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =10620
+                    Top =1440
+                    Width =300
+                    Height =2160
+                    FontSize =8
+                    TabIndex =19
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxLastModCOLM"
+                    ControlSource ="=getListLastModifiedDate(TempVars(\"TgtYear\"),\"COLM\")"
+                    StatusBarText ="List Last Modification Date (COLM)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =10620
+                    LayoutCachedTop =1440
+                    LayoutCachedWidth =10920
+                    LayoutCachedHeight =3600
+                End
+                Begin TextBox
+                    Vertical = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =1
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =11220
+                    Top =1440
+                    Width =300
+                    Height =2160
+                    FontSize =8
+                    TabIndex =20
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxLastModCURE"
+                    ControlSource ="=getListLastModifiedDate(TempVars(\"TgtYear\"),\"CURE\")"
+                    StatusBarText ="List Last Modification Date (CURE)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =11220
+                    LayoutCachedTop =1440
+                    LayoutCachedWidth =11520
+                    LayoutCachedHeight =3600
+                End
+                Begin TextBox
+                    Vertical = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =1
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =11820
+                    Top =1440
+                    Width =300
+                    Height =2160
+                    FontSize =8
+                    TabIndex =21
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxLastModDINO"
+                    ControlSource ="=getListLastModifiedDate(TempVars(\"TgtYear\"),\"DINO\")"
+                    StatusBarText ="List Last Modification Date (DINO)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =11820
+                    LayoutCachedTop =1440
+                    LayoutCachedWidth =12120
+                    LayoutCachedHeight =3600
+                End
+                Begin TextBox
+                    Vertical = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =1
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =12420
+                    Top =1440
+                    Width =300
+                    Height =2160
+                    FontSize =8
+                    TabIndex =22
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxLastModFOBU"
+                    ControlSource ="=getListLastModifiedDate(TempVars(\"TgtYear\"),\"FOBU\")"
+                    StatusBarText ="List Last Modification Date (FOBU)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =12420
+                    LayoutCachedTop =1440
+                    LayoutCachedWidth =12720
+                    LayoutCachedHeight =3600
+                End
+                Begin TextBox
+                    Vertical = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =1
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =13080
+                    Top =1440
+                    Width =300
+                    Height =2160
+                    FontSize =8
+                    TabIndex =23
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxLastModGOSP"
+                    ControlSource ="=getListLastModifiedDate(TempVars(\"TgtYear\"),\"GOSP\")"
+                    StatusBarText ="List Last Modification Date (GOSP)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =13080
+                    LayoutCachedTop =1440
+                    LayoutCachedWidth =13380
+                    LayoutCachedHeight =3600
+                End
+                Begin TextBox
+                    Vertical = NotDefault
+                    DecimalPlaces =0
+                    OldBorderStyle =0
+                    TextAlign =1
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =13740
+                    Top =1440
+                    Width =300
+                    Height =2160
+                    FontSize =8
+                    TabIndex =24
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxLastModZION"
+                    ControlSource ="=getListLastModifiedDate(TempVars(\"TgtYear\"),\"ZION\")"
+                    StatusBarText ="List Last Modification Date (ZION)"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =13740
+                    LayoutCachedTop =1440
+                    LayoutCachedWidth =14040
+                    LayoutCachedHeight =3600
+                End
+                Begin Label
+                    TextAlign =3
+                    Left =7860
+                    Top =1440
+                    Width =1260
+                    Height =960
+                    FontSize =10
+                    BorderColor =8355711
+                    ForeColor =8355711
+                    Name ="lblLastModDate"
+                    Caption ="Last      Modified  =>\015\012Date      "
+                    Tag ="DetachedLabel"
+                    GridlineStyleBottom =1
+                    GridlineColor =10921638
+                    LayoutCachedLeft =7860
+                    LayoutCachedTop =1440
+                    LayoutCachedWidth =9120
+                    LayoutCachedHeight =2400
                 End
             End
         End
@@ -1985,11 +2223,12 @@ Option Compare Database
 Option Explicit
 
 ' =================================
-' MODULE:       Report_rpt_Tgt_Species_List_Annual
+' MODULE:       Report_rpt_Tgt_Species_List_Annual_Summary
 ' Description:  Load species list to target species list functions and routines
 '
 ' Source/date:  Bonnie Campbell, 4/7/2015
 ' Revisions:    BLC - 4/7/2015 - initial version
+'               BLC - 6/12/2015 - changed wait times on report open
 ' =================================
 
 ' ---------------------------------
@@ -2010,11 +2249,11 @@ Option Explicit
 '   BLC - 5/19/2015 - added pause & increased wait for 15 seconds
 '   BLC - 5/27/2015 - added comments for possible query modifications
 '   BLC - 5/29/2015 - added notes and adjusted status message to note report was still being generated
+'   BLC - 6/12/2015 - changed waits to 5 & 10 vs. 15 & 30
 ' ---------------------------------
 Private Sub Report_Open(Cancel As Integer)
 
 On Error GoTo Err_Handler
-
 
     'get report data source & alter it using target year to reduce query time?
     Dim i As Integer
@@ -2048,11 +2287,11 @@ On Error GoTo Err_Handler
 
 If ReportIsLoaded("rpt_Tgt_Species_List_Annual_Summary") Then
      DoEvents
-     Pause (15)
+     Pause (5) 'was 15
      DoCmd.Close acForm, "frm_Progress_Bar"
      DoEvents
     
-    Pause (30)
+    Pause (10) 'was 30
     ' clear statusbar note running report
     SysCmd acSysCmdSetStatus, "Calculations complete! Fetching report..."
 End If
@@ -2066,7 +2305,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Report_Open[Report_rpt_Tgt_Species_List_Annual])"
+            "Error encountered (#" & Err.Number & " - Report_Open[Report_rpt_Tgt_Species_List_Annual_Summary])"
     End Select
     Resume Exit_Sub
 End Sub
@@ -2094,7 +2333,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Report_Load[Report_rpt_Tgt_Species_List_Annual])"
+            "Error encountered (#" & Err.Number & " - Report_Load[Report_rpt_Tgt_Species_List_Annual_Summary])"
     End Select
     Resume Exit_Sub
 End Sub

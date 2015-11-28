@@ -5,7 +5,7 @@ Option Explicit
 ' MODULE:       mod_Validation
 ' Level:        Framework module
 ' Version:      1.00
-' Description:  string functions & procedures
+' Description:  data validation functions & procedures
 '
 ' Source/date:  Bonnie Campbell, 2/10/2015
 ' Revisions:    BLC - 2/10/2015 - 1.00 - initial version
@@ -13,7 +13,7 @@ Option Explicit
 
 ' ---------------------------------
 ' FUNCTION:     IsBlank
-' Description:  Counts the number of instances of character(s) in a string
+' Description:  Determines if an item is blank
 ' Assumptions:  -
 ' Parameters:   arg - item to check
 ' Returns:      boolean - True if argument is Nothing, Null, Empty, Missing or an empty string
@@ -63,9 +63,7 @@ End Function
 ' Returns:      boolean - True (string is valid), False (string is invalid)
 ' Throws:       none
 ' References:   none
-' Source/date:
-'
-'
+' Source/date:  Unknown
 ' Adapted:      Bonnie Campbell, February 12, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/12/2015 - initial version

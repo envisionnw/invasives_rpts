@@ -14,9 +14,9 @@ Begin Form
     DatasheetFontHeight =11
     ItemSuffix =16
     Left =1320
-    Top =1896
-    Right =6204
-    Bottom =6000
+    Top =1890
+    Right =5460
+    Bottom =4755
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x9f832d99b891e440
@@ -198,10 +198,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin ListBox
@@ -220,10 +220,9 @@ Begin Form
                     BorderColor =10921638
                     Name ="lbxTgtLists"
                     RowSourceType ="Table/Query"
-                    RowSource ="SELECT DISTINCT tbl_Target_Species.Park_Code, tbl_Target_Species.Target_Year, tb"
-                        "l_Target_Species.Park_Code & \"-\" & tbl_Target_Species.Target_Year AS ParkYear "
-                        "FROM tbl_Target_Species ORDER BY tbl_Target_Species.[Park_Code], tbl_Target_Spec"
-                        "ies.[Target_Year];"
+                    RowSource ="SELECT DISTINCT tbl_Target_List.Park_Code, tbl_Target_List.Target_Year, tbl_Targ"
+                        "et_List.Park_Code & \"-\" & tbl_Target_List.Target_Year AS ParkYear FROM tbl_Tar"
+                        "get_List ORDER BY tbl_Target_List.[Park_Code], tbl_Target_List.[Target_Year];"
                     ColumnWidths ="0;0;1440"
                     OnClick ="[Event Procedure]"
                     GridlineColor =10921638
@@ -284,6 +283,8 @@ Option Explicit
 '
 ' Source/date:  Bonnie Campbell, 5/1/2015
 ' Revisions:    BLC - 5/1/2015 - initial version
+'               BLC - 6/12/2015 - added Continue button enable,
+'                                 replaced TempVars.item("... with TempVars("...
 ' =================================
 
 ' ---------------------------------
@@ -298,6 +299,7 @@ Option Explicit
 ' Adapted:      Bonnie Campbell, May 1, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 5/1/2015 - initial version
+'   BLC - 6/12/2015 - disabled Continue button to start
 ' ---------------------------------
 Private Sub Form_Load()
 
@@ -305,8 +307,8 @@ On Error GoTo Err_Handler
     
     Initialize
     
-    'set action
-    'TempVars.item("action") = Form.OpenArgs
+    'disable continue to start
+    btnContinue.Enabled = False
     
 Exit_Sub:
     Exit Sub
@@ -331,6 +333,7 @@ End Sub
 ' Source/date:  Bonnie Campbell, March 5, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 5/1/2015 - initial version
+'   BLC - 6/12/2015 - added logic to enable Continue button
 ' ---------------------------------
 Private Sub lbxTgtLists_Click()
 On Error GoTo Err_Handler
@@ -348,6 +351,11 @@ Dim item As Variant
     strTgtLists = IIf(Right(strTgtLists, 1) = ",", Left(strTgtLists, Len(strTgtLists) - 1), strTgtLists)
     
     TempVars.Add "TgtLists", strTgtLists
+    
+    'enable Continue button
+    If Len(strTgtLists) > 0 Then
+        btnContinue.Enabled = True
+    End If
     
 Exit_Sub:
     Exit Sub
@@ -373,20 +381,30 @@ End Sub
 ' Adapted:      Bonnie Campbell, February 12, 2015 - for NCPN tools
 ' Revisions:
 '   BLC, 5/1/2015 - initial version
+'   BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'   BLC, 9/21/2015 - Added park personnel species list, park summary reports
 ' ---------------------------------
 Private Sub btnContinue_Click()
 On Error GoTo Err_Handler
     Dim strReport As String, strWhere As String
     
-    Select Case TempVars.item("rpt")
+    Select Case TempVars("rpt")
         
         Case "CrewSpeciesList" ' Reports > Field Crew Species List
             strReport = "rpt_Tgt_Species_List"
-            strWhere = "TgtList IN (" & TempVars.item("TgtLists") & ")"
+            strWhere = "TgtList IN (" & TempVars("TgtLists") & ")"
+        
+        Case "ParkSpeciesList" ' Reports > Park Personnel Species List
+            strReport = "rpt_Tgt_Species_List_for_Park"
+            strWhere = "TgtList IN (" & TempVars("TgtLists") & ")"
         
         Case "SpeciesListByPark" ' Reports > Species List By Park
             strReport = "rpt_Tgt_Species_List_By_Park"
-            strWhere = "TgtList IN (" & TempVars.item("TgtLists") & ")"
+            strWhere = "TgtList IN (" & TempVars("TgtLists") & ")"
+        
+        Case "TgtListParkSummary" ' Reports > Park Species List Summary
+            strReport = "rpt_Tgt_Species_List_Park_Summary"
+            strWhere = ""
         
         Case "TgtListAnnualSummary" ' Reports > Annual Species List Summary
             strReport = "rpt_Tgt_Species_List_Annual_Summary"

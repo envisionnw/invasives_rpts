@@ -1,14 +1,15 @@
-﻿dbMemo "SQL" ="SELECT DISTINCT tbl_Target_Species.Park_Code AS Park, tbl_Target_Species.Target_"
-    "Year AS TgtYear, tbl_Target_Species.LU_code, tbl_Target_Species.Master_Plant_Cod"
-    "e_FK, tbl_Target_Species.Species_Name, tbl_Target_Species.Priority, tbl_Target_S"
-    "pecies.Transect_Only, tbl_Target_Species.Target_Area_ID, tbl_Target_Areas.Target"
-    "_Area AS Tgt_Area, tlu_NCPN_Plants.Master_Family AS Family, tlu_NCPN_Plants.Mast"
-    "er_Common_Name, tlu_NCPN_Plants.utah_species, tlu_NCPN_Plants.Co_Species, tlu_NC"
-    "PN_Plants.Wy_Species, tbl_Target_Species.Park_Code & \"-\" & tbl_Target_Species."
-    "Target_Year AS TgtList\015\012FROM (tbl_Target_Species LEFT JOIN tbl_Target_Area"
-    "s ON tbl_Target_Species.Target_Area_ID = tbl_Target_Areas.Target_Area_ID) LEFT J"
-    "OIN tlu_NCPN_Plants ON tbl_Target_Species.Master_Plant_Code_FK = tlu_NCPN_Plants"
-    ".Master_Plant_Code;\015\012"
+﻿dbMemo "SQL" ="SELECT tbl_Target_List.Park_Code AS Park, tbl_Target_List.Target_Year AS TgtYear"
+    ", tbl_Target_Species.LU_Code, tbl_Target_Species.Master_Plant_Code_FK, tbl_Targe"
+    "t_Species.Species_Name, tbl_Target_Species.Priority, tbl_Target_Species.Transect"
+    "_Only, tbl_Target_Species.Target_Area_ID, tbl_Target_Areas.Target_Area AS Tgt_Ar"
+    "ea, tlu_NCPN_Plants.Master_Family AS Family, tlu_NCPN_Plants.Master_Common_Name,"
+    " tlu_NCPN_Plants.Utah_Species, tlu_NCPN_Plants.Co_Species, tlu_NCPN_Plants.Wy_Sp"
+    "ecies, tbl_Target_List.Park_Code & \"-\" & tbl_Target_List.Target_Year AS TgtLis"
+    "t, tbl_Target_List.Created, tbl_Target_List.Last_Modified\015\012FROM ((tbl_Targ"
+    "et_Species LEFT JOIN tbl_Target_Areas ON tbl_Target_Species.Target_Area_ID = tbl"
+    "_Target_Areas.Target_Area_ID) LEFT JOIN tbl_Target_List ON tbl_Target_Species.Tg"
+    "t_List_ID_FK = tbl_Target_List.Tgt_List_ID) LEFT JOIN tlu_NCPN_Plants ON tbl_Tar"
+    "get_Species.Master_Plant_Code_FK = tlu_NCPN_Plants.Master_PLANT_Code;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -22,6 +23,8 @@ dbBoolean "TotalsRow" ="0"
 dbBinary "GUID" = Begin
     0x130bab6b315e3049a7418bad3e6bf946
 End
+dbText "Description" ="Park target species listings including priority, transect_only, and target_area "
+    "(Target List Tool update)"
 Begin
     Begin
         dbText "Name" ="tlu_NCPN_Plants.Co_Species"
@@ -123,6 +126,14 @@ Begin
     End
     Begin
         dbText "Name" ="tbl_Target_Species.LU_code"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_Target_List.Created"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_Target_List.Last_Modified"
         dbLong "AggregateType" ="-1"
     End
 End

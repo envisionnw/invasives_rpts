@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_User
 ' Level:        Framework module
-' Version:      1.02
+' Version:      1.04
 ' Description:  Access related functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, May 2014
@@ -12,6 +12,8 @@ Option Explicit
 '               BLC, 8/6/2014  - 1.01 - renamed from mod_Access_Utilities to mod_User
 '                                to accommodate additional user functions/subs
 '               BLC, 4/30/2015 - 1.02 - added level & version info, move blnRunQueries & blnUpdateAll to mod_Initialize_App
+'               BLC, 5/18/2015 - 1.03 - removed fxn prefixes
+'               BLC, 6/12/2015 - 1.04 - replaced TempVars.item(... with TempVars("...
 ' =================================
 
 ' ---------------------------------
@@ -39,6 +41,7 @@ Option Explicit
 ' Revisions:    BLC, 8/21/2014 - initial version
 '               BLC, 4/22/2015 - handle global USER_ACCESS_CONTROL setting to enable full access
 '                                for apps w/o user access controls
+'               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Public Function getDbUserAccess() As String
 On Error GoTo Err_Handler
@@ -57,17 +60,17 @@ Dim rs As DAO.Recordset
         Set rs = dbCurrent.OpenRecordset(strSQL)
         If Not rs.BOF And Not rs.EOF Then
             'db user role
-            TempVars.item("UserAccessLevel") = CStr(rs!User_role)
+            TempVars("UserAccessLevel") = CStr(rs!User_role)
         Else
             'default
-            TempVars.item("UserAccessLevel") = "read only"
+            TempVars("UserAccessLevel") = "read only"
         End If
     Else
         'default for apps w/o user access controls
-        TempVars.item("UserAccessLevel") = "admin"
+        TempVars("UserAccessLevel") = "admin"
     End If
     
-    getDbUserAccess = TempVars.item("UserAccessLevel")
+    getDbUserAccess = TempVars("UserAccessLevel")
     
 Exit_Function:
     Exit Function
@@ -94,6 +97,8 @@ End Function
 ' Source/date:  Bonnie Campbell, July, 2014 for NCPN WQ Utilities tool
 ' Adapted:      -
 ' Revisions:    BLC, 7/29/2014 - initial version
+'               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/30/2015 - updated cmd button prefixes to btn
 ' ---------------------------------
 Public Sub setUserAccess(frm As Form, Optional flag As String)
 On Error GoTo Err_Handler
@@ -101,7 +106,7 @@ On Error GoTo Err_Handler
     '-------------------------------
     ' set defaults
     '-------------------------------
-Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
+Debug.Print "useraccesslvl=" & TempVars("UserAccessLevel")
 
     '-------------------------------
     ' get db user access level
@@ -116,7 +121,7 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
     '-------------------------------
     ' set functionality based on access level
     '-------------------------------
-        Select Case TempVars.item("UserAccessLevel")
+        Select Case TempVars("UserAccessLevel")
 
         '-------------------------------
         ' admin (full control)
@@ -135,20 +140,20 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                         .tbxProject.Locked = False
                         .tbxProject.backstyle = 1
                         .tbxProject.SpecialEffect = 2
-                        .cmdNewUser.Enabled = True
+                        .btnNewUser.Enabled = True
                     Case "frm_Switchboard"
                         'handle updates
                         If flag = "update" Then
                             With !fsub_DbAdmin.Form
-                                !cmdEditLog.Enabled = True
-                                !cmdSetRoles.Enabled = True
-                                !cmdDbWindow.Enabled = True
+                                !btnEditLog.Enabled = True
+                                !btnSetRoles.Enabled = True
+                                !btnDbWindow.Enabled = True
                                 !pgSettings.Enabled = True
-                                !cmdChangeDbInfo.Enabled = True
+                                !btnChangeDbInfo.Enabled = True
                                 
                                 '!tbxAppMode.Locked = False
                                 '!tbxAppMode.Enabled = True
-                                !tbxAppMode = TempVars.item("UserAccessLevel")
+                                !tbxAppMode = TempVars("UserAccessLevel")
                                 '!tbxAppMode.Enabled = False
                                 '!tbxAppMode.Locked = True
                             End With
@@ -178,18 +183,18 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                         .tbxProject.Locked = True
                         .tbxProject.backstyle = 0
                         .tbxProject.SpecialEffect = 0
-                        .cmdNewUser.Enabled = True
+                        .btnNewUser.Enabled = True
                     Case "frm_Switchboard"
                         'handle updates
                         If flag = "update" Then
                             With !fsub_DbAdmin.Form
-                                !cmdEditLog.Enabled = True
-                                !cmdSetRoles.Enabled = True
-                                !cmdDbWindow.Enabled = True
+                                !btnEditLog.Enabled = True
+                                !btnSetRoles.Enabled = True
+                                !btnDbWindow.Enabled = True
                                 !pgSettings.Enabled = True
-                                !cmdChangeDbInfo.Enabled = False
+                                !btnChangeDbInfo.Enabled = False
                                 '!tbxAppMode.Locked = False
-                                !tbxAppMode = TempVars.item("UserAccessLevel")
+                                !tbxAppMode = TempVars("UserAccessLevel")
                                 '!tbxAppMode.Locked = True
                             End With
                             CurrentDb.Properties("AllowFullMenus") = True
@@ -217,22 +222,22 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                         .tbxProject.Locked = True
                         .tbxProject.backstyle = 0
                         .tbxProject.SpecialEffect = 0
-                        .cmdNewUser.Enabled = True
+                        .btnNewUser.Enabled = True
                     Case "fsub_DbAdmin"
-                        .cmdEditLog.Enabled = False   ' automatically opens if certified data are edited
-                        .cmdSetRoles.Enabled = False
-                        .cmdDbWindow.Enabled = False
+                        .btnEditLog.Enabled = False   ' automatically opens if certified data are edited
+                        .btnSetRoles.Enabled = False
+                        .btnDbWindow.Enabled = False
                         .pgSettings.Enabled = True
-                        .cmdChangeDbInfo.Enabled = False
+                        .btnChangeDbInfo.Enabled = False
                     Case "frm_Switchboard"
                         With !fsub_DbAdmin.Form
-                            !cmdEditLog.Enabled = False   ' automatically opens if certified data are edited
-                            !cmdSetRoles.Enabled = False
-                            !cmdDbWindow.Enabled = False
+                            !btnEditLog.Enabled = False   ' automatically opens if certified data are edited
+                            !btnSetRoles.Enabled = False
+                            !btnDbWindow.Enabled = False
                             !pgSettings.Enabled = True
-                            !cmdChangeDbInfo.Enabled = False
+                            !btnChangeDbInfo.Enabled = False
                             '!tbxAppMode.Locked = False
-                            !tbxAppMode = TempVars.item("UserAccessLevel")
+                            !tbxAppMode = TempVars("UserAccessLevel")
                             '!tbxAppMode.Locked = True
                         End With
                         ' Turn off options (only apparent after the next time app is opened)
@@ -245,9 +250,9 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                         .cmbYearFilter.Locked = True          ' current year only to minimize confusion
                         .togFilterByYear.Enabled = False
                         .txtLoc_code.forecolor = 0            ' black - no direct link to data browser
-                        .cmdDeleteRec.Enabled = True
-                        .cmdNewLoc.Enabled = True
-                        .cmdNewRareObs.Enabled = True
+                        .btnDeleteRec.Enabled = True
+                        .btnNewLoc.Enabled = True
+                        .btnNewRareObs.Enabled = True
                     Case "frm_Edit_Log"
                         ' Disable delete, edit, and filter controls
                         .DataEntry = True
@@ -259,19 +264,19 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                         .cmbUserFilter.Enabled = False
                         .togFilterByUser.Enabled = False
                     Case "frm_Lookups"
-                        .cmdNewTaxon.Enabled = True
+                        .btnNewTaxon.Enabled = True
                         .optgFormMode.Enabled = True
                         .subLookupTables.Locked = True
                     Case "frm_QA_Tools"
                         .pgDataTables.visible = False
-                        .cmdDesignView.Enabled = False
+                        .btnDesignView.Enabled = False
                         .optgScope.Enabled = False
                         .cmbTimeframe.Enabled = True
                         .optgMode.Enabled = False
-                        .cmdRefresh.Enabled = True
-                        .cmdRequery.Enabled = True
-                        .cmdOpenRecord.Enabled = True
-                        .cmdAutoFix.Enabled = False
+                        .btnRefresh.Enabled = True
+                        .btnRequery.Enabled = True
+                        .btnOpenRecord.Enabled = True
+                        .btnAutoFix.Enabled = False
                         .selObject.Enabled = False
                         ' Run the queries if the user selects Yes
                         If MsgBox("Would you like to run the QA queries now?" & vbCrLf & _
@@ -291,7 +296,7 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                         .subTasks.Form.AllowAdditions = True      ' exception
                         .subTasks.Form.AllowDeletions = False
                         .subEvents.Form.AllowEdits = False
-                        .subEvents.Form!cmdDelete.Enabled = False
+                        .subEvents.Form!btnDelete.Enabled = False
                         .subImages.Form.AllowEdits = True         ' exception
                         .subImages.Form.AllowAdditions = True     ' exception
                         .subImages.Form.AllowDeletions = True     ' exception
@@ -307,7 +312,7 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                         .subVarianceGroups.Form.AllowEdits = False
                         .subVarianceGroups.Form.AllowAdditions = False
                         .subVarianceGroups.Form.AllowDeletions = False
-                        .cmdNew.Enabled = False
+                        .btnNew.Enabled = False
                     Case ""
                 End Select
                 
@@ -323,18 +328,18 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                         ' Set default application mode to read only, and set up form accordingly in case of error
                         ' requires frm!fsub_DBAdmin.Form format or error #438 object doesn't support this property/method occurs
                         With !fsub_DbAdmin.Form
-                            .cmdSetRoles.Enabled = False
-                            .cmdDbWindow.Enabled = False
+                            .btnSetRoles.Enabled = False
+                            .btnDbWindow.Enabled = False
                             .pgSettings.Enabled = False
-                            .cmdChangeDbInfo.Enabled = False
+                            .btnChangeDbInfo.Enabled = False
                             '!tbxAppMode.Locked = False
-                            '!tbxAppMode = TempVars.Item("UserAccessLevel")
+                            '!tbxAppMode = TempVars("UserAccessLevel")
                             '!tbxAppMode.Locked = True
                         End With
                         
                         'handle updates
                         If flag = "update" Then
-                            !fsub_DbAdmin.Form!cmdEditLog.Enabled = True
+                            !fsub_DbAdmin.Form!btnEditLog.Enabled = True
                             ' Turn off options (only apparent after the next time app is opened)
                             CurrentDb.Properties("AllowFullMenus") = False
                             CurrentDb.Properties("AllowShortcutMenus") = False
@@ -347,22 +352,22 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                         .tbxProject.Locked = True
                         .tbxProject.backstyle = 0
                         .tbxProject.SpecialEffect = 0
-                        .cmdNewUser.Enabled = False
+                        .btnNewUser.Enabled = False
                     Case "fsub_DbAdmin"
-                        .cmdEditLog.Enabled = True
-                        .cmdSetRoles.Enabled = False
-                        .cmdDbWindow.Enabled = False
+                        .btnEditLog.Enabled = True
+                        .btnSetRoles.Enabled = False
+                        .btnDbWindow.Enabled = False
                         .pgSettings.Enabled = False
-                        .cmdChangeDbInfo.Enabled = False
+                        .btnChangeDbInfo.Enabled = False
                     Case "frm_Data_Gateway"
                         .optgCertifiedMode.Enabled = True     ' cert data are protected in this mode
                         .optgScheduledMode.Enabled = False
                         .cmbYearFilter.Locked = False         ' enable seeing multiple years
                         .togFilterByYear.Enabled = True
                         .txtLoc_code.forecolor = 0            ' black - no direct link to data browser
-                        .cmdDeleteRec.Enabled = False
-                        .cmdNewLoc.Enabled = False
-                        .cmdNewRareObs.Enabled = False
+                        .btnDeleteRec.Enabled = False
+                        .btnNewLoc.Enabled = False
+                        .btnNewRareObs.Enabled = False
                     Case "frm_Edit_Log"
                         .DataEntry = False
                         .AllowAdditions = False
@@ -374,21 +379,21 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                         .cmbUserFilter.Enabled = True
                         .togFilterByUser.Enabled = True
                     Case "frm_Lookups"
-                        .cmdNewTaxon.Enabled = False
+                        .btnNewTaxon.Enabled = False
                         .optgFormMode.Enabled = False
                         .subLookupTables.Locked = True
                     Case "fsub_Events_Browser"
-                        .cmdEdit.Caption = "View"               ' Set button caption
+                        .btnEdit.Caption = "View"               ' Set button caption
                     Case "frm_QA_Tools"
                         .pgDataTables.visible = False
-                        .cmdDesignView.Enabled = False
+                        .btnDesignView.Enabled = False
                         .optgScope.Enabled = False
                         .cmbTimeframe.Enabled = True
                         .optgMode.Enabled = False
-                        .cmdRefresh.Enabled = False
-                        .cmdRequery.Enabled = False
-                        .cmdOpenRecord.Enabled = False
-                        .cmdAutoFix.Enabled = False
+                        .btnRefresh.Enabled = False
+                        .btnRequery.Enabled = False
+                        .btnOpenRecord.Enabled = False
+                        .btnAutoFix.Enabled = False
                         .selObject.Enabled = False
                     Case "frm_Data_Browser"
                         .subSite.Form.AllowEdits = False
@@ -401,7 +406,7 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                         .subTasks.Form.AllowAdditions = False
                         .subTasks.Form.AllowDeletions = False
                         .subEvents.Form.AllowEdits = False
-                        .subEvents.Form!cmdDelete.Enabled = False
+                        .subEvents.Form!btnDelete.Enabled = False
                         .subImages.Form.AllowEdits = False
                         .subImages.Form.AllowAdditions = False
                         .subImages.Form.AllowDeletions = False
@@ -417,7 +422,7 @@ Debug.Print "useraccesslvl=" & TempVars.item("UserAccessLevel")
                         .subVarianceGroups.Form.AllowEdits = False
                         .subVarianceGroups.Form.AllowAdditions = False
                         .subVarianceGroups.Form.AllowDeletions = False
-                        .cmdNew.Enabled = False
+                        .btnNew.Enabled = False
                     Case ""
                 End Select
            
@@ -436,20 +441,20 @@ Admin_PowerUser:
     With frm
         Select Case .name
             Case "fsub_DbAdmin"
-                .cmdEditLog.Enabled = True
-                .cmdSetRoles.Enabled = True
-                .cmdDbWindow.Enabled = True
+                .btnEditLog.Enabled = True
+                .btnSetRoles.Enabled = True
+                .btnDbWindow.Enabled = True
                 .pgSettings.Enabled = True
-                .cmdChangeDbInfo.Enabled = False
+                .btnChangeDbInfo.Enabled = False
             Case "frm_Data_Gateway"
                 .optgCertifiedMode.Enabled = True
                 .optgScheduledMode.Enabled = True
                 .cmbYearFilter.Locked = False
                 .togFilterByYear.Enabled = True
                 .txtLoc_code.forecolor = 16711680     ' blue to indicate link to data browser
-                .cmdDeleteRec.Enabled = True
-                .cmdNewLoc.Enabled = True
-                .cmdNewRareObs.Enabled = True
+                .btnDeleteRec.Enabled = True
+                .btnNewLoc.Enabled = True
+                .btnNewRareObs.Enabled = True
             Case "frm_Edit_Log"
                 .DataEntry = False
                 .AllowAdditions = True
@@ -462,24 +467,24 @@ Admin_PowerUser:
                 .cmbUserFilter.Enabled = True
                 .togFilterByUser.Enabled = True
             Case "frm_Lookups"
-                .cmdNewTaxon.Enabled = True
+                .btnNewTaxon.Enabled = True
                 .optgFormMode.Enabled = True
                 .subLookupTables.Locked = False
             Case "frm_Schedule"
                 .subSchedule.Form.AllowAdditions = True
                 .subSchedule.Form.AllowDeletions = True
                 .subSchedule.Form.AllowEdits = True
-                .cmdAutoPopulate.Enabled = True
+                .btnAutoPopulate.Enabled = True
             Case "frm_QA_Tool"
                 .pgDataTables.visible = True
-                .cmdDesignView.Enabled = True
+                .btnDesignView.Enabled = True
                 .optgScope.Enabled = True
                 .cmbTimeframe.Enabled = True
                 .optgMode.Enabled = True
-                .cmdRefresh.Enabled = True
-                .cmdRequery.Enabled = True
-                .cmdOpenRecord.Enabled = True
-                .cmdAutoFix.Enabled = True
+                .btnRefresh.Enabled = True
+                .btnRequery.Enabled = True
+                .btnOpenRecord.Enabled = True
+                .btnAutoFix.Enabled = True
                 .selObject.Enabled = True
                 ' Run the queries if the user selects Yes
                 If MsgBox("Would you like to run the QA queries now?" & vbCrLf & _
@@ -499,7 +504,7 @@ Admin_PowerUser:
                 .subTasks.Form.AllowAdditions = True
                 .subTasks.Form.AllowDeletions = True
                 .subEvents.Form.AllowEdits = True
-                .subEvents.Form!cmdDelete.Enabled = True
+                .subEvents.Form!btnDelete.Enabled = True
                 .subImages.Form.AllowEdits = True
                 .subImages.Form.AllowAdditions = True
                 .subImages.Form.AllowDeletions = True
@@ -515,7 +520,7 @@ Admin_PowerUser:
                 .subVarianceGroups.Form.AllowEdits = True
                 .subVarianceGroups.Form.AllowAdditions = True
                 .subVarianceGroups.Form.AllowDeletions = True
-                .cmdNew.Enabled = True
+                .btnNew.Enabled = True
             Case ""
         End Select
     End With
@@ -529,7 +534,7 @@ Admin_PowerUser_DataEntry:
     With frm
         Select Case .name
             Case "fsub_Events_Browser"
-                .cmdEdit.Caption = "Edit"           'Set button caption
+                .btnEdit.Caption = "Edit"           'Set button caption
             Case ""
         End Select
     End With
@@ -546,7 +551,7 @@ DataEntry_ReadOnly:
                 .subSchedule.Form.AllowAdditions = False
                 .subSchedule.Form.AllowDeletions = False
                 .subSchedule.Form.AllowEdits = False
-                .cmdAutoPopulate.Enabled = False
+                .btnAutoPopulate.Enabled = False
             Case ""
         End Select
     End With
@@ -590,6 +595,7 @@ End Sub
 ' Source/date:  Bonnie Campbell, August, 2014 for NCPN WQ Utilities tool
 ' Adapted:      -
 ' Revisions:    BLC, 8/8/2014 - initial version
+'               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Public Sub logUserAction(frm As Form)
 On Error GoTo Err_Handler
@@ -603,7 +609,7 @@ Dim strSQL As String
         Select Case .name
             Case "frm_Switchboard"
                 ' Log the user exit time if the back end is connected and the user has write privileges
-                If TempVars.item("Connected") And TempVars.item("WritePermission") Then
+                If TempVars("Connected") And TempVars("WritePermission") Then
                     strSQL = "INSERT INTO tsys_Logins ( User_name, Action_taken ) SELECT '" _
                         & Environ("Username") & "' AS User, 'close' AS Action;"
                 End If
