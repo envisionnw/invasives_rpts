@@ -13,7 +13,6 @@ Begin Report
     Width =15005
     DatasheetFontHeight =11
     ItemSuffix =60
-    Left =-276
     Top =516
     Right =12972
     Bottom =8496
@@ -34,6 +33,7 @@ Begin Report
     DisplayOnSharePointSite =1
     DatasheetAlternateBackColor =15921906
     DatasheetGridlinesColor12 =0
+    RibbonName ="Export"
     FitToScreen =1
     DatasheetBackThemeColorIndex =1
     BorderThemeColorIndex =3
