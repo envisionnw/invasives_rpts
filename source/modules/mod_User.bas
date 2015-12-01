@@ -14,6 +14,7 @@ Option Explicit
 '               BLC, 4/30/2015 - 1.02 - added level & version info, move blnRunQueries & blnUpdateAll to mod_Initialize_App
 '               BLC, 5/18/2015 - 1.03 - removed fxn prefixes
 '               BLC, 6/12/2015 - 1.04 - replaced TempVars.item(... with TempVars("...
+'               BLC, 6/30/2015 - 1.05 -
 ' =================================
 
 ' ---------------------------------

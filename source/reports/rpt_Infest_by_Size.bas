@@ -16,7 +16,7 @@ Begin Report
     ItemSuffix =62
     Left =270
     Top =210
-    Right =12735
+    Right =8715
     Bottom =10590
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
@@ -32,6 +32,7 @@ Begin Report
     OnActivate ="[Event Procedure]"
     FilterOnLoad =0
     DatasheetGridlinesColor12 =12632256
+    RibbonName ="Export"
     Begin
         Begin Label
             BackStyle =0
