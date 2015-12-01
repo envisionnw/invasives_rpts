@@ -13,6 +13,7 @@ Option Explicit
 '               BLC - 5/1/2015  - 1.02 - integerated into Invasives Reporting tool
 '               BLC - 5/22/2015 - 1.03 - added PopulateList
 '               BLC - 6/3/2015  - 1.04 - added IsUsedTargetArea
+'               BLC - 12/1/2015 - 1.05 - "extra" vs target area renaming (IsUsedTargetArea > IsUsedExtraArea)
 ' =================================
 
 ' ---------------------------------
@@ -101,6 +102,7 @@ End Sub
 '   BLC - 5/10/2015 - moved to mod_List from mod_Lists
 '   BLC - 5/20/2015 - changed from tbxMasterCode to tbxLUCode
 '   BLC - 5/22/2015 - moved to mod_App_Data from mod_List
+'   BLC - 12/1/2015 - "extra" vs. target area renaming (tbxTgtAreaID > tbxExtraAreaID, Target_Area_ID > Extra_Area_ID)
 ' ---------------------------------
 Public Sub PopulateList(ctrlSource As Control, rs As Recordset, ctrlDest As Control)
 
@@ -130,7 +132,7 @@ On Error GoTo Err_Handler
         'ctrlSource.Form.Controls("tbxMasterCode").ControlSource = "Master_PLANT_Code"
         ctrlSource.Form.Controls("tbxLUCode").ControlSource = "LUCode"
         ctrlSource.Form.Controls("tbxTransectOnly").ControlSource = "Transect_Only"
-        ctrlSource.Form.Controls("tbxTgtAreaID").ControlSource = "Target_Area_ID"
+        ctrlSource.Form.Controls("tbxExtraAreaID").ControlSource = "Target_Area_ID"
         
         'set the initial record count (MoveLast to get full count, MoveFirst to set display to first)
         rs.MoveLast
@@ -227,6 +229,7 @@ End Sub
 ' Adapted:      -
 ' Revisions:
 '   BLC - 6/3/2015 - initial version
+'   BLC - 12/1/2015 - "extra" vs. target area renaming (iTgtAreaID > iExtraAreaID, Target_Area_ID > Extra_Area_ID)
 ' ---------------------------------
 Public Sub AddListToTable(lbx As ListBox)
 
@@ -235,14 +238,14 @@ On Error GoTo Err_Handler
 Dim aryFields() As String
 Dim aryFieldTypes() As Variant
 Dim strCode As String, strSpecies As String, strLUCode As String
-Dim iRow As Integer, iTransectOnly As Integer, iTgtAreaID As Integer
+Dim iRow As Integer, iTransectOnly As Integer, iExtraAreaID As Integer
     
     iRow = lbx.ListCount - 1 'Forms("frm_Tgt_Species").Controls("lbxTgtSpecies").ListCount - 1
     
     ReDim Preserve aryFields(0 To iRow)
         
     'header row (iRow = 0)
-    aryFields(0) = "Code;Species;LUCode;Transect_Only;Target_Area_ID"   'iRow = 0
+    aryFields(0) = "Code;Species;LUCode;Transect_Only;Extra_Area_ID"   'iRow = 0
     aryFieldTypes = Array(dbText, dbText, dbText, dbInteger, dbInteger)
 
     'data rows (iRow > 0)
@@ -255,9 +258,9 @@ Dim iRow As Integer, iTransectOnly As Integer, iTgtAreaID As Integer
          strSpecies = lbx.Column(1, iRow) 'column 1 = Species name (Species)
          strLUCode = lbx.Column(2, iRow) 'column 2 = LU_Code (LUCode)
          iTransectOnly = Nz(lbx.Column(3, iRow), 0) 'column 3 = Transect_Only (TransectOnly)
-         iTgtAreaID = Nz(lbx.Column(4, iRow), 0) 'column 4 = Target_Area_ID (TgtAreaID)
+         iExtraAreaID = Nz(lbx.Column(4, iRow), 0) 'column 4 = Extra_Area_ID (ExtraAreaID)
         
-        aryFields(iRow) = strCode & ";" & strSpecies & ";" & strLUCode & ";" & iTransectOnly & ";" & iTgtAreaID
+        aryFields(iRow) = strCode & ";" & strSpecies & ";" & strLUCode & ";" & iTransectOnly & ";" & iExtraAreaID
         
     Next
     
@@ -376,9 +379,9 @@ Err_Handler:
 End Function
 
 ' ---------------------------------
-' FUNCTION:     IsUsedTargetArea
-' Description:  Determine if the target area is in use by a target list
-' Parameters:   TgtAreaID - target area idenifier (integer)
+' FUNCTION:     IsUsedExtraArea
+' Description:  Determine if the extra/target area is in use by a target list
+' Parameters:   ExtraAreaID - extra/target area idenifier (integer)
 ' Returns:      boolean - true if target area is in use, false if not
 ' Throws:       none
 ' References:   none
@@ -386,8 +389,9 @@ End Function
 ' Adapted:      Bonnie Campbell, June 3, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 6/3/2015  - initial version
+'   BLC - 12/1/2015 - "extra" vs target area renaming (IsUsedTargetArea > IsUsedExtraArea)
 ' ---------------------------------
-Public Function IsUsedTargetArea(TgtAreaID As Integer) As Boolean
+Public Function IsUsedExtraArea(ExtraAreaID As Integer) As Boolean
 
 On Error GoTo Err_Handler
     
@@ -396,10 +400,10 @@ On Error GoTo Err_Handler
     Dim strSQL As String
     
     'default
-    IsUsedTargetArea = False
+    IsUsedExtraArea = False
     
     'generate SQL ==> NOTE: LIMIT 1; syntax not viable for Access, use SELECT TOP x instead
-    strSQL = "SELECT TOP 1 Target_Area_ID FROM tbl_Target_Species WHERE Target_Area_ID = " & TgtAreaID & ";"
+    strSQL = "SELECT TOP 1 Target_Area_ID FROM tbl_Target_Species WHERE Target_Area_ID = " & ExtraAreaID & ";"
             
     'fetch data
     Set db = CurrentDb
@@ -407,7 +411,7 @@ On Error GoTo Err_Handler
     
     'assume only 1 record returned
     If rs.RecordCount > 0 Then
-        IsUsedTargetArea = True
+        IsUsedExtraArea = True
     Else
         GoTo Exit_Function
     End If
@@ -419,7 +423,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - IsUsedTargetArea[mod_App_Data])"
+            "Error encountered (#" & Err.Number & " - IsUsedExtraArea[mod_App_Data])"
     End Select
     Resume Exit_Function
 End Function

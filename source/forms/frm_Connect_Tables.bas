@@ -23,9 +23,9 @@ Begin Form
     Width =9300
     DatasheetFontHeight =10
     ItemSuffix =96
-    Left =4770
-    Top =2895
-    Right =14070
+    Left =4776
+    Top =2892
+    Right =14076
     Bottom =8400
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
@@ -129,10 +129,10 @@ Begin Form
                     FontName ="Arial"
                     ControlTipText ="Close the form"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                 End
                 Begin CommandButton
                     Enabled = NotDefault
@@ -149,10 +149,10 @@ Begin Form
                     FontName ="Arial"
                     ControlTipText ="Update links to the file(s) indicated"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                 End
             End
         End
@@ -177,10 +177,10 @@ Begin Form
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin TextBox

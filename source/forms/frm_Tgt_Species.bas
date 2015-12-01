@@ -12,7 +12,8 @@ Begin Form
     Width =10935
     DatasheetFontHeight =11
     ItemSuffix =30
-    Right =11184
+    Left =924
+    Right =12108
     Bottom =5988
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
@@ -712,6 +713,7 @@ Option Explicit
 ' Revisions:    BLC, 2/9/2015 - initial version
 '               BLC, 4/30/2015 - integrated into Invasives Reporting tool
 '               BLC, 7/7/2015  - btnAdd() bug fix to avoid lbxSpecies compiler error (should have been lbxTgtSpecies)
+'               BLC, 12/1/2015 - "extra" vs. target area renaming
 ' =================================
 
 '=================================================================
@@ -958,6 +960,7 @@ End Sub
 ' Revisions:
 '   BLC, 3/5/2015 - initial version
 '   BLC, 5/1/2015 - updated frmSelectList to frm_Select_List to conform to standards
+'   BLC, 12/1/2015 - "extra" vs. target area renaming (iTgtAreaID > iExtraAreaID, Target_Area_ID > Extra_Area_ID)
 ' ---------------------------------
 Private Sub btnLoad_Click()
 
@@ -966,7 +969,7 @@ On Error GoTo Err_Handler
 Dim aryFields() As String
 Dim aryFieldTypes() As Variant
 Dim strCode As String, strSpecies As String, strLUCode As String
-Dim iRow As Integer, iTransectOnly As Integer, iTgtAreaID As Integer
+Dim iRow As Integer, iTransectOnly As Integer, iExtraAreaID As Integer
 Dim rs As DAO.Recordset
     
     iRow = Me.Controls("lbxTgtSpecies").ListCount - 1
@@ -974,7 +977,7 @@ Dim rs As DAO.Recordset
     ReDim Preserve aryFields(0 To iRow)
         
     'header row (iRow = 0)
-    aryFields(0) = "Code;Species;LUCode;Transect_Only;Target_Area_ID"   'iRow = 0
+    aryFields(0) = "Code;Species;LUCode;Transect_Only;Extra_Area_ID"   'iRow = 0
     aryFieldTypes = Array(dbText, dbText, dbText, dbInteger, dbInteger)
 
     'data rows (iRow > 0)
@@ -987,9 +990,9 @@ Dim rs As DAO.Recordset
          strSpecies = lbxTgtSpecies.Column(1, iRow) 'column 1 = Species name (Species)
          strLUCode = lbxTgtSpecies.Column(2, iRow) 'column 2 = LU_Code (LUCode)
          iTransectOnly = Nz(lbxTgtSpecies.Column(3, iRow), 0) 'column 3 = Transect_Only (TransectOnly)
-         iTgtAreaID = Nz(lbxTgtSpecies.Column(4, iRow), 0) 'column 4 = Target_Area_ID (TgtAreaID)
+         iExtraAreaID = Nz(lbxTgtSpecies.Column(4, iRow), 0) 'column 4 = Extra_Area_ID (ExtraAreaID)
         
-        aryFields(iRow) = strCode & ";" & strSpecies & ";" & strLUCode & ";" & iTransectOnly & ";" & iTgtAreaID
+        aryFields(iRow) = strCode & ";" & strSpecies & ";" & strLUCode & ";" & iTransectOnly & ";" & iExtraAreaID
         
     Next
     
@@ -1400,11 +1403,12 @@ End Sub
 '                     (park & year shift to tbl_Target_List)
 '   BLC - 6/11/2015 - added check to retrieve Tgt_List_ID when list previously existed to populate new species records
 '   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'   BLC - 12/1/2015 - "extra" vs. target are renaming (iTgtAreaID > iExtraAreaID, temp_Target_Species SQL Tgt_Area_ID > Tgt_Area_ID AS Extra_Area_ID)
 ' ---------------------------------
 Private Sub btnSaveList_Click()
 On Error GoTo Err_Handler
 
-    Dim iRow As Integer, i As Integer, iTransectOnly As Integer, iTgtAreaID As Integer, iResponse As Integer, tgtListID As Integer
+    Dim iRow As Integer, i As Integer, iTransectOnly As Integer, iExtraAreaID As Integer, iResponse As Integer, tgtListID As Integer
     Dim strMasterCode As String, strSpecies As String, strLUCode As String
     Dim strSQL As String, strInsert As String
     Dim varReturn As Variant
@@ -1524,7 +1528,7 @@ On Error GoTo Err_Handler
         strSpecies = lbxTgtSpecies.Column(1, iRow) 'column 1 = Species name
         strLUCode = lbxTgtSpecies.Column(2, iRow) 'column 2 = LU_Code
         iTransectOnly = Nz(lbxTgtSpecies.Column(3, iRow), 0) 'column 3 = Transect_Only
-        iTgtAreaID = Nz(lbxTgtSpecies.Column(4, iRow), 0) 'column 4 = Target_Area_ID
+        iExtraAreaID = Nz(lbxTgtSpecies.Column(4, iRow), 0) 'column 4 = Extra_Area_ID
         
        ' ---------------------------------------------------
        '  Check if item exists in tbl_TgtSpecies for Park, Year, Species combo
@@ -1551,7 +1555,7 @@ On Error GoTo Err_Handler
 
             'prepare insert value
             strInsert = "(" & tgtListID & ",'" & strMasterCode & "','" & strSpecies & "','" & strLUCode _
-                        & "'," & iTransectOnly & "," & iTgtAreaID & ");"
+                        & "'," & iTransectOnly & "," & iExtraAreaID & ");"
             
             'add comma if more than one row to insert
             'If (lbxTgtSpecies.ListCount - 1) > 1 And iRow < (lbxTgtSpecies.ListCount - 1) Then strInsert = strInsert & ","
@@ -1591,6 +1595,9 @@ On Error GoTo Err_Handler
     'replace values
     strSQL = Replace(strSQL, "(park)", "('" & TempVars("park") & "')")
     strSQL = Replace(strSQL, "(tgtYear)", "(" & TempVars("TgtYear") & ")")
+    
+    'update target area ID field name in temp_Target_Species
+    strSQL = Replace(strSQL, "Target_Area_ID", "Target_Area_ID AS Extra_Area_ID")
     
     'DoCmd.OpenQuery "qryTgtSpeciesList", acViewNormal, acReadOnly
     'DoCmd.RunSQL strSQL <=== NO! not on a SELECT...

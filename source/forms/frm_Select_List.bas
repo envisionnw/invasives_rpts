@@ -12,9 +12,9 @@ Begin Form
     GridY =24
     DatasheetFontHeight =11
     ItemSuffix =22
-    Left =330
-    Top =450
-    Right =7785
+    Left =336
+    Top =456
+    Right =7788
     Bottom =4800
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
@@ -217,10 +217,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin ListBox
@@ -501,6 +501,7 @@ End Sub
 '   BLC - 5/27/2015 - modified to use AddListRecordset and GetListRecordset vs.  MergeRecordsets to capture
 '                     all records from
 '   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'   BLC - 12/1/2015 - "extra" vs. target area renaming (Target_Area_ID > Extra_Area_ID)
 ' ---------------------------------
 Private Sub btnLoadList_Click()
 On Error GoTo Err_Handler
@@ -539,7 +540,7 @@ On Error GoTo Err_Handler
 '    rsTgtSpecies.GetRows
     
     'prepare temp_Listbox_Recordset field names
-    strFieldNames = "Code;Species;LUCode;Transect_Only;Target_Area_ID"
+    strFieldNames = "Code;Species;LUCode;Transect_Only;Extra_Area_ID"
     aryFieldTypes = Array(dbText, dbText, dbText, dbInteger, dbInteger)
 
     'check rs for records

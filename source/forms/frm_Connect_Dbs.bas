@@ -22,10 +22,10 @@ Begin Form
     Width =10800
     DatasheetFontHeight =10
     ItemSuffix =110
-    Left =5280
-    Top =2715
-    Right =16080
-    Bottom =8760
+    Left =5832
+    Top =7488
+    Right =16632
+    Bottom =13536
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0xabea2039169de340
@@ -150,10 +150,10 @@ Begin Form
                     FontName ="Arial"
                     ControlTipText ="Close the form"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -172,10 +172,10 @@ Begin Form
                     FontName ="Arial"
                     ControlTipText ="Update links to the file(s) indicated"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
             End
@@ -203,10 +203,10 @@ Begin Form
                     FontName ="Arial"
                     ControlTipText ="Browse to a new back-end file"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin TextBox
@@ -479,10 +479,10 @@ Begin Form
                     FontName ="Arial"
                     ControlTipText ="Test the new ODBC connection"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin TextBox

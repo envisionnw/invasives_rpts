@@ -13,10 +13,10 @@ Begin Form
     Width =4140
     DatasheetFontHeight =11
     ItemSuffix =16
-    Left =1320
-    Top =1890
-    Right =5460
-    Bottom =4755
+    Left =10416
+    Top =5004
+    Right =14568
+    Bottom =7872
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x9f832d99b891e440
@@ -162,6 +162,7 @@ Begin Form
             BackThemeColorIndex =1
             Begin
                 Begin CommandButton
+                    Enabled = NotDefault
                     OverlapFlags =85
                     Left =1740
                     Top =2280
@@ -198,10 +199,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin ListBox

@@ -629,6 +629,7 @@ End Function
 ' Parameters:   strDbName - name of the database to refresh
 '               strNewConnStr - updated connection string
 '               blnIsODBC - flag to indicate that the back-end is ODBC (default = False)
+'               strNewDbName - name of new db (default = original db name, strDbName)
 ' Returns:      True (successfully relinked) or False
 ' Throws:       none
 ' References:   ParseConnectionStr, TestODBCConnection
@@ -648,7 +649,9 @@ End Function
 ' =================================
 Public Function RefreshLinks(strDbName As String, ByVal strNewConnStr As String, _
     Optional strComponent As String = "DATABASE=", _
-    Optional ByVal blnIsODBC As Boolean = False) As Boolean
+    Optional ByVal blnIsODBC As Boolean = False, _
+    Optional strNewDbName As String _
+    ) As Boolean
     On Error GoTo Err_Handler
 
     Dim varFileName As Variant
@@ -659,14 +662,15 @@ Public Function RefreshLinks(strDbName As String, ByVal strNewConnStr As String,
     Dim intNumTables As Integer
     Dim varReturn As Variant
     Dim intI As Integer
-    Dim strTable As String
-    Dim strDesc As String
-    Dim strSQL As String
+    Dim strTable As String, strDesc As String, strSQL As String
     Dim frm As Form             ' Reference to the progress popup form
     Dim strProgForm As String   ' Name of the progress popup form
     Dim strProgress As String   ' Progress bar string
 
     RefreshLinks = False   ' Default unless all tables verified
+
+    'set new db name default to current name if strNewDbName not populated
+    If Len(strNewDbName) = 0 Then strNewDbName = strDbName
 
     Set db = CurrentDb
     Set rst = db.OpenRecordset("SELECT * FROM tsys_Link_Tables WHERE " & _
@@ -737,15 +741,33 @@ Debug.Print strTable
             Set tdf = db.tabledefs(strTable)
             tdf.Connect = strNewConnStr
             tdf.RefreshLink
-            ' Update the table description in tsys_Link_Tables
+            ' Update the table description & Link_db in tsys_Link_Tables
             ' Set default description in case there is none
             strDesc = " - no description - "
             strDesc = tdf.Properties("Description") ' Throws trapped error 3270 if none
             'replace double quotes with singles
             strDesc = Replace(strDesc, """", "'")
+'            strSQL = "UPDATE tsys_Link_Tables " & _
+'                "SET tsys_Link_Tables.Description_text=""" & strDesc & _
+'                """ WHERE (((tsys_Link_Tables.Link_table)=""" & strTable & """));"
             strSQL = "UPDATE tsys_Link_Tables " & _
                 "SET tsys_Link_Tables.Description_text=""" & strDesc & _
+                """, tsys_Link_Tables.Link_db=""" & strNewDbName & _
                 """ WHERE (((tsys_Link_Tables.Link_table)=""" & strTable & """));"
+Debug.Print strSQL
+            DoCmd.SetWarnings False
+            DoCmd.RunSQL strSQL
+            DoCmd.SetWarnings True
+'            rst.MoveNext
+    
+            'update database name & description in tsys_Link_Dbs & tsys_Link_Files
+            'update tsys_Link_Dbs  ' File_path = '" & strCurDbPath & "', " & _
+            strSQL = "UPDATE tsys_Link_Dbs " & _
+                     "SET " & _
+                     "Link_db = '" & strNewDbName & "', " & _
+                     "Db_desc = '" & strDesc & "', " & _
+                     "WHERE Link_db = '" & strDbName & "';"
+                     
             DoCmd.SetWarnings False
             DoCmd.RunSQL strSQL
             DoCmd.SetWarnings True
