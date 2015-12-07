@@ -21,11 +21,11 @@ Begin Form
     GridY =24
     Width =10800
     DatasheetFontHeight =10
-    ItemSuffix =110
-    Left =5832
-    Top =7488
-    Right =16632
-    Bottom =13536
+    ItemSuffix =111
+    Left =4860
+    Top =3516
+    Right =15660
+    Bottom =9564
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0xabea2039169de340
@@ -219,9 +219,9 @@ Begin Form
                     BorderWidth =3
                     OverlapFlags =93
                     BackStyle =0
-                    Left =180
+                    Left =2100
                     Top =120
-                    Width =5334
+                    Width =3414
                     Height =252
                     ColumnWidth =3090
                     FontSize =9
@@ -233,6 +233,10 @@ Begin Form
                     FontName ="Arial"
                     ControlTipText ="Linked database name"
 
+                    LayoutCachedLeft =2100
+                    LayoutCachedTop =120
+                    LayoutCachedWidth =5514
+                    LayoutCachedHeight =372
                 End
                 Begin TextBox
                     CanGrow = NotDefault
@@ -240,7 +244,7 @@ Begin Form
                     TabStop = NotDefault
                     AllowAutoCorrect = NotDefault
                     OverlapFlags =93
-                    Left =1380
+                    Left =1680
                     Top =480
                     Width =7917
                     Height =252
@@ -255,17 +259,25 @@ Begin Form
                     ControlTipText ="Brief description of the type of database - e.g., data tables, lookup tables, sy"
                         "stems tables, etc."
 
+                    LayoutCachedLeft =1680
+                    LayoutCachedTop =480
+                    LayoutCachedWidth =9597
+                    LayoutCachedHeight =732
                     Begin
                         Begin Label
                             OverlapFlags =93
-                            Left =240
+                            Left =720
                             Top =480
-                            Width =1065
+                            Width =885
                             Height =240
                             FontSize =9
                             Name ="lblDb_desc"
                             Caption ="Description:"
                             FontName ="Arial"
+                            LayoutCachedLeft =720
+                            LayoutCachedTop =480
+                            LayoutCachedWidth =1605
+                            LayoutCachedHeight =720
                         End
                     End
                 End
@@ -671,6 +683,33 @@ Begin Form
                         0x0000000000000000000000000000000000
                     End
                 End
+                Begin TextBox
+                    Enabled = NotDefault
+                    Locked = NotDefault
+                    TabStop = NotDefault
+                    AllowAutoCorrect = NotDefault
+                    SpecialEffect =0
+                    BorderWidth =3
+                    OverlapFlags =247
+                    BackStyle =0
+                    Left =180
+                    Top =120
+                    Width =1854
+                    Height =252
+                    FontSize =9
+                    FontWeight =700
+                    TabIndex =17
+                    Name ="tbxLinkType"
+                    ControlSource ="=[Link_type] & \":\""
+                    StatusBarText ="Linked database name"
+                    FontName ="Arial"
+                    ControlTipText ="Linked database name"
+
+                    LayoutCachedLeft =180
+                    LayoutCachedTop =120
+                    LayoutCachedWidth =2034
+                    LayoutCachedHeight =372
+                End
             End
         End
         Begin FormFooter
@@ -714,6 +753,8 @@ Option Explicit
 '               BLC, 5/21/2015 - added from NCPN WQ Utilities to invasives reporting tool
 '                    updated documentation & error handlers to reflect module & function/sub
 '                    updated control prefixes
+'               BLC, 12/3/2015 - modified btnUpdateLinks_Click to handle updating database names for
+'                    the same type w/ a different file name
 ' =================================
 
 ' ---------------------------------
@@ -782,7 +823,7 @@ Private Sub cbxIs_ODBC_KeyDown(KeyCode As Integer, Shift As Integer)
     strMsgConfirm = "To change the connection type, you must delete and relink" & vbCrLf & _
         "the tables for this database manually ... are you sure?"
     If MsgBox(strMsgConfirm, vbOKCancel, "Confirm change") = vbCancel Then
-        Cancel = True
+        vbCancel = True
         Me.ActiveControl.Undo
     Else
         'disable cbxBackups control
@@ -1366,7 +1407,11 @@ End Sub
 
 ' ---------------------------------
 ' SUB:          btnUpdateLinks_Click
-' Description:
+' Description:  Update new linked database tsys_Link_Dbs, tsys_Link_Files, tsys_Link_Tables
+' Assumptions:  Tables (tsys_Link_Dbs, tsys_Link_Files & tsys_Link_Dbs) exist with fields as noted
+'               Linked database file types are set for a given application based on its needs.
+'               Link_type is the primary key (and unchangeable) for tsys_Link_Dbs & tsys_Link_Files.
+'               tsys_Link_Files is present for backward compatibility in some applications.
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       -
@@ -1382,12 +1427,14 @@ End Sub
 '                                RefreshLinks(strDbName, strNewConnStr, , False)
 '                                added frm_Main_Menu restore on exit
 '               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 12/2/2015 - revised to handle new database names
 ' ---------------------------------
 Private Sub btnUpdateLinks_Click()
     On Error GoTo Err_Handler
 
     Dim rst As DAO.Recordset
     Dim strDbName As String
+    Dim strDbType As String         ' Database type (e.g. back-end database)
     Dim strTable As String
     Dim strServer As String
     Dim strNewDb As String          ' New name for the linked database
@@ -1395,78 +1442,107 @@ Private Sub btnUpdateLinks_Click()
     Dim strNewServer As String      ' New server name for the linked database (ODBC)
     Dim strNewConnStr As String     ' New connection string to update tables with
     Dim bHasError As Boolean
+    Dim strSQL As String
 
-    ' Set a loop in case of multiple back-ends.  If errors are encountered on one,
-    '   go to the next loop rather than exit
-    Set rst = Me.Recordset
+    ' -------------------------------
+    ' Handle multiple back-ends --> On error, next loop rather than exit
+    ' -------------------------------
+    Set rst = Me.Recordset      'backend: tsys_Link_Dbs
     rst.MoveFirst
 
     bHasError = False       ' Default until an error is encountered
     TempVars("HasAccessBE") = False
 
-    ' If it is open, close the always-open form (used to maintain the connection to the
-    '   back-end and avoid unnecessary create/delete/updates to its .ldb lock file)
+    ' If open, close always-open form (used to maintain back-end connection &
+    '   avoid unnecessary create/delete/updates to its .ldb lock file)
     If FormIsLoaded("frm_Lock_BE") Then
         DoCmd.Close acForm, "frm_Lock_BE", acSaveNo
     End If
 
+' --- multiple back-end files loop ---
     Do Until rst.EOF
         strDbName = rst.Fields("Link_db")
+        strDbType = rst.Fields("Link_type")
+
+        '---------------------
+        ' ODBC Connected Back-ends
+        '---------------------
         If rst.Fields("Is_ODBC") = True Then
-            ' ODBC connection
-            ' Move to next back-end if server or db name are blank
+            
+            ' Server or db name are blank? --> Move to next back-end
             If IsNull(rst.Fields("New_server")) Or IsNull(rst.Fields("New_db")) Then _
                 GoTo NextBackEnd
+            
             strNewDb = rst.Fields("New_db")
             strServer = rst.Fields("Server")
             strNewServer = rst.Fields("New_server")
-            ' Make sure at least 1 table is associated with this back-end
+            
+            ' Check for associated tables (must be @ least 1 for this back-end)
             If DCount("*", "tsys_Link_Tables", "[Link_db]=""" & strDbName & """") = 0 Then
                 MsgBox "There are no linked tables associated with this database", _
                     vbExclamation, strDbName
                 bHasError = True
                 GoTo NextBackEnd
             End If
+
             ' Get the first table in the list for this back-end
             strTable = DFirst("[Link_table]", "tsys_Link_Tables", _
                 "[Link_db]=""" & strDbName & """")
+            
             ' Start with the current connection string
             strNewConnStr = CurrentDb.tabledefs(strTable).Connect
-            ' Update the connection string with the new server and db name
+
+            ' Update connection string with new server & db name
             strNewConnStr = ReplaceString(strNewConnStr, strDbName, strNewDb)
             strNewConnStr = ReplaceString(strNewConnStr, strServer, strNewServer)
-            ' Update the links to the selected database
-            If RefreshLinks(strDbName, strNewConnStr, True) = False Then
+
+            ' Update selected database links
+            If RefreshLinks(strDbName, strNewConnStr, True, strNewDb) = False Then
                 ' A linking error was encountered
                 MsgBox "Links to this database were not updated or only partially updated", _
                     vbExclamation, strDbName
                 bHasError = True
                 GoTo NextBackEnd
             End If
+
+        '---------------------
+        ' Access Connected Back-ends
+        '---------------------
         Else
-            ' Access back-end
+
             TempVars("HasAccessBE") = True
-            ' If the user didn't specify a different database,
-            '   refresh the links to the current linked file
+
+            ' Same database? --> refresh links to current linked file
+            ' -----------------------------
             If IsNull(rst.Fields("New_path")) Then
                 strNewPath = rst.Fields("File_path")
+                strNewDb = rst.Fields("New_db")
             Else
                 strNewPath = rst.Fields("New_path")
+                strNewDb = rst.Fields("New_db")
             End If
             strNewConnStr = ";DATABASE=" & strNewPath
-            ' Update the links to the selected database
-            If RefreshLinks(strDbName, strNewConnStr, , False) = False Then
-                ' A linking error was encountered
+
+            ' Verify file & update links to it
+            If RefreshLinks(strDbName, strNewConnStr, , False, strNewDb) = False Then
+
+                ' Linking Error(s)
                 MsgBox "Links to this database were not updated or only partially updated", _
                     vbExclamation, strDbName
                 bHasError = True
                 GoTo NextBackEnd
-            End If
-        End If
+'--- REMOVE SECTION??? ---
+'            End If
+'        End If
 
         ' Move to next back end without updating the record if no new info was entered
-        If IsNull(rst.Fields("New_db")) Then GoTo NextBackEnd
-        ' If no error on this back end then update this record with the new info
+'        If IsNull(rst.Fields("New_db")) Then GoTo NextBackEnd
+'-------------------------
+        'No Linking Errors on this back end & new file path --> update current path and file
+'--- ADD? ----------------
+        ElseIf IsNull(rst.Fields("New_db")) = False Then
+'-------------------------
+
         With rst
             .Edit
             !Link_db = rst.Fields("New_db").Value
@@ -1479,6 +1555,14 @@ Private Sub btnUpdateLinks_Click()
             .Update
             .Bookmark = .lastModified
         End With
+            ' update tsys_Link_Dbs database name & paths
+             strSQL = "UPDATE tsys_Link_Dbs SET File_Path = '" & strNewPath & "', " & _
+                     "Link_db = '" & strNewDb & "' " & _
+                     "WHERE Link_db = '" & strDbName & "';"
+            DoCmd.SetWarnings False 'hide the append dialog
+            DoCmd.RunSQL strSQL
+            DoCmd.SetWarnings True
+        End If
 
 NextBackEnd:
         On Error Resume Next
@@ -1490,9 +1574,9 @@ NextBackEnd:
         Err = 0
         rst.MoveNext
     Loop
-    ' End the loop accommodating multiple back-end files here
+' --- multiple back-end files loop ---
 
-    ' If no connection errors, then notify the user and reset the application
+    ' If no connection errors --> notify the user and reset the application
     If bHasError = False Then
         ' Verify and clean up the link table info
         If VerifyLinkTableInfo = True Then
@@ -1500,7 +1584,7 @@ NextBackEnd:
             MsgBox "Update complete!", vbExclamation, "Back-end database connections"
             TempVars("Connected") = True
             DoCmd.Close , , acSaveNo
-            ' Call the function to set up the application using new connection info
+            ' Call function to set up the application using new connection info
             Call AppSetup
         End If
     End If

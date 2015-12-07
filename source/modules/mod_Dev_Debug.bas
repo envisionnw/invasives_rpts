@@ -10,7 +10,7 @@ Option Explicit
 '
 ' Source/date:  Bonnie Campbell, 2/12/2015
 ' Revisions:    BLC - 5/27/2015 - 1.00 - initial version
-'               BLC - 7/7/2016  - 1.01 - added GetErrorTrappingOption()
+'               BLC - 7/7/2015  - 1.01 - added GetErrorTrappingOption()
 ' =================================
 
 ' ===================================================================================

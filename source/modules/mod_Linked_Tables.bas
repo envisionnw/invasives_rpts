@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_Linked_Tables
 ' Level:        Framework module
-' Version:      1.04
+' Version:      1.06
 ' Description:  Linked table related functions & subroutines
 '
 ' Adapted from: John R. Boetsch, May 24, 2006
@@ -18,6 +18,8 @@ Option Explicit
 '               BLC, 6/10/2015 - 1.02 - fixed VerifyLinkTableInfo to add new linked tables to tsys_Link_Tables
 '               BLC, 6/12/2015 - 1.03 - replaced TempVars.item(... with TempVars("...
 '               BLC, 9/30/2015 - 1.04 - added check & resolve double quotes in table descriptions in RefreshLinks
+'               BLC, 12/1/2015 - 1.05 - resolve issues with linked database updates to differently named backend databases
+'               BLC, 12/3/2015 - 1.06 - added UpdateTSysTableDb
 ' =================================
 
 ' ---------------------------------
@@ -646,6 +648,7 @@ End Function
 '               BLC, 5/20/2015 - updated progress meter control naming, added connection component for non-"DATABASE="
 '                                connection strings (e.g. Access 2010 w/ "Dbq=")
 '               BLC, 9/30/2015 - add description parsing to avoid errors due to quotes
+'               BLC, 12/1/2015 - resolve issues with linked database updates to differently named backend databases
 ' =================================
 Public Function RefreshLinks(strDbName As String, ByVal strNewConnStr As String, _
     Optional strComponent As String = "DATABASE=", _
@@ -741,6 +744,7 @@ Debug.Print strTable
             Set tdf = db.tabledefs(strTable)
             tdf.Connect = strNewConnStr
             tdf.RefreshLink
+            
             ' Update the table description & Link_db in tsys_Link_Tables
             ' Set default description in case there is none
             strDesc = " - no description - "
@@ -768,6 +772,11 @@ Debug.Print strSQL
                      "Db_desc = '" & strDesc & "', " & _
                      "WHERE Link_db = '" & strDbName & "';"
                      
+            'update tsys_Link_Dbs (Link_db <-- get from File_path when File_path updated? - or -
+            '                                  tsys_Link_Files Link_file_name & Link_file_path & Link_description?)
+            
+            'update tsys_Linked_Tables (Link_db, Link_Type)
+            
             DoCmd.SetWarnings False
             DoCmd.RunSQL strSQL
             DoCmd.SetWarnings True
@@ -1238,4 +1247,44 @@ Err_Handler:
     End Select
     Resume Exit_Procedure
 
+End Sub
+
+' ---------------------------------
+' SUB:          UpdateTSysTablesDb
+' Description:  Update database value for a table w/in tsys_Link_Tables
+' Assumptions:  Tables (tsys_Link_Tables) exist with fields as noted
+'               Database file & path are valid.
+' Parameters:   strNewDb - new database (e.g. "mynewdb.accdb")
+'               strOrigDb - original database  (e.g. "mydb.accdb")
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Bonnie Campbell, December 3, 2015 - for NCPN tools
+' Adapted:      -
+' Revisions:
+'   BLC - 12/3/2015 - initial version
+' ---------------------------------
+Public Sub UpdateTSysTablesDb(strNewDb As String, strOrigDb As String)
+On Error GoTo Err_Handler
+    
+    Dim strSQL As String
+        
+    DoCmd.SetWarnings False
+    
+    'update tsys_Link_Tables
+    strSQL = "UPDATE tsys_Link_Tables SET Link_db = '" & strNewDb & "' WHERE Link_db = '" & strOrigDb & "';"
+    DoCmd.RunSQL (strSQL)
+        
+    DoCmd.SetWarnings True
+
+Exit_Sub:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - UpdateTSysTablesDb[mod_Linked_Tables])"
+    End Select
+    Resume Exit_Sub
 End Sub
