@@ -10,14 +10,15 @@ Begin Report
     DatasheetGridlinesBehavior =3
     GridX =24
     GridY =24
-    Width =11400
+    Width =11412
     DatasheetFontHeight =11
-    ItemSuffix =48
-    Left =888
-    Top =144
-    Right =13968
-    Bottom =9072
+    ItemSuffix =50
+    Left =1296
+    Top =756
+    Right =13068
+    Bottom =8988
     DatasheetGridlinesColor =14806254
+    OnNoData ="[Event Procedure]"
     RecSrcDt = Begin
         0x3343e4d9b0ace440
     End
@@ -26,7 +27,7 @@ Begin Report
     OnOpen ="[Event Procedure]"
     DatasheetFontName ="Calibri"
     PrtMip = Begin
-        0x6a01000068010000680100006801000000000000882c0000a401000001000000 ,
+        0x6a01000068010000680100006801000000000000942c0000a201000001000000 ,
         0x010000006801000000000000a10700000100000001000000
     End
     FilterOnLoad =255
@@ -92,7 +93,7 @@ Begin Report
         Begin BreakLevel
             GroupHeader = NotDefault
             KeepTogether =2
-            ControlSource ="Park"
+            ControlSource ="Unit_Code"
         End
         Begin BreakLevel
             SortOrder = NotDefault
@@ -151,7 +152,7 @@ Begin Report
             End
         End
         Begin PageHeader
-            Height =1335
+            Height =1332
             Name ="PageHeaderSection"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -159,13 +160,13 @@ Begin Report
             Begin
                 Begin Rectangle
                     OldBorderStyle =0
-                    Width =11400
+                    Width =11412
                     Height =480
                     BackColor =15849926
                     BorderColor =10921638
                     Name ="rectPageHdr"
                     GridlineColor =10921638
-                    LayoutCachedWidth =11400
+                    LayoutCachedWidth =11412
                     LayoutCachedHeight =480
                     BackThemeColorIndex =2
                     BackTint =20.0
@@ -295,14 +296,14 @@ Begin Report
                 End
                 Begin Line
                     BorderWidth =2
-                    Left =180
+                    Left =36
                     Top =1320
-                    Width =11100
+                    Width =11376
                     Name ="lnHeader"
                     GridlineColor =10921638
-                    LayoutCachedLeft =180
+                    LayoutCachedLeft =36
                     LayoutCachedTop =1320
-                    LayoutCachedWidth =11280
+                    LayoutCachedWidth =11412
                     LayoutCachedHeight =1320
                 End
                 Begin TextBox
@@ -352,7 +353,7 @@ Begin Report
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxPark"
-                    ControlSource ="Park"
+                    ControlSource ="Unit_Code"
                     StatusBarText ="Target Species name (ITIS species name from tlu_NCPN_Plants.Master_Species)"
                     GridlineColor =10921638
 
@@ -375,7 +376,7 @@ Begin Report
                     BorderColor =10921638
                     ForeColor =8355711
                     Name ="tbxSumParkYears"
-                    ControlSource ="=Count(*)"
+                    ControlSource ="=IIf(IsNull([Visit_Year]),\"-\",Count(*))"
                     StatusBarText ="Number of years visited"
                     GridlineColor =10921638
 
@@ -437,7 +438,7 @@ Begin Report
                     BorderColor =10921638
                     ForeColor =8355711
                     Name ="tbxLastVisited"
-                    ControlSource ="=Max([Visit_Year])"
+                    ControlSource ="=IIf(IsNull([Visit_Year]),\"-\",Max([Visit_Year]))"
                     StatusBarText ="Last invasives visit to park"
                     GridlineColor =10921638
 
@@ -451,7 +452,7 @@ Begin Report
         End
         Begin Section
             KeepTogether = NotDefault
-            Height =420
+            Height =418
             Name ="Detail"
             AlternateBackColor =15921906
             AlternateBackThemeColorIndex =1
@@ -471,19 +472,6 @@ Begin Report
 
                     LayoutCachedWidth =11400
                     LayoutCachedHeight =418
-                    Begin
-                        Begin Label
-                            Width =705
-                            Height =315
-                            BorderColor =8355711
-                            ForeColor =8355711
-                            Name ="Label34"
-                            Caption ="Text33"
-                            GridlineColor =10921638
-                            LayoutCachedWidth =705
-                            LayoutCachedHeight =315
-                        End
-                    End
                 End
                 Begin TextBox
                     OldBorderStyle =0
@@ -551,6 +539,26 @@ Begin Report
                     LayoutCachedWidth =2040
                     LayoutCachedHeight =372
                 End
+                Begin Label
+                    Visible = NotDefault
+                    TextAlign =2
+                    Left =660
+                    Top =60
+                    Width =10080
+                    Height =300
+                    BorderColor =8355711
+                    ForeColor =8355711
+                    Name ="lblNoData"
+                    Caption ="Sorry, no data was found for this park/year."
+                    Tag ="DetachedLabel"
+                    ControlTipText ="No data returned"
+                    GridlineStyleBottom =1
+                    GridlineColor =10921638
+                    LayoutCachedLeft =660
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =10740
+                    LayoutCachedHeight =360
+                End
             End
         End
         Begin PageFooter
@@ -570,12 +578,12 @@ Begin Report
             Begin
                 Begin Line
                     BorderWidth =2
-                    Left =60
-                    Width =11100
+                    Left =36
+                    Width =11376
                     Name ="lnPageFooter"
                     GridlineColor =10921638
-                    LayoutCachedLeft =60
-                    LayoutCachedWidth =11160
+                    LayoutCachedLeft =36
+                    LayoutCachedWidth =11412
                 End
                 Begin Label
                     Visible = NotDefault
@@ -644,14 +652,14 @@ On Error GoTo Err_Handler
     
     strWhere = ""
     If Len(Trim(oArgs(4))) > 0 Then
-        strWhere = "WHERE Park = '" & oArgs(4) & "'"
+        strWhere = "WHERE Unit_Code = '" & Trim(oArgs(4)) & "'"
     End If
     
     If Len(Trim(oArgs(5))) > 0 Then
         If Len(strWhere) > 0 Then
-            strWhere = strWhere & "AND Visit_Year = " & oArgs(5)
+            strWhere = strWhere & " AND Visit_Year = " & CInt(oArgs(5))
         Else
-            strWhere = "WHERE Visit_Year = " & oArgs(5)
+            strWhere = "WHERE Visit_Year = " & CInt(oArgs(5))
         End If
     End If
     
@@ -671,6 +679,48 @@ On Error GoTo Err_Handler
     'tbxYear = oArgs(3) & " " & oArgs(4)  'Error #-2147352567 - You can't assign a value to this object.
 
     
+Exit_Sub:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - Report_Open[Report_rpt_Tgt_Species_List_By_Park])"
+    End Select
+    Resume Exit_Sub
+End Sub
+
+' ---------------------------------
+' SUB:          Report_NoData
+' Description:  Actions for when report query returns no data
+' Assumptions:  -
+' Parameters:   -
+' Returns:      N/A
+' Throws:       none
+' References:   none
+' Source/date:  Bonnie Campbell, December 10, 2015 - for NCPN tools
+' Adapted:      -
+' Revisions:
+'   BLC - 12/10/2015 - initial version
+' ---------------------------------
+Private Sub Report_NoData(Cancel As Integer)
+On Error GoTo Err_Handler
+
+    Dim oArgs() As String
+    
+    'header automatically adjusts
+    oArgs = Split(Me.OpenArgs, "|")
+    Me.tbxYear = Trim(oArgs(4)) & " - " & oArgs(5)
+    
+    'hide normal controls
+    Me.tbxVisitYear.visible = False
+    Me.tbxEDSWmin.visible = False
+    Me.tbxEDSWmax.visible = False
+    
+    'expose message
+    Me.lblNoData.visible = True
+
 Exit_Sub:
     Exit Sub
     

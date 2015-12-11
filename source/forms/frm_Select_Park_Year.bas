@@ -14,15 +14,15 @@ Begin Form
     GridY =24
     DatasheetFontHeight =9
     ItemSuffix =14
-    Left =7272
-    Top =2604
-    Right =14472
-    Bottom =6192
+    Left =9576
+    Top =1092
+    Right =16776
+    Bottom =4680
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x3d34192b53bbe340
     End
-    Caption ="Select EDSW Data"
+    Caption =" Park EDSW Data "
     DatasheetFontName ="Arial"
     PrtMip = Begin
         0x6801000068010000680100006801000000000000201c0000e010000001000000 ,
@@ -68,7 +68,7 @@ Begin Form
                     FontSize =16
                     FontWeight =700
                     Name ="lblTitle"
-                    Caption ="Infestation Listing"
+                    Caption =" Park EDSW Data "
                 End
                 Begin CommandButton
                     OverlapFlags =85
@@ -97,7 +97,8 @@ Begin Form
                     ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"10\""
                     Name ="lbxPark"
                     RowSourceType ="Table/Query"
-                    RowSource ="SELECT tlu_Parks.ParkCode, tlu_Parks.ParkName FROM tlu_Parks;"
+                    RowSource ="SELECT DISTINCT tlu_Parks.ParkCode, tlu_Parks.ParkName FROM tlu_Parks INNER JOIN"
+                        " tbl_EDSW ON tbl_EDSW.Unit_Code = tlu_Parks.ParkCode;"
                     ColumnWidths ="576;2592"
                     AfterUpdate ="[Event Procedure]"
 
@@ -124,8 +125,11 @@ Begin Form
                     Top =1680
                     Width =1200
                     TabIndex =2
+                    ColumnInfo ="\"\";\"\";\"3\";\"2\""
                     Name ="lbxYear"
                     RowSourceType ="Table/Query"
+                    RowSource ="SELECT DISTINCT Year(GPS_Date) FROM tbl_EDSW WHERE [Unit_Code] = 'CURE' ORDER BY"
+                        " Year(GPS_Date)"
                     ColumnWidths ="2820"
 
                     Begin
@@ -242,6 +246,41 @@ Err_Handler:
 End Sub
 
 ' ---------------------------------
+' SUB:          Park_Code_AfterUpdate
+' Description:  actions after the update of park dropdown
+' Parameters:   -
+' Returns:      -
+' Throws:       -
+' References:   -
+' Source/date:  Bonnie Campbell, December 3, 2015 - for NCPN tools
+' Adapted:      -
+' Revisions:
+'   BLC - 12/3/2015 - initial version
+' ---------------------------------
+Private Sub lbxPark_AfterUpdate()
+On Error GoTo Err_Handler
+
+  If Not IsNull(Me!lbxPark) Then
+'    Dim strSQL As String
+'    strSQL = "SELECT Year(GPS_Date) FROM tbl_EDSW WHERE [Unit_Code] = '" & Me!lbxPark & "' ORDER BY Visit_Year;"
+    Me!lbxYear.RowSource = "SELECT DISTINCT Year(GPS_Date) FROM tbl_EDSW WHERE [Unit_Code] = '" & Me!lbxPark & "' ORDER BY Year(GPS_Date)"
+     
+    Me.Refresh
+  End If
+
+Exit_Sub:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - lbxPark_AfterUpdate[frm_Select_Park_Year])"
+    End Select
+    Resume Exit_Sub
+End Sub
+
+' ---------------------------------
 ' SUB:          btnReportOpen_Click
 ' Description:  open the desired report
 ' Parameters:   -
@@ -287,7 +326,7 @@ Exit_Sub:
 
 RedisplayForm:
     Me.SetFocus
-    Resume Exit_Sub
+    GoTo Exit_Sub
 
 Err_Handler:
     Select Case Err.Number
@@ -296,37 +335,6 @@ Err_Handler:
             "Error encountered (#" & Err.Number & " - btnReportOpen_Click[frm_Select_Park_Year])"
     End Select
     Resume Exit_Sub
-End Sub
-
-Private Sub Park_Code_AfterUpdate()
-  If Not IsNull(Me!Park_Code) Then
-    Me!Visit_Year.RowSource = "SELECT Visit_Year FROM qry_sel_Infest_Year WHERE [Unit_Code] = '" & Me!Park_Code & "' ORDER BY Visit_Year"
-    Me.Refresh
-  End If
-End Sub
-
-
-
-Private Sub ButtonQuery_Click()
-On Error GoTo Err_ButtonQuery_Click
-
-    Dim stDocName As String
-    
-    If IsNull(Me!Park_Code) Or IsNull(Me!Visit_Year) Then
-      MsgBox "You must select both park and year.", , "Infestation Query"
-      Exit Sub
-    End If
-
-    stDocName = "qry_Infest_Param"
-    DoCmd.OpenQuery stDocName, acNormal, acEdit
-
-Exit_ButtonQuery_Click:
-    Exit Sub
-
-Err_ButtonQuery_Click:
-    MsgBox Err.Description
-    Resume Exit_ButtonQuery_Click
-    
 End Sub
 
 ' ---------------------------------
@@ -362,13 +370,17 @@ On Error GoTo Err_Handler
 'GROUP BY tbl_EDSW.Unit_Code, Year(tbl_EDSW.GPS_Date)
 'ORDER BY tbl_EDSW.Unit_Code, Year(tbl_EDSW.GPS_Date);
 
+'qry_EDSW_by_Park_Filtered
+'SELECT * FROM qry_EDSW_by_Park
+'WHERE Unit_Code = 'COLM' AND Visit_Year = 2013;
+
 
     Dim oArgs As String, qry As String, aryArgs() As String, strWhere As String
     Dim iResult As Integer
 
     'parse open args ( MsgBox.Title = lblTitle.caption )
     'Report Name | Me.Caption | lblTitle.caption | lbxYear.RowSource | Park | Year
-    qry = "qry_EDSW_By_Park"
+    qry = "qry_EDSW_By_Park_Filtered"
     oArgs = qry & " | Park EDSW Data | Park EDSW Data | SELECT * FROM qry_EDSW_by_Park | " & Me!lbxPark & " | " & Me!lbxYear
     aryArgs = Split(oArgs, "|")
 
@@ -385,20 +397,24 @@ On Error GoTo Err_Handler
     
     strWhere = ""
     If Len(Trim(aryArgs(4))) > 0 Then
-        strWhere = "WHERE tbl_EDSW.Unit_Code = '" & Trim(aryArgs(4)) & "'"
+        strWhere = "WHERE Unit_Code = '" & Trim(aryArgs(4)) & "'" '"WHERE tbl_EDSW.Unit_Code = '" & Trim(aryArgs(4)) & "'"
     End If
     
     If Len(Trim(aryArgs(5))) > 0 Then
         If Len(strWhere) > 0 Then
-            strWhere = strWhere & " AND Year(tbl_EDSW.GPS_Date) = " & CInt(aryArgs(5))
+            strWhere = strWhere & " AND Visit_Year = " & CInt(aryArgs(5)) '" AND Year(tbl_EDSW.GPS_Date) = " & CInt(aryArgs(5))
         Else
-            strWhere = "WHERE Year(tbl_EDSW.GPS_Date) = " & CInt(aryArgs(5))
+            strWhere = "WHERE Visit_Year = " & CInt(aryArgs(5)) '"WHERE Year(tbl_EDSW.GPS_Date) = " & CInt(aryArgs(5))
         End If
     End If
          
     'strSQL = oArgs(3) & strWhere & ";"
 
     DoCmd.OpenQuery qry, , acReadOnly
+    
+    'clear fields
+    Me.lbxPark = ""
+    Me.lbxYear = ""
     
     'apply filter if park/year selected --> apply filter requires qry, valid WHERE clause w/o the WHERE
     If Len(strWhere) > 0 Then DoCmd.ApplyFilter qry, Replace(strWhere, "WHERE ", "")
@@ -414,7 +430,7 @@ Exit_Sub:
 
 RedisplayForm:
     Me.SetFocus
-    Resume Exit_Sub
+    GoTo Exit_Sub
 
 Err_Handler:
     Select Case Err.Number
