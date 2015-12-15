@@ -12,12 +12,13 @@ Begin Form
     DatasheetGridlinesBehavior =3
     GridX =24
     GridY =24
+    Width =5760
     DatasheetFontHeight =9
     ItemSuffix =14
-    Left =9576
-    Top =1092
-    Right =16776
-    Bottom =4680
+    Left =135
+    Top =6435
+    Right =5895
+    Bottom =9720
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x3d34192b53bbe340
@@ -54,14 +55,14 @@ Begin Form
             FontName ="Tahoma"
         End
         Begin Section
-            Height =3600
+            Height =3300
             BackColor =-2147483633
             Name ="Detail"
             Begin
                 Begin Label
                     OverlapFlags =85
                     TextAlign =2
-                    Left =1440
+                    Left =660
                     Top =240
                     Width =4335
                     Height =420
@@ -69,10 +70,14 @@ Begin Form
                     FontWeight =700
                     Name ="lblTitle"
                     Caption =" Park EDSW Data "
+                    LayoutCachedLeft =660
+                    LayoutCachedTop =240
+                    LayoutCachedWidth =4995
+                    LayoutCachedHeight =660
                 End
                 Begin CommandButton
                     OverlapFlags =85
-                    Left =4560
+                    Left =3780
                     Top =2580
                     Width =1350
                     Height =299
@@ -80,17 +85,21 @@ Begin Form
                     Caption ="Close Form"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    LayoutCachedLeft =3780
+                    LayoutCachedTop =2580
+                    LayoutCachedWidth =5130
+                    LayoutCachedHeight =2879
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                 End
                 Begin ComboBox
                     OverlapFlags =85
                     IMESentenceMode =3
                     ColumnCount =2
                     ListWidth =2880
-                    Left =2820
+                    Left =2040
                     Top =1080
                     Width =2520
                     TabIndex =1
@@ -102,17 +111,25 @@ Begin Form
                     ColumnWidths ="576;2592"
                     AfterUpdate ="[Event Procedure]"
 
+                    LayoutCachedLeft =2040
+                    LayoutCachedTop =1080
+                    LayoutCachedWidth =4560
+                    LayoutCachedHeight =1320
                     Begin
                         Begin Label
                             OverlapFlags =85
                             TextAlign =3
-                            Left =1560
+                            Left =780
                             Top =1080
                             Width =1140
                             Height =245
                             FontWeight =700
                             Name ="lblPark"
                             Caption ="Select Park:"
+                            LayoutCachedLeft =780
+                            LayoutCachedTop =1080
+                            LayoutCachedWidth =1920
+                            LayoutCachedHeight =1325
                         End
                     End
                 End
@@ -121,7 +138,7 @@ Begin Form
                     OverlapFlags =85
                     IMESentenceMode =3
                     ListWidth =720
-                    Left =2820
+                    Left =2040
                     Top =1680
                     Width =1200
                     TabIndex =2
@@ -132,23 +149,31 @@ Begin Form
                         " Year(GPS_Date)"
                     ColumnWidths ="2820"
 
+                    LayoutCachedLeft =2040
+                    LayoutCachedTop =1680
+                    LayoutCachedWidth =3240
+                    LayoutCachedHeight =1920
                     Begin
                         Begin Label
                             OverlapFlags =85
                             TextAlign =3
-                            Left =1380
+                            Left =600
                             Top =1680
                             Width =1320
                             Height =245
                             FontWeight =700
                             Name ="lblYear"
                             Caption ="Select Year:"
+                            LayoutCachedLeft =600
+                            LayoutCachedTop =1680
+                            LayoutCachedWidth =1920
+                            LayoutCachedHeight =1925
                         End
                     End
                 End
                 Begin CommandButton
                     OverlapFlags =85
-                    Left =1200
+                    Left =420
                     Top =2580
                     Width =1350
                     Height =299
@@ -157,14 +182,18 @@ Begin Form
                     Caption ="Preview Report"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    LayoutCachedLeft =420
+                    LayoutCachedTop =2580
+                    LayoutCachedWidth =1770
+                    LayoutCachedHeight =2879
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                 End
                 Begin CommandButton
                     OverlapFlags =85
-                    Left =2880
+                    Left =2100
                     Top =2580
                     Width =1350
                     Height =300
@@ -173,10 +202,14 @@ Begin Form
                     Caption ="Run as Query"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    LayoutCachedLeft =2100
+                    LayoutCachedTop =2580
+                    LayoutCachedWidth =3450
+                    LayoutCachedHeight =2880
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                 End
             End
         End
@@ -370,7 +403,6 @@ On Error GoTo Err_Handler
 'SELECT * FROM qry_EDSW_by_Park
 'WHERE Unit_Code = 'COLM' AND Visit_Year = 2013;
 
-
     Dim oArgs As String, qry As String, aryArgs() As String, strWhere As String
     Dim iResult As Integer
 
@@ -397,9 +429,9 @@ On Error GoTo Err_Handler
     
     If Len(Trim(aryArgs(5))) > 0 Then
         If Len(strWhere) > 0 Then
-            strWhere = strWhere & " AND Visit_Year = " & CInt(aryArgs(5)) '" AND Year(tbl_EDSW.GPS_Date) = " & CInt(aryArgs(5))
+            strWhere = strWhere & " AND Visit_Year = " & CInt(aryArgs(5))
         Else
-            strWhere = "WHERE Visit_Year = " & CInt(aryArgs(5)) '"WHERE Year(tbl_EDSW.GPS_Date) = " & CInt(aryArgs(5))
+            strWhere = "WHERE Visit_Year = " & CInt(aryArgs(5))
         End If
     End If
          

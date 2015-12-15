@@ -1499,13 +1499,6 @@ Private Sub btnUpdateLinks_Click()
 
             ' Update selected database links
             bIsODBC = True
-'            If RefreshLinks(strDbName, strNewConnStr, True, strNewDb) = False Then
-'                ' A linking error was encountered
-'                MsgBox "Links to this database were not updated or only partially updated", _
-'                    vbExclamation, strDbName
-'                bHasError = True
-'                GoTo NextBackEnd
-'            End If
 
     '---------------------
     ' Access Connected Back-ends
@@ -1531,15 +1524,7 @@ Private Sub btnUpdateLinks_Click()
 
             ' Verify file & update links to it
             bIsODBC = False
-'            If RefreshLinks(strDbName, strNewConnStr, , False, strNewDb) = False Then
-'
-'                ' Linking Error(s)
-'                MsgBox "Links to this database were not updated or only partially updated", _
-'                    vbExclamation, strDbName
-'                bHasError = True
-'                GoTo NextBackEnd
-''--- REMOVE SECTION??? ---
-'            End If
+
         End If
 
     '---------------------
@@ -1577,19 +1562,12 @@ Private Sub btnUpdateLinks_Click()
         
         ' update tsys_Link_Dbs & tsys_Link_Files database name & paths
         DoCmd.SetWarnings False 'hide the append dialog
-
-'        strSQL = "UPDATE tsys_Link_Dbs SET File_Path = '" & strNewPath & "', " & _
-'                 "Link_db = '" & strNewDb & "' " & _
-'                 "WHERE Link_db = '" & strDbName & "';"
-'        DoCmd.RunSQL strSQL
         
         strSQL = "UPDATE tsys_Link_Files SET Link_File_Path = '" & strNewPath & "', " & _
                  "Link_file_name = '" & strNewDb & "' " & _
                  "WHERE Link_file_name = '" & strDbName & "';"
         DoCmd.RunSQL strSQL
         DoCmd.SetWarnings True
-
-'        End If
 
 NextBackEnd:
         On Error Resume Next

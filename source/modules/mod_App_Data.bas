@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_App_Data
 ' Level:        Application module
-' Version:      1.04
+' Version:      1.05
 ' Description:  data functions & procedures specific to this application
 '
 ' Source/date:  Bonnie Campbell, 2/9/2015

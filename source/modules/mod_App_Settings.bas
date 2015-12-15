@@ -8,11 +8,11 @@ Option Explicit
 ' Description:  Application-wide related values, functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, April 2015
-' Revisions:    BLC, 4/30/2015 - initial version
-'               BLC, 5/1/2015 - added DEV_MODE constant
-'               BLC, 5/13/2015 - added UI enabled/disabled color constants
-'               BLC, 5/19/2015 - added FIX_LINKED_DBS flag constant
-'               BLC, 5/28/2015 - added MAIN_APP_MENU constant
+' Revisions:    BLC, 4/30/2015 - 1.00 - initial version
+'               BLC, 5/1/2015 - 1.01 - added DEV_MODE constant
+'               BLC, 5/13/2015 - 1.02 - added UI enabled/disabled color constants
+'               BLC, 5/19/2015 - 1.03 - added FIX_LINKED_DBS flag constant
+'               BLC, 5/28/2015 - 1.04 - added MAIN_APP_MENU constant
 ' =================================
 
 ' ---------------------------------

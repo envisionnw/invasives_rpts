@@ -760,24 +760,10 @@ Debug.Print strSQL
             DoCmd.SetWarnings False
             DoCmd.RunSQL strSQL
             DoCmd.SetWarnings True
-'            rst.MoveNext
     
             'update database name & description in tsys_Link_Dbs & tsys_Link_Files
-            'update tsys_Link_Dbs  ' File_path = '" & strCurDbPath & "', " & _
-            strSQL = "UPDATE tsys_Link_Dbs " & _
-                     "SET " & _
-                     "Link_db = '" & strNewDbName & "', " & _
-                     "Db_desc = '" & strDesc & "', " & _
-                     "WHERE Link_db = '" & strDbName & "';"
-                     
-            'update tsys_Link_Dbs (Link_db <-- get from File_path when File_path updated? - or -
-            '                                  tsys_Link_Files Link_file_name & Link_file_path & Link_description?)
+            'within form modules (frm_Connect_Tables / frm_Connect_Dbs)
             
-            'update tsys_Linked_Tables (Link_db, Link_Type)
-            
-'            DoCmd.SetWarnings False
-'            DoCmd.RunSQL strSQL
-'            DoCmd.SetWarnings True
             rst.MoveNext
         Loop
     Else    ' ODBC back-end
