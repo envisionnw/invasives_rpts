@@ -14,8 +14,8 @@ Begin Report
     DatasheetFontHeight =11
     ItemSuffix =60
     Top =516
-    Right =12972
-    Bottom =8496
+    Right =13716
+    Bottom =6696
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xb8d0f89fb3abe440
@@ -24,7 +24,7 @@ Begin Report
     OnOpen ="[Event Procedure]"
     DatasheetFontName ="Calibri"
     PrtMip = Begin
-        0x6a01000068010000680100006d01000000000000043b0000ea01000001000000 ,
+        0x6a01000068010000680100006d010000000000009d3a00001c02000001000000 ,
         0x010000006801000000000000a10700000100000001000000
     End
     OnLoad ="[Event Procedure]"
@@ -1603,7 +1603,7 @@ Begin Report
         End
         Begin FormFooter
             KeepTogether = NotDefault
-            Height =3720
+            Height =4200
             Name ="ReportFooter"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -1678,7 +1678,7 @@ Begin Report
                     Left =9420
                     Top =1440
                     Width =300
-                    Height =2160
+                    Height =2592
                     FontSize =8
                     BorderColor =10921638
                     ForeColor =4210752
@@ -1690,7 +1690,7 @@ Begin Report
                     LayoutCachedLeft =9420
                     LayoutCachedTop =1440
                     LayoutCachedWidth =9720
-                    LayoutCachedHeight =3600
+                    LayoutCachedHeight =4032
                 End
                 Begin TextBox
                     TabStop = NotDefault
@@ -1703,7 +1703,7 @@ Begin Report
                     Left =10020
                     Top =1440
                     Width =300
-                    Height =2160
+                    Height =2592
                     FontSize =8
                     TabIndex =1
                     BorderColor =10921638
@@ -1716,7 +1716,7 @@ Begin Report
                     LayoutCachedLeft =10020
                     LayoutCachedTop =1440
                     LayoutCachedWidth =10320
-                    LayoutCachedHeight =3600
+                    LayoutCachedHeight =4032
                 End
                 Begin TextBox
                     TabStop = NotDefault
@@ -1729,7 +1729,7 @@ Begin Report
                     Left =10620
                     Top =1440
                     Width =300
-                    Height =2160
+                    Height =2592
                     FontSize =8
                     TabIndex =2
                     BorderColor =10921638
@@ -1742,7 +1742,7 @@ Begin Report
                     LayoutCachedLeft =10620
                     LayoutCachedTop =1440
                     LayoutCachedWidth =10920
-                    LayoutCachedHeight =3600
+                    LayoutCachedHeight =4032
                 End
                 Begin TextBox
                     TabStop = NotDefault
@@ -1755,7 +1755,7 @@ Begin Report
                     Left =11220
                     Top =1440
                     Width =300
-                    Height =2160
+                    Height =2592
                     FontSize =8
                     TabIndex =3
                     BorderColor =10921638
@@ -1768,7 +1768,7 @@ Begin Report
                     LayoutCachedLeft =11220
                     LayoutCachedTop =1440
                     LayoutCachedWidth =11520
-                    LayoutCachedHeight =3600
+                    LayoutCachedHeight =4032
                 End
                 Begin TextBox
                     TabStop = NotDefault
@@ -1781,7 +1781,7 @@ Begin Report
                     Left =11820
                     Top =1440
                     Width =300
-                    Height =2160
+                    Height =2592
                     FontSize =8
                     TabIndex =4
                     BorderColor =10921638
@@ -1794,7 +1794,7 @@ Begin Report
                     LayoutCachedLeft =11820
                     LayoutCachedTop =1440
                     LayoutCachedWidth =12120
-                    LayoutCachedHeight =3600
+                    LayoutCachedHeight =4032
                 End
                 Begin TextBox
                     TabStop = NotDefault
@@ -1807,7 +1807,7 @@ Begin Report
                     Left =12420
                     Top =1440
                     Width =300
-                    Height =2160
+                    Height =2592
                     FontSize =8
                     TabIndex =5
                     BorderColor =10921638
@@ -1820,7 +1820,7 @@ Begin Report
                     LayoutCachedLeft =12420
                     LayoutCachedTop =1440
                     LayoutCachedWidth =12720
-                    LayoutCachedHeight =3600
+                    LayoutCachedHeight =4032
                 End
                 Begin TextBox
                     TabStop = NotDefault
@@ -1833,7 +1833,7 @@ Begin Report
                     Left =13080
                     Top =1440
                     Width =300
-                    Height =2160
+                    Height =2592
                     FontSize =8
                     TabIndex =6
                     BorderColor =10921638
@@ -1846,7 +1846,7 @@ Begin Report
                     LayoutCachedLeft =13080
                     LayoutCachedTop =1440
                     LayoutCachedWidth =13380
-                    LayoutCachedHeight =3600
+                    LayoutCachedHeight =4032
                 End
                 Begin TextBox
                     TabStop = NotDefault
@@ -1859,7 +1859,7 @@ Begin Report
                     Left =13740
                     Top =1440
                     Width =300
-                    Height =2160
+                    Height =2592
                     FontSize =8
                     TabIndex =7
                     BorderColor =10921638
@@ -1872,7 +1872,7 @@ Begin Report
                     LayoutCachedLeft =13740
                     LayoutCachedTop =1440
                     LayoutCachedWidth =14040
-                    LayoutCachedHeight =3600
+                    LayoutCachedHeight =4032
                 End
                 Begin Label
                     TextAlign =3

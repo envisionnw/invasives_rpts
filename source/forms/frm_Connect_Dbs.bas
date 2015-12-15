@@ -22,10 +22,10 @@ Begin Form
     Width =10800
     DatasheetFontHeight =10
     ItemSuffix =111
-    Left =4860
-    Top =3516
-    Right =15660
-    Bottom =9564
+    Left =5295
+    Top =2850
+    Right =16095
+    Bottom =8895
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0xabea2039169de340
@@ -150,10 +150,10 @@ Begin Form
                     FontName ="Arial"
                     ControlTipText ="Close the form"
 
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -172,10 +172,10 @@ Begin Form
                     FontName ="Arial"
                     ControlTipText ="Update links to the file(s) indicated"
 
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
             End
@@ -203,10 +203,10 @@ Begin Form
                     FontName ="Arial"
                     ControlTipText ="Browse to a new back-end file"
 
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin TextBox
@@ -219,9 +219,9 @@ Begin Form
                     BorderWidth =3
                     OverlapFlags =93
                     BackStyle =0
-                    Left =2100
+                    Left =2700
                     Top =120
-                    Width =3414
+                    Width =2814
                     Height =252
                     ColumnWidth =3090
                     FontSize =9
@@ -233,7 +233,7 @@ Begin Form
                     FontName ="Arial"
                     ControlTipText ="Linked database name"
 
-                    LayoutCachedLeft =2100
+                    LayoutCachedLeft =2700
                     LayoutCachedTop =120
                     LayoutCachedWidth =5514
                     LayoutCachedHeight =372
@@ -491,10 +491,10 @@ Begin Form
                     FontName ="Arial"
                     ControlTipText ="Test the new ODBC connection"
 
-                    WebImagePaddingLeft =3
-                    WebImagePaddingTop =3
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =2
+                    WebImagePaddingTop =2
+                    WebImagePaddingRight =1
+                    WebImagePaddingBottom =1
                     Overlaps =1
                 End
                 Begin TextBox
@@ -694,7 +694,7 @@ Begin Form
                     BackStyle =0
                     Left =180
                     Top =120
-                    Width =1854
+                    Width =2394
                     Height =252
                     FontSize =9
                     FontWeight =700
@@ -707,7 +707,7 @@ Begin Form
 
                     LayoutCachedLeft =180
                     LayoutCachedTop =120
-                    LayoutCachedWidth =2034
+                    LayoutCachedWidth =2574
                     LayoutCachedHeight =372
                 End
             End
@@ -1441,7 +1441,7 @@ Private Sub btnUpdateLinks_Click()
     Dim strNewPath As String        ' New path to the linked database (Access)
     Dim strNewServer As String      ' New server name for the linked database (ODBC)
     Dim strNewConnStr As String     ' New connection string to update tables with
-    Dim bHasError As Boolean
+    Dim bHasError As Boolean, bIsODBC As Boolean
     Dim strSQL As String
 
     ' -------------------------------
@@ -1450,6 +1450,7 @@ Private Sub btnUpdateLinks_Click()
     Set rst = Me.Recordset      'backend: tsys_Link_Dbs
     rst.MoveFirst
 
+    bIsODBC = False       ' Default
     bHasError = False       ' Default until an error is encountered
     TempVars("HasAccessBE") = False
 
@@ -1464,9 +1465,9 @@ Private Sub btnUpdateLinks_Click()
         strDbName = rst.Fields("Link_db")
         strDbType = rst.Fields("Link_type")
 
-        '---------------------
-        ' ODBC Connected Back-ends
-        '---------------------
+    '---------------------
+    ' ODBC Connected Back-ends
+    '---------------------
         If rst.Fields("Is_ODBC") = True Then
             
             ' Server or db name are blank? --> Move to next back-end
@@ -1490,33 +1491,38 @@ Private Sub btnUpdateLinks_Click()
                 "[Link_db]=""" & strDbName & """")
             
             ' Start with the current connection string
-            strNewConnStr = CurrentDb.tabledefs(strTable).Connect
+            strNewConnStr = CurrentDb.TableDefs(strTable).Connect
 
             ' Update connection string with new server & db name
             strNewConnStr = ReplaceString(strNewConnStr, strDbName, strNewDb)
             strNewConnStr = ReplaceString(strNewConnStr, strServer, strNewServer)
 
             ' Update selected database links
-            If RefreshLinks(strDbName, strNewConnStr, True, strNewDb) = False Then
-                ' A linking error was encountered
-                MsgBox "Links to this database were not updated or only partially updated", _
-                    vbExclamation, strDbName
-                bHasError = True
-                GoTo NextBackEnd
-            End If
+            bIsODBC = True
+'            If RefreshLinks(strDbName, strNewConnStr, True, strNewDb) = False Then
+'                ' A linking error was encountered
+'                MsgBox "Links to this database were not updated or only partially updated", _
+'                    vbExclamation, strDbName
+'                bHasError = True
+'                GoTo NextBackEnd
+'            End If
 
-        '---------------------
-        ' Access Connected Back-ends
-        '---------------------
+    '---------------------
+    ' Access Connected Back-ends
+    '---------------------
         Else
 
             TempVars("HasAccessBE") = True
+
+'            ' Different database? --> if so, go to next backend
+'            ' -----------------------------
+'            If (rst.Fields("Link_db") <> strNewDb) and Then GoTo NextBackEnd
 
             ' Same database? --> refresh links to current linked file
             ' -----------------------------
             If IsNull(rst.Fields("New_path")) Then
                 strNewPath = rst.Fields("File_path")
-                strNewDb = rst.Fields("New_db")
+                strNewDb = rst.Fields("Link_db")
             Else
                 strNewPath = rst.Fields("New_path")
                 strNewDb = rst.Fields("New_db")
@@ -1524,23 +1530,36 @@ Private Sub btnUpdateLinks_Click()
             strNewConnStr = ";DATABASE=" & strNewPath
 
             ' Verify file & update links to it
-            If RefreshLinks(strDbName, strNewConnStr, , False, strNewDb) = False Then
-
-                ' Linking Error(s)
-                MsgBox "Links to this database were not updated or only partially updated", _
-                    vbExclamation, strDbName
-                bHasError = True
-                GoTo NextBackEnd
-'--- REMOVE SECTION??? ---
+            bIsODBC = False
+'            If RefreshLinks(strDbName, strNewConnStr, , False, strNewDb) = False Then
+'
+'                ' Linking Error(s)
+'                MsgBox "Links to this database were not updated or only partially updated", _
+'                    vbExclamation, strDbName
+'                bHasError = True
+'                GoTo NextBackEnd
+''--- REMOVE SECTION??? ---
 '            End If
-'        End If
+        End If
+
+    '---------------------
+    ' ODBC or Access Connected Back-ends
+    '---------------------
+        ' Update selected database links
+        If RefreshLinks(strDbName, strNewConnStr, , bIsODBC, strNewDb) = False Then
+            ' A linking error was encountered
+            MsgBox "Links to this database were not updated or only partially updated", _
+                vbExclamation, strDbName
+            bHasError = True
+            GoTo NextBackEnd
+        End If
 
         ' Move to next back end without updating the record if no new info was entered
-'        If IsNull(rst.Fields("New_db")) Then GoTo NextBackEnd
+        If IsNull(rst.Fields("New_db")) Then GoTo NextBackEnd
 '-------------------------
         'No Linking Errors on this back end & new file path --> update current path and file
 '--- ADD? ----------------
-        ElseIf IsNull(rst.Fields("New_db")) = False Then
+'        ElseIf IsNull(rst.Fields("New_db")) = False Then
 '-------------------------
 
         With rst
@@ -1555,14 +1574,22 @@ Private Sub btnUpdateLinks_Click()
             .Update
             .Bookmark = .lastModified
         End With
-            ' update tsys_Link_Dbs database name & paths
-             strSQL = "UPDATE tsys_Link_Dbs SET File_Path = '" & strNewPath & "', " & _
-                     "Link_db = '" & strNewDb & "' " & _
-                     "WHERE Link_db = '" & strDbName & "';"
-            DoCmd.SetWarnings False 'hide the append dialog
-            DoCmd.RunSQL strSQL
-            DoCmd.SetWarnings True
-        End If
+        
+        ' update tsys_Link_Dbs & tsys_Link_Files database name & paths
+        DoCmd.SetWarnings False 'hide the append dialog
+
+'        strSQL = "UPDATE tsys_Link_Dbs SET File_Path = '" & strNewPath & "', " & _
+'                 "Link_db = '" & strNewDb & "' " & _
+'                 "WHERE Link_db = '" & strDbName & "';"
+'        DoCmd.RunSQL strSQL
+        
+        strSQL = "UPDATE tsys_Link_Files SET Link_File_Path = '" & strNewPath & "', " & _
+                 "Link_file_name = '" & strNewDb & "' " & _
+                 "WHERE Link_file_name = '" & strDbName & "';"
+        DoCmd.RunSQL strSQL
+        DoCmd.SetWarnings True
+
+'        End If
 
 NextBackEnd:
         On Error Resume Next

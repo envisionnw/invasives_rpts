@@ -47,7 +47,7 @@ On Error GoTo Err_Handler
     Dim tdf As DAO.TableDef
 
     Set db = CurrentDb()
-    Set tdf = db.tabledefs(TableName)
+    Set tdf = db.TableDefs(TableName)
 
     'Change the connect value
     tdf.Connect = strConn '"ODBC;DATABASE=pubs;UID=sa;PWD=;DSN=Publishers"
@@ -91,7 +91,7 @@ On Error GoTo Err_Handler
     Dim tdf As DAO.TableDef
 
     Set db = CurrentDb()
-    Set tdf = db.tabledefs(strTable)
+    Set tdf = db.TableDefs(strTable)
 
     'Change the database value
     tdf.Connect = ";DATABASE=" & strDbPath

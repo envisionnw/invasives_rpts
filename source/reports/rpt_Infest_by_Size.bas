@@ -14,10 +14,10 @@ Begin Report
     Width =10800
     DatasheetFontHeight =9
     ItemSuffix =62
-    Left =270
-    Top =210
-    Right =8715
-    Bottom =10590
+    Left =276
+    Top =216
+    Right =8712
+    Bottom =9108
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x8e1406dc71cce340
@@ -122,6 +122,7 @@ Begin Report
                     Top =840
                     Width =4680
                     Height =360
+                    ColumnOrder =0
                     FontSize =16
                     Name ="Park_Name"
 
@@ -132,6 +133,7 @@ Begin Report
                     Top =840
                     Width =1260
                     Height =360
+                    ColumnOrder =1
                     FontSize =16
                     TabIndex =1
                     Name ="Visit_Year"
@@ -476,8 +478,12 @@ Begin Report
                     Width =960
                     Height =240
                     FontSize =8
-                    Name ="Label21"
+                    Name ="lblGrandTotal"
                     Caption ="Grand Total"
+                    LayoutCachedLeft =120
+                    LayoutCachedTop =180
+                    LayoutCachedWidth =1080
+                    LayoutCachedHeight =420
                 End
                 Begin TextBox
                     TextAlign =2
@@ -492,15 +498,6 @@ Begin Report
                     EventProcPrefix ="Class1_Grand_Total_Sum"
 
                 End
-                Begin Label
-                    Left =120
-                    Top =180
-                    Width =960
-                    Height =240
-                    FontSize =8
-                    Name ="Label24"
-                    Caption ="Grand Total"
-                End
                 Begin TextBox
                     TextAlign =2
                     IMESentenceMode =3
@@ -513,15 +510,6 @@ Begin Report
                     ControlSource ="=Sum([Class2])"
                     EventProcPrefix ="Class2_Grand_Total_Sum"
 
-                End
-                Begin Label
-                    Left =120
-                    Top =180
-                    Width =960
-                    Height =240
-                    FontSize =8
-                    Name ="Label27"
-                    Caption ="Grand Total"
                 End
                 Begin TextBox
                     TextAlign =2
@@ -536,15 +524,6 @@ Begin Report
                     EventProcPrefix ="Class3_Grand_Total_Sum"
 
                 End
-                Begin Label
-                    Left =120
-                    Top =180
-                    Width =960
-                    Height =240
-                    FontSize =8
-                    Name ="Label30"
-                    Caption ="Grand Total"
-                End
                 Begin TextBox
                     TextAlign =2
                     IMESentenceMode =3
@@ -558,15 +537,6 @@ Begin Report
                     EventProcPrefix ="Class4_Grand_Total_Sum"
 
                 End
-                Begin Label
-                    Left =120
-                    Top =180
-                    Width =960
-                    Height =240
-                    FontSize =8
-                    Name ="Label33"
-                    Caption ="Grand Total"
-                End
                 Begin TextBox
                     TextAlign =2
                     IMESentenceMode =3
@@ -579,15 +549,6 @@ Begin Report
                     ControlSource ="=Sum([Class5])"
                     EventProcPrefix ="Class5_Grand_Total_Sum"
 
-                End
-                Begin Label
-                    Left =120
-                    Top =180
-                    Width =960
-                    Height =240
-                    FontSize =8
-                    Name ="Label36"
-                    Caption ="Grand Total"
                 End
                 Begin Line
                     Top =60

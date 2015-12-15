@@ -13,11 +13,11 @@ Begin Report
     GridY =24
     Width =10800
     DatasheetFontHeight =9
-    ItemSuffix =52
-    Left =405
-    Top =195
-    Right =8715
-    Bottom =9135
+    ItemSuffix =57
+    Left =1440
+    Top =-120
+    Right =17976
+    Bottom =8844
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x7060c1afafcbe340
@@ -160,13 +160,28 @@ Begin Report
         End
         Begin BreakHeader
             KeepTogether = NotDefault
-            Height =1155
+            Height =1260
             Name ="GroupHeader0"
             Begin
+                Begin Rectangle
+                    BackStyle =1
+                    OldBorderStyle =0
+                    Top =60
+                    Width =10800
+                    Height =420
+                    BackColor =14277081
+                    Name ="rctRouteType"
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =10800
+                    LayoutCachedHeight =480
+                    BackThemeColorIndex =1
+                    BackShade =85.0
+                End
                 Begin TextBox
                     DecimalPlaces =0
                     IMESentenceMode =3
                     Left =1440
+                    Top =120
                     Width =2310
                     Height =300
                     FontSize =10
@@ -174,31 +189,44 @@ Begin Report
                     ControlSource ="RouteType"
                     StatusBarText ="Route type for grouping"
 
+                    LayoutCachedLeft =1440
+                    LayoutCachedTop =120
+                    LayoutCachedWidth =3750
+                    LayoutCachedHeight =420
                     Begin
                         Begin Label
                             Left =60
+                            Top =120
                             Width =1320
                             Height =300
                             FontSize =10
                             Name ="RouteType_Label"
                             Caption ="Type of Route"
+                            LayoutCachedLeft =60
+                            LayoutCachedTop =120
+                            LayoutCachedWidth =1380
+                            LayoutCachedHeight =420
                         End
                     End
                 End
                 Begin Label
                     Left =60
-                    Top =540
+                    Top =720
                     Width =1440
                     Height =270
                     FontSize =10
                     Name ="PlotID_Label"
                     Caption ="Route"
                     Tag ="DetachedLabel"
+                    LayoutCachedLeft =60
+                    LayoutCachedTop =720
+                    LayoutCachedWidth =1500
+                    LayoutCachedHeight =990
                 End
                 Begin Label
                     TextAlign =2
                     Left =3420
-                    Top =420
+                    Top =600
                     Width =1200
                     Height =540
                     FontSize =10
@@ -206,14 +234,14 @@ Begin Report
                     Caption ="Route Length (m)"
                     Tag ="DetachedLabel"
                     LayoutCachedLeft =3420
-                    LayoutCachedTop =420
+                    LayoutCachedTop =600
                     LayoutCachedWidth =4620
-                    LayoutCachedHeight =960
+                    LayoutCachedHeight =1140
                 End
                 Begin Label
                     TextAlign =2
                     Left =6120
-                    Top =720
+                    Top =900
                     Width =900
                     Height =270
                     FontSize =10
@@ -221,14 +249,14 @@ Begin Report
                     Caption ="Total"
                     Tag ="DetachedLabel"
                     LayoutCachedLeft =6120
-                    LayoutCachedTop =720
+                    LayoutCachedTop =900
                     LayoutCachedWidth =7020
-                    LayoutCachedHeight =990
+                    LayoutCachedHeight =1170
                 End
                 Begin Label
                     TextAlign =2
                     Left =7080
-                    Top =720
+                    Top =900
                     Width =1020
                     Height =270
                     FontSize =10
@@ -236,14 +264,14 @@ Begin Report
                     Caption ="Priority 1"
                     Tag ="DetachedLabel"
                     LayoutCachedLeft =7080
-                    LayoutCachedTop =720
+                    LayoutCachedTop =900
                     LayoutCachedWidth =8100
-                    LayoutCachedHeight =990
+                    LayoutCachedHeight =1170
                 End
                 Begin Label
                     TextAlign =2
                     Left =8700
-                    Top =720
+                    Top =900
                     Width =900
                     Height =270
                     FontSize =10
@@ -251,14 +279,14 @@ Begin Report
                     Caption ="Total"
                     Tag ="DetachedLabel"
                     LayoutCachedLeft =8700
-                    LayoutCachedTop =720
+                    LayoutCachedTop =900
                     LayoutCachedWidth =9600
-                    LayoutCachedHeight =990
+                    LayoutCachedHeight =1170
                 End
                 Begin Label
                     TextAlign =2
                     Left =9660
-                    Top =720
+                    Top =900
                     Width =1020
                     Height =270
                     FontSize =10
@@ -266,42 +294,54 @@ Begin Report
                     Caption ="Priority 1"
                     Tag ="DetachedLabel"
                     LayoutCachedLeft =9660
-                    LayoutCachedTop =720
+                    LayoutCachedTop =900
                     LayoutCachedWidth =10680
-                    LayoutCachedHeight =990
+                    LayoutCachedHeight =1170
                 End
                 Begin Line
                     BorderWidth =1
-                    Top =390
+                    Top =480
                     Width =10800
                     Name ="Line35"
                     Tag ="DetachedLabel"
+                    LayoutCachedTop =480
+                    LayoutCachedWidth =10800
+                    LayoutCachedHeight =480
                 End
                 Begin Line
                     BorderWidth =1
-                    Top =360
+                    Top =540
                     Width =10800
                     Name ="Line36"
                     Tag ="DetachedLabel"
+                    LayoutCachedTop =540
+                    LayoutCachedWidth =10800
+                    LayoutCachedHeight =540
                 End
                 Begin Line
                     BorderWidth =1
-                    Top =1020
+                    Top =1200
                     Width =10800
                     Name ="Line37"
                     Tag ="DetachedLabel"
+                    LayoutCachedTop =1200
+                    LayoutCachedWidth =10800
+                    LayoutCachedHeight =1200
                 End
                 Begin Line
                     BorderWidth =1
-                    Top =1020
+                    Top =1200
                     Width =10800
                     Name ="Line38"
                     Tag ="DetachedLabel"
+                    LayoutCachedTop =1200
+                    LayoutCachedWidth =10800
+                    LayoutCachedHeight =1200
                 End
                 Begin Label
                     TextAlign =2
                     Left =6120
-                    Top =420
+                    Top =600
                     Width =1980
                     Height =270
                     FontSize =10
@@ -309,25 +349,25 @@ Begin Report
                     Caption ="Infestations"
                     Tag ="DetachedLabel"
                     LayoutCachedLeft =6120
-                    LayoutCachedTop =420
+                    LayoutCachedTop =600
                     LayoutCachedWidth =8100
-                    LayoutCachedHeight =690
+                    LayoutCachedHeight =870
                 End
                 Begin Line
                     BorderWidth =1
                     Left =6120
-                    Top =720
+                    Top =900
                     Width =1980
                     Name ="Line45"
                     LayoutCachedLeft =6120
-                    LayoutCachedTop =720
+                    LayoutCachedTop =900
                     LayoutCachedWidth =8100
-                    LayoutCachedHeight =720
+                    LayoutCachedHeight =900
                 End
                 Begin Label
                     TextAlign =2
                     Left =8700
-                    Top =420
+                    Top =600
                     Width =1995
                     Height =270
                     FontSize =10
@@ -335,33 +375,50 @@ Begin Report
                     Caption ="Infestations/ha"
                     Tag ="DetachedLabel"
                     LayoutCachedLeft =8700
-                    LayoutCachedTop =420
+                    LayoutCachedTop =600
                     LayoutCachedWidth =10695
-                    LayoutCachedHeight =690
+                    LayoutCachedHeight =870
                 End
                 Begin Label
                     TextAlign =2
                     Left =4800
-                    Top =720
+                    Top =900
                     Width =1200
                     Height =255
                     Name ="Label47"
                     Caption ="Area (ha)"
                     LayoutCachedLeft =4800
-                    LayoutCachedTop =720
+                    LayoutCachedTop =900
                     LayoutCachedWidth =6000
-                    LayoutCachedHeight =975
+                    LayoutCachedHeight =1155
+                End
+                Begin Line
+                    BorderWidth =1
+                    Top =60
+                    Width =10800
+                    Name ="Line56"
+                    Tag ="DetachedLabel"
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =10800
+                    LayoutCachedHeight =60
+                End
+                Begin Line
+                    BorderWidth =1
+                    Width =10800
+                    Name ="Line55"
+                    Tag ="DetachedLabel"
+                    LayoutCachedWidth =10800
                 End
                 Begin Line
                     BorderWidth =1
                     Left =8700
-                    Top =720
+                    Top =900
                     Width =1980
                     Name ="Line50"
                     LayoutCachedLeft =8700
-                    LayoutCachedTop =720
+                    LayoutCachedTop =900
                     LayoutCachedWidth =10680
-                    LayoutCachedHeight =720
+                    LayoutCachedHeight =900
                 End
             End
         End
@@ -494,109 +551,120 @@ Begin Report
         End
         Begin BreakFooter
             KeepTogether = NotDefault
-            Height =780
+            Height =720
             Name ="GroupFooter1"
             Begin
                 Begin TextBox
                     IMESentenceMode =3
                     Left =60
+                    Top =60
                     Width =10560
+                    FontWeight =700
                     Name ="Text2"
                     ControlSource ="=\"Summary for \" & \"'RouteType' = \" & \" \" & [RouteType] & \" (\" & Count(*)"
                         " & \" \" & IIf(Count(*)=1,\"detail record\",\"detail records\") & \")\""
 
                     LayoutCachedLeft =60
+                    LayoutCachedTop =60
                     LayoutCachedWidth =10620
-                    LayoutCachedHeight =240
+                    LayoutCachedHeight =300
                 End
                 Begin Label
                     Left =60
-                    Top =240
-                    Width =390
+                    Top =420
+                    Width =774
                     Height =240
-                    FontSize =8
                     Name ="Label3"
                     Caption ="Sum"
+                    LayoutCachedLeft =60
+                    LayoutCachedTop =420
+                    LayoutCachedWidth =834
+                    LayoutCachedHeight =660
                 End
                 Begin TextBox
                     TextAlign =2
                     IMESentenceMode =3
                     Left =3420
-                    Top =240
+                    Top =420
                     Width =1200
+                    FontWeight =700
                     TabIndex =1
                     Name ="Sum Of RouteLength"
                     ControlSource ="=Sum([RouteLength])"
                     EventProcPrefix ="Sum_Of_RouteLength"
 
                     LayoutCachedLeft =3420
-                    LayoutCachedTop =240
+                    LayoutCachedTop =420
                     LayoutCachedWidth =4620
-                    LayoutCachedHeight =480
+                    LayoutCachedHeight =660
                 End
                 Begin TextBox
                     TextAlign =2
                     IMESentenceMode =3
                     Left =6120
-                    Top =240
+                    Top =420
                     Width =900
+                    FontWeight =700
                     TabIndex =2
                     Name ="Sum Of InfestTot"
                     ControlSource ="=Sum([InfestTot])"
                     EventProcPrefix ="Sum_Of_InfestTot"
 
                     LayoutCachedLeft =6120
-                    LayoutCachedTop =240
+                    LayoutCachedTop =420
                     LayoutCachedWidth =7020
-                    LayoutCachedHeight =480
+                    LayoutCachedHeight =660
                 End
                 Begin TextBox
                     TextAlign =2
                     IMESentenceMode =3
                     Left =7080
-                    Top =240
+                    Top =420
                     Width =1020
+                    FontWeight =700
                     TabIndex =3
                     Name ="Sum Of PriorityTot"
                     ControlSource ="=Sum([PriorityTot])"
                     EventProcPrefix ="Sum_Of_PriorityTot"
 
                     LayoutCachedLeft =7080
-                    LayoutCachedTop =240
+                    LayoutCachedTop =420
                     LayoutCachedWidth =8100
-                    LayoutCachedHeight =480
+                    LayoutCachedHeight =660
                 End
                 Begin TextBox
                     TextAlign =2
                     IMESentenceMode =3
                     Left =8700
-                    Top =480
+                    Top =420
                     Width =900
+                    FontWeight =700
                     TabIndex =4
                     Name ="Route Type Total Infestations/ha"
                     ControlSource ="=IIf([RouteArea]>0,(Sum([InfestTot]))/Sum([RouteArea]),\"N/A\")"
                     EventProcPrefix ="Route_Type_Total_Infestations_ha"
 
                     LayoutCachedLeft =8700
-                    LayoutCachedTop =480
+                    LayoutCachedTop =420
                     LayoutCachedWidth =9600
-                    LayoutCachedHeight =720
+                    LayoutCachedHeight =660
                 End
                 Begin TextBox
                     TextAlign =2
                     IMESentenceMode =3
                     Left =9660
-                    Top =480
+                    Top =420
                     Width =1050
+                    FontWeight =700
                     TabIndex =5
                     Name ="Route Type Priority Infestations/ha"
                     ControlSource ="=IIf([RouteArea]>0,(Sum([PriorityTot]))/Sum([RouteArea]),\"N/A\")"
                     EventProcPrefix ="Route_Type_Priority_Infestations_ha"
 
                     LayoutCachedLeft =9660
-                    LayoutCachedTop =480
+                    LayoutCachedTop =420
                     LayoutCachedWidth =10710
-                    LayoutCachedHeight =720
+                    LayoutCachedHeight =660
                 End
                 Begin Line
                     Left =60
@@ -607,21 +675,29 @@ Begin Report
                     TextAlign =2
                     IMESentenceMode =3
                     Left =4800
-                    Top =240
+                    Top =420
                     Width =1200
+                    FontWeight =700
                     TabIndex =6
                     Name ="Text48"
                     ControlSource ="=Sum([RouteArea])"
 
                     LayoutCachedLeft =4800
-                    LayoutCachedTop =240
+                    LayoutCachedTop =420
                     LayoutCachedWidth =6000
-                    LayoutCachedHeight =480
+                    LayoutCachedHeight =660
                 End
                 Begin Line
                     BorderWidth =1
                     Width =10800
                     Name ="Line51"
+                    Tag ="DetachedLabel"
+                    LayoutCachedWidth =10800
+                End
+                Begin Line
+                    BorderWidth =1
+                    Width =10800
+                    Name ="lnRouteTypeFooter"
                     Tag ="DetachedLabel"
                     LayoutCachedWidth =10800
                 End
@@ -668,119 +744,142 @@ Begin Report
         End
         Begin FormFooter
             KeepTogether = NotDefault
-            Height =330
+            Height =420
             Name ="ReportFooter"
             Begin
                 Begin TextBox
                     TextAlign =2
                     IMESentenceMode =3
                     Left =3420
+                    Top =120
                     Width =1200
                     Height =270
+                    FontSize =9
+                    FontWeight =700
                     Name ="RouteLength Grand Total Sum"
                     ControlSource ="=Sum([RouteLength])"
                     EventProcPrefix ="RouteLength_Grand_Total_Sum"
 
                     LayoutCachedLeft =3420
+                    LayoutCachedTop =120
                     LayoutCachedWidth =4620
-                    LayoutCachedHeight =270
+                    LayoutCachedHeight =390
                 End
                 Begin Label
                     Left =60
-                    Width =960
-                    Height =240
-                    FontSize =8
-                    Name ="Label18"
+                    Top =120
+                    Width =1152
+                    Height =276
+                    FontSize =10
+                    Name ="lblGrandTotal"
                     Caption ="Grand Total"
+                    LayoutCachedLeft =60
+                    LayoutCachedTop =120
+                    LayoutCachedWidth =1212
+                    LayoutCachedHeight =396
                 End
                 Begin TextBox
                     TextAlign =2
                     IMESentenceMode =3
                     Left =6120
+                    Top =120
                     Width =900
                     Height =270
+                    FontSize =9
+                    FontWeight =700
                     TabIndex =1
                     Name ="InfestTot Grand Total Sum"
                     ControlSource ="=Sum([InfestTot])"
                     EventProcPrefix ="InfestTot_Grand_Total_Sum"
 
                     LayoutCachedLeft =6120
+                    LayoutCachedTop =120
                     LayoutCachedWidth =7020
-                    LayoutCachedHeight =270
-                End
-                Begin Label
-                    Left =60
-                    Width =960
-                    Height =240
-                    FontSize =8
-                    Name ="Label21"
-                    Caption ="Grand Total"
+                    LayoutCachedHeight =390
                 End
                 Begin TextBox
                     TextAlign =2
                     IMESentenceMode =3
                     Left =7080
+                    Top =120
                     Width =1020
                     Height =270
+                    FontSize =9
+                    FontWeight =700
                     TabIndex =2
                     Name ="PriorityTot Grand Total Sum"
                     ControlSource ="=Sum([PriorityTot])"
                     EventProcPrefix ="PriorityTot_Grand_Total_Sum"
 
                     LayoutCachedLeft =7080
+                    LayoutCachedTop =120
                     LayoutCachedWidth =8100
-                    LayoutCachedHeight =270
-                End
-                Begin Label
-                    Left =60
-                    Width =960
-                    Height =240
-                    FontSize =8
-                    Name ="Label24"
-                    Caption ="Grand Total"
+                    LayoutCachedHeight =390
                 End
                 Begin TextBox
                     TextAlign =2
                     IMESentenceMode =3
                     Left =8700
+                    Top =120
                     Width =900
                     Height =270
+                    FontSize =9
+                    FontWeight =700
                     TabIndex =3
                     Name ="Overall Total Infestations/ha"
                     ControlSource ="=IIf([RouteArea]>0,(Sum([InfestTot]))/Sum([RouteArea]),\"N/A\")"
                     EventProcPrefix ="Overall_Total_Infestations_ha"
 
                     LayoutCachedLeft =8700
+                    LayoutCachedTop =120
                     LayoutCachedWidth =9600
-                    LayoutCachedHeight =270
+                    LayoutCachedHeight =390
                 End
                 Begin TextBox
                     TextAlign =2
                     IMESentenceMode =3
                     Left =9660
+                    Top =120
                     Width =1050
                     Height =270
+                    FontSize =9
+                    FontWeight =700
                     TabIndex =4
                     Name ="Overall Priority Infestations/ha"
                     ControlSource ="=IIf([RouteArea]>0,(Sum([PriorityTot]))/Sum([RouteArea]),\"N/A\")"
                     EventProcPrefix ="Overall_Priority_Infestations_ha"
 
                     LayoutCachedLeft =9660
+                    LayoutCachedTop =120
                     LayoutCachedWidth =10710
-                    LayoutCachedHeight =270
+                    LayoutCachedHeight =390
                 End
                 Begin TextBox
                     TextAlign =2
                     IMESentenceMode =3
                     Left =4800
+                    Top =120
                     Width =1200
+                    FontSize =9
+                    FontWeight =700
                     TabIndex =5
                     Name ="Text49"
                     ControlSource ="=Sum([RouteArea])"
 
                     LayoutCachedLeft =4800
+                    LayoutCachedTop =120
                     LayoutCachedWidth =6000
-                    LayoutCachedHeight =240
+                    LayoutCachedHeight =360
+                End
+                Begin Line
+                    BorderWidth =1
+                    Top =60
+                    Width =10800
+                    Name ="lnReportFooter"
+                    Tag ="DetachedLabel"
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =10800
+                    LayoutCachedHeight =60
                 End
             End
         End

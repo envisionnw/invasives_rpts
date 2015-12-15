@@ -261,8 +261,7 @@ Private Sub lbxPark_AfterUpdate()
 On Error GoTo Err_Handler
 
   If Not IsNull(Me!lbxPark) Then
-'    Dim strSQL As String
-'    strSQL = "SELECT Year(GPS_Date) FROM tbl_EDSW WHERE [Unit_Code] = '" & Me!lbxPark & "' ORDER BY Visit_Year;"
+    
     Me!lbxYear.RowSource = "SELECT DISTINCT Year(GPS_Date) FROM tbl_EDSW WHERE [Unit_Code] = '" & Me!lbxPark & "' ORDER BY Year(GPS_Date)"
      
     Me.Refresh
@@ -315,10 +314,7 @@ On Error GoTo Err_Handler
         If iResult = vbCancel Then GoTo RedisplayForm
     End If
         
-'    stOpenArg = Me!Park & Me!Visit_Year
-'    stWhere = "[Unit_Code] = '" & Me!Park_Code & "' AND Visit_Year = " & Me!Visit_Year
-'    stDocName = "rpt_Infestation"
-
+    'open report
     DoCmd.OpenReport rpt, acViewReport, , , , oArgs
 
 Exit_Sub:
@@ -384,8 +380,6 @@ On Error GoTo Err_Handler
     oArgs = qry & " | Park EDSW Data | Park EDSW Data | SELECT * FROM qry_EDSW_by_Park | " & Me!lbxPark & " | " & Me!lbxYear
     aryArgs = Split(oArgs, "|")
 
-    'If IsNull(Me.OpenArgs) Then GoTo Exit_Sub
-
     If IsNull(Me!lbxPark) Or IsNull(Me!lbxYear) Then
         iResult = MsgBox("Please select both park and year unless you wish to view all parks/years." & vbCrLf & vbCrLf & _
                             "To view " & vbCrLf & _
@@ -395,9 +389,10 @@ On Error GoTo Err_Handler
         If iResult = vbCancel Then GoTo RedisplayForm
     End If
     
+    'prepare where clause for filtering by park & year
     strWhere = ""
     If Len(Trim(aryArgs(4))) > 0 Then
-        strWhere = "WHERE Unit_Code = '" & Trim(aryArgs(4)) & "'" '"WHERE tbl_EDSW.Unit_Code = '" & Trim(aryArgs(4)) & "'"
+        strWhere = "WHERE Unit_Code = '" & Trim(aryArgs(4)) & "'"
     End If
     
     If Len(Trim(aryArgs(5))) > 0 Then
@@ -408,8 +403,6 @@ On Error GoTo Err_Handler
         End If
     End If
          
-    'strSQL = oArgs(3) & strWhere & ";"
-
     DoCmd.OpenQuery qry, , acReadOnly
     
     'clear fields
@@ -418,13 +411,7 @@ On Error GoTo Err_Handler
     
     'apply filter if park/year selected --> apply filter requires qry, valid WHERE clause w/o the WHERE
     If Len(strWhere) > 0 Then DoCmd.ApplyFilter qry, Replace(strWhere, "WHERE ", "")
-
-'Print CurrentDb.QueryDefs(qry).sql
-'SELECT tbl_EDSW.Unit_Code, Year([GPS_Date]) AS Visit_Year, Min(tbl_EDSW.EDSW_m) AS Min_EDSW, Max(tbl_EDSW.EDSW_m) AS Max_EDSW
-'FROM tbl_EDSW
-'GROUP BY tbl_EDSW.Unit_Code, Year([GPS_Date])
-'ORDER BY tbl_EDSW.Unit_Code, Year([GPS_Date]);
-    
+        
 Exit_Sub:
     Exit Sub
 
@@ -439,42 +426,6 @@ Err_Handler:
             "Error encountered (#" & Err.Number & " - btnQueryOpen_Click[frm_Select_Park_Year])"
     End Select
     Resume Exit_Sub
-End Sub
-
-' ---------------------------------
-' SUB:          btnEDSW_Report_Click
-' Description:  open the EDSW report
-' Parameters:   -
-' Returns:      -
-' Throws:       -
-' References:   -
-' Source/date:  Bonnie Campbell, December 3, 2015 - for NCPN tools
-' Adapted:      -
-' Revisions:
-'   BLC - 12/3/2015 - initial version
-' ---------------------------------
-Private Sub btnEDSW_Report_Click()
-On Error GoTo Err_Handler
-
-'SELECT tbl_EDSW.Unit_Code, Year([GPS_Date]) AS Visit_Year, Min(tbl_EDSW.EDSW_m) AS Min_EDSW, Max(tbl_EDSW.EDSW_m) AS Max_EDSW
-'FROM tbl_EDSW
-'GROUP BY tbl_EDSW.Unit_Code, Year([GPS_Date])
-'HAVING (((tbl_EDSW.Unit_Code) = [Park Code]) And ((Year([GPS_Date])) = [Visit Year]))
-'ORDER BY tbl_EDSW.Unit_Code, Year([GPS_Date]);
-
-    'set open args ( MsgBox.Title = lblTitle.caption )
-    'Report Name | Me.Caption | lblTitle.caption | lbxYear.RowSource | Park | Year
-
-Exit_Procedure:
-    Exit Sub
-
-Err_Handler:
-    Select Case Err.Number
-      Case Else
-        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - btnEDSW_Report_Click[frm_Main_Menu])"
-    End Select
-    Resume Exit_Procedure
 End Sub
 
 ' ---------------------------------

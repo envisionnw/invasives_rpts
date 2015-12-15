@@ -236,7 +236,7 @@ Private Sub ButtonReport_Click()
    strSQL = "SELECT Plot_ID FROM qry_Group_Cover_Route WHERE Unit_Code= '" & Me!Park_Code & "' AND Visit_Year= " & Me!Visit_Year
    Set db = CurrentDb
    Set Routes = db.OpenRecordset(strSQL)
-   Set tdf = db.tabledefs("tbl_wrk_Route_Species")
+   Set tdf = db.TableDefs("tbl_wrk_Route_Species")
    ArrayIndex = 0
    Do Until Routes.EOF
      strSQL = "SELECT Count(Transect) AS Transect_Count FROM qry_Group_Route_Transect GROUP BY Unit_Code, Visit_Year, Plot_ID HAVING Unit_Code= '" & Me!Park_Code & "' AND Plot_ID= '" & Routes!Plot_ID & "' AND Visit_Year= " & Me!Visit_Year

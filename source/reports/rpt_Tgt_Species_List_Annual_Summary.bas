@@ -13,12 +13,10 @@ Begin Report
     Width =15264
     DatasheetFontHeight =11
     ItemSuffix =135
-    Left =192
-    Top =228
-    Right =15696
-    Bottom =8460
+    Right =15000
+    Bottom =9108
     DatasheetGridlinesColor =14806254
-    Filter ="TgtYear=2015"
+    Filter ="TgtYear=2013"
     RecSrcDt = Begin
         0x63b56f12bb96e440
     End
@@ -152,7 +150,7 @@ Begin Report
             End
         End
         Begin PageHeader
-            Height =1380
+            Height =1332
             Name ="PageHeaderSection"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -324,9 +322,9 @@ Begin Report
                     Vertical = NotDefault
                     TextAlign =3
                     Left =9420
-                    Top =600
+                    Top =408
                     Width =299
-                    Height =660
+                    Height =864
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblBLCA"
@@ -335,17 +333,17 @@ Begin Report
                     GridlineStyleBottom =1
                     GridlineColor =10921638
                     LayoutCachedLeft =9420
-                    LayoutCachedTop =600
+                    LayoutCachedTop =408
                     LayoutCachedWidth =9719
-                    LayoutCachedHeight =1260
+                    LayoutCachedHeight =1272
                 End
                 Begin Label
                     Vertical = NotDefault
                     TextAlign =3
                     Left =10020
-                    Top =600
+                    Top =408
                     Width =300
-                    Height =660
+                    Height =864
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblCARE"
@@ -354,17 +352,17 @@ Begin Report
                     GridlineStyleBottom =1
                     GridlineColor =10921638
                     LayoutCachedLeft =10020
-                    LayoutCachedTop =600
+                    LayoutCachedTop =408
                     LayoutCachedWidth =10320
-                    LayoutCachedHeight =1260
+                    LayoutCachedHeight =1272
                 End
                 Begin Label
                     Vertical = NotDefault
                     TextAlign =3
                     Left =10620
-                    Top =600
+                    Top =408
                     Width =300
-                    Height =660
+                    Height =864
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblCOLM"
@@ -373,17 +371,17 @@ Begin Report
                     GridlineStyleBottom =1
                     GridlineColor =10921638
                     LayoutCachedLeft =10620
-                    LayoutCachedTop =600
+                    LayoutCachedTop =408
                     LayoutCachedWidth =10920
-                    LayoutCachedHeight =1260
+                    LayoutCachedHeight =1272
                 End
                 Begin Label
                     Vertical = NotDefault
                     TextAlign =3
                     Left =11208
-                    Top =600
+                    Top =408
                     Width =300
-                    Height =660
+                    Height =864
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblCURE"
@@ -392,17 +390,17 @@ Begin Report
                     GridlineStyleBottom =1
                     GridlineColor =10921638
                     LayoutCachedLeft =11208
-                    LayoutCachedTop =600
+                    LayoutCachedTop =408
                     LayoutCachedWidth =11508
-                    LayoutCachedHeight =1260
+                    LayoutCachedHeight =1272
                 End
                 Begin Label
                     Vertical = NotDefault
                     TextAlign =3
                     Left =11820
-                    Top =600
+                    Top =408
                     Width =300
-                    Height =660
+                    Height =864
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblDINO"
@@ -411,17 +409,17 @@ Begin Report
                     GridlineStyleBottom =1
                     GridlineColor =10921638
                     LayoutCachedLeft =11820
-                    LayoutCachedTop =600
+                    LayoutCachedTop =408
                     LayoutCachedWidth =12120
-                    LayoutCachedHeight =1260
+                    LayoutCachedHeight =1272
                 End
                 Begin Label
                     Vertical = NotDefault
                     TextAlign =3
                     Left =12480
-                    Top =600
+                    Top =408
                     Width =300
-                    Height =660
+                    Height =864
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblFOBU"
@@ -430,17 +428,17 @@ Begin Report
                     GridlineStyleBottom =1
                     GridlineColor =10921638
                     LayoutCachedLeft =12480
-                    LayoutCachedTop =600
+                    LayoutCachedTop =408
                     LayoutCachedWidth =12780
-                    LayoutCachedHeight =1260
+                    LayoutCachedHeight =1272
                 End
                 Begin Label
                     Vertical = NotDefault
                     TextAlign =3
                     Left =13080
-                    Top =600
+                    Top =408
                     Width =300
-                    Height =660
+                    Height =864
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblGOSP"
@@ -449,17 +447,17 @@ Begin Report
                     GridlineStyleBottom =1
                     GridlineColor =10921638
                     LayoutCachedLeft =13080
-                    LayoutCachedTop =600
+                    LayoutCachedTop =408
                     LayoutCachedWidth =13380
-                    LayoutCachedHeight =1260
+                    LayoutCachedHeight =1272
                 End
                 Begin Label
                     Vertical = NotDefault
                     TextAlign =3
                     Left =13740
-                    Top =600
+                    Top =360
                     Width =300
-                    Height =660
+                    Height =864
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblZION"
@@ -468,9 +466,9 @@ Begin Report
                     GridlineStyleBottom =1
                     GridlineColor =10921638
                     LayoutCachedLeft =13740
-                    LayoutCachedTop =600
+                    LayoutCachedTop =360
                     LayoutCachedWidth =14040
-                    LayoutCachedHeight =1260
+                    LayoutCachedHeight =1224
                 End
                 Begin Label
                     TextAlign =2
@@ -1269,7 +1267,7 @@ Begin Report
         End
         Begin FormFooter
             KeepTogether = NotDefault
-            Height =3960
+            Height =4320
             Name ="ReportFooter"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -1840,7 +1838,7 @@ Begin Report
                     Left =9480
                     Top =1440
                     Width =300
-                    Height =2160
+                    Height =2592
                     FontSize =8
                     TabIndex =17
                     BorderColor =10921638
@@ -1853,7 +1851,7 @@ Begin Report
                     LayoutCachedLeft =9480
                     LayoutCachedTop =1440
                     LayoutCachedWidth =9780
-                    LayoutCachedHeight =3600
+                    LayoutCachedHeight =4032
                 End
                 Begin TextBox
                     Vertical = NotDefault
@@ -1865,7 +1863,7 @@ Begin Report
                     Left =10020
                     Top =1440
                     Width =300
-                    Height =2160
+                    Height =2592
                     FontSize =8
                     TabIndex =18
                     BorderColor =10921638
@@ -1878,7 +1876,7 @@ Begin Report
                     LayoutCachedLeft =10020
                     LayoutCachedTop =1440
                     LayoutCachedWidth =10320
-                    LayoutCachedHeight =3600
+                    LayoutCachedHeight =4032
                 End
                 Begin TextBox
                     Vertical = NotDefault
@@ -1890,7 +1888,7 @@ Begin Report
                     Left =10620
                     Top =1440
                     Width =300
-                    Height =2160
+                    Height =2592
                     FontSize =8
                     TabIndex =19
                     BorderColor =10921638
@@ -1903,7 +1901,7 @@ Begin Report
                     LayoutCachedLeft =10620
                     LayoutCachedTop =1440
                     LayoutCachedWidth =10920
-                    LayoutCachedHeight =3600
+                    LayoutCachedHeight =4032
                 End
                 Begin TextBox
                     Vertical = NotDefault
@@ -1915,7 +1913,7 @@ Begin Report
                     Left =11220
                     Top =1440
                     Width =300
-                    Height =2160
+                    Height =2592
                     FontSize =8
                     TabIndex =20
                     BorderColor =10921638
@@ -1928,7 +1926,7 @@ Begin Report
                     LayoutCachedLeft =11220
                     LayoutCachedTop =1440
                     LayoutCachedWidth =11520
-                    LayoutCachedHeight =3600
+                    LayoutCachedHeight =4032
                 End
                 Begin TextBox
                     Vertical = NotDefault
@@ -1940,7 +1938,7 @@ Begin Report
                     Left =11820
                     Top =1440
                     Width =300
-                    Height =2160
+                    Height =2592
                     FontSize =8
                     TabIndex =21
                     BorderColor =10921638
@@ -1953,7 +1951,7 @@ Begin Report
                     LayoutCachedLeft =11820
                     LayoutCachedTop =1440
                     LayoutCachedWidth =12120
-                    LayoutCachedHeight =3600
+                    LayoutCachedHeight =4032
                 End
                 Begin TextBox
                     Vertical = NotDefault
@@ -1965,7 +1963,7 @@ Begin Report
                     Left =12420
                     Top =1440
                     Width =300
-                    Height =2160
+                    Height =2592
                     FontSize =8
                     TabIndex =22
                     BorderColor =10921638
@@ -1978,7 +1976,7 @@ Begin Report
                     LayoutCachedLeft =12420
                     LayoutCachedTop =1440
                     LayoutCachedWidth =12720
-                    LayoutCachedHeight =3600
+                    LayoutCachedHeight =4032
                 End
                 Begin TextBox
                     Vertical = NotDefault
@@ -1990,7 +1988,7 @@ Begin Report
                     Left =13080
                     Top =1440
                     Width =300
-                    Height =2160
+                    Height =2592
                     FontSize =8
                     TabIndex =23
                     BorderColor =10921638
@@ -2003,7 +2001,7 @@ Begin Report
                     LayoutCachedLeft =13080
                     LayoutCachedTop =1440
                     LayoutCachedWidth =13380
-                    LayoutCachedHeight =3600
+                    LayoutCachedHeight =4032
                 End
                 Begin TextBox
                     Vertical = NotDefault
@@ -2015,7 +2013,7 @@ Begin Report
                     Left =13740
                     Top =1440
                     Width =300
-                    Height =2160
+                    Height =2592
                     FontSize =8
                     TabIndex =24
                     BorderColor =10921638
@@ -2028,7 +2026,7 @@ Begin Report
                     LayoutCachedLeft =13740
                     LayoutCachedTop =1440
                     LayoutCachedWidth =14040
-                    LayoutCachedHeight =3600
+                    LayoutCachedHeight =4032
                 End
                 Begin Label
                     TextAlign =3

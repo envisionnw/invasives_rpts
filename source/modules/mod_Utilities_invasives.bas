@@ -619,7 +619,7 @@ Dim tdf As TableDef
 
 Set db = CurrentDb
 
-For Each tdf In db.tabledefs
+For Each tdf In db.TableDefs
     If Not Left(tdf.name, 4) = "MSys" Then
         Debug.Print tdf.name & ": " & tdf.RecordCount
     End If
@@ -662,7 +662,7 @@ Dim strOutput As String
 On Error Resume Next
 
 Set db = CurrentDb
-Set tdf = db.tabledefs(strObjectName)
+Set tdf = db.TableDefs(strObjectName)
 
 If Err.Number = 3265 Then
     Err.Clear
@@ -789,7 +789,7 @@ Dim rst As Recordset
 Set db = CurrentDb
 
 If IsMissing(varFileType) Then
-    For Each tdf In db.tabledefs
+    For Each tdf In db.TableDefs
         If Not Left(tdf.name, 4) = "MSys" Then
             Debug.Print "Table: " & tdf.name
             For Each idx In tdf.Indexes
@@ -804,7 +804,7 @@ Else
     Set rst = db.OpenRecordset("SELECT LinkTableName FROM tblLinkedTables WHERE LinkCategory='" & varFileType & "' ORDER BY LinkTableName;", dbOpenForwardOnly)
     
     Do Until rst.EOF
-        Set tdf = db.tabledefs(rst!LinkTableName)
+        Set tdf = db.TableDefs(rst!LinkTableName)
         Debug.Print "Table: " & tdf.name
         For Each idx In tdf.Indexes
             Debug.Print vbTab & "Index: " & idx.name
@@ -1150,7 +1150,7 @@ Dim intResult As Integer
 
 On Error Resume Next
 
-intResult = CurrentDb.tabledefs(strTableName)(strFieldName).Type
+intResult = CurrentDb.TableDefs(strTableName)(strFieldName).Type
 GetDataType = intResult
 End Function
 

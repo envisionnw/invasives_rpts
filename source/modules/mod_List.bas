@@ -572,7 +572,7 @@ Dim blnTableExists As Boolean
                     If iRow = UBound(aryFieldNames) Then '- 1 Then
                             
                         ' add table to tabledefs
-                        CurrentDb.tabledefs.Append tdf
+                        CurrentDb.TableDefs.Append tdf
                                         
                     End If
                     
@@ -695,7 +695,7 @@ Dim blnTableExists As Boolean
                     If iRow = UBound(aryFieldNames) - 1 Then
                             
                         ' add table to tabledefs
-                        CurrentDb.tabledefs.Append tdf
+                        CurrentDb.TableDefs.Append tdf
                                         
                     End If
                     

@@ -3,6 +3,7 @@ VersionRequired =20
 Begin Report
     LayoutForPrint = NotDefault
     DividingLines = NotDefault
+    FilterOn = NotDefault
     DateGrouping =1
     GrpKeepTogether =1
     PictureAlignment =2
@@ -12,11 +13,12 @@ Begin Report
     Width =11400
     DatasheetFontHeight =11
     ItemSuffix =51
-    Left =105
-    Top =1485
-    Right =12120
-    Bottom =10305
+    Left =324
+    Top =276
+    Right =12084
+    Bottom =6228
     DatasheetGridlinesColor =14806254
+    Filter ="TgtList IN ('BLCA-2012','BLCA-2015','CARE-2009')"
     RecSrcDt = Begin
         0x93926d5acb96e440
     End
@@ -25,7 +27,7 @@ Begin Report
     OnOpen ="[Event Procedure]"
     DatasheetFontName ="Calibri"
     PrtMip = Begin
-        0x6a01000068010000680100006801000000000000882c0000a201000001000000 ,
+        0x6a01000068010000680100006801000000000000882c0000a401000001000000 ,
         0x010000006801000000000000a10700000100000001000000
     End
     FilterOnLoad =255
@@ -438,7 +440,7 @@ Begin Report
         End
         Begin Section
             KeepTogether = NotDefault
-            Height =418
+            Height =420
             Name ="Detail"
             AlternateBackColor =15921906
             AlternateBackThemeColorIndex =1
@@ -480,19 +482,6 @@ Begin Report
                         0x00200041006e006400200028005b007400620078005000720069006f00720069 ,
                         0x00740079005d003c003e0022005400720061006e00730065006300740020004f ,
                         0x006e006c00790022002900000000000000000000000000000000000000000000
-                    End
-                    Begin
-                        Begin Label
-                            Width =705
-                            Height =315
-                            BorderColor =8355711
-                            ForeColor =8355711
-                            Name ="Label34"
-                            Caption ="Text33"
-                            GridlineColor =10921638
-                            LayoutCachedWidth =705
-                            LayoutCachedHeight =315
-                        End
                     End
                 End
                 Begin TextBox

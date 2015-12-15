@@ -644,12 +644,9 @@ On Error GoTo Err_Handler
     
     'parse open args ( MsgBox.Title = lblTitle.caption )
     'Report Name | Me.Caption | lblTitle.caption | lbxYear.RowSource | Park | Year
-    
     oArgs = Split(Me.OpenArgs, "|")
         
-    'Me.Caption = oArgs(1)
-    'lblTitle.Caption = oArgs(1)
-    
+    'prepare where clause for filtering by park & year
     strWhere = ""
     If Len(Trim(oArgs(4))) > 0 Then
         strWhere = "WHERE Unit_Code = '" & Trim(oArgs(4)) & "'"
@@ -666,18 +663,6 @@ On Error GoTo Err_Handler
     strSQL = oArgs(3) & strWhere & ";"
     
     Me.RecordSource = strSQL
-    'lbxYear.RowSource = strSQL
-    
-'    tbxPark.SetFocus = True     'required to set the park
-'                                'control must have focus first or
-'                                'Error # 2185 - You can't reference a property or method for a control unless the control has the focus.
-'                                'must be opened using acViewReport vs. preview
-'                                'Error # 2478 - Invasives Reporting Tool doesn't allow you to use this method in the current view.
-'    tbxPark.text = oArgs(4)
-    
-    'tbxYear.SetFocus
-    'tbxYear = oArgs(3) & " " & oArgs(4)  'Error #-2147352567 - You can't assign a value to this object.
-
     
 Exit_Sub:
     Exit Sub

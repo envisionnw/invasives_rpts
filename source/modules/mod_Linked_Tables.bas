@@ -237,7 +237,7 @@ Public Function LinkedDatabase(ByVal strTableName As String) As String
 
     Dim strTemp As String
 
-    strTemp = ParseConnectionStr(CurrentDb.tabledefs(strTableName).Connect)
+    strTemp = ParseConnectionStr(CurrentDb.TableDefs(strTableName).Connect)
     LinkedDatabase = strTemp
 
 Exit_Procedure:
@@ -486,7 +486,7 @@ Public Function CheckLink(strTableName As String) As Boolean
     On Error Resume Next
     ' Check for failure.  If can't determine the name of
     ' the first field in the table, the link must be bad.
-    varRet = CurrentDb.tabledefs(strTableName).Fields(0).name
+    varRet = CurrentDb.TableDefs(strTableName).Fields(0).name
     If Err <> 0 Then
         CheckLink = False
     Else
@@ -577,7 +577,7 @@ Function TestODBCConnection(strTableName As String, _
     Set qdf = db.CreateQueryDef("")
 
     ' If no revised connection string was passed, use the current connection string
-    If strConnStr = "" Then strConnStr = CurrentDb.tabledefs(strTableName).Connect
+    If strConnStr = "" Then strConnStr = CurrentDb.TableDefs(strTableName).Connect
     strDbName = ParseConnectionStr(strConnStr)
 
     ' Update the connection string for the pass-through query, set to not return records
@@ -716,7 +716,7 @@ Public Function RefreshLinks(strDbName As String, ByVal strNewConnStr As String,
             frm.Repaint
             strTable = rst![Link_table]
             Debug.Print strTable
-            varReturn = dbGet.tabledefs(strTable).Fields(0).name
+            varReturn = dbGet.TableDefs(strTable).Fields(0).name
             rst.MoveNext
         Loop
 
@@ -741,7 +741,7 @@ Public Function RefreshLinks(strDbName As String, ByVal strNewConnStr As String,
             strTable = rst![Link_table]
 Debug.Print strTable
             ' Update and refresh the table connection
-            Set tdf = db.tabledefs(strTable)
+            Set tdf = db.TableDefs(strTable)
             tdf.Connect = strNewConnStr
             tdf.RefreshLink
             
@@ -751,9 +751,7 @@ Debug.Print strTable
             strDesc = tdf.Properties("Description") ' Throws trapped error 3270 if none
             'replace double quotes with singles
             strDesc = Replace(strDesc, """", "'")
-'            strSQL = "UPDATE tsys_Link_Tables " & _
-'                "SET tsys_Link_Tables.Description_text=""" & strDesc & _
-'                """ WHERE (((tsys_Link_Tables.Link_table)=""" & strTable & """));"
+            
             strSQL = "UPDATE tsys_Link_Tables " & _
                 "SET tsys_Link_Tables.Description_text=""" & strDesc & _
                 """, tsys_Link_Tables.Link_db=""" & strNewDbName & _
@@ -777,9 +775,9 @@ Debug.Print strSQL
             
             'update tsys_Linked_Tables (Link_db, Link_Type)
             
-            DoCmd.SetWarnings False
-            DoCmd.RunSQL strSQL
-            DoCmd.SetWarnings True
+'            DoCmd.SetWarnings False
+'            DoCmd.RunSQL strSQL
+'            DoCmd.SetWarnings True
             rst.MoveNext
         Loop
     Else    ' ODBC back-end
@@ -826,7 +824,7 @@ Debug.Print strSQL
             frm.Repaint
             strTable = rst![Link_table]
             ' Update and refresh the table connection
-            Set tdf = db.tabledefs(strTable)
+            Set tdf = db.TableDefs(strTable)
             ' Use test again to trap errors
             If TestODBCConnection(strTable, strNewConnStr) = True Then
                 tdf.Connect = "Driver={Microsoft Access Driver (*.mdb, *.accdb)};DATABASE=C:\___TEST_DATA\Invasives_be.accdb;" 'strNewConnStr
@@ -935,9 +933,9 @@ Public Function VerifyLinkTableInfo() As Boolean
     blnHasError = False             ' Flag to indicate error status
 
     ' Check if FIX_LINKED_DBS is set (usually when DbAdmin is not fully implemented)
-    If FIX_LINKED_DBS Then
-        FixLinkedDatabase "tbl_Target_Species"
-    End If
+'    If FIX_LINKED_DBS Then
+'        FixLinkedDatabase "tbl_Target_Species"
+'    End If
 
     ' First make sure that there are linked tables
     intNRecs = DCount("*", "MSysObjects", "([Type] In (4,6)) And ([Name] Not Like '~*')")
@@ -994,7 +992,7 @@ Public Function VerifyLinkTableInfo() As Boolean
             "WHERE tsys_Link_Tables.Description_text Is Null", dbOpenSnapshot)
         Do Until rst.EOF
             strTable = rst![Link_table]
-            Set tdf = db.tabledefs(strTable)
+            Set tdf = db.TableDefs(strTable)
             ' Update the table description in tsys_Link_Tables
             ' Set default description in case there is none
             strDesc = " - no description - "
@@ -1212,7 +1210,7 @@ Public Sub FixLinkedDatabase(ByVal strTableName As String)
     Dim strTemp As String, strSQL As String, strCurDb As String, strCurDbPath As String
     Dim rs As DAO.Recordset
 
-    strTemp = ParseConnectionStr(CurrentDb.tabledefs(strTableName).Connect)
+    strTemp = ParseConnectionStr(CurrentDb.TableDefs(strTableName).Connect)
     
     'fetch current database location
     Set rs = CurrentDb.OpenRecordset("qsys_Linked_tables_mismatched_info_dbs")
