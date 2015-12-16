@@ -4,11 +4,12 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_File
 ' Level:        Framework module
-' Version:      1.00
+' Version:      1.01
 ' Description:  File and directory related functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, April 2015
 ' Revisions:    BLC, 4/30/2015 - 1.00 - initial version
+'               BLC, 5/18/2015 - 1.01 - renamed, removed fxn prefix
 ' =================================
 
 ' ---------------------------------
@@ -88,7 +89,6 @@ Err_Handler:
     End Select
     Resume Exit_Function
 End Function
-
 
 ' ---------------------------------
 '  FILE RELATED

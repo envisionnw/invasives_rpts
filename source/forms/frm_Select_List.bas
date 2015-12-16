@@ -15,12 +15,13 @@ Begin Form
     Left =330
     Top =450
     Right =7785
-    Bottom =4575
+    Bottom =4800
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xc1f3db6ed487e440
     End
     RecordSource ="tbl_Target_Areas"
+    Caption ="Load Species from Existing List(s)"
     DatasheetFontName ="Calibri"
     PrtMip = Begin
         0x6801000068010000680100006801000000000000201c0000e010000001000000 ,
@@ -236,8 +237,8 @@ Begin Form
                     BorderColor =10921638
                     Name ="lbxParks"
                     RowSourceType ="Table/Query"
-                    RowSource ="SELECT DISTINCT tbl_Target_Species.Park_Code FROM tbl_Target_Species ORDER BY tb"
-                        "l_Target_Species.Park_Code; "
+                    RowSource ="SELECT DISTINCT tbl_Target_List.Park_Code FROM tbl_Target_List ORDER BY tbl_Targ"
+                        "et_List.Park_Code;"
                     OnClick ="[Event Procedure]"
                     GridlineColor =10921638
 
@@ -276,8 +277,8 @@ Begin Form
                     BorderColor =10921638
                     Name ="lbxYears"
                     RowSourceType ="Table/Query"
-                    RowSource ="SELECT DISTINCT tbl_Target_Species.Target_Year FROM tbl_Target_Species ORDER BY "
-                        "tbl_Target_Species.Target_Year; "
+                    RowSource ="SELECT DISTINCT tbl_Target_List.Target_Year FROM tbl_Target_List ORDER BY tbl_Ta"
+                        "rget_List.Target_Year;"
                     OnClick ="[Event Procedure]"
                     GridlineColor =10921638
 
@@ -447,7 +448,6 @@ Err_Handler:
     Resume Exit_Sub
 End Sub
 
-
 ' ---------------------------------
 ' SUB:          Form_KeyUp
 ' Description:  Enables btnLoad when park(s) & year(s) are selected
@@ -460,11 +460,12 @@ End Sub
 ' Adapted:      -
 ' Revisions:
 '   BLC - 5/26/2015 - initial version
+'   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub Form_KeyUp(KeyCode As Integer, Shift As Integer)
 On Error GoTo Err_Handler
 
-    If Len(TempVars.item("parks")) > 0 And Len(TempVars.item("years")) > 0 Then
+    If Len(TempVars("parks")) > 0 And Len(TempVars("years")) > 0 Then
         Me.btnLoadList.Enabled True
     Else
         Me.btnLoadList.Enabled False
@@ -499,6 +500,7 @@ End Sub
 '   BLC - 5/26/2015 - added merge from temp_Listbox_Recordset table vs listbox & table removal
 '   BLC - 5/27/2015 - modified to use AddListRecordset and GetListRecordset vs.  MergeRecordsets to capture
 '                     all records from
+'   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub btnLoadList_Click()
 On Error GoTo Err_Handler
@@ -508,19 +510,26 @@ On Error GoTo Err_Handler
     Dim aryFieldTypes() As Variant
       
     'determine the selected park(s) & year(s)
-    If Len(TempVars.item("parks")) > 0 And Len(TempVars.item("years")) > 0 Then
-        strWhere = "WHERE Park_Code IN (" & TempVars.item("parks") & ") " _
-                 & "AND Target_Year IN (" & TempVars.item("years") & ")"
+    If Len(TempVars("parks")) > 0 And Len(TempVars("years")) > 0 Then
+        strWhere = "WHERE tbl_Target_List.Park_Code IN (" & TempVars("parks") & ") " _
+                 & "AND tbl_Target_List.Target_Year IN (" & TempVars("years") & ")"
     End If
     
     'prep WHERE clause
     If Len(Replace(strWhere, "WHERE", "")) = 0 Then strWhere = ""
     
     'build SQL statement
+'    strSQL = "SELECT DISTINCT Master_Plant_Code_FK AS Code, Species_Name AS Species, " _
+'            & "LU_Code AS LUCode,  Transect_Only, Target_Area_ID " _
+'            & "FROM tbl_Target_Species " _
+'            & strWhere & ";"
+            
     strSQL = "SELECT DISTINCT Master_Plant_Code_FK AS Code, Species_Name AS Species, " _
             & "LU_Code AS LUCode,  Transect_Only, Target_Area_ID " _
             & "FROM tbl_Target_Species " _
+            & "INNER JOIN tbl_Target_List ON tbl_Target_Species.Tgt_List_ID_FK = tbl_Target_List.Tgt_List_ID " _
             & strWhere & ";"
+            
             
     'fetch data
     Set rs = CurrentDb.OpenRecordset(strSQL, dbOpenDynaset)

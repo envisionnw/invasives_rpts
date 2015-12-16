@@ -13,5 +13,6 @@ CREATE TABLE [temp_List_Preview] (
   [utah_species] VARCHAR (50),
   [Co_Species] VARCHAR (50),
   [Wy_Species] VARCHAR (50),
-  [TgtList] VARCHAR (255)
+  [TgtList] VARCHAR (255),
+  [Last_Modified] DATETIME 
 )

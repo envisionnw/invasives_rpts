@@ -25,10 +25,10 @@ Begin Form
     Width =5340
     DatasheetFontHeight =11
     ItemSuffix =10
-    Left =9156
-    Top =4548
-    Right =14496
-    Bottom =5856
+    Left =9150
+    Top =4545
+    Right =14490
+    Bottom =5850
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x53fe177c5893e440
@@ -321,8 +321,8 @@ Option Explicit
 '=================================================================
 
 ' ---------------------------------
-' SUB:          frm_ProgressBar_Initialize
-' Description:  Increase the percent value for the progress bar
+' SUB:          Form_Load
+' Description:  Load the progress bar form
 ' Assumptions:  none
 ' Parameters:   -
 ' Returns:      N/A
@@ -349,7 +349,6 @@ Err_Handler:
     End Select
     Resume Exit_Sub
 End Sub
-
 
 ' ---------------------------------
 ' SUB:          frm_ProgressBar_Initialize
@@ -450,13 +449,3 @@ Err_Handler:
     End Select
     Resume Exit_Function
 End Function
-
-Public Sub testme()
-    DoCmd.OpenForm "frm_ProgressBar", acNormal
-    
-    For i = 1 To 10
-        
-        Forms("frm_ProgressBar").Increment i * 10, "Preparing report..."
-    Next
-
-End Sub

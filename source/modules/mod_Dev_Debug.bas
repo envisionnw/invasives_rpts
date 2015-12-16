@@ -10,6 +10,7 @@ Option Explicit
 '
 ' Source/date:  Bonnie Campbell, 2/12/2015
 ' Revisions:    BLC - 5/27/2015 - 1.00 - initial version
+'               BLC - 7/7/2016  - 1.01 - added GetErrorTrappingOption()
 ' =================================
 
 ' ===================================================================================
@@ -248,6 +249,18 @@ On Error GoTo Err_Handler
     SetDebugDbPaths strDbPath
 
 
+    'progress bar test
+    DoCmd.OpenForm "frm_ProgressBar", acNormal
+    
+    For i = 1 To 10
+        
+        Forms("frm_ProgressBar").Increment i * 10, "Preparing report..."
+    Next
+
+    'test parsing
+    ParseFileName ("C:\___TEST_DATA\test_BE_new\Invasives_be.accdb")
+
+
 Exit_Sub:
     Exit Sub
     
@@ -259,3 +272,44 @@ Err_Handler:
     End Select
     Resume Exit_Sub
 End Sub
+
+' ---------------------------------
+' FUNCTION:     GetErrorTrappingOption
+' Description:  Determine the error trapping option setting.
+' Assumptions:  -
+' Parameters:   -
+' Returns:      String representing the IDE's error trapping setting.
+' Throws:       none
+' References:   -
+' Source/date:  Luke Chung, date unknown
+'               http://www.fmsinc.com/tpapers/vbacode/debug.asp
+' Adapted:      Bonnie Campbell, July 7, 2015 - for NCPN tools
+' Revisions:
+'   BLC - 7/7/2015 - initial version
+' ---------------------------------
+Function GetErrorTrappingOption() As String
+On Error GoTo Err_Handler
+
+  Dim strSetting As String
+  
+  Select Case Application.GetOption("Error Trapping")
+    Case 0
+      strSetting = "Break on All Errors"
+    Case 1
+      strSetting = "Break in Class Modules"
+    Case 2
+      strSetting = "Break on Unhandled Errors"
+  End Select
+  GetErrorTrappingOption = strSetting
+
+Exit_Function:
+    Exit Function
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - GetErrorTrappingOption[mod_Dev_Debug])"
+    End Select
+    Resume Exit_Function
+End Function

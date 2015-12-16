@@ -1,6 +1,7 @@
 ﻿Version =20
 VersionRequired =20
 Begin Form
+    AutoResize = NotDefault
     RecordSelectors = NotDefault
     NavigationButtons = NotDefault
     DividingLines = NotDefault
@@ -9,10 +10,11 @@ Begin Form
     DatasheetGridlinesBehavior =3
     GridX =24
     GridY =24
+    Width =7215
     DatasheetFontHeight =11
-    ItemSuffix =13
-    Right =9900
-    Bottom =6330
+    ItemSuffix =14
+    Right =7215
+    Bottom =5610
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xc1f3db6ed487e440
@@ -36,7 +38,6 @@ Begin Form
     AllowLayoutView =0
     DatasheetAlternateBackColor =15921906
     DatasheetGridlinesColor12 =0
-    FitToScreen =1
     DatasheetBackThemeColorIndex =1
     BorderThemeColorIndex =3
     ThemeFontIndex =1
@@ -149,7 +150,7 @@ Begin Form
             GridlineShade =65.0
         End
         Begin FormHeader
-            Height =3375
+            Height =3495
             Name ="FormHeader"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
@@ -162,14 +163,14 @@ Begin Form
                     OverlapFlags =93
                     Top =2220
                     Width =7200
-                    Height =1140
+                    Height =1260
                     BackColor =14806254
                     BorderColor =10921638
                     Name ="boxCurrTgtArea"
                     GridlineColor =10921638
                     LayoutCachedTop =2220
                     LayoutCachedWidth =7200
-                    LayoutCachedHeight =3360
+                    LayoutCachedHeight =3480
                     BackThemeColorIndex =3
                 End
                 Begin Label
@@ -182,7 +183,7 @@ Begin Form
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblTgtAreaHdr"
-                    Caption ="Target Areas"
+                    Caption ="Extra Areas"
                     GridlineColor =10921638
                     LayoutCachedLeft =60
                     LayoutCachedTop =60
@@ -221,7 +222,7 @@ Begin Form
                             BorderColor =8355711
                             ForeColor =8355711
                             Name ="lblTgtArea"
-                            Caption ="Enter the target area name."
+                            Caption ="Enter the extra area name."
                             GridlineColor =10921638
                             LayoutCachedLeft =240
                             LayoutCachedTop =600
@@ -238,8 +239,8 @@ Begin Form
                     TabIndex =1
                     ForeColor =16711680
                     Name ="btnAddTgtArea"
-                    Caption ="Add new Target Area"
-                    StatusBarText ="Add new target area"
+                    Caption ="Add new Extra Area"
+                    StatusBarText ="Add new extra/target area"
                     OnClick ="[Event Procedure]"
                     GridlineColor =10921638
 
@@ -278,35 +279,35 @@ Begin Form
                     OverlapFlags =215
                     Left =60
                     Top =2340
-                    Width =2448
-                    Height =372
+                    Width =3165
+                    Height =375
                     FontSize =14
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblTgtAreaList"
-                    Caption ="Current Target Areas"
+                    Caption ="Current Extra Areas"
                     GridlineColor =10921638
                     LayoutCachedLeft =60
                     LayoutCachedTop =2340
-                    LayoutCachedWidth =2508
-                    LayoutCachedHeight =2712
+                    LayoutCachedWidth =3225
+                    LayoutCachedHeight =2715
                 End
                 Begin Label
                     OverlapFlags =223
                     Left =300
                     Top =2820
-                    Width =6846
-                    Height =300
+                    Width =6840
+                    Height =600
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblCurrentTgtAreas"
-                    Caption ="Current target areas are listed below. Click               to delete a target ar"
-                        "ea. "
+                    Caption ="Current extra areas are listed below. Click               to delete an extra are"
+                        "a. Extra area IDs are used to set extra areas for species during list creation."
                     GridlineColor =10921638
                     LayoutCachedLeft =300
                     LayoutCachedTop =2820
-                    LayoutCachedWidth =7146
-                    LayoutCachedHeight =3120
+                    LayoutCachedWidth =7140
+                    LayoutCachedHeight =3420
                 End
                 Begin Line
                     BorderWidth =2
@@ -324,19 +325,19 @@ Begin Form
                 Begin Line
                     BorderWidth =2
                     OverlapFlags =87
-                    Top =3360
+                    Top =3480
                     Width =7200
                     BorderColor =8355711
                     Name ="lineCurrTgtAreaBtm"
                     GridlineColor =10921638
-                    LayoutCachedTop =3360
+                    LayoutCachedTop =3480
                     LayoutCachedWidth =7200
-                    LayoutCachedHeight =3360
+                    LayoutCachedHeight =3480
                     BorderTint =50.0
                 End
                 Begin Image
                     PictureType =2
-                    Left =4320
+                    Left =4260
                     Top =2820
                     Width =540
                     Height =300
@@ -345,9 +346,9 @@ Begin Form
                     Picture ="delete"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =4320
+                    LayoutCachedLeft =4260
                     LayoutCachedTop =2820
-                    LayoutCachedWidth =4860
+                    LayoutCachedWidth =4800
                     LayoutCachedHeight =3120
                     TabIndex =2
                 End
@@ -436,7 +437,7 @@ Begin Form
                     IMESentenceMode =3
                     Left =720
                     Top =60
-                    Width =2640
+                    Width =1740
                     Height =300
                     TabIndex =1
                     BorderColor =10921638
@@ -447,15 +448,36 @@ Begin Form
 
                     LayoutCachedLeft =720
                     LayoutCachedTop =60
-                    LayoutCachedWidth =3360
+                    LayoutCachedWidth =2460
+                    LayoutCachedHeight =360
+                End
+                Begin TextBox
+                    OldBorderStyle =0
+                    OverlapFlags =85
+                    TextAlign =2
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =2580
+                    Top =60
+                    Width =600
+                    Height =300
+                    TabIndex =2
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxTgtAreaID"
+                    ControlSource ="=IIf([Target_Area_ID]>0,\"ID: \" & [Target_Area_ID],\"\")"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =2580
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =3180
                     LayoutCachedHeight =360
                 End
             End
         End
         Begin FormFooter
-            Height =492
+            Height =180
             Name ="FormFooter"
-            AutoHeight =1
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
             BackThemeColorIndex =1

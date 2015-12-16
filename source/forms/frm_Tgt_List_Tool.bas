@@ -21,9 +21,9 @@ Begin Form
     GridY =24
     Width =12300
     DatasheetFontHeight =10
-    ItemSuffix =194
-    Left =3780
-    Right =16080
+    ItemSuffix =196
+    Left =60
+    Right =12360
     Bottom =10560
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
@@ -339,7 +339,7 @@ Begin Form
                     Top =1800
                     Width =11160
                     Height =6840
-                    BackColor =16772300
+                    BackColor =16764108
                     Name ="rctMainTabColor"
                     LayoutCachedLeft =480
                     LayoutCachedTop =1800
@@ -372,7 +372,7 @@ Begin Form
                     BorderColor =16777215
                     ForeColor =8355711
                     Name ="lblInstructions"
-                    Caption =" "
+                    Caption ="Choose the park and year for your list. Click 'Continue' to prepare your report."
                     FontName ="Calibri"
                     GridlineColor =10921638
                     LayoutCachedLeft =6420
@@ -426,6 +426,7 @@ Begin Form
                     OldBorderStyle =0
                     Begin
                         Begin Page
+                            Visible = NotDefault
                             OverlapFlags =247
                             Left =60
                             Top =540
@@ -616,7 +617,6 @@ Begin Form
                             End
                         End
                         Begin Page
-                            Visible = NotDefault
                             OverlapFlags =247
                             Left =60
                             Top =540
@@ -657,15 +657,17 @@ Begin Form
                                 End
                                 Begin Label
                                     FontUnderline = NotDefault
+                                    BackStyle =1
                                     BorderWidth =1
                                     OverlapFlags =247
                                     TextAlign =2
-                                    Left =2305
-                                    Top =3595
+                                    Left =2295
+                                    Top =3300
                                     Width =2340
                                     Height =420
                                     FontSize =11
                                     TopMargin =72
+                                    BackColor =8648143
                                     ForeColor =16711680
                                     Name ="btnCrewSpeciesList"
                                     Caption ="Crew Species List"
@@ -673,10 +675,10 @@ Begin Form
                                     OnClick ="[Event Procedure]"
                                     ShortcutMenuBar ="Run Species List report"
                                     ControlTipText ="Prepare field crew target species list"
-                                    LayoutCachedLeft =2305
-                                    LayoutCachedTop =3595
-                                    LayoutCachedWidth =4645
-                                    LayoutCachedHeight =4015
+                                    LayoutCachedLeft =2295
+                                    LayoutCachedTop =3300
+                                    LayoutCachedWidth =4635
+                                    LayoutCachedHeight =3720
                                     ThemeFontIndex =1
                                 End
                                 Begin Label
@@ -684,8 +686,8 @@ Begin Form
                                     BorderWidth =1
                                     OverlapFlags =247
                                     TextAlign =2
-                                    Left =2305
-                                    Top =4135
+                                    Left =2295
+                                    Top =4275
                                     Width =2340
                                     Height =420
                                     FontSize =11
@@ -697,10 +699,10 @@ Begin Form
                                     OnClick ="[Event Procedure]"
                                     ShortcutMenuBar ="Run target species list by park report"
                                     ControlTipText ="Run target species list by park report"
-                                    LayoutCachedLeft =2305
-                                    LayoutCachedTop =4135
-                                    LayoutCachedWidth =4645
-                                    LayoutCachedHeight =4555
+                                    LayoutCachedLeft =2295
+                                    LayoutCachedTop =4275
+                                    LayoutCachedWidth =4635
+                                    LayoutCachedHeight =4695
                                     ThemeFontIndex =1
                                 End
                                 Begin Label
@@ -708,12 +710,13 @@ Begin Form
                                     BorderWidth =1
                                     OverlapFlags =247
                                     TextAlign =2
-                                    Left =2305
-                                    Top =4675
+                                    Left =2295
+                                    Top =5220
                                     Width =2340
                                     Height =420
                                     FontSize =11
                                     TopMargin =72
+                                    BackColor =8648143
                                     ForeColor =16711680
                                     Name ="btnTgtListAnnualSummary"
                                     Caption ="Annual Summary"
@@ -721,10 +724,60 @@ Begin Form
                                     OnClick ="[Event Procedure]"
                                     ShortcutMenuBar ="Run species list annual summary report"
                                     ControlTipText ="Run species list annual summary report"
-                                    LayoutCachedLeft =2305
-                                    LayoutCachedTop =4675
-                                    LayoutCachedWidth =4645
-                                    LayoutCachedHeight =5095
+                                    LayoutCachedLeft =2295
+                                    LayoutCachedTop =5220
+                                    LayoutCachedWidth =4635
+                                    LayoutCachedHeight =5640
+                                    ThemeFontIndex =1
+                                End
+                                Begin Label
+                                    FontUnderline = NotDefault
+                                    BorderWidth =1
+                                    OverlapFlags =247
+                                    TextAlign =2
+                                    Left =2295
+                                    Top =3780
+                                    Width =2340
+                                    Height =420
+                                    FontSize =11
+                                    TopMargin =72
+                                    BackColor =8648143
+                                    ForeColor =16711680
+                                    Name ="btnParkSpeciesList"
+                                    Caption ="Park Species List"
+                                    FontName ="Calibri"
+                                    OnClick ="[Event Procedure]"
+                                    ShortcutMenuBar ="Run Park Personnel Species List report"
+                                    ControlTipText ="Prepare park personnel target species list"
+                                    LayoutCachedLeft =2295
+                                    LayoutCachedTop =3780
+                                    LayoutCachedWidth =4635
+                                    LayoutCachedHeight =4200
+                                    ThemeFontIndex =1
+                                End
+                                Begin Label
+                                    FontUnderline = NotDefault
+                                    BorderWidth =1
+                                    OverlapFlags =247
+                                    TextAlign =2
+                                    Left =2295
+                                    Top =4740
+                                    Width =2340
+                                    Height =420
+                                    FontSize =11
+                                    TopMargin =72
+                                    BackColor =8648143
+                                    ForeColor =16711680
+                                    Name ="btnTgtListParkSummary"
+                                    Caption ="Park Summary"
+                                    FontName ="Calibri"
+                                    OnClick ="[Event Procedure]"
+                                    ShortcutMenuBar ="Run species list park summary report"
+                                    ControlTipText ="Run species list park summary report"
+                                    LayoutCachedLeft =2295
+                                    LayoutCachedTop =4740
+                                    LayoutCachedWidth =4635
+                                    LayoutCachedHeight =5160
                                     ThemeFontIndex =1
                                 End
                             End
@@ -817,7 +870,7 @@ Begin Form
                     BorderColor =16777215
                     ForeColor =5855577
                     Name ="lblInsetTitle"
-                    Caption ="Choose what you'd like to create"
+                    Caption ="Reports > Field Crew Species List"
                     FontName ="Calibri"
                     GridlineColor =10921638
                     LayoutCachedLeft =840
@@ -833,7 +886,6 @@ Begin Form
                     GridlineShade =65.0
                 End
                 Begin Subform
-                    Visible = NotDefault
                     OverlapFlags =247
                     Left =6540
                     Top =4620
@@ -841,7 +893,7 @@ Begin Form
                     Height =2895
                     TabIndex =2
                     Name ="fsub_Filter"
-                    SourceObject ="Form.fsub_Select_Park_Year"
+                    SourceObject ="Form.fsub_Select_Tgt_Lists"
 
                     LayoutCachedLeft =6540
                     LayoutCachedTop =4620
@@ -876,6 +928,7 @@ Option Explicit
 '                   Converted tabQAQC to tabCreate, tabLogs to tabView
 '               BLC, 4/22/2015 - Renamed
 '               BLC, 6/4/2015  - Changed View to Search tab
+'               BLC, 9/21/2015 - Added park personnel species list, park summary reports
 ' =================================
 
 ' ********************************************************************************************
@@ -988,18 +1041,19 @@ End Sub
 ' Source/date:  Adapted from John Boetsch
 ' Adapted:      Bonnie Campbell, June, 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC, 7/31/2014 - updated to use TempVars vs gvars
+'               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub cmdExit_Click()
     On Error GoTo Err_Handler
 
     ' Prompt for backups, depending on application settings
     '   Note:  only relevant for Access back-end files
-    If TempVars.item("Connected") And TempVars.item("HasAccessBE") And Me.chkBackupOnExit Then MakeBackup
+    If TempVars("Connected") And TempVars("HasAccessBE") And Me.chkBackupOnExit Then MakeBackup
 
     ' Compact and repair back-end database prior to exit, depending on
     '   default settings and on whether there is a valid link to the database
     '   Note:  only relevant for Access back-end files
-    If TempVars.item("Connected") And TempVars.item("HasAccessBE") And TempVars.item("WritePermission") And Me.chkCompactBEOnExit Then
+    If TempVars("Connected") And TempVars("HasAccessBE") And TempVars("WritePermission") And Me.chkCompactBEOnExit Then
 
         Dim rst As DAO.Recordset
         Dim strOrigFile As String
@@ -1063,7 +1117,7 @@ End Sub
 
 ' ---------------------------------
 ' SUB:     Form_Close
-' Description: Close switchboard & log user
+' Description: Close switchboard/main form & log user
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       -
@@ -1128,6 +1182,7 @@ End Sub
 '                                Shifted PopulateInsetTitle & set tab color to before check if DbAdmin
 '                                to make DbAdmin tab appear correct color when selected
 '               BLC, 6/9/2015  - Removed blnLeftInsetHide to expose DbAdmin display similar to Export tab
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' =================================
 Public Sub optGrpTabs_Click()
 On Error GoTo Err_Handler
@@ -1177,10 +1232,10 @@ Dim blnLeftInsetHide As Boolean
     End Select
     
     'identify action type (qry = query, rpt = report, exp = export, tbl = table, frm = form)
-    If IsNull(TempVars.item("action")) Then
+    If IsNull(TempVars("action")) Then
         TempVars.Add "action", strAction
     Else
-        TempVars.item("action") = strAction
+        TempVars("action") = strAction
     End If
     
     'clear instructions
@@ -1311,7 +1366,7 @@ End Sub
 ' ---------------------------------
 ' SUB:          OpenFilterSubform
 ' Description:  Prepares the filter subform & displays it
-' Parameters:   -
+' Parameters:   ctrl - control button clicked (control)
 ' Returns:      -
 ' Throws:       -
 ' References:   -
@@ -1321,6 +1376,8 @@ End Sub
 '               BLC - 5/12/2015  - adapted for unused tabs
 '               BLC - 5/13/2015 - fixed so "Select Year" is displayed initially for cbxYear
 '               BLC - 6/4/2015  - added "Search" action for alternate fsub_Filter subform control handling
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 9/21/2015 - Added park personnel species list, park summary reports
 ' ---------------------------------
 Public Sub OpenFilterSubform(ctrl As Control)
         
@@ -1351,26 +1408,28 @@ On Error GoTo Err_Handler:
     strAction = Replace(ctrl.name, "btn", "")
     
     'check for existence, add analysis tempvar if needed
-    If IsNull(TempVars.item("analysis")) Then
-        TempVars.item("analysis") = strAction
+    If IsNull(TempVars("analysis")) Then
+        TempVars("analysis") = strAction
     Else
         TempVars.Add "analysis", strAction
     End If
     
     'update title & make visible
-    PopulateInsetTitle Me!lblInsetTitle, TempVars.item("analysis")
+    PopulateInsetTitle Me!lblInsetTitle, TempVars("analysis")
     
     'update instructions & make visible
-    PopulateInstructions Me!lblInstructions, TempVars.item("analysis")
+    PopulateInstructions Me!lblInstructions, TempVars("analysis")
 
     'set fsub_Filter subform
-    Select Case TempVars.item("action")
+    Select Case TempVars("action")
         Case "tbl"
             fsub_Filter.SourceObject = "fsub_Select_Park_Year"
         Case "rpt"
-            Select Case TempVars.item("rpt")
-                Case "CrewSpeciesList", "SpeciesListByPark"
+            Select Case TempVars("rpt")
+                Case "CrewSpeciesList", "ParkSpeciesList", "SpeciesListByPark"
                     fsub_Filter.SourceObject = "fsub_Select_Tgt_Lists"
+                Case "TgtListParkSummary"
+                    fsub_Filter.SourceObject = "fsub_Select_Park"
                 Case "TgtListAnnualSummary"
                     fsub_Filter.SourceObject = "fsub_Select_Year"
             End Select
@@ -1385,7 +1444,9 @@ On Error GoTo Err_Handler:
                 !cbxYear.Value = "SEL"
             Case "fsub_Select_Tgt_Lists"
             Case "fsub_Select_Year"
-        End Select
+            Case "fsub_Select_Park"
+                !cbxPark.Value = ""
+            End Select
     End With
     
     'hide filter subform for unused tabs
@@ -1425,11 +1486,12 @@ End Sub
 ' Throws:       -
 ' References:   -
 ' Source/date:  Bonnie Campbell, June 4, 2015
-' Revisions:    6/4/2015 - BLC - initial version
+' Revisions:    BLC - 6/4/2015 - initial version
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub btnSearch_Click()
 
-    TempVars.item("frm") = "Species_Search"
+    TempVars("frm") = "Species_Search"
 
     'button actions
     ActionButton_Click btnSearch, "frm_Species_Search"
@@ -1453,14 +1515,34 @@ End Sub
 ' Throws:       -
 ' References:   -
 ' Source/date:  Bonnie Campbell, April 22, 2015
-' Revisions:    4/22/2015 - BLC - initial version
+' Revisions:    BLC - 4/22/2015 - initial version
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub btnCrewSpeciesList_Click()
 
-    TempVars.item("rpt") = "CrewSpeciesList"
+    TempVars("rpt") = "CrewSpeciesList"
 
     'button actions
     ActionButton_Click btnCrewSpeciesList
+    
+End Sub
+
+' ---------------------------------
+' SUB:     btnParkSpeciesList_Click
+' Description:  Opens the park personnel species target list report
+' Parameters:   -
+' Returns:      -
+' Throws:       -
+' References:   -
+' Source/date:  Bonnie Campbell, September 21, 2015
+' Revisions:    BLC - 9/21/2015 - initial version
+' ---------------------------------
+Private Sub btnParkSpeciesList_Click()
+
+    TempVars("rpt") = "ParkSpeciesList"
+
+    'button actions
+    ActionButton_Click btnParkSpeciesList
     
 End Sub
 
@@ -1472,11 +1554,12 @@ End Sub
 ' Throws:       -
 ' References:   -
 ' Source/date:  Bonnie Campbell, April 22, 2015
-' Revisions:    4/22/2015 - BLC - initial version
+' Revisions:    BLC - 4/22/2015 - initial version
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub btnSpeciesListByPark_Click()
 
-    TempVars.item("rpt") = "SpeciesListByPark"
+    TempVars("rpt") = "SpeciesListByPark"
     
     'button actions
     ActionButton_Click btnSpeciesListByPark
@@ -1491,14 +1574,34 @@ End Sub
 ' Throws:       -
 ' References:   -
 ' Source/date:  Bonnie Campbell, April 22, 2015
-' Revisions:    4/22/2015 - BLC - initial version
+' Revisions:    BLC - 4/22/2015 - initial version
+'               BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub btnTgtListAnnualSummary_Click()
 
-    TempVars.item("rpt") = "TgtListAnnualSummary"
+    TempVars("rpt") = "TgtListAnnualSummary"
 
     'button actions
     ActionButton_Click btnTgtListAnnualSummary
+    
+End Sub
+
+' ---------------------------------
+' SUB:     btnTgtListParkSummary_Click
+' Description:  Opens the species target list park summary report
+' Parameters:   -
+' Returns:      -
+' Throws:       -
+' References:   -
+' Source/date:  Bonnie Campbell, September 21, 2015
+' Revisions:    BLC - 9/21/2015 - initial version
+' ---------------------------------
+Private Sub btnTgtListParkSummary_Click()
+
+    TempVars("rpt") = "TgtListParkSummary"
+
+    'button actions
+    ActionButton_Click btnTgtListParkSummary
     
 End Sub
 

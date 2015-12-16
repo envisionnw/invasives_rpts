@@ -20,6 +20,7 @@ dbBoolean "TotalsRow" ="0"
 dbBinary "GUID" = Begin
     0x66d43e01165ab44589186a3091b85e33
 End
+dbText "Description" ="Target species summary for all parks for a given year  (Target List Tool update)"
 Begin
     Begin
         dbText "Name" ="ParkPriorities"

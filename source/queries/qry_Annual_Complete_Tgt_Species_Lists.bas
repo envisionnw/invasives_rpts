@@ -1,17 +1,20 @@
-﻿dbMemo "SQL" ="SELECT DISTINCT tbl_Target_Species.Park_Code AS Park, tbl_Target_Species.Target_"
-    "Year AS TgtYear, tbl_Target_Species.Master_Plant_Code_FK, tlu_NCPN_Plants.LU_Cod"
-    "e, tbl_Target_Species.Species_Name, tbl_Target_Species.Priority, tbl_Target_Spec"
-    "ies.Transect_Only, tbl_Target_Species.Target_Area_ID, tbl_Target_Areas.Target_Ar"
-    "ea AS Tgt_Area, tlu_NCPN_Plants.Master_Family AS Family, tlu_NCPN_Plants.Master_"
-    "Common_Name, tlu_NCPN_Plants.utah_species, tlu_NCPN_Plants.Co_Species, tlu_NCPN_"
-    "Plants.Wy_Species, IIf(tbl_Target_Species.Target_Area_ID>0,tbl_Target_Areas.Targ"
-    "et_Area,IIf(tbl_Target_Species.Transect_Only>0,\"Transect\",tbl_Target_Species.P"
-    "riority)) AS PriorityTarget, (tbl_Target_Species.Park_Code+\"-\"+PriorityTarget)"
-    " AS ParkPriority, (tbl_Target_Species.Species_Name+\"-\"+CStr(tbl_Target_Species"
-    ".Target_Year)) AS SpeciesYear\015\012FROM (tbl_Target_Species LEFT JOIN tbl_Targ"
-    "et_Areas ON tbl_Target_Species.Target_Area_ID = tbl_Target_Areas.Target_Area_ID)"
-    " LEFT JOIN tlu_NCPN_Plants ON tbl_Target_Species.Master_Plant_Code_FK = tlu_NCPN"
-    "_Plants.Master_Plant_Code\015\012ORDER BY tbl_Target_Species.Species_Name;\015\012"
+﻿dbMemo "SQL" ="SELECT DISTINCT tbl_Target_List.Park_Code AS Park, tbl_Target_List.Target_Year A"
+    "S TgtYear, tbl_Target_Species.Master_Plant_Code_FK, tlu_NCPN_Plants.LU_Code, tbl"
+    "_Target_Species.Species_Name, tbl_Target_Species.Priority, tbl_Target_Species.Tr"
+    "ansect_Only, tbl_Target_Species.Target_Area_ID, tbl_Target_Areas.Target_Area AS "
+    "Tgt_Area, tlu_NCPN_Plants.Master_Family AS Family, tlu_NCPN_Plants.Master_Common"
+    "_Name, tlu_NCPN_Plants.utah_species, tlu_NCPN_Plants.Co_Species, tlu_NCPN_Plants"
+    ".Wy_Species, IIf(tbl_Target_Species.Target_Area_ID>0,tbl_Target_Areas.Target_Are"
+    "a,IIf\015\015\012(tbl_Target_Species.Transect_Only>0,\"Transect\",tbl_Target_Spe"
+    "cies.Priority)) AS PriorityTarget, (tbl_Target_List.Park_Code+\"-\"+PriorityTarg"
+    "et) AS ParkPriority, (tbl_Target_List.Park_Code+\"-\"+CStr(tbl_Target_List.Targe"
+    "t_Year)+\"-\"+PriorityTarget) AS ParkYearPriority, (tbl_Target_Species.Species_N"
+    "ame+\"-\"+CStr(tbl_Target_List.Target_Year)) AS SpeciesYear\015\012FROM ((tbl_Ta"
+    "rget_Species LEFT JOIN tbl_Target_Areas ON tbl_Target_Species.Target_Area_ID = t"
+    "bl_Target_Areas.Target_Area_ID) LEFT JOIN tbl_Target_List ON tbl_Target_Species."
+    "Tgt_List_ID_FK = tbl_Target_List.Tgt_List_ID) LEFT JOIN tlu_NCPN_Plants ON tbl_T"
+    "arget_Species.Master_Plant_Code_FK = tlu_NCPN_Plants.Master_Plant_Code\015\012OR"
+    "DER BY tbl_Target_Species.Species_Name;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -25,6 +28,8 @@ dbBoolean "TotalsRow" ="0"
 dbBinary "GUID" = Begin
     0x1b80d8ab936a2945a2bd72782b6a1882
 End
+dbText "Description" ="complete list of target species for a given year\015\012 (Target List Tool updat"
+    "e)"
 Begin
     Begin
         dbText "Name" ="tlu_NCPN_Plants.Co_Species"
@@ -142,6 +147,15 @@ Begin
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x7597b113575789469ca53d2a7dc20e54
+        End
+    End
+    Begin
+        dbText "Name" ="ParkYearPriority"
+        dbInteger "ColumnWidth" ="2160"
+        dbBoolean "ColumnHidden" ="0"
+        dbLong "AggregateType" ="-1"
+        dbBinary "GUID" = Begin
+            0xe45579b30f2f164e9ad135588e19add6
         End
     End
 End

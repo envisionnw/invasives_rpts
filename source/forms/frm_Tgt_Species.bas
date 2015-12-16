@@ -12,8 +12,8 @@ Begin Form
     Width =10935
     DatasheetFontHeight =11
     ItemSuffix =30
-    Right =11190
-    Bottom =5985
+    Right =11184
+    Bottom =5988
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0x72574db34b86e440
@@ -135,7 +135,9 @@ Begin Form
                     BorderColor =10921638
                     Name ="lbxTgtSpecies"
                     RowSourceType ="Value List"
-                    RowSource ="Code;Species;LUCode;'';''"
+                    RowSource ="Code;Species;LUCode;;;ABAR;Abronia argillosa;ABRARG;0;0;ABTH;Abutilon theophrast"
+                        "i;ABUTHE;0;0;ACSP;Acamptopappus sphaerocephalus;ACASPH;0;0;ACNE2;Acer negundo;AC"
+                        "ENEG;0;0"
                     ColumnWidths ="1440;2520;720;288;288"
                     OnDblClick ="[Event Procedure]"
                     OnKeyUp ="[Event Procedure]"
@@ -176,7 +178,7 @@ Begin Form
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblParkHdr"
-                    Caption ="ZION"
+                    Caption ="CARE"
                     GridlineColor =10921638
                     LayoutCachedLeft =60
                     LayoutCachedTop =60
@@ -230,7 +232,7 @@ Begin Form
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblTgtSpeciesCount"
-                    Caption ="0 species"
+                    Caption ="4 species"
                     ControlTipText ="Number of species in the current list"
                     GridlineColor =10921638
                     LayoutCachedLeft =8340
@@ -270,7 +272,7 @@ Begin Form
                     BorderColor =8355711
                     ForeColor =8355711
                     Name ="lblYear"
-                    Caption ="Target Species List for "
+                    Caption ="Target Species List for 2017"
                     GridlineColor =10921638
                     LayoutCachedLeft =2880
                     LayoutCachedTop =120
@@ -316,10 +318,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -361,10 +363,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -406,10 +408,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -451,10 +453,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -498,10 +500,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -512,7 +514,7 @@ Begin Form
                     Height =480
                     FontWeight =600
                     TabIndex =7
-                    ForeColor =8224125
+                    ForeColor =16711680
                     Name ="btnRemoveAll"
                     Caption ="<<"
                     StatusBarText ="Remove all"
@@ -526,10 +528,10 @@ Begin Form
                     ForeThemeColorIndex =-1
                     ForeTint =100.0
                     Gradient =0
-                    BackColor =13882323
+                    BackColor =52479
                     BackThemeColorIndex =-1
                     BackTint =100.0
-                    BorderColor =8224125
+                    BorderColor =0
                     BorderThemeColorIndex =-1
                     BorderTint =100.0
                     HoverColor =0
@@ -544,10 +546,10 @@ Begin Form
                     PressedForeColor =0
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -558,7 +560,7 @@ Begin Form
                     Height =480
                     FontWeight =600
                     TabIndex =8
-                    ForeColor =8224125
+                    ForeColor =16711680
                     Name ="btnRemove"
                     Caption ="<"
                     StatusBarText ="Remove all"
@@ -573,11 +575,11 @@ Begin Form
                     ForeThemeColorIndex =-1
                     ForeTint =100.0
                     Gradient =0
-                    BackColor =13882323
+                    BackColor =52479
                     BackThemeColorIndex =-1
                     BackTint =100.0
                     OldBorderStyle =0
-                    BorderColor =8224125
+                    BorderColor =0
                     BorderThemeColorIndex =-1
                     BorderTint =100.0
                     HoverColor =0
@@ -592,10 +594,10 @@ Begin Form
                     PressedForeColor =0
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =3
+                    WebImagePaddingBottom =3
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -640,10 +642,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =3
+                    WebImagePaddingBottom =3
                     Overlaps =1
                 End
                 Begin CommandButton
@@ -685,10 +687,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                 End
             End
         End
@@ -709,6 +711,7 @@ Option Explicit
 ' Source/date:  Bonnie Campbell, 2/9/2015
 ' Revisions:    BLC, 2/9/2015 - initial version
 '               BLC, 4/30/2015 - integrated into Invasives Reporting tool
+'               BLC, 7/7/2015  - btnAdd() bug fix to avoid lbxSpecies compiler error (should have been lbxTgtSpecies)
 ' =================================
 
 '=================================================================
@@ -827,6 +830,8 @@ End Property
 '   BLC, 5/13/2015 - disabled Remove All button to start & recaptioned btnReset to "Reset List" vs. "Reset Lists"
 '                    set btnAdd to enabled to start vs disabled
 '   BLC - 6/9/2015 - toggle preview & save list buttons (enabled if lbx has species)
+'   BLC - 6/10/2015 - added toggle for reset button
+'   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub Form_Load()
 
@@ -836,15 +841,15 @@ On Error GoTo Err_Handler
     Initialize
        
     'set state
-    TempVars.item("state") = getParkState(TempVars.item("park"))
+    TempVars("state") = getParkState(TempVars("park"))
     
     'set year
-    TempVars.item("TgtYear") = Form.OpenArgs
+    TempVars("TgtYear") = Form.OpenArgs
     
     'prep headers
-    lblParkHdr.Caption = TempVars.item("park")
+    lblParkHdr.Caption = TempVars("park")
     lblYear.Caption = "Target Species List for " & Form.OpenArgs
-    lblSpeciesListbox.Caption = TempVars.item("state") & " Species"
+    lblSpeciesListbox.Caption = TempVars("state") & " Species"
     
     'clear headers
     lbxTgtSpecies.RowSource = ""
@@ -868,11 +873,13 @@ On Error GoTo Err_Handler
     DisableControl btnRemoveAll
     
     If iSpeciesCount > 0 Then
-        'enable preview & save buttons
+        'enable reset, preview & save buttons
+        btnReset.Enabled = True
         btnPreviewList.Enabled = True
         btnSaveList.Enabled = True
     Else
-        'Disable preview & save buttons
+        'Disable reset, preview & save buttons
+        btnReset.Enabled = False
         btnPreviewList.Enabled = False
         btnSaveList.Enabled = False
     End If
@@ -904,6 +911,7 @@ End Sub
 '   BLC - 5/1/2015 - added check for no species to prevent # = -1
 '   BLC - 5/10/2015 - revised to include generic count function
 '   BLC - 6/9/2015 - toggle preview & save list buttons (enabled if lbx has species)
+'   BLC - 6/10/2015 - added toggle for reset button
 ' ---------------------------------
 Private Sub Form_Activate()
 
@@ -916,9 +924,11 @@ On Error GoTo Err_Handler
     lblTgtSpeciesCount.Caption = iSpeciesCount & " species"
     
     If iSpeciesCount > 0 Then
+        btnReset.Enabled = True
         btnPreviewList.Enabled = True
         btnSaveList.Enabled = True
     Else
+        btnReset.Enabled = False
         btnPreviewList.Enabled = False
         btnSaveList.Enabled = False
     End If
@@ -1049,6 +1059,7 @@ End Sub
 '   BLC - 5/10/2015 - added species count update
 '   BLC - 5/13/2015 - revised to use global constants vs. tempvars for enabled control
 '   BLC - 6/9/2015 - enable preview & save list buttons if species in list
+'   BLC - 6/10/2015 - added toggle for reset button
 ' ---------------------------------
 Private Sub lbxTgtSpecies_Click()
 On Error GoTo Err_Handler
@@ -1061,7 +1072,8 @@ On Error GoTo Err_Handler
             EnableControl btnRemove, CTRL_REMOVE_ENABLED, TEXT_ENABLED
             EnableControl btnRemoveAll, CTRL_REMOVE_ENABLED, TEXT_ENABLED
         End If
-        'enable preview & save
+        'enable reset, preview & save
+        btnReset.Enabled = True
         btnPreviewList.Enabled = True
         btnSaveList.Enabled = True
     Else
@@ -1098,6 +1110,8 @@ End Sub
 '   BLC - 5/10/2015 - changed from MoveSingleItem to RemoveSelectedItems to handle
 '                     removing species versus populating them back to the original species list
 '                     added count update
+'   BLC - 6/9/2015 - added toggle for save & preview buttons
+'   BLC - 6/10/2015 - added toggle for reset button
 ' ---------------------------------
 Private Sub lbxTgtSpecies_DblClick(Cancel As Integer)
     
@@ -1113,9 +1127,11 @@ On Error GoTo Err_Handler
     lblTgtSpeciesCount.Caption = iSpeciesCount & " species"
 
     If iSpeciesCount > 0 Then
+        btnReset.Enabled = True
         btnPreviewList.Enabled = True
         btnSaveList.Enabled = True
     Else
+        btnReset.Enabled = True
         btnPreviewList.Enabled = False
         btnSaveList.Enabled = False
     End If
@@ -1182,6 +1198,9 @@ End Sub
 '   BLC - 3/3/2015 - initial version
 '   BLC - 5/10/2015 - added update for species count
 '   BLC - 6/9/2015  - enable preview and save list buttons if species in list
+'   BLC - 6/10/2015 - added toggle for reset button
+'   BLC - 7/7/2015  - fixed bug bringing up compiler error (lbxSpecies not defined),
+'                     should have been lbxTgtSpecies vs. lbxSpecies
 ' ---------------------------------
 Private Sub btnAdd_Click()
 On Error GoTo Err_Handler
@@ -1196,8 +1215,9 @@ On Error GoTo Err_Handler
     'update count
     lblTgtSpeciesCount.Caption = GetListCount(lbxTgtSpecies, True) & " species"
     
-    'enable preview
-    If GetListCount(lbxSpecies, True) > 0 Then
+    'enable reset, preview & save
+    If GetListCount(lbxTgtSpecies, True) > 0 Then
+        btnReset.Enabled = True
         btnPreviewList.Enabled = True
         btnSaveList.Enabled = True
     End If
@@ -1232,6 +1252,7 @@ End Sub
 '   BLC - 5/13/2015 - revised to use global constants vs. tempvars for disabled control
 '                     disabled btnRemove, btnRemoveAll when target species count = 0
 '   BLC - 6/9/2015 - disable preview and save list buttons if no species in list
+'   BLC - 6/10/2015 - disable reset button if no species present
 ' ---------------------------------
 Private Sub btnRemove_Click()
 On Error GoTo Err_Handler
@@ -1251,6 +1272,7 @@ On Error GoTo Err_Handler
     If iSpeciesCount = 0 Then
         DisableControl btnRemove
         DisableControl btnRemoveAll
+        btnReset.Enabled = False
         btnPreviewList.Enabled = False
         btnSaveList.Enabled = False
     End If
@@ -1281,6 +1303,8 @@ End Sub
 '   BLC - 3/3/2015 - initial version
 '   BLC - 5/10/2015 - added update for species count
 '   BLC - 6/9/2015 - enable preview and save list buttons if species in list
+'   BLC - 6/10/2015 - enable reset button if species in list
+'   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub btnAddAll_Click()
 On Error GoTo Err_Handler
@@ -1290,7 +1314,7 @@ On Error GoTo Err_Handler
     
     'fetch recordset
     Set db = CurrentDb
-    Set rs = db.OpenRecordset(TempVars.item("strSQL"))
+    Set rs = db.OpenRecordset(TempVars("strSQL"))
     
     'MoveAllItems Me, "lbxSpecies", "lbxTgtSpecies"
     MoveAllItems Me, "", "lbxTgtSpecies"
@@ -1298,7 +1322,8 @@ On Error GoTo Err_Handler
     'update count
     lblTgtSpeciesCount.Caption = GetListCount(lbxTgtSpecies, True) & " species"
     
-    'enable preview & save
+    'enable reset, preview & save
+    btnReset.Enabled = True
     btnPreviewList.Enabled = True
     btnSaveList.Enabled = True
 
@@ -1371,21 +1396,29 @@ End Sub
 '                    added message alert for prior year list changes to ensure the user really wants to add
 '                    new species to them (deletions are done via the BE)
 '   BLC - 6/4/2015 - renamed tempTgtSpecies to temp_Tgt_Species
+'   BLC - 6/10/2015 - adjusted SQL strings to accommodate new tbl_Target_List and changes to tbl_Target_Species
+'                     (park & year shift to tbl_Target_List)
+'   BLC - 6/11/2015 - added check to retrieve Tgt_List_ID when list previously existed to populate new species records
+'   BLC - 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Private Sub btnSaveList_Click()
 On Error GoTo Err_Handler
 
-    Dim iRow As Integer, i As Integer, iTransectOnly, iTgtAreaID
+    Dim iRow As Integer, i As Integer, iTransectOnly As Integer, iTgtAreaID As Integer, iResponse As Integer, tgtListID As Integer
     Dim strMasterCode As String, strSpecies As String, strLUCode As String
     Dim strSQL As String, strInsert As String
     Dim varReturn As Variant
     Dim blnAddToList As Boolean
+    Dim wrkCurrent As DAO.Workspace
     
     'default
     blnAddToList = False
     
+    'show action
+    DoCmd.Hourglass True
+    
     'delete the full list for current or future years
-    If CInt(TempVars("TgtYear")) > 0 And CInt(TempVars("TgtYear")) > Year(Now()) + 1 Then
+    If CInt(TempVars("TgtYear")) > 0 And CInt(TempVars("TgtYear")) > Year(Now()) Then
     
         MsgBox "Removing previously saved " & TempVars("park") & " - " & TempVars("TgtYear") & _
                 " species. " & vbCrLf & vbCrLf & _
@@ -1396,27 +1429,32 @@ On Error GoTo Err_Handler
         varReturn = SysCmd(acSysCmdSetStatus, "Removing old list...")
         
         'remove the old list
-        strSQL = "DELETE * FROM tbl_Target_Species " & _
-                    "WHERE Park_Code = '" & TempVars("park") & _
-                    "' AND Target_Year = " & TempVars("TgtYear") & ";"
+        strSQL = "DELETE DISTINCTROW  tbl_Target_Species.* " & _
+                "FROM tbl_Target_Species " & _
+                "INNER JOIN tbl_Target_List ON tbl_Target_Species.Tgt_List_ID_FK = tbl_Target_List.Tgt_List_ID " & _
+                "WHERE tbl_Target_List.Park_Code = '" & TempVars("park") & "' " & _
+                "AND tbl_Target_List.Target_Year = " & TempVars("TgtYear") & ";"
         
-        DoCmd.SetWarnings False
-        DoCmd.RunSQL strSQL
-        DoCmd.SetWarnings True
+        CurrentDb.Execute strSQL, dbFailOnError
         
          'pause to view status bar
-        Pause 5
+        Pause 3
         
         blnAddToList = True
     Else
     
         'warn the user, but allow them to choose to add to the previous year list (or not)
-        iResponse = MsgBox("The list you are saving is from a previous year ( " & _
+        Dim strCurrPrev As String
+        strCurrPrev = IIf(CInt(TempVars("TgtYear")) = Year(Now()), "the current", "a previous")
+
+        iResponse = MsgBox("The list you are saving is for " & strCurrPrev & " year ( " & _
                 TempVars("park") & " - " & TempVars("TgtYear") & " )." & vbCrLf & vbCrLf & _
+                "If necessary, species can be added to current/prior year lists, but they cannot be removed." & vbCrLf & vbCrLf & _
                 "If the list you are saving has new species, they will be added." & vbCrLf & vbCrLf & _
-               "Do you really want to add species to the " & _
-               TempVars("park") & " - " & TempVars("TgtYear") & "?", _
-                vbYesNoCancel, "Altering List for a Previous Year!")
+                "Removed species will be ignored." & vbCrLf & vbCrLf & _
+                "Do you really want to add species to the " & _
+                TempVars("park") & " - " & TempVars("TgtYear") & "?", _
+                vbYesNoCancel, "Altering List for a Current/Previous Year!")
         
         'check response - vbOK(1), vbCancel(2), vbAbort(3), vbRetry(4), vbIgnore(5), vbYes(6), vbNo(7)
         'allow addition only if user says "Yes!"
@@ -1429,6 +1467,52 @@ On Error GoTo Err_Handler
     
     'set status bar
     varReturn = SysCmd(acSysCmdSetStatus, "Preparing new list... ")
+    
+    '-------------------------------------------------
+    ' add new list record if it doesn't exist
+    '-------------------------------------------------
+    strSQL = "SELECT * " & _
+            "FROM tbl_Target_List " & _
+            "WHERE tbl_Target_List.Park_Code = '" & TempVars("park") & "' " & _
+            "AND tbl_Target_List.Target_Year = " & TempVars("TgtYear") & ";"
+    
+    Dim db As DAO.Database
+    Dim rs As DAO.Recordset
+    
+    'default
+    tgtListID = 0
+    
+    Set rs = CurrentDb.OpenRecordset(strSQL)
+    
+    'check if list exists
+    If rs.BOF And rs.EOF Then
+        
+        'insert & retrieve ID
+        strSQL = "INSERT INTO tbl_Target_List(Park_Code, Target_Year, Created) " & _
+                 "VALUES ('" & TempVars("park") & "', " & TempVars("TgtYear") & ", Now() );"
+        
+        CurrentDb.Execute strSQL, dbFailOnError
+        
+        tgtListID = CurrentDb.OpenRecordset("SELECT @@IDENTITY")(0)
+    
+    Else
+    
+        'update the last modified date & retrieve the list ID
+        strSQL = "UPDATE tbl_Target_List " & _
+                "SET Last_Modified = Now() " & _
+                "WHERE Park_Code = '" & TempVars("park") & "' AND Target_Year = " & TempVars("TgtYear") & ";"
+
+        CurrentDb.Execute strSQL, dbFailOnError
+        
+        'fetch the ID
+        strSQL = "SELECT TOP 1 tbl_Target_List.Tgt_List_ID FROM tbl_Target_List " & _
+                "WHERE Park_Code = '" & TempVars("park") & "' AND Target_Year = " & TempVars("TgtYear") & ";"
+
+        Set rs = CurrentDb.OpenRecordset(strSQL)
+
+        If Not (rs.BOF And rs.EOF) Then tgtListID = rs("Tgt_List_ID")
+    
+    End If
     
     'start @ row 1 (headers = row 0)
     For iRow = 1 To lbxTgtSpecies.ListCount - 1
@@ -1446,12 +1530,10 @@ On Error GoTo Err_Handler
        '  Check if item exists in tbl_TgtSpecies for Park, Year, Species combo
        ' ---------------------------------------------------
         strSQL = "SELECT * FROM tbl_Target_Species " & _
-                 "WHERE Master_PLANT_Code_FK = '" & strMasterCode & _
-                 "' AND Park_Code = '" & TempVars("park") & _
-                 "' AND Target_Year = " & TempVars("TgtYear") & ";"
-        
-        Dim db As DAO.Database
-        Dim rs As DAO.Recordset
+                 "INNER JOIN tbl_Target_List ON tbl_Target_Species.Tgt_List_ID_FK = tbl_Target_List.Tgt_List_ID " & _
+                 "WHERE tbl_Target_Species.Master_PLANT_Code_FK ='" & strMasterCode & "' " & _
+                 "AND tbl_Target_List.Park_Code = '" & TempVars("park") & "' " & _
+                 "AND tbl_Target_List.Target_Year = " & TempVars("TgtYear") & ";"
 
         Set rs = CurrentDb.OpenRecordset(strSQL) 'CurrentDb.Execute(strSQL, dbFailOnError) >> doesn't compile expected function or variable
       
@@ -1463,13 +1545,12 @@ On Error GoTo Err_Handler
             
             'prepare SQL
             strSQL = "INSERT INTO tbl_Target_Species" _
-                    & "(Master_Plant_Code_FK, Park_Code, Target_Year, Species_Name, LU_Code, " _
-                    & "Transect_Only, Target_Area_ID)" _
+                    & "(Tgt_List_ID_FK, Master_Plant_Code_FK, Species_Name, LU_Code, " _
+                    & "Transect_Only, Target_Area_ID) " _
                     & "VALUES "
-    
+
             'prepare insert value
-            strInsert = "('" & strMasterCode & "','" & TempVars("park") & "'," _
-                        & TempVars("tgtYear") & ",'" & strSpecies & "','" & strLUCode _
+            strInsert = "(" & tgtListID & ",'" & strMasterCode & "','" & strSpecies & "','" & strLUCode _
                         & "'," & iTransectOnly & "," & iTgtAreaID & ");"
             
             'add comma if more than one row to insert
@@ -1485,42 +1566,43 @@ On Error GoTo Err_Handler
         
     Next
 
-        ' check for temp query & clear if it exists
-        If QueryExists("temp_Tgt_Species") Then
-            CurrentDb.QueryDefs.Delete "temp_Tgt_Species"
-        End If
-        
-        'open target list
-        Dim qdf As QueryDef
-        
-        Set qdf = CurrentDb.QueryDefs("qry_Tgt_Species_List")
-        
-        strSQL = qdf.sql
-        
-        strSQL = "SELECT tbl_Target_Species.Park_Code AS Park, " & _
-                 "tbl_Target_Species.Target_Year AS TgtYear, " & _
-                 "Master_Plant_Code_FK, Species_Name, LU_Code, " & _
-                 "Priority, Transect_Only, Target_Area_ID " & _
-                 "FROM tbl_Target_Species " & _
-                 "WHERE (((tbl_Target_Species.Target_Year) = CInt(tgtYear)) " & _
-                 "And ((LCase([tbl_Target_Species].[Park_Code])) = LCase(park))) " & _
-                 "ORDER BY tbl_Target_Species.Species_Name;"
-        
-        'replace values
-        strSQL = Replace(strSQL, "(park)", "('" & TempVars.item("park") & "')")
-        strSQL = Replace(strSQL, "(tgtYear)", "(" & TempVars.item("TgtYear") & ")")
-        
-        'DoCmd.OpenQuery "qryTgtSpeciesList", acViewNormal, acReadOnly
-        'DoCmd.RunSQL strSQL <=== NO! not on a SELECT...
-        
-        CurrentDb.CreateQueryDef("temp_Tgt_Species").sql = strSQL
-        DoCmd.OpenQuery "temp_Tgt_Species"
+    ' check for temp query & clear if it exists
+    If QueryExists("temp_Tgt_Species") Then
+        CurrentDb.QueryDefs.Delete "temp_Tgt_Species"
+    End If
+    
+    'open target list
+    Dim qdf As QueryDef
+    
+    Set qdf = CurrentDb.QueryDefs("qry_Tgt_Species_List")
+    
+    strSQL = qdf.sql
+    
+    strSQL = "SELECT tbl_Target_List.Park_Code AS Park, " & _
+             "tbl_Target_List.Target_Year AS TgtYear, " & _
+             "Master_Plant_Code_FK, Species_Name, LU_Code, " & _
+             "Priority, Transect_Only, Target_Area_ID " & _
+             "FROM tbl_Target_Species " & _
+             "INNER JOIN tbl_Target_List ON tbl_Target_Species.Tgt_List_ID_FK = tbl_Target_List.Tgt_List_ID " & _
+             "WHERE (((tbl_Target_List.Target_Year) = CInt(tgtYear)) " & _
+             "And ((LCase([tbl_Target_List].[Park_Code])) = LCase(park))) " & _
+             "ORDER BY tbl_Target_Species.Species_Name;"
+    
+    'replace values
+    strSQL = Replace(strSQL, "(park)", "('" & TempVars("park") & "')")
+    strSQL = Replace(strSQL, "(tgtYear)", "(" & TempVars("TgtYear") & ")")
+    
+    'DoCmd.OpenQuery "qryTgtSpeciesList", acViewNormal, acReadOnly
+    'DoCmd.RunSQL strSQL <=== NO! not on a SELECT...
+    
+    CurrentDb.CreateQueryDef("temp_Tgt_Species").sql = strSQL
+    DoCmd.OpenQuery "temp_Tgt_Species"
     
     'set statusbar notice
     varReturn = SysCmd(acSysCmdSetStatus, "Targetlist save complete.")
     
     'pause to view status bar
-    Pause 20
+    Pause 4
     
     'reset status bar
     varReturn = SysCmd(acSysCmdSetStatus, " ")
@@ -1529,6 +1611,7 @@ On Error GoTo Err_Handler
     DoCmd.Close acForm, Me.name
 
 Exit_Sub:
+    DoCmd.Hourglass False
     Exit Sub
 
 Err_Handler:

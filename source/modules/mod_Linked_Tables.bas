@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_Linked_Tables
 ' Level:        Framework module
-' Version:      1.01
+' Version:      1.04
 ' Description:  Linked table related functions & subroutines
 '
 ' Adapted from: John R. Boetsch, May 24, 2006
@@ -15,7 +15,31 @@ Option Explicit
 '               BLC, 4/30/2015 - 1.00 - added fxnVerifyLinks, fxnRefreshLinks, fxnVerifyLinkTableInfo,
 '                                fxnMakeBackup from mod_Custom_Functions
 '               BLC, 5/19/2015 - 1.01 - renamed functions, removed fxn prefix
+'               BLC, 6/10/2015 - 1.02 - fixed VerifyLinkTableInfo to add new linked tables to tsys_Link_Tables
+'               BLC, 6/12/2015 - 1.03 - replaced TempVars.item(... with TempVars("...
+'               BLC, 9/30/2015 - 1.04 - added check & resolve double quotes in table descriptions in RefreshLinks
 ' =================================
+
+' ---------------------------------
+'  References
+' ---------------------------------
+
+' --------------------------------------------------------------------------------
+'   Msys Objects
+' --------------------------------------------------------------------------------
+' Source: Pat Hartman March 13, 2006
+'         http://www.access-programmers.co.uk/forums/showthread.php?t=103811
+' --------------------------------------------------------------------------------
+'   Type   TypeDesc           Type  TypeDesc
+'  -32768  Form                 1   Table - Local Access Tables
+'  -32766  Macro                2   Access Object - Database
+'  -32764  Reports              3   Access Object - Containers
+'  -32761  Module               4   Table - Linked ODBC Tables
+'  -32758  Users                5   Queries
+'  -32757  Database Document    6   Table - Linked Access Tables
+'  -32756  Data Access Pages    8   SubDataSheets
+' --------------------------------------------------------------------------------
+
 
 ' ---------------------------------
 '   Database Level
@@ -45,6 +69,7 @@ Option Explicit
 '               BLC, 4/30/2015 - switched from fxnSwitchboardIsOpen to FormIsOpen(frmSwitchboard)
 '               BLC, 5/18/2015 - renamed, removed fxn prefix
 '               BLC, 5/22/2015 - moved from mod_Initialize_App to mod_Linked_Tables
+'               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
 ' ---------------------------------
 Public Function VerifyConnections()
     On Error GoTo Err_Handler
@@ -60,8 +85,8 @@ Public Function VerifyConnections()
     Dim blnHasError As Boolean
 
     Set db = CurrentDb
-    TempVars.item("Connected") = False           ' Default in case of error
-    TempVars.item("HasAccessBE") = False         ' Flag to indicate that at least 1 Access BE exists
+    TempVars("Connected") = False           ' Default in case of error
+    TempVars("HasAccessBE") = False         ' Flag to indicate that at least 1 Access BE exists
     strSysTable = "tsys_Link_Dbs"   ' System table listing linked tables
     blnHasError = False             ' Flag to indicate error status
 
@@ -96,7 +121,7 @@ Public Function VerifyConnections()
             End If
         Else
             ' Access back-end - update the global variable
-            TempVars.item("HasAccessBE") = True
+            TempVars("HasAccessBE") = True
             If Not IsNull(rst![File_path]) Then
                 strDbPath = rst![File_path]
                 If FileExists(strDbPath) = False Then
@@ -130,7 +155,7 @@ Public Function VerifyConnections()
         ' Check the status of individual table links, depending on application settings
         If FormIsOpen("frmSwitchboard") And blnHasError = False Then
             If Forms!frm_Switchboard.fsub_DbAdmin.Form.chkVerifyOnStartup Then
-                If TempVars.item("HasAccessBE") = True Then
+                If TempVars("HasAccessBE") = True Then
                     If MsgBox("Would you like all linked table connections to be tested?", _
                         vbYesNo + vbDefaultButton2, _
                         "Checking back-end connections ...") = vbNo Then GoTo Proc_Final_Status
@@ -161,7 +186,7 @@ Proc_Final_Status:
             DoCmd.OpenForm "frm_Connect_Dbs"
         End If
     Else  ' If no connection errors, then set the global variable flag to True
-        TempVars.item("Connected") = True
+        TempVars("Connected") = True
     End If
 
 Exit_Procedure:
@@ -619,6 +644,7 @@ End Function
 '               BLC, 5/18/2015 - renamed, removed fxn prefix
 '               BLC, 5/20/2015 - updated progress meter control naming, added connection component for non-"DATABASE="
 '                                connection strings (e.g. Access 2010 w/ "Dbq=")
+'               BLC, 9/30/2015 - add description parsing to avoid errors due to quotes
 ' =================================
 Public Function RefreshLinks(strDbName As String, ByVal strNewConnStr As String, _
     Optional strComponent As String = "DATABASE=", _
@@ -715,6 +741,8 @@ Debug.Print strTable
             ' Set default description in case there is none
             strDesc = " - no description - "
             strDesc = tdf.Properties("Description") ' Throws trapped error 3270 if none
+            'replace double quotes with singles
+            strDesc = Replace(strDesc, """", "'")
             strSQL = "UPDATE tsys_Link_Tables " & _
                 "SET tsys_Link_Tables.Description_text=""" & strDesc & _
                 """ WHERE (((tsys_Link_Tables.Link_table)=""" & strTable & """));"
@@ -808,11 +836,15 @@ Err_Handler:
             vbCrLf & vbCrLf & varFileName, vbCritical, _
             "Error encountered (#" & Err.Number & " - RefreshLinks[mod_Linked_Tables])"
       Case 3078   ' Also got this error if the function call SQL string has a bad
-                '   reference to the system table
+                  '   reference to the system table
         MsgBox "Error #" & Err.Number & ":  The following table is not native " & _
             "to the selected database file." & vbCrLf & "Please make sure you " & _
             "browsed to to the correct file." & vbCrLf & vbCrLf & strTable, _
             vbCritical, "Error encountered (#" & Err.Number & " - RefreshLinks[mod_Linked_Tables])"
+      Case 3074   ' Missing operator, get this error also if SQL string contains double quotes
+        MsgBox "Error #" & Err.Number & ": " & Err.Description & vbCrLf & _
+            "This can be caused by double quotes in the SQL string.", vbCritical, _
+            "Error encountered (#" & Err.Number & " - RefreshLinks[mod_Linked_Tables])"
       Case 3061   ' Bad parameters for the SQL string
         MsgBox "Error #" & Err.Number & ":  SQL syntax error. Please notify the " & _
             "database administrator before using this application.", vbCritical, _
@@ -852,6 +884,9 @@ End Function
 '               BLC, 4/30/2015 - moved to mod_Linked_Tables from mod_Custom_Functions
 '               BLC, 5/18/2015 - renamed, removed fxn prefix
 '               BLC, 5/19/2015 - added check for FIX_LINKED_DBS flag when DbAdmin is not fully implemented
+'               BLC, 6/10/2015 - updated SQL insert into tsys_Link_Tables for missing MSysObjects tables
+'                                captured by qsys_Linked_tables_not_in_tsys_Link_Tables (missing Link_type)
+'                                bug resulted in new linked tables never being inserted into tsys_Link_Tables & subsequent errors
 ' =================================
 Public Function VerifyLinkTableInfo() As Boolean
     On Error GoTo Err_Handler
@@ -912,10 +947,15 @@ Public Function VerifyLinkTableInfo() As Boolean
         DoCmd.OpenQuery "qsys_Linked_dbs_not_in_tsys_Link_Dbs"
         ' Append missing table records to tsys_Link_Tables
         strSQL = "INSERT INTO tsys_Link_Tables " & _
-            "( Link_table, Link_db ) " & _
+               "( Link_table, Link_db,  Link_type ) " & _
             "SELECT qsys_Linked_tables_not_in_tsys_Link_Tables.CurrTable, " & _
-            "qsys_Linked_tables_not_in_tsys_Link_Tables.CurrDb " & _
-            "FROM qsys_Linked_tables_not_in_tsys_Link_Tables;"
+            "qsys_Linked_tables_not_in_tsys_Link_Tables.CurrDb, tsys_Link_Dbs.Db_desc " & _
+            "FROM qsys_Linked_tables_not_in_tsys_Link_Tables " & _
+            "INNER JOIN tsys_Link_Dbs ON qsys_Linked_tables_not_in_tsys_Link_Tables.CurrDb = tsys_Link_Dbs.Link_db;"
+
+'            "SELECT qsys_Linked_tables_not_in_tsys_Link_Tables.CurrTable, " & _
+'            "qsys_Linked_tables_not_in_tsys_Link_Tables.CurrDb " & _
+'            "FROM qsys_Linked_tables_not_in_tsys_Link_Tables;"
         DoCmd.RunSQL strSQL
         DoCmd.SetWarnings True
         ' Update descriptions

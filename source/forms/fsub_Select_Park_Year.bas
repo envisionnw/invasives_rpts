@@ -13,10 +13,10 @@ Begin Form
     Width =4320
     DatasheetFontHeight =11
     ItemSuffix =15
-    Left =7365
-    Top =6285
-    Right =11250
-    Bottom =8895
+    Left =10104
+    Top =5004
+    Right =14256
+    Bottom =7620
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xc1f3db6ed487e440
@@ -182,10 +182,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin ComboBox
@@ -312,6 +312,13 @@ Option Explicit
 '
 ' Source/date:  Bonnie Campbell, 2/11/2015
 ' Revisions:    BLC - 2/11/2015 - initial version
+'               BLC - 6/12/2015 - added Continue button enable,
+'                                 replaced TempVars.item("... with TempVars("...
+'               BLC - 7/7/2015  - investigated bug causing debugger to open on clicking btnContinue
+'                                 for *some* park/year combos (DINO-2015, BLCA-2016, CARE-2016, COLM-2016)
+'                                 appears related more to IDE debug error handling (Tools>Options>General)?
+'                                 setting to "Break in Class Module" then back to "Break on Unhandled Errors"
+'                                 seems to fix? no subroutine code changes made
 ' =================================
 
 ' ---------------------------------
@@ -326,6 +333,7 @@ Option Explicit
 ' Adapted:      Bonnie Campbell, February 12, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/12/2015 - initial version
+'   BLC - 6/12/2015 - disabled Continue button to start
 ' ---------------------------------
 Private Sub Form_Load()
 
@@ -347,7 +355,10 @@ On Error GoTo Err_Handler
     
     cbxYear.RowSource = strValueList
     cbxYear.Value = "SEL"
-        
+
+    'disable continue to start
+    btnContinue.Enabled = False
+
 Exit_Sub:
     Exit Sub
     
@@ -372,20 +383,21 @@ End Sub
 ' Adapted:      Bonnie Campbell, February 12, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/12/2015 - initial version
+'   BLC - 6/12/2015 - changed the check from 0 to 3 (Park_Code = 4 characters) and
+'                     added enabling continue button, changed TempVars.item("... to TempVars("...
 ' ---------------------------------
 Private Sub cbxPark_Change()
 On Error GoTo Err_Handler
     
-    If Len(cbxPark.Value) > 0 Then
+    'set park & enable continue when a 4-letter park code is selected
+    If Len(cbxPark.Value) > 3 Then
         'set park
-        TempVars.item("park") = Trim(cbxPark.Value)
+        TempVars("park") = Trim(cbxPark.Value)
+        
         'enable the continue button
-  '      EnableControl btnContinue, TempVars.item("ctrlAddEnabled"), TempVars.item("textEnabled")
-  '      btnContinue.Enabled = True
-    Else
-        'disable the continue button"
-   '     btnContinue.Enabled = False
-   '     DisableControl btnContinue
+        If Len(cbxPark) > 3 And TempVars("TgtYear") > 0 Then
+            btnContinue.Enabled = True
+        End If
     End If
 Exit_Sub:
     Exit Sub
@@ -411,13 +423,19 @@ End Sub
 ' Adapted:      Bonnie Campbell, February 23, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/23/2015 - initial version
+'   BLC - 6/12/2015 - added enabling continue button, changed TempVars.item("... to TempVars("...
 ' ---------------------------------
 Private Sub cbxYear_Change()
 On Error GoTo Err_Handler
 
     If Len(Trim(cbxYear)) > 0 Then
         'set year
-        TempVars.item("TgtYear") = cbxYear.Value
+        TempVars("TgtYear") = cbxYear.Value
+        
+        'enable the continue button
+        If Len(cbxPark) > 3 And TempVars("TgtYear") > 0 Then
+            btnContinue.Enabled = True
+        End If
     End If
 
 Exit_Sub:
@@ -446,6 +464,11 @@ End Sub
 '   BLC, 2/12/2015 - initial version
 '   BLC, 5/1/2015  - switched from frmActions to launching popup frm_Tgt_Species form for Invasive Species Reporting tool
 '   BLC, 5/10/2015 - cleared park & year cbx values to prevent NULL errors & force user to re-select park before clicking continue
+'   BLC, 7/7/2015  - investigated bug causing debugger to open on clicking btnContinue for *some* park/year combos
+'                    reported combos were: DINO-2015, BLCA-2016, CARE-2016, COLM-2016
+'                    appears this is related more to IDE debug error handling (Tools>Options>General)?
+'                    setting to "Break in Class Module" then back to "Break on Unhandled Errors" seems to fix?
+'                    no changes were made to this subroutine
 ' ---------------------------------
 Private Sub btnContinue_Click()
 On Error GoTo Err_Handler
@@ -455,7 +478,7 @@ On Error GoTo Err_Handler
     cbxPark.Value = ""
        
     'open target species list
-    DoCmd.OpenForm "frm_Tgt_Species", acNormal, , , , , TempVars.item("TgtYear")
+    DoCmd.OpenForm "frm_Tgt_Species", acNormal, , , , , TempVars("TgtYear")
         
 Exit_Sub:
     Exit Sub

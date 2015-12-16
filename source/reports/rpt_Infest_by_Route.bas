@@ -14,10 +14,10 @@ Begin Report
     Width =10800
     DatasheetFontHeight =9
     ItemSuffix =52
-    Left =105
-    Top =270
-    Right =11160
-    Bottom =7290
+    Left =405
+    Top =195
+    Right =9840
+    Bottom =9135
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x7060c1afafcbe340
@@ -134,6 +134,7 @@ Begin Report
                     Top =900
                     Width =3720
                     Height =360
+                    ColumnOrder =0
                     FontSize =16
                     Name ="Park_Name"
 
@@ -144,6 +145,7 @@ Begin Report
                     Top =900
                     Width =1260
                     Height =360
+                    ColumnOrder =1
                     FontSize =16
                     TabIndex =1
                     Name ="Visit_Year"
@@ -571,7 +573,7 @@ Begin Report
                     Width =900
                     TabIndex =4
                     Name ="Route Type Total Infestations/ha"
-                    ControlSource ="=(Sum([InfestTot]))/Sum([RouteArea])"
+                    ControlSource ="=IIf([RouteArea]>0,(Sum([InfestTot]))/Sum([RouteArea]),\"N/A\")"
                     EventProcPrefix ="Route_Type_Total_Infestations_ha"
 
                     LayoutCachedLeft =8700
@@ -587,7 +589,7 @@ Begin Report
                     Width =1050
                     TabIndex =5
                     Name ="Route Type Priority Infestations/ha"
-                    ControlSource ="=(Sum([PriorityTot]))/Sum([RouteArea])"
+                    ControlSource ="=IIf([RouteArea]>0,(Sum([PriorityTot]))/Sum([RouteArea]),\"N/A\")"
                     EventProcPrefix ="Route_Type_Priority_Infestations_ha"
 
                     LayoutCachedLeft =9660
@@ -744,7 +746,7 @@ Begin Report
                     Height =270
                     TabIndex =3
                     Name ="Overall Total Infestations/ha"
-                    ControlSource ="=(Sum([InfestTot]))/Sum([RouteArea])"
+                    ControlSource ="=IIf([RouteArea]>0,(Sum([InfestTot]))/Sum([RouteArea]),\"N/A\")"
                     EventProcPrefix ="Overall_Total_Infestations_ha"
 
                     LayoutCachedLeft =8700
@@ -759,7 +761,7 @@ Begin Report
                     Height =270
                     TabIndex =4
                     Name ="Overall Priority Infestations/ha"
-                    ControlSource ="=(Sum([PriorityTot]))/Sum([RouteArea])"
+                    ControlSource ="=IIf([RouteArea]>0,(Sum([PriorityTot]))/Sum([RouteArea]),\"N/A\")"
                     EventProcPrefix ="Overall_Priority_Infestations_ha"
 
                     LayoutCachedLeft =9660

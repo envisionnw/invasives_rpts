@@ -12,22 +12,22 @@ Begin Report
     GridY =24
     Width =11400
     DatasheetFontHeight =11
-    ItemSuffix =46
-    Left =1725
-    Top =480
-    Right =13980
-    Bottom =8550
+    ItemSuffix =51
+    Left =-1800
+    Top =1530
+    Right =9960
+    Bottom =9660
     DatasheetGridlinesColor =14806254
-    Filter ="TgtList IN ('BLCA-2012','BLCA-2015','CARE-2009')"
+    Filter ="TgtList IN ('BLCA-2012')"
     RecSrcDt = Begin
-        0xcd00c8efb996e440
+        0x93926d5acb96e440
     End
     RecordSource ="qry_Park_Tgt_Species_Lists"
     Caption ="INVASIVE LIST"
     OnOpen ="[Event Procedure]"
     DatasheetFontName ="Calibri"
     PrtMip = Begin
-        0x6a01000068010000680100006801000000000000fe2c0000b001000001000000 ,
+        0x6a01000068010000680100006801000000000000882c0000a201000001000000 ,
         0x010000006801000000000000a10700000100000001000000
     End
     FilterOnLoad =255
@@ -91,24 +91,11 @@ Begin Report
             GridlineShade =65.0
         End
         Begin BreakLevel
-            GroupHeader = NotDefault
-            ControlSource ="TgtList"
-        End
-        Begin BreakLevel
-            ControlSource ="Park"
-        End
-        Begin BreakLevel
-            ControlSource ="TgtYear"
-        End
-        Begin BreakLevel
-            ControlSource ="Family"
-        End
-        Begin BreakLevel
-            ControlSource ="utah_species"
+            ControlSource ="Utah_Species"
         End
         Begin FormHeader
             KeepTogether = NotDefault
-            Height =600
+            Height =960
             BackColor =15849926
             Name ="ReportHeader"
             AlternateBackThemeColorIndex =1
@@ -119,7 +106,7 @@ Begin Report
                 Begin Label
                     Left =60
                     Top =60
-                    Width =5700
+                    Width =7140
                     Height =528
                     FontSize =20
                     BorderColor =8355711
@@ -129,7 +116,7 @@ Begin Report
                     GridlineColor =10921638
                     LayoutCachedLeft =60
                     LayoutCachedTop =60
-                    LayoutCachedWidth =5760
+                    LayoutCachedWidth =7200
                     LayoutCachedHeight =588
                 End
                 Begin TextBox
@@ -138,22 +125,62 @@ Begin Report
                     BackStyle =0
                     IMESentenceMode =3
                     Left =9000
-                    Top =60
                     Width =2340
                     Height =540
-                    ColumnOrder =0
+                    ColumnOrder =1
                     FontSize =20
                     BorderColor =10921638
                     ForeColor =8355711
-                    Name ="tbxYear"
+                    Name ="tbxParkYear"
+                    ControlSource ="=IIf([OpenArgs]=\"preview\",[TempVars]![park] & \" - \" & [TempVars]![TgtYear],["
+                        "Park] & \" - \" & [TgtYear])"
                     StatusBarText ="Park and year for list"
                     GridlineColor =10921638
 
                     LayoutCachedLeft =9000
-                    LayoutCachedTop =60
                     LayoutCachedWidth =11340
-                    LayoutCachedHeight =600
+                    LayoutCachedHeight =540
                     ForeTint =50.0
+                End
+                Begin TextBox
+                    FontItalic = NotDefault
+                    OldBorderStyle =0
+                    TextAlign =1
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =1500
+                    Top =600
+                    Width =4140
+                    Height =315
+                    ColumnOrder =0
+                    TabIndex =1
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxLastModified"
+                    ControlSource ="=Format([Last_Modified],\"mmmm d\"\", \"\"yyyy h:nn ampm\")"
+                    Format ="General Number"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =1500
+                    LayoutCachedTop =600
+                    LayoutCachedWidth =5640
+                    LayoutCachedHeight =915
+                End
+                Begin Label
+                    Left =60
+                    Top =612
+                    Width =1320
+                    Height =300
+                    BorderColor =8355711
+                    ForeColor =4210752
+                    Name ="lblLastModified"
+                    Caption ="Last Modified:"
+                    GridlineColor =10921638
+                    LayoutCachedLeft =60
+                    LayoutCachedTop =612
+                    LayoutCachedWidth =1380
+                    LayoutCachedHeight =912
+                    ForeTint =75.0
                 End
             End
         End
@@ -179,9 +206,9 @@ Begin Report
                 End
                 Begin Label
                     TextAlign =2
-                    Left =2160
+                    Left =180
                     Top =960
-                    Width =1800
+                    Width =2460
                     Height =300
                     BorderColor =8355711
                     ForeColor =8355711
@@ -190,16 +217,16 @@ Begin Report
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
-                    LayoutCachedLeft =2160
+                    LayoutCachedLeft =180
                     LayoutCachedTop =960
-                    LayoutCachedWidth =3960
+                    LayoutCachedWidth =2640
                     LayoutCachedHeight =1260
                 End
                 Begin Label
                     TextAlign =2
-                    Left =4200
+                    Left =2880
                     Top =960
-                    Width =1980
+                    Width =2640
                     Height =300
                     BorderColor =8355711
                     ForeColor =8355711
@@ -208,14 +235,14 @@ Begin Report
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
-                    LayoutCachedLeft =4200
+                    LayoutCachedLeft =2880
                     LayoutCachedTop =960
-                    LayoutCachedWidth =6180
+                    LayoutCachedWidth =5520
                     LayoutCachedHeight =1260
                 End
                 Begin Label
                     TextAlign =1
-                    Left =6360
+                    Left =5820
                     Top =960
                     Width =1380
                     Height =300
@@ -226,34 +253,16 @@ Begin Report
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
-                    LayoutCachedLeft =6360
+                    LayoutCachedLeft =5820
                     LayoutCachedTop =960
-                    LayoutCachedWidth =7740
+                    LayoutCachedWidth =7200
                     LayoutCachedHeight =1260
                 End
                 Begin Label
                     TextAlign =1
-                    Left =240
+                    Left =7380
                     Top =960
-                    Width =1800
-                    Height =300
-                    BorderColor =8355711
-                    ForeColor =8355711
-                    Name ="lblFamily"
-                    Caption ="Family"
-                    Tag ="DetachedLabel"
-                    GridlineStyleBottom =1
-                    GridlineColor =10921638
-                    LayoutCachedLeft =240
-                    LayoutCachedTop =960
-                    LayoutCachedWidth =2040
-                    LayoutCachedHeight =1260
-                End
-                Begin Label
-                    TextAlign =1
-                    Left =8100
-                    Top =960
-                    Width =1680
+                    Width =2340
                     Height =300
                     BorderColor =8355711
                     ForeColor =8355711
@@ -262,14 +271,14 @@ Begin Report
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
-                    LayoutCachedLeft =8100
+                    LayoutCachedLeft =7380
                     LayoutCachedTop =960
-                    LayoutCachedWidth =9780
+                    LayoutCachedWidth =9720
                     LayoutCachedHeight =1260
                 End
                 Begin Label
                     TextAlign =2
-                    Left =10080
+                    Left =10020
                     Top =960
                     Width =1200
                     Height =300
@@ -280,14 +289,14 @@ Begin Report
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
-                    LayoutCachedLeft =10080
+                    LayoutCachedLeft =10020
                     LayoutCachedTop =960
-                    LayoutCachedWidth =11280
+                    LayoutCachedWidth =11220
                     LayoutCachedHeight =1260
                 End
                 Begin Label
                     TextAlign =2
-                    Left =2160
+                    Left =840
                     Top =600
                     Width =3720
                     Height =300
@@ -298,61 +307,21 @@ Begin Report
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
-                    LayoutCachedLeft =2160
+                    LayoutCachedLeft =840
                     LayoutCachedTop =600
-                    LayoutCachedWidth =5880
+                    LayoutCachedWidth =4560
                     LayoutCachedHeight =900
                 End
                 Begin Line
-                    Left =2160
-                    Top =924
+                    Left =840
+                    Top =900
                     Width =3720
                     Name ="lnSpecies"
                     GridlineColor =10921638
-                    LayoutCachedLeft =2160
-                    LayoutCachedTop =924
-                    LayoutCachedWidth =5880
-                    LayoutCachedHeight =924
-                End
-                Begin TextBox
-                    FontItalic = NotDefault
-                    OldBorderStyle =0
-                    TextAlign =1
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =1379
-                    Top =60
-                    Width =5940
-                    Height =312
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxDate"
-                    ControlSource ="=Format(Now(),\"mmmm d\"\", \"\"yyyy h:nn ampm\")"
-                    Format ="Long Date"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =1379
-                    LayoutCachedTop =60
-                    LayoutCachedWidth =7319
-                    LayoutCachedHeight =372
-                    Begin
-                        Begin Label
-                            Left =120
-                            Top =60
-                            Width =1320
-                            Height =300
-                            BorderColor =8355711
-                            ForeColor =4210752
-                            Name ="lblPrinted"
-                            Caption ="Printed:"
-                            GridlineColor =10921638
-                            LayoutCachedLeft =120
-                            LayoutCachedTop =60
-                            LayoutCachedWidth =1440
-                            LayoutCachedHeight =360
-                            ForeTint =75.0
-                        End
-                    End
+                    LayoutCachedLeft =840
+                    LayoutCachedTop =900
+                    LayoutCachedWidth =4560
+                    LayoutCachedHeight =900
                 End
                 Begin Line
                     BorderWidth =2
@@ -367,13 +336,35 @@ Begin Report
                     LayoutCachedHeight =1320
                 End
                 Begin TextBox
+                    FontItalic = NotDefault
+                    OldBorderStyle =0
+                    TextAlign =1
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =1500
+                    Top =60
+                    Width =3300
+                    Height =315
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbxDate"
+                    ControlSource ="=Format(Now(),\"mmmm d\"\", \"\"yyyy h:nn ampm\")"
+                    Format ="Medium Date"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =1500
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =4800
+                    LayoutCachedHeight =375
+                End
+                Begin TextBox
                     OldBorderStyle =0
                     TextAlign =3
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =6240
+                    Left =7200
                     Top =60
-                    Width =5040
+                    Width =4080
                     Height =312
                     TabIndex =1
                     BorderColor =10921638
@@ -382,197 +373,47 @@ Begin Report
                     ControlSource ="=\"Page \" & [Page] & \" of \" & [Pages]"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =6240
+                    LayoutCachedLeft =7200
                     LayoutCachedTop =60
                     LayoutCachedWidth =11280
                     LayoutCachedHeight =372
                 End
-            End
-        End
-        Begin BreakHeader
-            KeepTogether = NotDefault
-            CanGrow = NotDefault
-            CanShrink = NotDefault
-            Height =480
-            BackColor =12835293
-            Name ="ParkGroupHeader"
-            AlternateBackColor =12835293
-            AlternateBackThemeColorIndex =3
-            AlternateBackShade =90.0
-            BackThemeColorIndex =3
-            BackShade =90.0
-            Begin
-                Begin TextBox
-                    OldBorderStyle =0
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =120
-                    Width =1800
-                    Height =435
-                    FontSize =16
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxPark"
-                    ControlSource ="Park"
-                    StatusBarText ="Target Species name (ITIS species name from tlu_NCPN_Plants.Master_Species)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =120
-                    LayoutCachedWidth =1920
-                    LayoutCachedHeight =435
-                End
                 Begin TextBox
                     OldBorderStyle =0
                     TextAlign =3
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =9780
-                    Width =1380
-                    Height =435
-                    FontSize =16
-                    TabIndex =1
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxYears"
-                    ControlSource ="=[TgtYear]"
-                    StatusBarText ="Target Species name (ITIS species name from tlu_NCPN_Plants.Master_Species)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =9780
-                    LayoutCachedWidth =11160
-                    LayoutCachedHeight =435
-                End
-                Begin TextBox
-                    FontItalic = NotDefault
-                    OldBorderStyle =0
-                    TextAlign =1
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =9300
-                    Top =90
-                    Width =540
-                    Height =345
-                    FontSize =12
+                    Left =4320
+                    Top =60
+                    Width =2880
+                    Height =312
                     TabIndex =2
                     BorderColor =10921638
-                    ForeColor =8355711
-                    Name ="tbxSumParkPriority"
-                    ControlSource ="=Sum(CDbl(Nz(IIf(Switch([Transect_Only]=1,0,Len([Tgt_Area])>0,0,[Priority]>-1,[P"
-                        "riority])=1,1,0),0)))"
-                    StatusBarText ="Target Species name (ITIS species name from tlu_NCPN_Plants.Master_Species)"
+                    ForeColor =4210752
+                    Name ="tbxListName"
+                    ControlSource ="=IIf([Page]>1,\"Invasives List for \" & [tbxParkYear],\"\")"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =9300
-                    LayoutCachedTop =90
-                    LayoutCachedWidth =9840
-                    LayoutCachedHeight =435
-                    ForeTint =50.0
+                    LayoutCachedLeft =4320
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =7200
+                    LayoutCachedHeight =372
                 End
                 Begin Label
-                    FontItalic = NotDefault
-                    TextAlign =3
-                    Left =7500
-                    Top =120
-                    Width =1680
+                    Left =60
+                    Top =60
+                    Width =1320
                     Height =300
                     BorderColor =8355711
-                    ForeColor =8355711
-                    Name ="lblPriority1Species"
-                    Caption ="Priority 1 Species:"
-                    Tag ="DetachedLabel"
-                    GridlineStyleBottom =1
+                    ForeColor =4210752
+                    Name ="Label49"
+                    Caption ="Printed:"
                     GridlineColor =10921638
-                    LayoutCachedLeft =7500
-                    LayoutCachedTop =120
-                    LayoutCachedWidth =9180
-                    LayoutCachedHeight =420
-                End
-                Begin TextBox
-                    FontItalic = NotDefault
-                    OldBorderStyle =0
-                    TextAlign =1
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =6780
-                    Top =90
-                    Width =540
-                    Height =345
-                    FontSize =12
-                    TabIndex =3
-                    BorderColor =10921638
-                    ForeColor =8355711
-                    Name ="tbxSumParkSpecies"
-                    ControlSource ="=Count(*)"
-                    StatusBarText ="Target Species name (ITIS species name from tlu_NCPN_Plants.Master_Species)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =6780
-                    LayoutCachedTop =90
-                    LayoutCachedWidth =7320
-                    LayoutCachedHeight =435
-                    ForeTint =50.0
-                End
-                Begin Label
-                    FontItalic = NotDefault
-                    TextAlign =3
-                    Left =4980
-                    Top =120
-                    Width =1665
-                    Height =299
-                    BorderColor =8355711
-                    ForeColor =8355711
-                    Name ="lblSumParkSpecies"
-                    Caption ="Total Species:"
-                    Tag ="DetachedLabel"
-                    GridlineStyleBottom =1
-                    GridlineColor =10921638
-                    LayoutCachedLeft =4980
-                    LayoutCachedTop =120
-                    LayoutCachedWidth =6645
-                    LayoutCachedHeight =419
-                End
-                Begin Label
-                    FontItalic = NotDefault
-                    TextAlign =1
-                    Left =1320
-                    Top =120
-                    Width =1497
-                    Height =299
-                    BorderColor =8355711
-                    ForeColor =8355711
-                    Name ="lblLastModified"
-                    Caption ="Last Modified:"
-                    Tag ="DetachedLabel"
-                    GridlineStyleBottom =1
-                    GridlineColor =10921638
-                    LayoutCachedLeft =1320
-                    LayoutCachedTop =120
-                    LayoutCachedWidth =2817
-                    LayoutCachedHeight =419
-                End
-                Begin TextBox
-                    FontItalic = NotDefault
-                    OldBorderStyle =0
-                    TextAlign =1
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =2760
-                    Top =120
-                    Width =2220
-                    Height =297
-                    TabIndex =4
-                    BorderColor =10921638
-                    ForeColor =8355711
-                    Name ="tbxLastModified"
-                    ControlSource ="=Format([Last_Modified],\"mmmm d\"\", \"\"yyyy h:nn ampm\")"
-                    StatusBarText ="Target Species name (ITIS species name from tlu_NCPN_Plants.Master_Species)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =2760
-                    LayoutCachedTop =120
-                    LayoutCachedWidth =4980
-                    LayoutCachedHeight =417
-                    ForeTint =50.0
+                    LayoutCachedLeft =60
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =1380
+                    LayoutCachedHeight =360
+                    ForeTint =75.0
                 End
             End
         End
@@ -590,7 +431,7 @@ Begin Report
                     IMESentenceMode =3
                     Width =11400
                     Height =418
-                    TabIndex =5
+                    TabIndex =1
                     BorderColor =10921638
                     ForeColor =4210752
                     Name ="tbxDetail"
@@ -636,81 +477,61 @@ Begin Report
                     End
                 End
                 Begin TextBox
+                    Visible = NotDefault
+                    DecimalPlaces =0
+                    RunningSum =2
                     OldBorderStyle =0
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =2220
+                    Left =9060
                     Top =60
-                    Width =1800
-                    Height =312
+                    Width =1140
+                    Height =300
                     FontSize =9
                     BorderColor =10921638
                     ForeColor =4210752
-                    Name ="tbl_Target_Species.Target_Year"
-                    ControlSource ="utah_species"
-                    StatusBarText ="Year (4-digit)"
-                    EventProcPrefix ="tbl_Target_Species_Target_Year"
+                    Name ="tbxPri1RunSum"
+                    ControlSource ="=CDbl(Nz(IIf(Switch([Transect_Only]=1,0,Len([Tgt_Area])>0,0,[Priority]>-1,[Prior"
+                        "ity])=1,1,0),0))"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =2220
+                    LayoutCachedLeft =9060
                     LayoutCachedTop =60
-                    LayoutCachedWidth =4020
-                    LayoutCachedHeight =372
+                    LayoutCachedWidth =10200
+                    LayoutCachedHeight =360
                 End
                 Begin TextBox
+                    DecimalPlaces =0
                     OldBorderStyle =0
+                    TextAlign =2
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =4260
+                    Left =10020
                     Top =60
-                    Width =1980
-                    Height =312
-                    ColumnWidth =1170
-                    FontSize =9
-                    TabIndex =1
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbl_Target_Species.Park_Code"
-                    ControlSource ="Co_Species"
-                    StatusBarText ="Standard park code (CANY, FOBU, etc.)"
-                    EventProcPrefix ="tbl_Target_Species_Park_Code"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =4260
-                    LayoutCachedTop =60
-                    LayoutCachedWidth =6240
-                    LayoutCachedHeight =372
-                End
-                Begin TextBox
-                    OldBorderStyle =0
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =6360
-                    Top =60
-                    Width =1380
-                    Height =312
-                    ColumnWidth =2655
+                    Width =1140
+                    Height =300
                     FontSize =9
                     TabIndex =2
                     BorderColor =10921638
                     ForeColor =4210752
-                    Name ="Species_Name"
-                    ControlSource ="LU_code"
-                    StatusBarText ="Target Species name (ITIS species name from tlu_NCPN_Plants.Master_Species)"
+                    Name ="tbxPriority"
+                    ControlSource ="=Switch([Transect_Only]=1,\"Transect Only\",Len([Tgt_Area])>0,[Tgt_Area],[Priori"
+                        "ty]>-1,[Priority])"
+                    StatusBarText ="Park priority (1 - , 2- , 3- , 4- , 5-)"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =6360
+                    LayoutCachedLeft =10020
                     LayoutCachedTop =60
-                    LayoutCachedWidth =7740
-                    LayoutCachedHeight =372
+                    LayoutCachedWidth =11160
+                    LayoutCachedHeight =360
                 End
                 Begin TextBox
                     OldBorderStyle =0
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =8100
+                    Left =7380
                     Top =60
-                    Width =1680
+                    Width =2340
                     Height =312
                     ColumnWidth =2400
                     FontSize =9
@@ -722,35 +543,57 @@ Begin Report
                     StatusBarText ="FK to plant master code (tlu_NCPN_Plants.Master_Species)"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =8100
+                    LayoutCachedLeft =7380
                     LayoutCachedTop =60
-                    LayoutCachedWidth =9780
+                    LayoutCachedWidth =9720
                     LayoutCachedHeight =372
                 End
                 Begin TextBox
-                    DecimalPlaces =0
                     OldBorderStyle =0
-                    TextAlign =2
                     BackStyle =0
                     IMESentenceMode =3
-                    Left =10200
+                    Left =5820
                     Top =60
-                    Width =1140
-                    Height =300
+                    Width =1380
+                    Height =312
+                    ColumnWidth =2655
                     FontSize =9
                     TabIndex =4
                     BorderColor =10921638
                     ForeColor =4210752
-                    Name ="tbxPriority"
-                    ControlSource ="=Switch([Transect_Only]=1,\"Transect Only\",Len([Tgt_Area])>0,[Tgt_Area],[Priori"
-                        "ty]>-1,[Priority])"
-                    StatusBarText ="Park priority (1 - , 2- , 3- , 4- , 5-)"
+                    Name ="Species_Name"
+                    ControlSource ="LU_code"
+                    StatusBarText ="Target Species name (ITIS species name from tlu_NCPN_Plants.Master_Species)"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =10200
+                    LayoutCachedLeft =5820
                     LayoutCachedTop =60
-                    LayoutCachedWidth =11340
-                    LayoutCachedHeight =360
+                    LayoutCachedWidth =7200
+                    LayoutCachedHeight =372
+                End
+                Begin TextBox
+                    OldBorderStyle =0
+                    BackStyle =0
+                    IMESentenceMode =3
+                    Left =2940
+                    Top =60
+                    Width =2640
+                    Height =312
+                    ColumnWidth =1170
+                    FontSize =9
+                    TabIndex =5
+                    BorderColor =10921638
+                    ForeColor =4210752
+                    Name ="tbl_Target_Species.Park_Code"
+                    ControlSource ="Co_Species"
+                    StatusBarText ="Standard park code (CANY, FOBU, etc.)"
+                    EventProcPrefix ="tbl_Target_Species_Park_Code"
+                    GridlineColor =10921638
+
+                    LayoutCachedLeft =2940
+                    LayoutCachedTop =60
+                    LayoutCachedWidth =5580
+                    LayoutCachedHeight =372
                 End
                 Begin TextBox
                     OldBorderStyle =0
@@ -758,69 +601,22 @@ Begin Report
                     IMESentenceMode =3
                     Left =240
                     Top =60
-                    Width =1800
+                    Width =2460
                     Height =312
                     FontSize =9
                     TabIndex =6
                     BorderColor =10921638
                     ForeColor =4210752
-                    Name ="tbxFamily"
-                    ControlSource ="Family"
-                    StatusBarText ="Target Species name (ITIS species name from tlu_NCPN_Plants.Master_Species)"
+                    Name ="tbl_Target_Species.Target_Year"
+                    ControlSource ="utah_species"
+                    StatusBarText ="Year (4-digit)"
+                    EventProcPrefix ="tbl_Target_Species_Target_Year"
                     GridlineColor =10921638
 
                     LayoutCachedLeft =240
                     LayoutCachedTop =60
-                    LayoutCachedWidth =2040
+                    LayoutCachedWidth =2700
                     LayoutCachedHeight =372
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    OldBorderStyle =0
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =10020
-                    Top =60
-                    Width =660
-                    Height =312
-                    FontSize =9
-                    TabIndex =7
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxPriorityNum"
-                    ControlSource ="Priority"
-                    StatusBarText ="FK to plant master code (tlu_NCPN_Plants.Master_Species)"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =10020
-                    LayoutCachedTop =60
-                    LayoutCachedWidth =10680
-                    LayoutCachedHeight =372
-                End
-                Begin TextBox
-                    Visible = NotDefault
-                    DecimalPlaces =0
-                    RunningSum =2
-                    OldBorderStyle =0
-                    BackStyle =0
-                    IMESentenceMode =3
-                    Left =7860
-                    Top =60
-                    Width =1140
-                    Height =300
-                    FontSize =9
-                    TabIndex =8
-                    BorderColor =10921638
-                    ForeColor =4210752
-                    Name ="tbxPri1RunSum"
-                    ControlSource ="=CDbl(Nz(IIf(Switch([Transect_Only]=1,0,Len([Tgt_Area])>0,0,[Priority]>-1,[Prior"
-                        "ity])=1,1,0),0))"
-                    GridlineColor =10921638
-
-                    LayoutCachedLeft =7860
-                    LayoutCachedTop =60
-                    LayoutCachedWidth =9000
-                    LayoutCachedHeight =360
                 End
             End
         End
@@ -833,28 +629,19 @@ Begin Report
         End
         Begin FormFooter
             KeepTogether = NotDefault
-            Height =900
+            Height =960
             Name ="ReportFooter"
             AlternateBackThemeColorIndex =1
             AlternateBackShade =95.0
             BackThemeColorIndex =1
             Begin
-                Begin Line
-                    BorderWidth =2
-                    Left =60
-                    Width =11100
-                    Name ="lnPageFooter"
-                    GridlineColor =10921638
-                    LayoutCachedLeft =60
-                    LayoutCachedWidth =11160
-                End
                 Begin TextBox
                     OldBorderStyle =0
-                    TextAlign =1
+                    TextAlign =2
                     BackStyle =0
                     IMESentenceMode =3
                     Left =10020
-                    Top =60
+                    Top =120
                     Width =1140
                     Height =312
                     FontSize =12
@@ -862,41 +649,49 @@ Begin Report
                     ForeColor =4210752
                     Name ="tbxSumPriority1"
                     ControlSource ="=[tbxPri1RunSum]"
-                    StatusBarText ="Standard park code (CANY, FOBU, etc.)"
                     GridlineColor =10921638
 
                     LayoutCachedLeft =10020
-                    LayoutCachedTop =60
+                    LayoutCachedTop =120
                     LayoutCachedWidth =11160
-                    LayoutCachedHeight =372
+                    LayoutCachedHeight =432
                 End
                 Begin Label
                     TextAlign =3
                     Left =7200
-                    Top =60
+                    Top =120
                     Width =2700
                     Height =324
                     FontSize =12
                     BorderColor =8355711
                     ForeColor =8355711
-                    Name ="lblSumPriority1"
+                    Name ="lblTotalNum"
                     Caption ="Total # Priority 1 Species ="
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
                     LayoutCachedLeft =7200
-                    LayoutCachedTop =60
+                    LayoutCachedTop =120
                     LayoutCachedWidth =9900
-                    LayoutCachedHeight =384
+                    LayoutCachedHeight =444
+                End
+                Begin Line
+                    BorderWidth =2
+                    Left =180
+                    Width =11100
+                    Name ="lnPageFooter"
+                    GridlineColor =10921638
+                    LayoutCachedLeft =180
+                    LayoutCachedWidth =11280
                 End
                 Begin TextBox
                     RunningSum =2
                     OldBorderStyle =0
-                    TextAlign =1
+                    TextAlign =2
                     BackStyle =0
                     IMESentenceMode =3
                     Left =10020
-                    Top =480
+                    Top =540
                     Width =1140
                     Height =312
                     FontSize =12
@@ -908,28 +703,28 @@ Begin Report
                     GridlineColor =10921638
 
                     LayoutCachedLeft =10020
-                    LayoutCachedTop =480
+                    LayoutCachedTop =540
                     LayoutCachedWidth =11160
-                    LayoutCachedHeight =792
+                    LayoutCachedHeight =852
                 End
                 Begin Label
                     TextAlign =3
                     Left =7200
-                    Top =480
+                    Top =540
                     Width =2700
                     Height =324
                     FontSize =12
                     BorderColor =8355711
                     ForeColor =8355711
-                    Name ="lblSumSpecies"
+                    Name ="Label36"
                     Caption ="Total # Species ="
                     Tag ="DetachedLabel"
                     GridlineStyleBottom =1
                     GridlineColor =10921638
                     LayoutCachedLeft =7200
-                    LayoutCachedTop =480
+                    LayoutCachedTop =540
                     LayoutCachedWidth =9900
-                    LayoutCachedHeight =804
+                    LayoutCachedHeight =864
                 End
                 Begin Label
                     Visible = NotDefault
@@ -960,8 +755,8 @@ Option Compare Database
 Option Explicit
 
 ' =================================
-' MODULE:       rpt_Tgt_Species_List_By_Park
-' Description:  Target species lists reported by park
+' MODULE:       rpt_Tgt_Species_List
+' Description:  Target species list crew report functions and routines
 '
 ' Source/date:  Bonnie Campbell, 3/5/2015
 ' Revisions:    BLC - 3/5/2015 - initial version
@@ -974,31 +769,63 @@ Option Explicit
 ' Parameters:   -
 ' Returns:      N/A
 ' Throws:       none
-' References:   none
+' References:
+'   http://stackoverflow.com/questions/11477297/giving-an-alias-to-a-subquery-containing-a-join-in-access
+'   Bob Larsen, January 28, 2012
+'   https://social.msdn.microsoft.com/Forums/office/en-US/3e126484-112f-4854-a5c0-2e9ef48e02bc/how-to-change-recordsource-for-a-report-with-vba?forum=accessdev
+'       set recordset to passed in SQL via OpenArgs
+'       If Me.OpenArgs <> vbNullString Then
+'       Me.Recordset = Me.OpenArgs
+'   dyDMA, Sept 8, 2008
+'   http://www.utteraccess.com/forum/Run-time-error-32585-t1710296.html
+'       Me.Recordset = qdf.OpenRecordset()
+'       ==> Run-time Error 32585: This feature is only available in an ADP
+'       ==> Only Access ADP's can use this method (assign report recordset @ run-time)
+'       ==> Not available for *.mdb or *.accdb's
 ' Source/date:
 ' Adapted:      Bonnie Campbell, March 5, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 4/1/2015 - initial version
+'   BLC - 6/3/2015 - added check for "preview" openarg to handle list previews
+'   BLC - 6/11/2015 - added Last_Modified to qry_Tgt_Species_List_Preview to handle Last_Modified date
+'                     in header vs. setting using IIF(Me.OpenArgs = "preview"... in vba or report tbx design
+'                     which failed to display data
 ' ---------------------------------
 Private Sub Report_Open(Cancel As Integer)
 
 On Error GoTo Err_Handler
-'http://stackoverflow.com/questions/11477297/giving-an-alias-to-a-subquery-containing-a-join-in-access
-
-    If Len(Me.OpenArgs) > 0 Then
-        ' Bob Larsen, January 28, 2012
-        ' https://social.msdn.microsoft.com/Forums/office/en-US/3e126484-112f-4854-a5c0-2e9ef48e02bc/how-to-change-recordsource-for-a-report-with-vba?forum=accessdev
-        'set recordset to passed in SQL via OpenArgs
-        'If Me.OpenArgs <> vbNullString Then
-        'Me.Recordset = Me.OpenArgs
-        ' dyDMA, Sept 8, 2008
-        ' http://www.utteraccess.com/forum/Run-time-error-32585-t1710296.html
-        '==> Run-time Error 32585: This feature is only available in an ADP
-        '==> Only Access ADP's can use this method (assign report recordset @ run-time)
-        '==> Not available for *.mdb or *.accdb's
+   
+    If Me.OpenArgs <> vbNullString Then
+    
+        Select Case Me.OpenArgs
+            Case "preview"
+                Dim qdf As DAO.QueryDef
+                
+                'delete table if exists
+                If TableExists("temp_List_Preview") Then
+                    DoCmd.SetWarnings False
+                    DoCmd.DeleteObject acTable, "temp_List_Preview"
+                    DoCmd.SetWarnings True
+                End If
+                
+                'qry_Park_Tgt_Species_List_Preview --> creates table temp_List_Preview
+                Set qdf = CurrentDb.QueryDefs("qry_Tgt_Species_List_Preview")
+                qdf.Parameters("park") = TempVars("park")
+                qdf.Parameters("TgtYear") = CInt(TempVars("TgtYear"))
+                
+                qdf.Execute
+                
+                'set report recordset
+                Me.RecordSource = "temp_List_Preview"
+                          
+                'set headers
+                '=IIf([OpenArgs]="preview",[TempVars]![park] & " - " & [TempVars]![TgtYear],[Park] & " - " & [TgtYear])
+                '=IIf([OpenArgs] = "preview", "-", Format([Last_Modified], "mmmm d"", ""yyyy h:nn ampm"))
+                'tbxLastModified.ControlSource = IIf(Me.OpenArgs = "preview", "-", Format([Last_Modified], "mmmm d"", ""yyyy h:nn ampm"))
+                tbxListName.ControlSource = IIf([Page] > 1, "Invasives List for " & TempVars("park") & "-" & TempVars("TgtYear"), "")
+                lblReportHdr.Caption = "INVASIVES TARGET LIST PREVIEW"
+        End Select
         
-        'set orderby
-        Me.OrderBy = Me.OpenArgs
     End If
         
 Exit_Sub:
@@ -1008,7 +835,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Report_Open[Report_rpt_Tgt_Species_List_By_Park])"
+            "Error encountered (#" & Err.Number & " - Report_Open[Report_rptTgtSpeciesList])"
     End Select
     Resume Exit_Sub
 End Sub
