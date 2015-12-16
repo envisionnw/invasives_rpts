@@ -14,10 +14,10 @@ Begin Report
     Width =10800
     DatasheetFontHeight =9
     ItemSuffix =62
-    Left =276
-    Top =216
-    Right =8712
-    Bottom =9108
+    Left =270
+    Top =210
+    Right =8715
+    Bottom =9105
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x8e1406dc71cce340
@@ -222,7 +222,6 @@ Begin Report
                     Top =540
                     Width =659
                     Height =239
-                    FontSize =10
                     Name ="Label54"
                     Caption ="Class 1"
                     Tag ="DetachedLabel"
@@ -232,7 +231,6 @@ Begin Report
                     Top =540
                     Width =659
                     Height =239
-                    FontSize =10
                     Name ="Label55"
                     Caption ="Class 2"
                     Tag ="DetachedLabel"
@@ -242,7 +240,6 @@ Begin Report
                     Top =540
                     Width =659
                     Height =239
-                    FontSize =10
                     Name ="Label56"
                     Caption ="Class 3"
                     Tag ="DetachedLabel"
@@ -252,7 +249,6 @@ Begin Report
                     Top =540
                     Width =659
                     Height =239
-                    FontSize =10
                     Name ="Label57"
                     Caption ="Class 4"
                     Tag ="DetachedLabel"
@@ -262,7 +258,6 @@ Begin Report
                     Top =540
                     Width =659
                     Height =239
-                    FontSize =10
                     Name ="Label58"
                     Caption ="Class 5"
                     Tag ="DetachedLabel"

@@ -13,12 +13,11 @@ Begin Report
     Width =11400
     DatasheetFontHeight =11
     ItemSuffix =51
-    Left =324
-    Top =276
-    Right =12084
-    Bottom =6228
+    Left =330
+    Top =270
+    Right =11835
+    Bottom =9915
     DatasheetGridlinesColor =14806254
-    Filter ="TgtList IN ('BLCA-2012','BLCA-2015','CARE-2009')"
     RecSrcDt = Begin
         0x93926d5acb96e440
     End
@@ -30,7 +29,7 @@ Begin Report
         0x6a01000068010000680100006801000000000000882c0000a401000001000000 ,
         0x010000006801000000000000a10700000100000001000000
     End
-    FilterOnLoad =255
+    FilterOnLoad =0
     FitToPage =1
     DisplayOnSharePointSite =1
     AllowLayoutView =0
