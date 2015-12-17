@@ -207,7 +207,6 @@ End Sub
 '   BLC - 9/30/2015 - added optional TargetYear for park summary report
 ' ---------------------------------
 Public Function PopulateSpeciesPriorities(ParkCode As String, priorities As String, Optional TargetYear As Integer = -1) As String
-
 On Error GoTo Err_Handler
 
 Dim ParkPriorities As Variant

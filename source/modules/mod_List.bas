@@ -4,13 +4,14 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_List
 ' Level:        Framework module
-' Version:      1.02
+' Version:      1.03
 ' Description:  Listview & listbox related functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, April 2015
 ' Revisions:    BLC, 4/30/2015 - 1.00 - initial version
 '               BLC, 6/12/2015 - 1.01 - updated documentation, TempVars("... vs. TempVars.item("...
 '               BLC, 6/18/2015 - 1.02 - updated lvwPopulateFromQuery to use aryHeadings vs aryFields
+'               BLC, 12/1/2015 - 1.03 - "extra" vs. target area renaming (handle back-end table fields not yet being renamed)
 ' =================================
 
 ' ---------------------------------
@@ -571,7 +572,7 @@ Dim blnTableExists As Boolean
                     If iRow = UBound(aryFieldNames) Then '- 1 Then
                             
                         ' add table to tabledefs
-                        CurrentDb.tabledefs.Append tdf
+                        CurrentDb.TableDefs.Append tdf
                                         
                     End If
                     
@@ -633,6 +634,7 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 26, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 5/27/2015 - initial version
+'   BLC - 12/1/2015 - "extra" vs. target area renaming (handle back-end table fields not yet being renamed)
 ' ---------------------------------
 Public Sub AddListRecordset(tblName As String, rsList As DAO.Recordset, strFieldNames As String, _
                 aryFieldTypes As Variant, blnReplace As Boolean)
@@ -693,7 +695,7 @@ Dim blnTableExists As Boolean
                     If iRow = UBound(aryFieldNames) - 1 Then
                             
                         ' add table to tabledefs
-                        CurrentDb.tabledefs.Append tdf
+                        CurrentDb.TableDefs.Append tdf
                                         
                     End If
                     
@@ -712,9 +714,14 @@ Dim blnTableExists As Boolean
             'add each field (second element of aryData)
             For iCol = 0 To UBound(aryFieldNames) ' - 1
             
-                'add record field values for each record (aryFields - 1, row 0 = field names)
-                rsProcess(aryFieldNames(iCol)).Value = rsList(aryFieldNames(iCol)).Value
-
+                'handle Target_Area_ID vs. Extra_Area_ID since back-end table field names have not been adjusted
+                If aryFieldNames(iCol) = "Extra_Area_ID" Then
+                    'add record field values for each record (aryFields - 1, row 0 = field names)
+                    rsProcess(aryFieldNames(iCol)).Value = rsList("Target_Area_ID").Value
+                Else
+                    'add record field values for each record (aryFields - 1, row 0 = field names)
+                    rsProcess(aryFieldNames(iCol)).Value = rsList(aryFieldNames(iCol)).Value
+                End If
 '                iCol = iCol + 1
             Next
 

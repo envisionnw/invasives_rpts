@@ -13,7 +13,7 @@ Begin Form
     Width =9120
     DatasheetFontHeight =11
     ItemSuffix =17
-    Left =570
+    Left =576
     Top =1560
     Right =4260
     Bottom =5580
@@ -311,7 +311,7 @@ Begin Form
                     BackColor =9699294
                     BorderColor =10921638
                     ForeColor =4210752
-                    Name ="tbxTgtAreaID"
+                    Name ="tbxExtraAreaID"
                     ControlSource ="Target_Area_ID"
                     GridlineColor =10921638
 

@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_Linked_Tables
 ' Level:        Framework module
-' Version:      1.04
+' Version:      1.06
 ' Description:  Linked table related functions & subroutines
 '
 ' Adapted from: John R. Boetsch, May 24, 2006
@@ -18,6 +18,8 @@ Option Explicit
 '               BLC, 6/10/2015 - 1.02 - fixed VerifyLinkTableInfo to add new linked tables to tsys_Link_Tables
 '               BLC, 6/12/2015 - 1.03 - replaced TempVars.item(... with TempVars("...
 '               BLC, 9/30/2015 - 1.04 - added check & resolve double quotes in table descriptions in RefreshLinks
+'               BLC, 12/1/2015 - 1.05 - resolve issues with linked database updates to differently named backend databases
+'               BLC, 12/3/2015 - 1.06 - added UpdateTSysTableDb
 ' =================================
 
 ' ---------------------------------
@@ -235,7 +237,7 @@ Public Function LinkedDatabase(ByVal strTableName As String) As String
 
     Dim strTemp As String
 
-    strTemp = ParseConnectionStr(CurrentDb.tabledefs(strTableName).Connect)
+    strTemp = ParseConnectionStr(CurrentDb.TableDefs(strTableName).Connect)
     LinkedDatabase = strTemp
 
 Exit_Procedure:
@@ -484,7 +486,7 @@ Public Function CheckLink(strTableName As String) As Boolean
     On Error Resume Next
     ' Check for failure.  If can't determine the name of
     ' the first field in the table, the link must be bad.
-    varRet = CurrentDb.tabledefs(strTableName).Fields(0).name
+    varRet = CurrentDb.TableDefs(strTableName).Fields(0).name
     If Err <> 0 Then
         CheckLink = False
     Else
@@ -575,7 +577,7 @@ Function TestODBCConnection(strTableName As String, _
     Set qdf = db.CreateQueryDef("")
 
     ' If no revised connection string was passed, use the current connection string
-    If strConnStr = "" Then strConnStr = CurrentDb.tabledefs(strTableName).Connect
+    If strConnStr = "" Then strConnStr = CurrentDb.TableDefs(strTableName).Connect
     strDbName = ParseConnectionStr(strConnStr)
 
     ' Update the connection string for the pass-through query, set to not return records
@@ -629,6 +631,7 @@ End Function
 ' Parameters:   strDbName - name of the database to refresh
 '               strNewConnStr - updated connection string
 '               blnIsODBC - flag to indicate that the back-end is ODBC (default = False)
+'               strNewDbName - name of new db (default = original db name, strDbName)
 ' Returns:      True (successfully relinked) or False
 ' Throws:       none
 ' References:   ParseConnectionStr, TestODBCConnection
@@ -645,10 +648,13 @@ End Function
 '               BLC, 5/20/2015 - updated progress meter control naming, added connection component for non-"DATABASE="
 '                                connection strings (e.g. Access 2010 w/ "Dbq=")
 '               BLC, 9/30/2015 - add description parsing to avoid errors due to quotes
+'               BLC, 12/1/2015 - resolve issues with linked database updates to differently named backend databases
 ' =================================
 Public Function RefreshLinks(strDbName As String, ByVal strNewConnStr As String, _
     Optional strComponent As String = "DATABASE=", _
-    Optional ByVal blnIsODBC As Boolean = False) As Boolean
+    Optional ByVal blnIsODBC As Boolean = False, _
+    Optional strNewDbName As String _
+    ) As Boolean
     On Error GoTo Err_Handler
 
     Dim varFileName As Variant
@@ -659,14 +665,15 @@ Public Function RefreshLinks(strDbName As String, ByVal strNewConnStr As String,
     Dim intNumTables As Integer
     Dim varReturn As Variant
     Dim intI As Integer
-    Dim strTable As String
-    Dim strDesc As String
-    Dim strSQL As String
+    Dim strTable As String, strDesc As String, strSQL As String
     Dim frm As Form             ' Reference to the progress popup form
     Dim strProgForm As String   ' Name of the progress popup form
     Dim strProgress As String   ' Progress bar string
 
     RefreshLinks = False   ' Default unless all tables verified
+
+    'set new db name default to current name if strNewDbName not populated
+    If Len(strNewDbName) = 0 Then strNewDbName = strDbName
 
     Set db = CurrentDb
     Set rst = db.OpenRecordset("SELECT * FROM tsys_Link_Tables WHERE " & _
@@ -709,7 +716,7 @@ Public Function RefreshLinks(strDbName As String, ByVal strNewConnStr As String,
             frm.Repaint
             strTable = rst![Link_table]
             Debug.Print strTable
-            varReturn = dbGet.tabledefs(strTable).Fields(0).name
+            varReturn = dbGet.TableDefs(strTable).Fields(0).name
             rst.MoveNext
         Loop
 
@@ -734,21 +741,29 @@ Public Function RefreshLinks(strDbName As String, ByVal strNewConnStr As String,
             strTable = rst![Link_table]
 Debug.Print strTable
             ' Update and refresh the table connection
-            Set tdf = db.tabledefs(strTable)
+            Set tdf = db.TableDefs(strTable)
             tdf.Connect = strNewConnStr
             tdf.RefreshLink
-            ' Update the table description in tsys_Link_Tables
+            
+            ' Update the table description & Link_db in tsys_Link_Tables
             ' Set default description in case there is none
             strDesc = " - no description - "
             strDesc = tdf.Properties("Description") ' Throws trapped error 3270 if none
             'replace double quotes with singles
             strDesc = Replace(strDesc, """", "'")
+            
             strSQL = "UPDATE tsys_Link_Tables " & _
                 "SET tsys_Link_Tables.Description_text=""" & strDesc & _
+                """, tsys_Link_Tables.Link_db=""" & strNewDbName & _
                 """ WHERE (((tsys_Link_Tables.Link_table)=""" & strTable & """));"
+Debug.Print strSQL
             DoCmd.SetWarnings False
             DoCmd.RunSQL strSQL
             DoCmd.SetWarnings True
+    
+            'update database name & description in tsys_Link_Dbs & tsys_Link_Files
+            'within form modules (frm_Connect_Tables / frm_Connect_Dbs)
+            
             rst.MoveNext
         Loop
     Else    ' ODBC back-end
@@ -795,7 +810,7 @@ Debug.Print strTable
             frm.Repaint
             strTable = rst![Link_table]
             ' Update and refresh the table connection
-            Set tdf = db.tabledefs(strTable)
+            Set tdf = db.TableDefs(strTable)
             ' Use test again to trap errors
             If TestODBCConnection(strTable, strNewConnStr) = True Then
                 tdf.Connect = "Driver={Microsoft Access Driver (*.mdb, *.accdb)};DATABASE=C:\___TEST_DATA\Invasives_be.accdb;" 'strNewConnStr
@@ -904,9 +919,9 @@ Public Function VerifyLinkTableInfo() As Boolean
     blnHasError = False             ' Flag to indicate error status
 
     ' Check if FIX_LINKED_DBS is set (usually when DbAdmin is not fully implemented)
-    If FIX_LINKED_DBS Then
-        FixLinkedDatabase "tbl_Target_Species"
-    End If
+'    If FIX_LINKED_DBS Then
+'        FixLinkedDatabase "tbl_Target_Species"
+'    End If
 
     ' First make sure that there are linked tables
     intNRecs = DCount("*", "MSysObjects", "([Type] In (4,6)) And ([Name] Not Like '~*')")
@@ -963,7 +978,7 @@ Public Function VerifyLinkTableInfo() As Boolean
             "WHERE tsys_Link_Tables.Description_text Is Null", dbOpenSnapshot)
         Do Until rst.EOF
             strTable = rst![Link_table]
-            Set tdf = db.tabledefs(strTable)
+            Set tdf = db.TableDefs(strTable)
             ' Update the table description in tsys_Link_Tables
             ' Set default description in case there is none
             strDesc = " - no description - "
@@ -1181,7 +1196,7 @@ Public Sub FixLinkedDatabase(ByVal strTableName As String)
     Dim strTemp As String, strSQL As String, strCurDb As String, strCurDbPath As String
     Dim rs As DAO.Recordset
 
-    strTemp = ParseConnectionStr(CurrentDb.tabledefs(strTableName).Connect)
+    strTemp = ParseConnectionStr(CurrentDb.TableDefs(strTableName).Connect)
     
     'fetch current database location
     Set rs = CurrentDb.OpenRecordset("qsys_Linked_tables_mismatched_info_dbs")
@@ -1216,4 +1231,44 @@ Err_Handler:
     End Select
     Resume Exit_Procedure
 
+End Sub
+
+' ---------------------------------
+' SUB:          UpdateTSysTablesDb
+' Description:  Update database value for a table w/in tsys_Link_Tables
+' Assumptions:  Tables (tsys_Link_Tables) exist with fields as noted
+'               Database file & path are valid.
+' Parameters:   strNewDb - new database (e.g. "mynewdb.accdb")
+'               strOrigDb - original database  (e.g. "mydb.accdb")
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Bonnie Campbell, December 3, 2015 - for NCPN tools
+' Adapted:      -
+' Revisions:
+'   BLC - 12/3/2015 - initial version
+' ---------------------------------
+Public Sub UpdateTSysTablesDb(strNewDb As String, strOrigDb As String)
+On Error GoTo Err_Handler
+    
+    Dim strSQL As String
+        
+    DoCmd.SetWarnings False
+    
+    'update tsys_Link_Tables
+    strSQL = "UPDATE tsys_Link_Tables SET Link_db = '" & strNewDb & "' WHERE Link_db = '" & strOrigDb & "';"
+    DoCmd.RunSQL (strSQL)
+        
+    DoCmd.SetWarnings True
+
+Exit_Sub:
+    Exit Sub
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - UpdateTSysTablesDb[mod_Linked_Tables])"
+    End Select
+    Resume Exit_Sub
 End Sub

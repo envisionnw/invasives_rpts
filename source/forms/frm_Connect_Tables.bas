@@ -23,10 +23,10 @@ Begin Form
     Width =9300
     DatasheetFontHeight =10
     ItemSuffix =96
-    Left =4770
-    Top =2895
-    Right =14070
-    Bottom =8400
+    Left =6708
+    Top =2112
+    Right =16008
+    Bottom =7620
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0xb46db5e5f0f8e240
@@ -129,10 +129,10 @@ Begin Form
                     FontName ="Arial"
                     ControlTipText ="Close the form"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                 End
                 Begin CommandButton
                     Enabled = NotDefault
@@ -149,10 +149,10 @@ Begin Form
                     FontName ="Arial"
                     ControlTipText ="Update links to the file(s) indicated"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                 End
             End
         End
@@ -177,10 +177,10 @@ Begin Form
                     OnClick ="[Event Procedure]"
                     FontName ="Arial"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin TextBox
@@ -481,13 +481,31 @@ Err_Handler:
     
 End Sub
 
+' ---------------------------------
+' SUB:          cmdUpdateLinks_Click
+' Description:  Update new linked database tsys_Link_Dbs, tsys_Link_Files, tsys_Link_Tables
+' Assumptions:  Tables (tsys_Link_Dbs, tsys_Link_Files & tsys_Link_Dbs) exist with fields as noted
+' Parameters:   -
+' Returns:      -
+' Throws:       none
+' References:   -
+' Source/date:  Russ DenBleyker, unknown
+' Adapted:      -
+' Revisions:
+'   RDB - unknown - initial version
+'   --------------------------------------
+'   BLC - 5/20/2015 - updated to new RefreshLinks version
+'   BLC - 5/28/2015 - added frm_Main_Menu restore on Exit Sub
+'   BLC - 12/2/2015 - revised to handle new database names
+' ---------------------------------
 Private Sub cmdUpdateLinks_Click()
     On Error GoTo Err_Handler
 
     Dim rst As DAO.Recordset
     Dim strSysTable As String       ' Name of the system table listing linked tables
-    Dim strLinkName As String
+    Dim strLinkName As String       ' Original linked database name
     Dim strFilePath As String       ' Path of the new database
+    Dim strFileName As String       ' Name of the new database
     Dim strSQL As String
     Dim bHasError As Boolean
     Dim strLinkDb As String         ' Name of linked database
@@ -495,49 +513,53 @@ Private Sub cmdUpdateLinks_Click()
 
     strSysTable = "[tsys_Link_Tables]"  ' Set the name of the system table
 
-    ' Set a loop in case of multiple back-ends.  If errors are encountered on one,
-    '   go to the next loop rather than exit
-    Set rst = Me.Recordset
+    ' -------------------------------
+    ' Handle multiple back-ends --> On error, next loop rather than exit
+    ' -------------------------------
+    Set rst = Me.Recordset    'backend: tsys_Link_Files
     rst.MoveFirst
 
     bHasError = False   ' Default until an error is encountered
 
+' --- multiple back-end files loop ---
     Do Until rst.EOF
         strLinkDb = rst.Fields("Link_file_name")
         strLinkName = rst.Fields("Link_type")
-        ' If the user didn't specify a different database,
-        '   refresh the links to the current linked file
+        
+        ' -----------------------------
+        ' Same database? --> refresh the links to the current linked file
+        ' -----------------------------
         If IsNull(rst.Fields("New_file_path")) Then
             strFilePath = rst.Fields("Link_file_path")
+            strFileName = rst.Fields("Link_file_name")
         Else
             strFilePath = rst.Fields("New_file_path")
+            strFileName = rst.Fields("New_file_name")
         End If
 
-        ' Build a query statement identifying the tables that should be in the file
-        strSQL = "SELECT * FROM " & strSysTable & " WHERE " & _
+        ' Identify tables that should be in the file
+            strSQL = "SELECT * FROM " & strSysTable & " WHERE " & _
             strSysTable & "![Link_type] = '" & strLinkName & "'"
-
-        ' Verify the file and update the links to the selected file
-    ' -------------------------------------------------------
-    '   BLC, 5/20/2015 - updated to new RefreshLinks version
         
         'If RefreshLinks(strSQL, strFilePath) = False Then
-
         'ODBC; DATABASE=database; UID=user; PWD=password; DSN= datasourcename;
         'strConnString = "Driver={Microsoft Access Driver (*.mdb, *.accdb)};" & _
         '            "Dbq=" & strFilePath & ";Uid=Admin;Pwd=;"
+        
         strConnString = ";DATABASE=" & strFilePath
 
-                    
-        If RefreshLinks(strLinkDb, strConnString) = False Then
-    ' -------------------------------------------------------
-            ' An error was encountered
+        ' Verify file & update links to it
+        If RefreshLinks(strLinkDb, strConnString, , False, strFileName) = False Then
+            
+            ' Linking Error(s)
             MsgBox "Links to this file were not updated or only partially updated", _
                 vbExclamation, strLinkName
             bHasError = True
             GoTo NextBackEnd
-        ' If no linking error on this back end then update the current path and file
+            
+        'No Linking Errors on this back end & new file path --> update current path and file
         ElseIf IsNull(rst.Fields("New_file_path")) = False Then
+            
             With rst
                 .Edit
                 !Link_file_name = rst.Fields("New_file_name").Value
@@ -548,16 +570,14 @@ Private Sub cmdUpdateLinks_Click()
                 .Bookmark = .lastModified
             End With
             
-    ' -------------------------------------------------------
-    '   BLC, 5/20/2015 - added update for tsys_Link_Dbs paths
-    
-            'update tsys_Link_Dbs paths
-            strSQL = "UPDATE tsys_Link_Dbs SET File_Path = '" & strFilePath & "' " & _
+            ' update tsys_Link_Dbs database name & paths
+             strSQL = "UPDATE tsys_Link_Dbs SET File_Path = '" & strFilePath & "', " & _
+                     "Link_db = '" & strFileName & "' " & _
                      "WHERE Link_db = '" & strLinkDb & "';"
             DoCmd.SetWarnings False 'hide the append dialog
             DoCmd.RunSQL strSQL
             DoCmd.SetWarnings True
-    ' -------------------------------------------------------
+        
         End If
 
 NextBackEnd:
@@ -570,20 +590,17 @@ NextBackEnd:
         Err = 0
         rst.MoveNext
     Loop
-    ' End the loop accommodating multiple back-end files here
+' --- multiple back-end files loop ---
 
-    ' If no connection errors, then notify the user and close
+    ' If no connection errors --> notify the user and close
     If bHasError = False Then
         MsgBox "Update complete!", vbExclamation, "Update Back-end Data Connections"
         DoCmd.Close , , acSaveNo
     End If
 
 Exit_Procedure:
-    ' -------------------------------------------------------
-    '   BLC, 5/28/2015 - added frm_Main_Menu restore
-            DoCmd.SelectObject acForm, Forms(MAIN_APP_MENU), False
-            DoCmd.Restore
-    ' -------------------------------------------------------
+    DoCmd.SelectObject acForm, Forms(MAIN_APP_MENU), False
+    DoCmd.Restore
     Exit Sub
 
 Err_Handler:
@@ -605,7 +622,6 @@ Err_Handler:
                 vbCritical, "Error encountered while updating database links"
     End Select
     Resume Exit_Procedure
-    
 End Sub
 
 Private Sub cmdClose_Click()

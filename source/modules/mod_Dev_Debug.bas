@@ -10,7 +10,7 @@ Option Explicit
 '
 ' Source/date:  Bonnie Campbell, 2/12/2015
 ' Revisions:    BLC - 5/27/2015 - 1.00 - initial version
-'               BLC - 7/7/2016  - 1.01 - added GetErrorTrappingOption()
+'               BLC - 7/7/2015  - 1.01 - added GetErrorTrappingOption()
 ' =================================
 
 ' ===================================================================================
@@ -47,7 +47,7 @@ On Error GoTo Err_Handler
     Dim tdf As DAO.TableDef
 
     Set db = CurrentDb()
-    Set tdf = db.tabledefs(TableName)
+    Set tdf = db.TableDefs(TableName)
 
     'Change the connect value
     tdf.Connect = strConn '"ODBC;DATABASE=pubs;UID=sa;PWD=;DSN=Publishers"
@@ -91,7 +91,7 @@ On Error GoTo Err_Handler
     Dim tdf As DAO.TableDef
 
     Set db = CurrentDb()
-    Set tdf = db.tabledefs(strTable)
+    Set tdf = db.TableDefs(strTable)
 
     'Change the database value
     tdf.Connect = ";DATABASE=" & strDbPath

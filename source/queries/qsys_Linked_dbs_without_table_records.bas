@@ -1,19 +1,7 @@
-﻿Operation =1
-Option =0
-Where ="(((tsys_Link_Tables.Link_db) Is Null))"
-Begin InputTables
-    Name ="tsys_Link_Dbs"
-    Name ="tsys_Link_Tables"
-End
-Begin OutputColumns
-    Expression ="tsys_Link_Dbs.*"
-End
-Begin Joins
-    LeftTable ="tsys_Link_Dbs"
-    RightTable ="tsys_Link_Tables"
-    Expression ="tsys_Link_Dbs.Link_db = tsys_Link_Tables.Link_db"
-    Flag =2
-End
+﻿dbMemo "SQL" ="SELECT tsys_Link_Dbs.*\015\012FROM tsys_Link_Dbs LEFT JOIN tsys_Link_Tables ON t"
+    "sys_Link_Dbs.Link_db = tsys_Link_Tables.Link_db\015\012WHERE (((tsys_Link_Tables"
+    ".Link_db) Is Null));\015\012"
+dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
 dbByte "RecordsetType" ="0"
@@ -29,36 +17,50 @@ dbBoolean "FilterOnLoad" ="0"
 dbBoolean "OrderByOnLoad" ="-1"
 dbBoolean "TotalsRow" ="0"
 Begin
-End
-Begin
-    State =0
-    Left =62
-    Top =84
-    Right =1130
-    Bottom =396
-    Left =-1
-    Top =-1
-    Right =1030
-    Bottom =123
-    Left =0
-    Top =0
-    ColumnsShown =539
     Begin
-        Left =38
-        Top =6
-        Right =134
-        Bottom =113
-        Top =0
-        Name ="tsys_Link_Dbs"
-        Name =""
+        dbText "Name" ="tsys_Link_Dbs.Link_db"
+        dbLong "AggregateType" ="-1"
     End
     Begin
-        Left =172
-        Top =6
-        Right =268
-        Bottom =113
-        Top =0
-        Name ="tsys_Link_Tables"
-        Name =""
+        dbText "Name" ="tsys_Link_Dbs.Db_desc"
+        dbInteger "ColumnWidth" ="2376"
+        dbBoolean "ColumnHidden" ="0"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsys_Link_Dbs.Backups"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsys_Link_Dbs.Is_ODBC"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsys_Link_Dbs.Is_Network_db"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsys_Link_Dbs.File_path"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsys_Link_Dbs.Server"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsys_Link_Dbs.New_db"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsys_Link_Dbs.New_path"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsys_Link_Dbs.New_server"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsys_Link_Dbs.Sort_order"
+        dbLong "AggregateType" ="-1"
     End
 End

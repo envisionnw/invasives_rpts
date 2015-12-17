@@ -14,11 +14,10 @@ Begin Form
     GridY =24
     Width =8580
     DatasheetFontHeight =9
-    ItemSuffix =10
-    Left =135
-    Top =-60
-    Right =8715
-    Bottom =5685
+    ItemSuffix =11
+    Left =132
+    Right =8712
+    Bottom =5748
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x81b16fedaecae340
@@ -79,10 +78,11 @@ Begin Form
                     Caption ="Link Data Tables"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
+                    Overlaps =1
                 End
                 Begin CommandButton
                     OverlapFlags =85
@@ -95,10 +95,11 @@ Begin Form
                     Caption ="Infestation Report"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
+                    Overlaps =1
                 End
                 Begin CommandButton
                     OverlapFlags =85
@@ -111,15 +112,16 @@ Begin Form
                     Caption ="Infestations by Route"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
+                    Overlaps =1
                 End
                 Begin CommandButton
                     OverlapFlags =85
                     Left =3840
-                    Top =4260
+                    Top =4740
                     Width =1035
                     Height =300
                     TabIndex =3
@@ -127,10 +129,15 @@ Begin Form
                     Caption ="Close Form"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    LayoutCachedLeft =3840
+                    LayoutCachedTop =4740
+                    LayoutCachedWidth =4875
+                    LayoutCachedHeight =5040
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
+                    Overlaps =1
                 End
                 Begin CommandButton
                     OverlapFlags =85
@@ -143,10 +150,11 @@ Begin Form
                     Caption ="Infestations by Size Class"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
+                    Overlaps =1
                 End
                 Begin CommandButton
                     OverlapFlags =85
@@ -159,10 +167,11 @@ Begin Form
                     Caption ="Infestations by Growth Stage"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
+                    Overlaps =1
                 End
                 Begin CommandButton
                     OverlapFlags =85
@@ -175,10 +184,11 @@ Begin Form
                     Caption ="Monitoring Transect Data"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
+                    Overlaps =1
                 End
                 Begin CommandButton
                     OverlapFlags =85
@@ -191,10 +201,11 @@ Begin Form
                     Caption ="Species Cover by Route"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
+                    Overlaps =1
                 End
                 Begin CommandButton
                     OverlapFlags =85
@@ -207,15 +218,16 @@ Begin Form
                     Caption ="Transect Count by Route"
                     OnClick ="[Event Procedure]"
 
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
+                    Overlaps =1
                 End
                 Begin CommandButton
                     OverlapFlags =85
                     Left =4440
-                    Top =3300
+                    Top =3780
                     Width =2580
                     FontSize =11
                     TabIndex =9
@@ -229,9 +241,9 @@ Begin Form
                     GridlineColor =10921638
 
                     LayoutCachedLeft =4440
-                    LayoutCachedTop =3300
+                    LayoutCachedTop =3780
                     LayoutCachedWidth =7020
-                    LayoutCachedHeight =3660
+                    LayoutCachedHeight =4140
                     GridlineThemeColorIndex =1
                     GridlineShade =65.0
                     UseTheme =1
@@ -243,10 +255,33 @@ Begin Form
                     PressedColor =52224
                     HoverForeColor =2375487
                     PressedForeColor =6750156
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
+                    Overlaps =1
+                End
+                Begin CommandButton
+                    OverlapFlags =85
+                    Left =1620
+                    Top =3840
+                    Width =2370
+                    Height =300
+                    TabIndex =10
+                    Name ="btnEDSW"
+                    Caption ="EDSW by Park"
+                    OnClick ="[Event Procedure]"
+                    ControlTipText ="Display EDSW"
+
+                    LayoutCachedLeft =1620
+                    LayoutCachedTop =3840
+                    LayoutCachedWidth =3990
+                    LayoutCachedHeight =4140
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
+                    Overlaps =1
                 End
             End
         End
@@ -558,4 +593,46 @@ Exit_ButtonTransectCount_Click:
 Err_ButtonTransectCount_Click:
     MsgBox Err.Description
     Resume Exit_ButtonTransectCount_Click
+End Sub
+
+' ---------------------------------
+' SUB:          btnEDSW_Click
+' Description:  open the EDSW park/year selection form
+' Parameters:   -
+' Returns:      -
+' Throws:       -
+' References:   -
+' Source/date:  Bonnie Campbell, December 3, 2015 - for NCPN tools
+' Adapted:      -
+' Revisions:
+'   BLC - 12/3/2015 - initial version
+' ---------------------------------
+Private Sub btnEDSW_Click()
+On Error GoTo Err_Handler
+
+'SELECT tbl_EDSW.Unit_Code, Year([GPS_Date]) AS Visit_Year, Min(tbl_EDSW.EDSW_m) AS Min_EDSW, Max(tbl_EDSW.EDSW_m) AS Max_EDSW
+'FROM tbl_EDSW
+'GROUP BY tbl_EDSW.Unit_Code, Year([GPS_Date])
+'HAVING (((tbl_EDSW.Unit_Code) = [Park Code]) And ((Year([GPS_Date])) = [Visit Year]))
+'ORDER BY tbl_EDSW.Unit_Code, Year([GPS_Date]);
+
+    Dim oArgs As String, rpt As String
+    
+    'parse open args ( MsgBox.Title = lblTitle.caption )
+    'Report Name | Me.Caption | lblTitle.caption | lbxYear.RowSource | Park | Year
+    rpt = "rpt_EDSW_By_Park"
+    oArgs = rpt & " | Park EDSW Data | Park EDSW Data | SELECT DISTINCT Visit_Year FROM qry_EDSW_by_Park ORDER BY Visit_Year DESC;"
+
+    DoCmd.OpenForm "frm_Select_Park_Year", acNormal, , , , acWindowNormal, oArgs
+    
+Exit_Procedure:
+    Exit Sub
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - btnEDSW_Click[frm_Main_Menu])"
+    End Select
+    Resume Exit_Procedure
 End Sub

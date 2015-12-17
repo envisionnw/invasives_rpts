@@ -2,6 +2,7 @@
 VersionRequired =20
 Begin Report
     LayoutForPrint = NotDefault
+    FilterOn = NotDefault
     AllowDesignChanges = NotDefault
     DefaultView =0
     TabularFamily =126
@@ -14,12 +15,12 @@ Begin Report
     Width =10800
     DatasheetFontHeight =9
     ItemSuffix =38
-    Left =270
-    Top =210
-    Right =13890
-    Bottom =8190
+    Left =2028
+    Top =252
+    Right =13632
+    Bottom =8256
     DatasheetGridlinesColor =12632256
-    Filter ="([Unit_Code] = 'BLCA' AND Visit_Year = 2012)"
+    Filter ="[Unit_Code] = 'CARE' AND Visit_Year = 2011"
     RecSrcDt = Begin
         0xa95fc136d4cce340
     End
@@ -34,6 +35,7 @@ Begin Report
     OnActivate ="[Event Procedure]"
     FilterOnLoad =0
     DatasheetGridlinesColor12 =12632256
+    RibbonName ="Export"
     Begin
         Begin Label
             BackStyle =0
@@ -88,10 +90,12 @@ Begin Report
         End
         Begin BreakLevel
             GroupHeader = NotDefault
+            KeepTogether =2
             ControlSource ="Plot_ID"
         End
         Begin BreakLevel
             GroupHeader = NotDefault
+            KeepTogether =2
             ControlSource ="Species"
         End
         Begin FormHeader
@@ -116,6 +120,7 @@ Begin Report
                     Top =720
                     Width =3720
                     Height =360
+                    ColumnOrder =0
                     FontSize =16
                     Name ="Park_Name"
 
@@ -126,6 +131,7 @@ Begin Report
                     Top =720
                     Width =1260
                     Height =360
+                    ColumnOrder =1
                     FontSize =16
                     TabIndex =1
                     Name ="Visit_Year"
@@ -223,14 +229,18 @@ Begin Report
                 End
                 Begin Label
                     TextAlign =2
-                    Left =4740
+                    Left =4560
                     Top =600
-                    Width =1215
+                    Width =1623
                     Height =270
                     FontSize =10
                     Name ="Growth_Stage_Label"
                     Caption ="Growth Stage"
                     Tag ="DetachedLabel"
+                    LayoutCachedLeft =4560
+                    LayoutCachedTop =600
+                    LayoutCachedWidth =6183
+                    LayoutCachedHeight =870
                 End
                 Begin Label
                     TextAlign =2

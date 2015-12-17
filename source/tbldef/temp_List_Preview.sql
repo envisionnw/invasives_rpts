@@ -6,7 +6,7 @@ CREATE TABLE [temp_List_Preview] (
   [Species] VARCHAR (255),
   [Priority] SHORT ,
   [Transect_Only] BYTE ,
-  [Target_Area_ID] SHORT ,
+  [Extra_Area_ID] SHORT ,
   [Tgt_Area] VARCHAR (255),
   [Family] VARCHAR (50),
   [Master_Common_Name] VARCHAR (50),

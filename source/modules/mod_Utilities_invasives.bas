@@ -479,10 +479,10 @@ Loop
 GetFileName = strFilePath
 End Function
 
-Public Function FileIsReadOnly(strFilename As String) As Boolean
+Public Function FileIsReadOnly(strFileName As String) As Boolean
 On Error GoTo Err_FileIsReadOnly
 
-FileIsReadOnly = ((GetAttr(strFilename) And vbReadOnly) <> 0)
+FileIsReadOnly = ((GetAttr(strFileName) And vbReadOnly) <> 0)
 
 Exit_FileIsReadOnly:
     Exit Function
@@ -490,7 +490,7 @@ Exit_FileIsReadOnly:
 Err_FileIsReadOnly:
     Select Case Err.Number
         Case 76  'file not found
-            MsgBox "Unable to locate file " & strFilename & "."
+            MsgBox "Unable to locate file " & strFileName & "."
         Case Else
             MsgBox Err.Number & " - " & Err.Description
             Resume Exit_FileIsReadOnly
@@ -588,12 +588,12 @@ strNewList = DelimiterCleanup(strListMain, strDelimiter)
 ListCompare = strNewList
 End Function
 
-Public Function UnrecognizedDatabaseFormat(strFilename As String) As Boolean
+Public Function UnrecognizedDatabaseFormat(strFileName As String) As Boolean
 Dim db As Database
 
 On Error GoTo Err_UnrecognizedDatabaseFormat
 
-Set db = OpenDatabase(strFilename)
+Set db = OpenDatabase(strFileName)
 
 UnrecognizedDatabaseFormat = False
 
@@ -619,7 +619,7 @@ Dim tdf As TableDef
 
 Set db = CurrentDb
 
-For Each tdf In db.tabledefs
+For Each tdf In db.TableDefs
     If Not Left(tdf.name, 4) = "MSys" Then
         Debug.Print tdf.name & ": " & tdf.RecordCount
     End If
@@ -662,7 +662,7 @@ Dim strOutput As String
 On Error Resume Next
 
 Set db = CurrentDb
-Set tdf = db.tabledefs(strObjectName)
+Set tdf = db.TableDefs(strObjectName)
 
 If Err.Number = 3265 Then
     Err.Clear
@@ -789,7 +789,7 @@ Dim rst As Recordset
 Set db = CurrentDb
 
 If IsMissing(varFileType) Then
-    For Each tdf In db.tabledefs
+    For Each tdf In db.TableDefs
         If Not Left(tdf.name, 4) = "MSys" Then
             Debug.Print "Table: " & tdf.name
             For Each idx In tdf.Indexes
@@ -804,7 +804,7 @@ Else
     Set rst = db.OpenRecordset("SELECT LinkTableName FROM tblLinkedTables WHERE LinkCategory='" & varFileType & "' ORDER BY LinkTableName;", dbOpenForwardOnly)
     
     Do Until rst.EOF
-        Set tdf = db.tabledefs(rst!LinkTableName)
+        Set tdf = db.TableDefs(rst!LinkTableName)
         Debug.Print "Table: " & tdf.name
         For Each idx In tdf.Indexes
             Debug.Print vbTab & "Index: " & idx.name
@@ -1150,7 +1150,7 @@ Dim intResult As Integer
 
 On Error Resume Next
 
-intResult = CurrentDb.tabledefs(strTableName)(strFieldName).Type
+intResult = CurrentDb.TableDefs(strTableName)(strFieldName).Type
 GetDataType = intResult
 End Function
 

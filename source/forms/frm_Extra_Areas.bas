@@ -13,13 +13,16 @@ Begin Form
     Width =7215
     DatasheetFontHeight =11
     ItemSuffix =14
-    Right =7215
-    Bottom =5610
+    Left =5940
+    Top =876
+    Right =13656
+    Bottom =6744
     DatasheetGridlinesColor =14806254
     RecSrcDt = Begin
         0xc1f3db6ed487e440
     End
     RecordSource ="tbl_Target_Areas"
+    Caption ="Extra Areas"
     DatasheetFontName ="Calibri"
     PrtMip = Begin
         0x6801000068010000680100006801000000000000201c0000e010000001000000 ,
@@ -182,7 +185,7 @@ Begin Form
                     FontSize =14
                     BorderColor =8355711
                     ForeColor =8355711
-                    Name ="lblTgtAreaHdr"
+                    Name ="lblExtraAreaHdr"
                     Caption ="Extra Areas"
                     GridlineColor =10921638
                     LayoutCachedLeft =60
@@ -200,12 +203,12 @@ Begin Form
                     ColumnOrder =0
                     BorderColor =10921638
                     ForeColor =4210752
-                    Name ="tbxTgtArea"
+                    Name ="tbxExtraArea"
                     DefaultValue ="\"\""
                     OnKeyUp ="[Event Procedure]"
                     OnLostFocus ="[Event Procedure]"
                     OnChange ="[Event Procedure]"
-                    ControlTipText ="Enter new target area"
+                    ControlTipText ="Enter new extra area"
                     GridlineColor =10921638
 
                     LayoutCachedLeft =540
@@ -221,7 +224,7 @@ Begin Form
                             Height =300
                             BorderColor =8355711
                             ForeColor =8355711
-                            Name ="lblTgtArea"
+                            Name ="lblExtraArea"
                             Caption ="Enter the extra area name."
                             GridlineColor =10921638
                             LayoutCachedLeft =240
@@ -238,7 +241,7 @@ Begin Form
                     Width =2220
                     TabIndex =1
                     ForeColor =16711680
-                    Name ="btnAddTgtArea"
+                    Name ="btnAddExtraArea"
                     Caption ="Add new Extra Area"
                     StatusBarText ="Add new extra/target area"
                     OnClick ="[Event Procedure]"
@@ -269,10 +272,10 @@ Begin Form
                     PressedForeColor =6750156
                     PressedForeThemeColorIndex =-1
                     PressedForeTint =100.0
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =1
-                    WebImagePaddingBottom =1
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =2
+                    WebImagePaddingBottom =2
                     Overlaps =1
                 End
                 Begin Label
@@ -337,7 +340,7 @@ Begin Form
                 End
                 Begin Image
                     PictureType =2
-                    Left =4260
+                    Left =4080
                     Top =2820
                     Width =540
                     Height =300
@@ -346,9 +349,9 @@ Begin Form
                     Picture ="delete"
                     GridlineColor =10921638
 
-                    LayoutCachedLeft =4260
+                    LayoutCachedLeft =4080
                     LayoutCachedTop =2820
-                    LayoutCachedWidth =4800
+                    LayoutCachedWidth =4620
                     LayoutCachedHeight =3120
                     TabIndex =2
                 End
@@ -369,7 +372,7 @@ Begin Form
                     Width =420
                     Height =300
                     ForeColor =4210752
-                    Name ="btnDeleteTgtArea"
+                    Name ="btnDeleteExtraArea"
                     Caption ="Delete Target Area"
                     OnClick ="[Event Procedure]"
                     ControlTipText ="Delete Record"
@@ -424,10 +427,10 @@ Begin Form
                     PressedColor =9592887
                     HoverForeColor =4210752
                     PressedForeColor =4210752
-                    WebImagePaddingLeft =2
-                    WebImagePaddingTop =2
-                    WebImagePaddingRight =2
-                    WebImagePaddingBottom =2
+                    WebImagePaddingLeft =3
+                    WebImagePaddingTop =3
+                    WebImagePaddingRight =3
+                    WebImagePaddingBottom =3
                     Overlaps =1
                 End
                 Begin TextBox
@@ -442,7 +445,7 @@ Begin Form
                     TabIndex =1
                     BorderColor =10921638
                     ForeColor =4210752
-                    Name ="tbxTgtAreaName"
+                    Name ="tbxExtraAreaName"
                     ControlSource ="Target_Area"
                     GridlineColor =10921638
 
@@ -464,7 +467,7 @@ Begin Form
                     TabIndex =2
                     BorderColor =10921638
                     ForeColor =4210752
-                    Name ="tbxTgtAreaID"
+                    Name ="tbxExtraAreaID"
                     ControlSource ="=IIf([Target_Area_ID]>0,\"ID: \" & [Target_Area_ID],\"\")"
                     GridlineColor =10921638
 
@@ -493,13 +496,14 @@ Option Compare Database
 Option Explicit
 
 ' =================================
-' MODULE:       Form_frm_Tgt_Areas
+' MODULE:       Form_frm_Extra_Areas
 ' Description:  Target area functions & procedures
 '
 ' Source/date:  Bonnie Campbell, 2/11/2015
 ' Revisions:    BLC - 2/11/2015 - initial version
 '               BLC - 6/3/2015  - prevent existing list target area deletion
 '               BLC - 6/30/2015 - removed unused lblAddTgtArea_Click()
+'               BLC - 12/1/2015 - updated documentation to reflect "extra" vs "tgt" areas
 ' =================================
 
 ' ---------------------------------
@@ -514,6 +518,7 @@ Option Explicit
 ' Adapted:      Bonnie Campbell, February 12, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/12/2015 - initial version
+'   BLC - 12/1/2015 - updated controls to Extra vs. Tgt area
 ' ---------------------------------
 Private Sub Form_Load()
 
@@ -521,10 +526,10 @@ On Error GoTo Err_Handler
     
     Initialize
        
-    If Len(tbxTgtArea.Value) = 0 Then
+    If Len(tbxExtraArea.Value) = 0 Then
         'disable search until something is entered
-        btnAddTgtArea.Enabled = False
-        DisableControl btnAddTgtArea
+        btnAddExtraArea.Enabled = False
+        DisableControl btnAddExtraArea
     End If
     
 Exit_Sub:
@@ -534,14 +539,14 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - Form_Load[form_frm_Tgt_Areas])"
+            "Error encountered (#" & Err.Number & " - Form_Load[form_frm_Extra_Areas])"
     End Select
     Resume Exit_Sub
 End Sub
 
 ' ---------------------------------
-' SUB:          tbxTgtArea_Change
-' Description:  Actions to take when new target area textbox is not empty
+' SUB:          tbxExtraArea_Change
+' Description:  Actions to take when new extra area textbox is not empty
 ' Assumptions:  -
 ' Parameters:   -
 ' Returns:      -
@@ -552,18 +557,19 @@ End Sub
 ' Revisions:
 '   BLC - 2/12/2015 - initial version
 '   BLC - 5/13/2015 - revised to use global constants vs. tempvars for enabled control
+'   BLC - 12/1/2015 - updated controls to Extra vs. Tgt area
 ' ---------------------------------
-Private Sub tbxTgtArea_Change()
+Private Sub tbxExtraArea_Change()
 On Error GoTo Err_Handler
     
-    If Len(tbxTgtArea.Value) > 0 Then
+    If Len(tbxExtraArea.Value) > 0 Then
         'enable the search "button"
-        EnableControl btnAddTgtArea, CTRL_ADD_ENABLED, TEXT_ENABLED
-        btnAddTgtArea.Enabled = True
+        EnableControl btnAddExtraArea, CTRL_ADD_ENABLED, TEXT_ENABLED
+        btnAddExtraArea.Enabled = True
     Else
         'disable the search "button"
-        btnAddTgtArea.Enabled = False
-        DisableControl btnAddTgtArea
+        btnAddExtraArea.Enabled = False
+        DisableControl btnAddExtraArea
     End If
     
 Exit_Sub:
@@ -573,14 +579,14 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - tbxTgtArea_Change[form_frm_Tgt_Areas])"
+            "Error encountered (#" & Err.Number & " - tbxExtraArea_Change[form_frm_Extra_Areas])"
     End Select
     Resume Exit_Sub
 End Sub
 
 ' ---------------------------------
-' SUB:          tbxTgtArea_LostFocus
-' Description:  Actions to take when new target area textbox is not empty
+' SUB:          tbxExtraArea_LostFocus
+' Description:  Actions to take when new extra area textbox is not empty
 ' Assumptions:  -
 ' Parameters:   -
 ' Returns:      -
@@ -590,16 +596,17 @@ End Sub
 ' Adapted:      Bonnie Campbell, February 10, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/10/2015 - initial version
+'   BLC - 12/1/2015 - updated controls to Extra vs. Tgt area
 ' ---------------------------------
-Private Sub tbxTgtArea_LostFocus()
+Private Sub tbxExtraArea_LostFocus()
 On Error GoTo Err_Handler
     
-    If Len(tbxTgtArea.Value) > 0 Then
+    If Len(tbxExtraArea.Value) > 0 Then
         'enable the search "button"
-        btnAddTgtArea.Enabled = True
+        btnAddExtraArea.Enabled = True
     Else
         'disable the search "button"
-        btnAddTgtArea.Enabled = False
+        btnAddExtraArea.Enabled = False
     End If
     
 Exit_Sub:
@@ -609,14 +616,14 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - tbxTgtArea_LostFocus[form_frm_Tgt_Areas])"
+            "Error encountered (#" & Err.Number & " - tbxExtraArea_LostFocus[form_frm_Extra_Areas])"
     End Select
     Resume Exit_Sub
 End Sub
 
 ' ---------------------------------
-' SUB:          tbxTgtArea_KeyUp
-' Description:  Actions to take when new target area textbox is not empty
+' SUB:          tbxExtraArea_KeyUp
+' Description:  Actions to take when new extra area textbox is not empty
 ' Assumptions:  -
 ' Parameters:   KeyCode - value of key press(integer)
 '               Shift - if Shift key was pressed (integer)
@@ -627,18 +634,19 @@ End Sub
 ' Adapted:      Bonnie Campbell, February 12, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/12/2015 - initial version
+'   BLC - 12/1/2015 - updated controls to Extra vs. Tgt area
 ' ---------------------------------
-Private Sub tbxTgtArea_KeyUp(KeyCode As Integer, Shift As Integer)
+Private Sub tbxExtraArea_KeyUp(KeyCode As Integer, Shift As Integer)
 On Error GoTo Err_Handler
     
-    If Len(tbxTgtArea.Value) > 0 Then
+    If Len(tbxExtraArea.Value) > 0 Then
         'enable the search "button"
-         btnAddTgtArea.Enabled = True
-        EnableControl btnAddTgtArea, lngLtLime, lngBlue, lngDkLime, lngBrtLime, lngLtGreen, lngDkGray, lngLtLime
+         btnAddExtraArea.Enabled = True
+        EnableControl btnAddExtraArea, lngLtLime, lngBlue, lngDkLime, lngBrtLime, lngLtGreen, lngDkGray, lngLtLime
     Else
         'disable the search "button"
-        btnAddTgtArea.Enabled = False
-        DisableControl btnAddTgtArea
+        btnAddExtraArea.Enabled = False
+        DisableControl btnAddExtraArea
     End If
     
 Exit_Sub:
@@ -648,14 +656,14 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - tbxTgtArea_LostFocus[form_frm_Tgt_Areas])"
+            "Error encountered (#" & Err.Number & " - tbxExtraArea_LostFocus[form_frm_Extra_Areas])"
     End Select
     Resume Exit_Sub
 End Sub
 
 ' ---------------------------------
-' SUB:          btnAddTgtArea_Click
-' Description:  Add target area
+' SUB:          btnAddExtraArea_Click
+' Description:  Add extra area
 ' Assumptions:  -
 ' Parameters:   N/A
 ' Returns:      N/A
@@ -665,25 +673,21 @@ End Sub
 ' Adapted:      Bonnie Campbell, February 12, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 2/12/2015 - initial version
+'   BLC - 12/1/2015 - updated controls to Extra vs. Tgt area
 ' ---------------------------------
-Private Sub btnAddTgtArea_Click()
+Private Sub btnAddExtraArea_Click()
 On Error GoTo Err_Handler
-    Dim strTgtArea As String
-    'Dim strSQL As String
+    Dim strExtraArea As String
     
-    'strSQL = "INSERT INTO tbl_Target_Areas(Target_Area) VALUES "
-    
-    If ValidateString(tbxTgtArea.Value, "alphaspace") = True Then
-        strTgtArea = Trim(tbxTgtArea.Value)
-        
-        'strSQL = strSQL & "('" & strTgtArea & "')"
-        
+    If ValidateString(tbxExtraArea.Value, "alphaspace") = True Then
+        strExtraArea = Trim(tbxExtraArea.Value)
+                
         Dim rs As Recordset
     
         Set rs = CurrentDb.OpenRecordset("SELECT * FROM [tbl_Target_Areas]")
         rs.AddNew
         
-        rs![Target_Area] = strTgtArea
+        rs![Target_Area] = strExtraArea
         rs.Update
         rs.Close
         Set rs = Nothing
@@ -693,7 +697,7 @@ On Error GoTo Err_Handler
     'refresh the target area list
     'Form.Refresh
     'refresh form
-    DoCmd.OpenForm "frm_Tgt_Areas", acNormal
+    DoCmd.OpenForm "frm_Extra_Areas", acNormal
     
 Exit_Sub:
     Exit Sub
@@ -702,14 +706,14 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - btnAddTgtArea_Click[form_frm_Tgt_Areas])"
+            "Error encountered (#" & Err.Number & " - btnAddExtraArea_Click[form_frm_Extra_Areas])"
     End Select
     Resume Exit_Sub
 End Sub
 
 ' ---------------------------------
-' SUB:          btnDeleteTgtArea_Click
-' Description:  Delete a target area
+' SUB:          btnDeleteExtraArea_Click
+' Description:  Delete a extra area
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       none
@@ -718,8 +722,9 @@ End Sub
 ' Adapted:      Bonnie Campbell, June 3, 2015 - for NCPN tools
 ' Revisions:
 '   BLC - 6/3/2015  - initial version
+'   BLC - 12/1/2015 - updated controls to Extra vs. Tgt area
 ' ---------------------------------
-Private Sub btnDeleteTgtArea_Click()
+Private Sub btnDeleteExtraArea_Click()
 On Error GoTo Err_Handler
 
     ' _AXL:<?xml version="1.0" encoding="UTF-16" standalone="no"?>
@@ -735,13 +740,13 @@ On Error GoTo Err_Handler
     
     If (Not Form.NewRecord) Then
     
-        'check if target area in use before deleting
-        If (IsUsedTargetArea(Form.Target_Area_ID)) Then
+        'check if extra area in use before deleting
+        If (IsUsedExtraArea(Form.Target_Area_ID)) Then
             Beep
             MsgBox "Sorry, " & Me.Target_Area & " is already used in a target species list and " & _
                    "cannot be deleted at this time. " & _
                    vbCrLf & vbCrLf & "Please contact the project ecologist/data manager for guidance.", _
-                   vbExclamation, Me.Target_Area & " Target Area in Use!"
+                   vbExclamation, Me.Target_Area & " Extra Area in Use!"
         Else
             DoCmd.RunCommand acCmdDeleteRecord
         End If
@@ -769,7 +774,7 @@ Err_Handler:
     Select Case Err.Number
       Case Else
         MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-            "Error encountered (#" & Err.Number & " - btnDeleteTgtArea_Click[form_frm_Tgt_Areas])"
+            "Error encountered (#" & Err.Number & " - btnDeleteExtraArea_Click[form_frm_Extra_Areas])"
     End Select
     Resume Exit_Sub
 End Sub

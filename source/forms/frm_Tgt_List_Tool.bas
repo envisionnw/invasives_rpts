@@ -22,8 +22,8 @@ Begin Form
     Width =12300
     DatasheetFontHeight =10
     ItemSuffix =196
-    Left =60
-    Right =12360
+    Left =3840
+    Right =16140
     Bottom =10560
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
@@ -339,7 +339,7 @@ Begin Form
                     Top =1800
                     Width =11160
                     Height =6840
-                    BackColor =16764108
+                    BackColor =16772300
                     Name ="rctMainTabColor"
                     LayoutCachedLeft =480
                     LayoutCachedTop =1800
@@ -372,7 +372,7 @@ Begin Form
                     BorderColor =16777215
                     ForeColor =8355711
                     Name ="lblInstructions"
-                    Caption ="Choose the park and year for your list. Click 'Continue' to prepare your report."
+                    Caption =" "
                     FontName ="Calibri"
                     GridlineColor =10921638
                     LayoutCachedLeft =6420
@@ -426,7 +426,6 @@ Begin Form
                     OldBorderStyle =0
                     Begin
                         Begin Page
-                            Visible = NotDefault
                             OverlapFlags =247
                             Left =60
                             Top =540
@@ -500,12 +499,13 @@ Begin Form
                                     Width =2399
                                     Height =420
                                     FontSize =11
+                                    BackColor =8648143
                                     ForeColor =16711680
-                                    Name ="btnAddTgtArea"
-                                    Caption ="Add Target Area(s)"
+                                    Name ="btnAddExtraArea"
+                                    Caption ="Add Extra Area(s)"
                                     FontName ="Calibri"
                                     OnClick ="[Event Procedure]"
-                                    ControlTipText ="Add target area"
+                                    ControlTipText ="Add extra area"
                                     LayoutCachedLeft =2280
                                     LayoutCachedTop =4320
                                     LayoutCachedWidth =4679
@@ -617,6 +617,7 @@ Begin Form
                             End
                         End
                         Begin Page
+                            Visible = NotDefault
                             OverlapFlags =247
                             Left =60
                             Top =540
@@ -657,7 +658,6 @@ Begin Form
                                 End
                                 Begin Label
                                     FontUnderline = NotDefault
-                                    BackStyle =1
                                     BorderWidth =1
                                     OverlapFlags =247
                                     TextAlign =2
@@ -870,7 +870,7 @@ Begin Form
                     BorderColor =16777215
                     ForeColor =5855577
                     Name ="lblInsetTitle"
-                    Caption ="Reports > Field Crew Species List"
+                    Caption ="Choose what you'd like to create or modify"
                     FontName ="Calibri"
                     GridlineColor =10921638
                     LayoutCachedLeft =840
@@ -886,6 +886,7 @@ Begin Form
                     GridlineShade =65.0
                 End
                 Begin Subform
+                    Visible = NotDefault
                     OverlapFlags =247
                     Left =6540
                     Top =4620
@@ -1311,19 +1312,20 @@ Private Sub btnCreateTgtLists_Click()
 End Sub
 
 ' ---------------------------------
-' SUB:     btnAddTgtArea_Click
-' Description:  Add new target area(s)
+' SUB:     btnAddExtraArea_Click
+' Description:  Add new extra area(s)
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       -
 ' References:   -
 ' Source/date:  Bonnie Campbell, April 22, 2015
 ' Revisions:    4/22/2015 - BLC - initial version
+'               12/1/2015 - BLC - "extra" areas renaming from btnAddTgtArea to btnAddExtraArea
 ' ---------------------------------
-Private Sub btnAddTgtArea_Click()
+Private Sub btnAddExtraArea_Click()
     
     'button actions
-    ActionButton_Click btnAddTgtArea, "frm_Tgt_Areas"
+    ActionButton_Click btnAddExtraArea, "frm_Extra_Areas"
     
     fsub_Filter.visible = False
        

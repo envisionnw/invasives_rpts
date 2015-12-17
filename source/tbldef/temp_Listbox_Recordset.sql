@@ -3,5 +3,5 @@ CREATE TABLE [temp_Listbox_Recordset] (
   [Species] VARCHAR (255),
   [LUCode] VARCHAR (20),
   [Transect_Only] BYTE ,
-  [Target_Area_ID] SHORT 
+  [Extra_Area_ID] SHORT 
 )

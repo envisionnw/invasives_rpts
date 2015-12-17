@@ -1,8 +1,9 @@
-﻿dbMemo "SQL" ="SELECT *\015\012FROM qry_Tgt_Species_List_Park_Summary_Data;\015\012"
+﻿dbMemo "SQL" ="SELECT *\015\012FROM qry_Tgt_Species_List_Park_Summary_Data\015\012ORDER BY Fami"
+    "ly, utah_species;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
-dbBoolean "OrderByOn" ="0"
+dbBoolean "OrderByOn" ="-1"
 dbByte "Orientation" ="0"
 dbByte "DefaultView" ="2"
 dbBoolean "FilterOnLoad" ="0"
@@ -13,10 +14,14 @@ dbText "Description" ="Target species summary for all parks for a given year  (T
 dbBinary "GUID" = Begin
     0x6d824cbd6a47ba4d8f427a2a27bf6c13
 End
+dbMemo "OrderBy" ="[qry_Tgt_Species_List_Park_Summary].[Family], [qry_Tgt_Species_List_Park_Summary"
+    "].[Species_Name]"
 Begin
     Begin
         dbText "Name" ="qry_Tgt_Species_List_Park_Summary_Data.ParkYearPriorities"
         dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="8136"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="qry_Tgt_Species_List_Park_Summary_Data.MinYear"
