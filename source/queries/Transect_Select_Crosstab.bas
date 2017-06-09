@@ -66,6 +66,7 @@ Begin
     End
     Begin
         dbText "Name" ="MinOfPercentCover"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0xab1da77f4d4a0b4cb594a2221515c7a6
         End

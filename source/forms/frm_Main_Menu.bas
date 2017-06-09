@@ -197,7 +197,7 @@ Begin Form
                     Width =2370
                     Height =300
                     TabIndex =7
-                    Name ="btnSpeciesCoover"
+                    Name ="btnSpeciesCover"
                     Caption ="Species Cover by Route"
                     OnClick ="[Event Procedure]"
 

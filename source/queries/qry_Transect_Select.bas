@@ -64,7 +64,7 @@ Begin
     End
     Begin
         dbText "Name" ="tbl_Locations.Area"
-        dbInteger "ColumnWidth" ="660"
+        dbInteger "ColumnWidth" ="1635"
         dbBoolean "ColumnHidden" ="0"
         dbLong "AggregateType" ="-1"
     End
