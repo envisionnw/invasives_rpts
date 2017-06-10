@@ -1,10 +1,10 @@
 ﻿dbMemo "SQL" ="TRANSFORM Min(ts.PercentCover) AS MinOfPercentCover\015\012SELECT ID, ts.Unit_Co"
-    "de AS Unit_Code, ts.Plot_ID AS Plot_ID, ts.Transect AS Transect, ts.Area AS Area"
-    ", ts.E_Coord AS E_Coord, ts.N_Coord AS N_Coord, ts.Species AS Species, ts.Master"
-    "_Common_Name AS Master_Common_Name, ts.IsDead\015\012FROM Transect_Select AS ts\015"
-    "\012GROUP BY ID, ts.Unit_Code, ts.Plot_ID, ts.Transect, ts.Area, ts.Species, ts."
-    "Master_Common_Name, ts.E_Coord, ts.N_Coord, ts.IsDead\015\012PIVOT ts.ColName;\015"
-    "\012"
+    "de AS Unit_Code, ts.Visit_Year AS Visit_Year, ts.Plot_ID AS Plot_ID, ts.Transect"
+    " AS Transect, ts.Area AS Area, ts.E_Coord AS E_Coord, ts.N_Coord AS N_Coord, ts."
+    "Species AS Species, ts.Master_Common_Name AS Master_Common_Name, ts.IsDead\015\012"
+    "FROM Transect_Select AS ts\015\012GROUP BY ID, ts.Unit_Code, ts.Visit_Year, ts.P"
+    "lot_ID, ts.Transect, ts.Area, ts.Species, ts.Master_Common_Name, ts.E_Coord, ts."
+    "N_Coord, ts.IsDead\015\012PIVOT ts.ColName;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -45,38 +45,65 @@ Begin
     Begin
         dbText "Name" ="Q1"
         dbLong "AggregateType" ="-1"
+        dbBinary "GUID" = Begin
+            0xdddacca355c07b45a5967f87edc386ff
+        End
     End
     Begin
         dbText "Name" ="Q1_0_5m"
         dbLong "AggregateType" ="-1"
+        dbBinary "GUID" = Begin
+            0x375253c6aeb5ef47b26d3101fed27506
+        End
     End
     Begin
         dbText "Name" ="Q1_3m"
         dbLong "AggregateType" ="-1"
+        dbBinary "GUID" = Begin
+            0x982bfa084034a441affacc91eead138c
+        End
     End
     Begin
         dbText "Name" ="Q2"
         dbLong "AggregateType" ="-1"
+        dbBinary "GUID" = Begin
+            0xf9d9fd73e4867944875577795c0be59b
+        End
     End
     Begin
         dbText "Name" ="Q2_4_5m"
         dbLong "AggregateType" ="-1"
+        dbBinary "GUID" = Begin
+            0x0988767c165d274e8569b6143161f2ff
+        End
     End
     Begin
         dbText "Name" ="Q2_8m"
         dbLong "AggregateType" ="-1"
+        dbBinary "GUID" = Begin
+            0xf3200d39bba2e4458917ee529504757e
+        End
     End
     Begin
         dbText "Name" ="Q3"
         dbLong "AggregateType" ="-1"
+        dbBinary "GUID" = Begin
+            0xd8f807dd7900da47bb11fc3d1594112e
+        End
     End
     Begin
         dbText "Name" ="Q3_13m"
         dbLong "AggregateType" ="-1"
+        dbBinary "GUID" = Begin
+            0xddcdac1d609b684195b33410603311c4
+        End
     End
     Begin
         dbText "Name" ="Q3_9_5m"
         dbLong "AggregateType" ="3"
+        dbBinary "GUID" = Begin
+            0x41e13d68b302704ababd0542ecf370cc
+        End
     End
     Begin
         dbText "Name" ="ts.ID"
@@ -89,6 +116,9 @@ Begin
         dbLong "AggregateType" ="-1"
         dbInteger "ColumnWidth" ="5835"
         dbBoolean "ColumnHidden" ="0"
+        dbBinary "GUID" = Begin
+            0x6d80931728b6214d944a2fa7c09a2d32
+        End
     End
     Begin
         dbText "Name" ="l.Unit_Code"
@@ -97,6 +127,9 @@ Begin
     Begin
         dbText "Name" ="Visit_Year"
         dbLong "AggregateType" ="-1"
+        dbBinary "GUID" = Begin
+            0x842a2f441fb9bd4b90d2ad1aa0094c7b
+        End
     End
     Begin
         dbText "Name" ="l.Plot_ID"
@@ -144,6 +177,7 @@ Begin
     End
     Begin
         dbText "Name" ="MinOfPercentCover"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x3e9fa129860bb04c9f17e813789f71b8
         End

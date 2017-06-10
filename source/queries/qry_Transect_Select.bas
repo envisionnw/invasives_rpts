@@ -43,7 +43,7 @@ Begin
     End
     Begin
         dbText "Name" ="Visit_Year"
-        dbInteger "ColumnWidth" ="1005"
+        dbInteger "ColumnWidth" ="1485"
         dbBoolean "ColumnHidden" ="0"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin

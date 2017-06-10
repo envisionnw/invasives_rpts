@@ -38,6 +38,62 @@ Begin
         dbLong "AggregateType" ="-1"
     End
     Begin
+        dbText "Name" ="tbl_wrk_Route_Species.La Verkin Creek Trail(4) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Lower Emerald Pools Trail(2)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Middle Emerald Pools Trail(1) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Watchman Trail(5)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Watchman Trail(5) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.West Rim Trail(16)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Chinle Trail(11)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Chinle Trail(11)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Chinle Trail(11) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Hop Valley Trail(4) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Kayenta Trail(2)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Kayenta Trail(2)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Kayenta Trail(2) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Sand Bench Trail(14)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
         dbText "Name" ="tbl_wrk_Route_Species.Archeology Trail(1)PlotCount"
         dbLong "AggregateType" ="-1"
     End
@@ -55,50 +111,6 @@ Begin
     End
     Begin
         dbText "Name" ="tbl_wrk_Route_Species.Riverside Walk(3)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Upper Emerald Pools Trail(1) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Archeology Trail(1) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Grotto Trail(2)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Grotto Trail(2)CoverPct"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Grotto Trail(2) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Archeology Trail(1)CoverPct"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Upper Emerald Pools Trail(1)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Lower Emerald Pools Trail(2) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Middle Taylor Creek Trail(6)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Upper Kolob Terrace Road(26)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Watchman Trail(5)PlotCount"
         dbLong "AggregateType" ="-1"
     End
     Begin
@@ -194,31 +206,315 @@ Begin
         dbLong "AggregateType" ="-1"
     End
     Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Upper Emerald Pools Trail(1) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Archeology Trail(1) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Grotto Trail(2)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Grotto Trail(2)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Grotto Trail(2) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Archeology Trail(1)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Upper Emerald Pools Trail(1)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Lower Emerald Pools Trail(2) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Middle Taylor Creek Trail(6)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Upper Kolob Terrace Road(26)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Watchman Trail(5)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.La Verkin Creek Trail(4)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Hydro 82(3)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Kodels Canyon Route(1)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Kodels Canyon Route(1) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Fruita Canyon(5)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Gold Star Canyon(3) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Kodels Canyon(1)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Kodels Canyon(1)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Oak Creek and Administrative(5)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Oak Creek and Administrative(5)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Oak Creek and Administrative(5) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Zion Scenic Drive(32)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Northgate Peaks Trail(3)PlotCount"
+        dbInteger "ColumnWidth" ="2295"
+        dbBoolean "ColumnHidden" ="0"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Northgate Peaks Trail(3) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Wildcat Canyon Trail(13)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Wildcat Canyon Trail(13) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Zion Scenic Drive(32) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Zion Scenic Drive(32)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Weeping Rock(1)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.East Glade Park Road(17) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Gold Star Canyon(4)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Monument Canyon(13)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.No Thoroughfare Canyon(19) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.No Thoroughfare Trail(9)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Columbus Canyon(4)CoverPct"
+        dbInteger "ColumnWidth" ="2250"
+        dbBoolean "ColumnHidden" ="0"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Kodels Canyon Route(1)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
         dbText "Name" ="tbl_wrk_Route_Species.Fruita Canyon(4)CoverPct"
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Fruita Canyon(4) (SE)"
+        dbText "Name" ="tbl_wrk_Route_Species.Cable Mountain Trail(6) (SE)"
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Gold Star Canyon(3)CoverPct"
+        dbText "Name" ="tbl_wrk_Route_Species.Deertrap Mountain Trail(13)PlotCount"
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Kodels Canyon Route(2)PlotCount"
+        dbText "Name" ="tbl_wrk_Route_Species.East Mesa Trail(14)PlotCount"
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Kodels Canyon Route(2) (SE)"
+        dbText "Name" ="tbl_wrk_Route_Species.Sand Bench Trail(15) (SE)"
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Lizard Canyon(2)CoverPct"
+        dbText "Name" ="tbl_wrk_Route_Species.State Route 9(44)PlotCount"
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Lizard Canyon(2) (SE)"
+        dbText "Name" ="tbl_wrk_Route_Species.Northgate Peaks Trail(3)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Wildcat Canyon Trail(13)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.East Glade Park Road(17)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Gold Star Canyon(4) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Monument Canyon(13) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.No Thoroughfare Canyon(19)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.No Thoroughfare Trail(9)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.No Thoroughfare Trail(9) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Hydro 86(2)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Liberty Cap Trail(14)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Liberty Cap Trail(14) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Lizard Canyon(2)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Chinle Trail(19) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.East Mesa Trail(14)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.State Route 9(44)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.State Route 9(44) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Stave Spring(2)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Watchman Housing and PTI(2) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.West Rim Trail(15) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Wrangler Trail(4)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Watchman Trail(7)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Watchman Trail(7) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Weeping Rock(1)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Weeping Rock(1) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.West Rim Trail(15)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.East Rim Trail(34) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Middle Taylor Creek Trail(4)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Museum Trail(1)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Museum Trail(1)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Museum Trail(1) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Timber Creek Overlook Trail(2)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Timber Creek Overlook Trail(2)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Timber Creek Overlook Trail(2) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Watchman Housing and PTI(2)PlotCount"
         dbLong "AggregateType" ="-1"
     End
     Begin
@@ -268,12 +564,6 @@ Begin
     Begin
         dbText "Name" ="tbl_wrk_Route_Species.Fenceline Route(30)CoverPct"
         dbInteger "ColumnWidth" ="3060"
-        dbBoolean "ColumnHidden" ="0"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Fenceline Route(30)PlotCount"
-        dbInteger "ColumnWidth" ="3075"
         dbBoolean "ColumnHidden" ="0"
         dbLong "AggregateType" ="-1"
     End
@@ -401,6 +691,22 @@ Begin
         dbLong "AggregateType" ="-1"
     End
     Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Hydro 86(2)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Kodels Canyon(2)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Kodels Canyon(2)CoverPct"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Kodels Canyon(2) (SE)"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
         dbText "Name" ="tbl_wrk_Route_Species.Fruita Canyon(5) (SE)"
         dbLong "AggregateType" ="-1"
     End
@@ -434,50 +740,6 @@ Begin
     End
     Begin
         dbText "Name" ="tbl_wrk_Route_Species.Hydro 82(3)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Hydro 86(2)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Kodels Canyon(2)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Kodels Canyon(2)CoverPct"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Kodels Canyon(2) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Hydro 82(3)CoverPct"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Kodels Canyon Route(1)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Kodels Canyon Route(1) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Fruita Canyon(5)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Gold Star Canyon(3) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Kodels Canyon(1)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Kodels Canyon(1)CoverPct"
         dbLong "AggregateType" ="-1"
     End
     Begin
@@ -578,191 +840,33 @@ Begin
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="tbl_wrk_Route_Species.La Verkin Creek Trail(4)PlotCount"
+        dbText "Name" ="tbl_wrk_Route_Species.Fruita Canyon(4) (SE)"
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="tbl_wrk_Route_Species.La Verkin Creek Trail(4) (SE)"
+        dbText "Name" ="tbl_wrk_Route_Species.Gold Star Canyon(3)CoverPct"
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Lower Emerald Pools Trail(2)CoverPct"
+        dbText "Name" ="tbl_wrk_Route_Species.Kodels Canyon Route(2)PlotCount"
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Middle Emerald Pools Trail(1) (SE)"
+        dbText "Name" ="tbl_wrk_Route_Species.Kodels Canyon Route(2) (SE)"
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Watchman Trail(5)CoverPct"
+        dbText "Name" ="tbl_wrk_Route_Species.Lizard Canyon(2)CoverPct"
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Watchman Trail(5) (SE)"
+        dbText "Name" ="tbl_wrk_Route_Species.Lizard Canyon(2) (SE)"
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="tbl_wrk_Route_Species.West Rim Trail(16)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.East Glade Park Road(17)CoverPct"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Gold Star Canyon(4) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Monument Canyon(13) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.No Thoroughfare Canyon(19)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.No Thoroughfare Trail(9)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.No Thoroughfare Trail(9) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Hydro 86(2)CoverPct"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Liberty Cap Trail(14)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Liberty Cap Trail(14) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Lizard Canyon(2)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Chinle Trail(11)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Chinle Trail(11)CoverPct"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Chinle Trail(11) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Hop Valley Trail(4) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Kayenta Trail(2)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Kayenta Trail(2)CoverPct"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Kayenta Trail(2) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Sand Bench Trail(14)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Chinle Trail(19) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.East Mesa Trail(14)CoverPct"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.State Route 9(44)CoverPct"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.State Route 9(44) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Stave Spring(2)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Watchman Housing and PTI(2) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.West Rim Trail(15) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Wrangler Trail(4)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Watchman Trail(7)CoverPct"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Watchman Trail(7) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Weeping Rock(1)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Weeping Rock(1)CoverPct"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Weeping Rock(1) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.West Rim Trail(15)CoverPct"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.East Rim Trail(34) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Middle Taylor Creek Trail(4)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Museum Trail(1)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Museum Trail(1)CoverPct"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Museum Trail(1) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Timber Creek Overlook Trail(2)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Timber Creek Overlook Trail(2)CoverPct"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Timber Creek Overlook Trail(2) (SE)"
+        dbText "Name" ="tbl_wrk_Route_Species.Fenceline Route(30)PlotCount"
+        dbInteger "ColumnWidth" ="3075"
+        dbBoolean "ColumnHidden" ="0"
         dbLong "AggregateType" ="-1"
     End
     Begin
@@ -786,65 +890,7 @@ Begin
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="tbl_wrk_Route_Species.East Rim Trail(34)CoverPct"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Kolob Scenic Drive(36)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Kolob Scenic Drive(36) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Middle Taylor Creek Trail(4)CoverPct"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Oak Creek and Administrative(8)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Oak Creek and Administrative(8)CoverPct"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
         dbText "Name" ="tbl_wrk_Route_Species.Oak Creek and Administrative(8) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Watchman Housing and PTI(2)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.East Glade Park Road(17) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Gold Star Canyon(4)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Monument Canyon(13)PlotCount"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.No Thoroughfare Canyon(19) (SE)"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.No Thoroughfare Trail(9)CoverPct"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Columbus Canyon(4)CoverPct"
-        dbInteger "ColumnWidth" ="2250"
-        dbBoolean "ColumnHidden" ="0"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Kodels Canyon Route(1)CoverPct"
         dbLong "AggregateType" ="-1"
     End
     Begin
@@ -960,36 +1006,40 @@ Begin
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Cable Mountain Trail(6) (SE)"
+        dbText "Name" ="tbl_wrk_Route_Species.East Rim Trail(34)CoverPct"
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Deertrap Mountain Trail(13)PlotCount"
+        dbText "Name" ="tbl_wrk_Route_Species.Kolob Scenic Drive(36)PlotCount"
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="tbl_wrk_Route_Species.East Mesa Trail(14)PlotCount"
+        dbText "Name" ="tbl_wrk_Route_Species.Kolob Scenic Drive(36) (SE)"
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="tbl_wrk_Route_Species.Sand Bench Trail(15) (SE)"
+        dbText "Name" ="tbl_wrk_Route_Species.Middle Taylor Creek Trail(4)CoverPct"
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="tbl_wrk_Route_Species.State Route 9(44)PlotCount"
+        dbText "Name" ="tbl_wrk_Route_Species.Oak Creek and Administrative(8)PlotCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_wrk_Route_Species.Oak Creek and Administrative(8)CoverPct"
         dbLong "AggregateType" ="-1"
     End
 End
 Begin
     State =0
-    Left =35
-    Top =364
-    Right =1587
-    Bottom =688
+    Left =-5
+    Top =256
+    Right =1547
+    Bottom =580
     Left =-1
     Top =-1
     Right =1520
-    Bottom =25
+    Bottom =-1
     Left =0
     Top =0
     ColumnsShown =539

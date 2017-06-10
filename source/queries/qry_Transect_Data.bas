@@ -132,7 +132,7 @@ Begin
     Left =-1
     Top =-1
     Right =1073
-    Bottom =59
+    Bottom =42
     Left =0
     Top =0
     ColumnsShown =539
