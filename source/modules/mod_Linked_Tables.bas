@@ -586,8 +586,8 @@ Function TestODBCConnection(strTableName As String, _
 
     If IsMissing(varSQL) Then
         ' If no query statement passed, select a few records to test the connection string
-        qdf.sql = "SELECT TOP 2 * FROM " & strTableName
-    Else: qdf.sql = varSQL
+        qdf.SQL = "SELECT TOP 2 * FROM " & strTableName
+    Else: qdf.SQL = varSQL
     End If
     qdf.Execute
 

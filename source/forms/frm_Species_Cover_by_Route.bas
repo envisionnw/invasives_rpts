@@ -411,74 +411,87 @@ On Error GoTo Err_Handler
         "WHERE Unit_Code = '" & Me!Park_Code & "' AND Visit_Year= " & Me!Visit_Year & _
         " ORDER BY Plot_ID, Species"
    
-   Set SpeciesIn = db.OpenRecordset(strSQL)
-   SpeciesIn.MoveFirst
-   PlotSave = Left(SpeciesIn!Plot_ID, 48)
-   SpeciesSave = SpeciesIn!Species
-   CommonSave = SpeciesIn!Master_Common_Name
-   PlotCount = 0
-   CoverCalc = 0
-   CoverSum = 0
-   SearchChar = "("
-   DoCmd.SetWarnings False
-   DoCmd.OpenQuery "qry_Clear_StdDev"  ' Clear Standard Deviation work table
-   DoCmd.SetWarnings True
-   Do Until SpeciesIn.EOF
-     If PlotSave <> Left(SpeciesIn!Plot_ID, 48) Or SpeciesSave <> SpeciesIn!Species Then
-       ' write output record
-       strSQL = "SELECT * FROM tbl_wrk_Route_Species " & _
-                "WHERE [Unit_Code]= '" & Me!Park_Code & _
-                "' AND [Species] = '" & SpeciesSave & "' AND [Visit_Year] = " & Me!Visit_Year
-       Set WorkOutput = db.OpenRecordset(strSQL)
-       If WorkOutput.EOF Then
-         WorkOutput.Close
-         Set WorkOutput = db.OpenRecordset("tbl_wrk_Route_Species")
-         WorkOutput.AddNew
-         WorkOutput!Unit_Code = Me!Park_Code
-         WorkOutput!Visit_Year = Me!Visit_Year
-         WorkOutput!Species = SpeciesSave
-         WorkOutput!Common_Name = CommonSave
-       Else
-         WorkOutput.Edit
-       End If
-         ArrayIndex = 0
-         Do Until ArrayIndex > ArrayEnd
-           intTextLength = InStr(1, RouteArray(ArrayIndex, 0), SearchChar) - 1
-           If Left(RouteArray(ArrayIndex, 0), intTextLength) = PlotSave Then
-             strFieldName = RouteArray(ArrayIndex, 0) & "Plotcount"
-             WorkOutput(strFieldName) = PlotCount
-             strFieldName = RouteArray(ArrayIndex, 0) & "CoverPct"
-             WorkOutput(strFieldName) = CoverSum / RouteArray(ArrayIndex, 1)
-             ' Standard deviation calculations
-             If RouteArray(ArrayIndex, 1) > PlotCount Then
-               EmptyTransects = RouteArray(ArrayIndex, 1) - PlotCount  ' calculate number of empty transects
-               Set WorkStdDev = db.OpenRecordset("tbl_wrk_StdDev")
-               Do Until EmptyTransects = 0  ' add records to StdDev work table for plots in which species was not found
-                 WorkStdDev.AddNew
-                 WorkStdDev!CoverPct = 0 ' zero cover for these plots
-                 WorkStdDev.Update
-                 EmptyTransects = EmptyTransects - 1
-               Loop
-               WorkStdDev.Close
-               Set WorkStdDev = Nothing
-             End If
-             varStandardDeviation = DStDev("CoverPct", "tbl_wrk_StdDev")
-             If Not IsNull(varStandardDeviation) Then
-               strFieldName = RouteArray(ArrayIndex, 0) & " (SE)"
-               ' WorkOutput(strFieldName) = varStandardDeviation / Sqr(PlotCount)  ' Use number of plots in which species is found
-               WorkOutput(strFieldName) = varStandardDeviation / Sqr(RouteArray(ArrayIndex, 1))  ' Use total plots in route
-             End If
-             Exit Do
+    Set SpeciesIn = db.OpenRecordset(strSQL)
+    SpeciesIn.MoveFirst
+    PlotSave = Left(SpeciesIn!Plot_ID, 48)
+    SpeciesSave = SpeciesIn!Species
+    CommonSave = SpeciesIn!Master_Common_Name
+    PlotCount = 0
+    CoverCalc = 0
+    CoverSum = 0
+    SearchChar = "("
+    DoCmd.SetWarnings False
+    DoCmd.OpenQuery "qry_Clear_StdDev"  ' Clear Standard Deviation work table
+    DoCmd.SetWarnings True
+    
+    Do Until SpeciesIn.EOF
+     
+        If PlotSave <> Left(SpeciesIn!Plot_ID, 48) Or SpeciesSave <> SpeciesIn!Species Then
+           ' write output record
+           strSQL = "SELECT * FROM tbl_wrk_Route_Species " & _
+                    "WHERE [Unit_Code]= '" & Me!Park_Code & _
+                    "' AND [Species] = '" & SpeciesSave & "' AND [Visit_Year] = " & Me!Visit_Year
+           
+           Set WorkOutput = db.OpenRecordset(strSQL)
+           If WorkOutput.EOF Then
+             WorkOutput.Close
+             Set WorkOutput = db.OpenRecordset("tbl_wrk_Route_Species")
+             WorkOutput.AddNew
+             WorkOutput!Unit_Code = Me!Park_Code
+             WorkOutput!Visit_Year = Me!Visit_Year
+             WorkOutput!Species = SpeciesSave
+             WorkOutput!Common_Name = CommonSave
+           Else
+             WorkOutput.Edit
            End If
-           ArrayIndex = ArrayIndex + 1
-           If ArrayIndex > ArrayEnd Then
-             MsgBox "Name not found in route array", , "Set route name"
-             Exit Sub
-           End If
-         Loop
-         WorkOutput.Update
-         WorkOutput.Close
-         Set WorkOutput = Nothing
+
+        ArrayIndex = 0
+        Do Until ArrayIndex > ArrayEnd
+            intTextLength = InStr(1, RouteArray(ArrayIndex, 0), SearchChar) - 1
+            If Left(RouteArray(ArrayIndex, 0), intTextLength) = PlotSave Then
+                strFieldName = RouteArray(ArrayIndex, 0) & "Plotcount"
+                WorkOutput(strFieldName) = PlotCount
+                strFieldName = RouteArray(ArrayIndex, 0) & "CoverPct"
+                WorkOutput(strFieldName) = CoverSum / RouteArray(ArrayIndex, 1)
+                
+                ' Standard deviation calculations
+                If RouteArray(ArrayIndex, 1) > PlotCount Then
+                    EmptyTransects = RouteArray(ArrayIndex, 1) - PlotCount  ' calculate number of empty transects
+                    
+                    Set WorkStdDev = db.OpenRecordset("tbl_wrk_StdDev")
+                    
+                    Do Until EmptyTransects = 0  ' add records to StdDev work table for plots in which species was not found
+                      WorkStdDev.AddNew
+                      WorkStdDev!CoverPct = 0 ' zero cover for these plots
+                      WorkStdDev.Update
+                      EmptyTransects = EmptyTransects - 1
+                    Loop
+                    
+                    WorkStdDev.Close
+                    Set WorkStdDev = Nothing
+                End If
+    
+                varStandardDeviation = DStDev("CoverPct", "tbl_wrk_StdDev")
+                If Not IsNull(varStandardDeviation) Then
+                    strFieldName = RouteArray(ArrayIndex, 0) & " (SE)"
+                    ' WorkOutput(strFieldName) = varStandardDeviation / Sqr(PlotCount)  ' Use number of plots in which species is found
+                    WorkOutput(strFieldName) = varStandardDeviation / Sqr(RouteArray(ArrayIndex, 1))  ' Use total plots in route
+                End If
+                Exit Do
+            End If
+    
+            ArrayIndex = ArrayIndex + 1
+            
+            If ArrayIndex > ArrayEnd Then
+                MsgBox "Name not found in route array", , "Set route name"
+                Exit Sub
+            End If
+        Loop
+    
+        WorkOutput.Update
+        WorkOutput.Close
+        Set WorkOutput = Nothing
+        
        ' Save necessary fields
        PlotSave = Left(SpeciesIn!Plot_ID, 48)
        SpeciesSave = SpeciesIn!Species
@@ -490,8 +503,10 @@ On Error GoTo Err_Handler
        DoCmd.OpenQuery "qry_Clear_StdDev"  ' Clear Standard Deviation work table
        DoCmd.SetWarnings True
      End If
+     
      PlotCount = PlotCount + 1
      CoverCalc = 0
+     
      Select Case SpeciesIn!Visit_Year  ' put transect average in covercalc
        Case 2008
          If Not IsNull(SpeciesIn!Q1) + IsNull(SpeciesIn!Q2) + IsNull(SpeciesIn!Q3) = -3 Then
@@ -530,6 +545,7 @@ On Error GoTo Err_Handler
            End If
          End If
      End Select
+     
      CoverSum = CoverSum + (CoverCalc / 3) ' accumulate averages
      Set WorkStdDev = db.OpenRecordset("tbl_wrk_StdDev")  ' save averages for standard deviation calculation
      WorkStdDev.AddNew

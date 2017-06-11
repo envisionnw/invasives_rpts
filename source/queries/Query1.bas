@@ -1,8 +1,10 @@
-﻿dbMemo "SQL" ="SELECT e.*, qp.SamplingYear, qp.Quadrat, qp.Position_m, 'Q' & qp.Quadrat & IIF(L"
-    "EN(qp.Position_m) > 0, '_' & qp.Position_m & 'm', '') AS ColName\015\012FROM (tb"
-    "l_Events AS e INNER JOIN EventSampleQuadrat AS esq ON esq.Start_Date = e.Start_D"
-    "ate) INNER JOIN QuadratPosition AS qp ON (qp.SamplingYear = esq.SamplingYr) AND "
-    "(qp.Quadrat = esq.Quadrat);\015\012"
+﻿dbMemo "SQL" ="SELECT tsca.Unit_Code, tsca.Visit_Year, tsca.Plot_ID, tsca.Transect, tsca.Area, "
+    "tsca.E_Coord, tsca.N_Coord, tsca.Species, tsca.Master_Common_Name AS Common_Name"
+    ", tsca.IsDead, tsca.Q1_0_5m, tsca.Q2_4_5m, tsca.Q3_9_5m, tsca.Q1_3m, tsca.Q2_8m,"
+    " tsca.Q3_13m, tsca.Q1, tsca.Q2, tsca.Q3, tsca.QuadratsSampled, tsca.TotalCover, "
+    "tsca.AverageCover, tc.TransectCount\015\012FROM Transect_Select_Crosstab_with_Av"
+    "erageCover AS tsca INNER JOIN Transect_Count AS tc ON (tc.Route = tsca.Plot_ID) "
+    "AND (tc.Visit_Year = tsca.Visit_Year) AND (tc.Unit_Code = tsca.Unit_Code);\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -67,5 +69,100 @@ Begin
         dbBinary "GUID" = Begin
             0x28c799490d8e31468948bfb2547b9b59
         End
+    End
+    Begin
+        dbText "Name" ="tsca.IsDead"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsca.Q1_0_5m"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsca.Q2_4_5m"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsca.Q3_9_5m"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsca.Q2"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsca.TotalCover"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsca.Q1_3m"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsca.Species"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="Common_Name"
+        dbLong "AggregateType" ="-1"
+        dbBinary "GUID" = Begin
+            0x1a0ab7c98df8614fa70b1309a14e2d18
+        End
+    End
+    Begin
+        dbText "Name" ="tsca.Q3"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsca.Q2_8m"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsca.QuadratsSampled"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tc.TransectCount"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsca.Unit_Code"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsca.Visit_Year"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsca.Plot_ID"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsca.Transect"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsca.Area"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsca.E_Coord"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsca.N_Coord"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsca.Q3_13m"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsca.Q1"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tsca.AverageCover"
+        dbLong "AggregateType" ="-1"
     End
 End

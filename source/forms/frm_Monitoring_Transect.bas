@@ -175,13 +175,14 @@ Option Explicit
 ' =================================
 ' MODULE:       frm_Monitoring_Transect
 ' Level:        Form module
-' Version:      1.01
+' Version:      1.02
 ' Description:  Transect count related functions & subroutines
 '
 ' Source/date:  Unknown
 ' Adapted:      Bonnie Campbell, June 2017
 ' Revisions:    Unknown        - 1.00 - initial version
 '               BLC, 5/10/2017 - 1.01 - documentation, added Form_Open(), Visit_Year_AfterUpdate()
+'               BLC - 6/11/2017 - 1.02 - revised to pull from filtered Transect_Data query vs. qry_Transect_Data
 ' =================================
 
 ' ---------------------------------
@@ -297,19 +298,40 @@ End Sub
 ' Adapted:      -
 ' Revisions:    JRB - unknown - initial version
 '               BLC - 6/6/2017 - added documentation, revised error handling, renamed button (ButtonX > btnX)
+'               BLC - 6/11/2017 - revised to pull from filtered Transect_Data query vs. qry_Transect_Data
 ' ---------------------------------
 Private Sub btnReport_Click()
 On Error GoTo Err_Handler
-
-    Dim stQryName As String
 
     If IsNull(Me!Park_Code) Or IsNull(Me!Visit_Year) Then
       MsgBox "You must select both park and year.", , "Monitoring Transect Data"
       Exit Sub
     End If
     
-    stQryName = "qry_Transect_Data"
-    DoCmd.OpenQuery stQryName
+    Dim origSQL As String
+    Dim strSQL As String
+    Dim strFilter As String
+    
+    'use the Transect_Data query, but filter based on Unit_Code & Visit_Year
+    Dim qdf As QueryDef
+    Set qdf = CurrentDb.QueryDefs("Transect_Data")
+    
+    'save original SQL
+    origSQL = qdf.SQL
+    
+    'prepare filter clause
+    strFilter = " WHERE tsc.Unit_Code = '" & Me!Park_Code & _
+                "' AND tsc.Visit_Year = " & Me!Visit_Year & " "
+    
+    
+    'add filter
+    strSQL = Replace(Replace(qdf.SQL, ";", ""), "ORDER", strFilter & "ORDER") & ";"
+    qdf.SQL = strSQL
+    
+    DoCmd.OpenQuery "Transect_Data", acViewNormal, acReadOnly
+    
+    'remove the filter (revert to original SQL) for the next iteration
+    qdf.SQL = origSQL
 
 Exit_Handler:
     Exit Sub

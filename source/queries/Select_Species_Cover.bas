@@ -46,4 +46,72 @@ Begin
             0x7170fd28524c93479120d0aa8589532a
         End
     End
+    Begin
+        dbText "Name" ="tbl_Locations.Unit_Code"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_Locations.Plot_ID"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_Quadrat_Species.Plant_Code"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_Quadrat_Species.Q1_hm"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_Quadrat_Species.Q2_5m"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_Quadrat_Species.Q3_10m"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_Quadrat_Species.Average_Cover"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_Quadrat_Species.Q1_3m"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_Quadrat_Species.Q2_8m"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_Quadrat_Species.Q3_13m"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_Quadrat_Species.Avg_Cover_2009"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_Quadrat_Species.Q1"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_Quadrat_Species.Q2"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_Quadrat_Species.Q3"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_Quadrat_Species.Avg_Cover_2008"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tlu_NCPN_Plants.Master_Common_Name"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_Quadrat_Transect.Transect"
+        dbLong "AggregateType" ="-1"
+    End
 End

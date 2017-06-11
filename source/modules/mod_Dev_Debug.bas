@@ -342,9 +342,9 @@ On Error GoTo Err_Handler
 
     For Each QDef In CurrentDb.QueryDefs
         If QDef.name Like QryName Then
-            If InStr(QDef.sql, SearchText) > 0 Then
+            If InStr(QDef.SQL, SearchText) > 0 Then
                 Debug.Print QDef.name
-                If ShowSQL Then Debug.Print QDef.sql & vbCrLf
+                If ShowSQL Then Debug.Print QDef.SQL & vbCrLf
             End If
         End If
     Next QDef

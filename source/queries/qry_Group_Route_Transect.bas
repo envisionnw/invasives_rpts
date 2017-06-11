@@ -25,4 +25,16 @@ Begin
             0xada3b6c58ac6494eac8374f99bcfd775
         End
     End
+    Begin
+        dbText "Name" ="tbl_Locations.Unit_Code"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_Locations.Plot_ID"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_Quadrat_Transect.Transect"
+        dbLong "AggregateType" ="-1"
+    End
 End

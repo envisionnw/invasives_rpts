@@ -17,27 +17,6 @@ dbBoolean "OrderByOnLoad" ="-1"
 dbBoolean "TotalsRow" ="0"
 Begin
     Begin
-        dbText "Name" ="Expr1"
-        dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0x5d68b15e46788647b16646b30d2e6b53
-        End
-    End
-    Begin
-        dbText "Name" ="Expr2"
-        dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0xdf018b7541d99c44a92502af5d80f46d
-        End
-    End
-    Begin
-        dbText "Name" ="Expr3"
-        dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0x17d8cb5b5f9be946b83d234de5174524
-        End
-    End
-    Begin
         dbText "Name" ="Unit_Code"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin

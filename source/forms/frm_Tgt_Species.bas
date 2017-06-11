@@ -1580,7 +1580,7 @@ On Error GoTo Err_Handler
     
     Set qdf = CurrentDb.QueryDefs("qry_Tgt_Species_List")
     
-    strSQL = qdf.sql
+    strSQL = qdf.SQL
     
     strSQL = "SELECT tbl_Target_List.Park_Code AS Park, " & _
              "tbl_Target_List.Target_Year AS TgtYear, " & _
@@ -1602,7 +1602,7 @@ On Error GoTo Err_Handler
     'DoCmd.OpenQuery "qryTgtSpeciesList", acViewNormal, acReadOnly
     'DoCmd.RunSQL strSQL <=== NO! not on a SELECT...
     
-    CurrentDb.CreateQueryDef("temp_Tgt_Species").sql = strSQL
+    CurrentDb.CreateQueryDef("temp_Tgt_Species").SQL = strSQL
     DoCmd.OpenQuery "temp_Tgt_Species"
     
     'set statusbar notice
