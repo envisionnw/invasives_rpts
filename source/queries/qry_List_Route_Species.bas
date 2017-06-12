@@ -46,6 +46,8 @@ Begin
     Begin
         dbText "Name" ="tbl_wrk_Route_Species.Zion Scenic Drive(32)PlotCount"
         dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="2205"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="tbl_wrk_Route_Species.Northgate Peaks Trail(3)PlotCount"
@@ -84,5 +86,7 @@ Begin
     Begin
         dbText "Name" ="tbl_wrk_Route_Species.Wildcat Canyon Trail(13)CoverPct"
         dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="3210"
+        dbBoolean "ColumnHidden" ="0"
     End
 End

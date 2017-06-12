@@ -173,7 +173,7 @@ Option Compare Database
 Option Explicit
 
 ' =================================
-' MODULE:       frm_Select_Transect_Counts
+' MODULE:       frm_Select_Infest_by_Route
 ' Level:        Form module
 ' Version:      1.01
 ' Description:  Transect count related functions & subroutines

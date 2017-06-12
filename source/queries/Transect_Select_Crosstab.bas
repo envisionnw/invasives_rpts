@@ -1,8 +1,8 @@
 ﻿dbMemo "SQL" ="TRANSFORM Min(Transect_Select.PercentCover) AS MinOfPercentCover\015\012SELECT T"
     "ransect_Select.Plot_ID AS Plot_ID, Transect_Select.Transect AS Transect, Transec"
-    "t_Select.Species AS Species\015\012FROM Transect_Select\015\012GROUP BY Transect"
-    "_Select.Plot_ID, Transect_Select.Transect, Transect_Select.Species\015\012PIVOT "
-    "Transect_Select.ColName;\015\012"
+    "t_Select.Species AS Species, Transect_Select.IsDead\015\012FROM Transect_Select\015"
+    "\012GROUP BY Transect_Select.Plot_ID, Transect_Select.Transect, Transect_Select."
+    "Species, Transect_Select.IsDead\015\012PIVOT Transect_Select.ColName;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -121,5 +121,9 @@ Begin
         dbBinary "GUID" = Begin
             0xe897e125df954f4eaa67809cfb3a029f
         End
+    End
+    Begin
+        dbText "Name" ="Transect_Select.IsDead"
+        dbLong "AggregateType" ="-1"
     End
 End
