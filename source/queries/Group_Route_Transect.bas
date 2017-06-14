@@ -1,8 +1,9 @@
 ﻿dbMemo "SQL" ="SELECT tbl_Locations.Unit_Code, Year([Start_Date]) AS Visit_Year, tbl_Locations."
-    "Plot_ID, Transect.Transect\015\012FROM tbl_Locations LEFT JOIN (tbl_Events LEFT "
-    "JOIN Transect ON tbl_Events.Event_ID = Transect.Event_ID) ON tbl_Locations.Locat"
-    "ion_ID = tbl_Events.Location_ID\015\012GROUP BY tbl_Locations.Unit_Code, Year([S"
-    "tart_Date]), tbl_Locations.Plot_ID, Transect.Transect;\015\012"
+    "Plot_ID AS Route, Transect.Transect, Transect.Transect_ID\015\012FROM tbl_Locati"
+    "ons LEFT JOIN (tbl_Events LEFT JOIN Transect ON tbl_Events.Event_ID = Transect.E"
+    "vent_ID) ON tbl_Locations.Location_ID = tbl_Events.Location_ID\015\012GROUP BY t"
+    "bl_Locations.Unit_Code, Year([Start_Date]), tbl_Locations.Plot_ID, Transect.Tran"
+    "sect, Transect.Transect_ID;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -27,11 +28,26 @@ Begin
         dbLong "AggregateType" ="-1"
     End
     Begin
+        dbText "Name" ="Transect.Transect"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="Route"
+        dbLong "AggregateType" ="-1"
+        dbBinary "GUID" = Begin
+            0xa70dec5d513bb14fba613af2c65944e9
+        End
+    End
+    Begin
+        dbText "Name" ="Transect.Transect_ID"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
         dbText "Name" ="tbl_Locations.Plot_ID"
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="Transect.Transect"
+        dbText "Name" ="TransectsPerRoute"
         dbLong "AggregateType" ="-1"
     End
 End

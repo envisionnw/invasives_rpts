@@ -40,6 +40,7 @@ Begin
     End
     Begin
         dbText "Name" ="TransectCount"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x000050c8feca4744b434dcb1dc952b1b
         End

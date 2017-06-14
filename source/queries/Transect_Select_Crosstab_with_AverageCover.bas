@@ -182,120 +182,140 @@ Begin
     End
     Begin
         dbText "Name" ="Unit_Code"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0xf24bffc7e880c74ba416926bc10f583f
         End
     End
     Begin
         dbText "Name" ="Plot_ID"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x970530537afcf94a8474802ba9962dbc
         End
     End
     Begin
         dbText "Name" ="Transect"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x409660c17eb78f418871e23aa84c4106
         End
     End
     Begin
         dbText "Name" ="Area"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x1245e51a455b274791328042b10a11a4
         End
     End
     Begin
         dbText "Name" ="E_Coord"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0xb9cd4616f86f2f46881d73d999f818a5
         End
     End
     Begin
         dbText "Name" ="N_Coord"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x942da6a056736b458aa99ab0af908989
         End
     End
     Begin
         dbText "Name" ="Master_Common_Name"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0xa1f604e481a9ca479e2c25ffd22ddacd
         End
     End
     Begin
         dbText "Name" ="IsDead"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x0eec529d0b57c54f99d131d68cd1f753
         End
     End
     Begin
         dbText "Name" ="Q1_0_5m"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x0d090629cefc194ab49076cc4ac5aa44
         End
     End
     Begin
         dbText "Name" ="Q2_4_5m"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x571dc7f2e467674cb9b3c01b6d8514a8
         End
     End
     Begin
         dbText "Name" ="Q3_9_5m"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x7d118faa2cf2e144a8f5b4579f844616
         End
     End
     Begin
         dbText "Name" ="Q1_3m"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0xc20ddb606b32df4b955d4637395b3cd9
         End
     End
     Begin
         dbText "Name" ="Q2_8m"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x7662d61691e3364986724a595352c130
         End
     End
     Begin
         dbText "Name" ="Q3_13m"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x37cb6f51ab872741b3b694bd96818956
         End
     End
     Begin
         dbText "Name" ="Q1"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x0d1958f77931a14ebc6d770402f47493
         End
     End
     Begin
         dbText "Name" ="Q2"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0xda0894af479cda409b1121c695f06abd
         End
     End
     Begin
         dbText "Name" ="Q3"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x66fdc5ca4e8d414ab281295ea463450e
         End
     End
     Begin
         dbText "Name" ="QuadratsSampled"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x95b3e5344768a44d872ec66a1c14d127
         End
     End
     Begin
         dbText "Name" ="TotalCover"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0xc5c5d8d7b8d23043ac3cd41ecbed4b59
         End
     End
     Begin
         dbText "Name" ="AverageCover"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x472d483f1c22fd4481662e8aeb3d2ad6
         End

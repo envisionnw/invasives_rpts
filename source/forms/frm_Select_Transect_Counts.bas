@@ -175,13 +175,14 @@ Option Explicit
 ' =================================
 ' MODULE:       frm_Select_Transect_Counts
 ' Level:        Form module
-' Version:      1.01
+' Version:      1.02
 ' Description:  Transect count related functions & subroutines
 '
 ' Source/date:  Unknown
 ' Adapted:      Bonnie Campbell, June 2017
 ' Revisions:    Unknown        - 1.00 - initial version
 '               BLC, 5/10/2017 - 1.01 - documentation, added Form_Open(), Visit_Year_AfterUpdate()
+'               BLC, 6/13/2017 - 1.02 - revised to point to Transect_Count_Param vs. qry_Transect_Count_Param
 ' =================================
 
 ' ---------------------------------
@@ -297,6 +298,7 @@ End Sub
 ' Adapted:      -
 ' Revisions:    JRB - unknown - initial version
 '               BLC - 6/6/2017 - added documentation, revised error handling, renamed button (ButtonX > btnX)
+'               BLC - 6/13/2017 - revised to point to Transect_Count_Param vs. qry_Transect_Count_Param
 ' ---------------------------------
 Private Sub btnQuery_Click()
 On Error GoTo Err_Handler
@@ -308,7 +310,7 @@ On Error GoTo Err_Handler
       Exit Sub
     End If
 
-    stDocName = "qry_Transect_Count_Param"
+    stDocName = "Transect_Count_Param"
     DoCmd.OpenQuery stDocName, acNormal, acEdit
 
 Exit_Handler:
