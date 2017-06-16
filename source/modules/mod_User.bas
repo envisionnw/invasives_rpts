@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_User
 ' Level:        Framework module
-' Version:      1.06
+' Version:      1.07
 ' Description:  Access related functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, May 2014
@@ -16,6 +16,7 @@ Option Explicit
 '               BLC, 6/12/2015 - 1.04 - replaced TempVars.item(... with TempVars("...
 '               BLC, 6/30/2015 - 1.05 - updated cmd button prefixes to btn
 '               BLC, 6/6/2017  - 1.06 - revised UserName() to accommodate TestUser
+'               BLC, 6/15/2017 - 1.07 - revised to user Contact_Access vs. tsys_User_Roles
 ' =================================
 
 ' ---------------------------------
@@ -44,6 +45,7 @@ Option Explicit
 '               BLC, 4/22/2015 - handle global USER_ACCESS_CONTROL setting to enable full access
 '                                for apps w/o user access controls
 '               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/15/2016 - revised to reference Contact_Access vs. tsys_User_Roles
 ' ---------------------------------
 Public Function getDbUserAccess() As String
 On Error GoTo Err_Handler
@@ -56,7 +58,16 @@ Dim rs As DAO.Recordset
 
     If USER_ACCESS_CONTROL Then
     
-        strSQL = "SELECT User_role FROM tsys_User_Roles WHERE User_name = '" & Environ("Username") & "';"
+        'strSQL = "SELECT User_role FROM tsys_User_Roles WHERE User_name = '" & Environ("Username") & "';"
+'        strSQL = "SELECT ca.AccessLevel FROM Contact_Access ca " & _
+'                "INNER JOIN Access a ON a.ID = ca.ID " & _
+'                "WHERE User_name = '" & Environ("Username") & "';"
+    
+        strSQL = "SELECT a.AccessLevel " & _
+                "FROM ((Contact_Access ca " & _
+                "INNER JOIN Access a ON a.ID = ca.Access_ID) " & _
+                "INNER JOIN Contact c ON c.ID = ca.Contact_ID) " & _
+                "WHERE c.Username = '" & Environ("Username") & "';"
     
         'fetch User role & set UserAccessLevel
         Set rs = dbCurrent.OpenRecordset(strSQL)

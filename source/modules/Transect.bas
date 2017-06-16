@@ -223,20 +223,20 @@ On Error GoTo Err_Handler
     
     Template = "i_Transect"
     
-    Dim params(0 To 5) As Variant
+    Dim Params(0 To 5) As Variant
 
     With Me
-        params(0) = "Transect"
-        params(1) = .EventID
-        params(2) = .SurfaceCover
-        params(3) = .SpeciesCover
+        Params(0) = "Transect"
+        Params(1) = .EventID
+        Params(2) = .SurfaceCover
+        Params(3) = .SpeciesCover
         
         If IsUpdate Then
             Template = "u_Transect"
-            params(4) = .ID
+            Params(4) = .ID
         End If
         
-        .ID = SetRecord(Template, params)
+        .ID = SetRecord(Template, Params)
     End With
 
 Exit_Handler:

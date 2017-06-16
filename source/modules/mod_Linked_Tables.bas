@@ -237,7 +237,7 @@ Public Function LinkedDatabase(ByVal strTableName As String) As String
 
     Dim strTemp As String
 
-    strTemp = ParseConnectionStr(CurrentDb.TableDefs(strTableName).Connect)
+    strTemp = ParseConnectionStr(CurrentDb.TableDefs(strTableName).connect)
     LinkedDatabase = strTemp
 
 Exit_Procedure:
@@ -577,11 +577,11 @@ Function TestODBCConnection(strTableName As String, _
     Set qdf = db.CreateQueryDef("")
 
     ' If no revised connection string was passed, use the current connection string
-    If strConnStr = "" Then strConnStr = CurrentDb.TableDefs(strTableName).Connect
+    If strConnStr = "" Then strConnStr = CurrentDb.TableDefs(strTableName).connect
     strDbName = ParseConnectionStr(strConnStr)
 
     ' Update the connection string for the pass-through query, set to not return records
-    qdf.Connect = strConnStr
+    qdf.connect = strConnStr
     qdf.ReturnsRecords = False
 
     If IsMissing(varSQL) Then
@@ -742,7 +742,7 @@ Public Function RefreshLinks(strDbName As String, ByVal strNewConnStr As String,
 Debug.Print strTable
             ' Update and refresh the table connection
             Set tdf = db.TableDefs(strTable)
-            tdf.Connect = strNewConnStr
+            tdf.connect = strNewConnStr
             tdf.RefreshLink
             
             ' Update the table description & Link_db in tsys_Link_Tables
@@ -813,7 +813,7 @@ Debug.Print strSQL
             Set tdf = db.TableDefs(strTable)
             ' Use test again to trap errors
             If TestODBCConnection(strTable, strNewConnStr) = True Then
-                tdf.Connect = "Driver={Microsoft Access Driver (*.mdb, *.accdb)};DATABASE=C:\___TEST_DATA\Invasives_be.accdb;" 'strNewConnStr
+                tdf.connect = "Driver={Microsoft Access Driver (*.mdb, *.accdb)};DATABASE=C:\___TEST_DATA\Invasives_be.accdb;" 'strNewConnStr
                 tdf.RefreshLink
             Else
                 GoTo Exit_Procedure
@@ -1196,7 +1196,7 @@ Public Sub FixLinkedDatabase(ByVal strTableName As String)
     Dim strTemp As String, strSQL As String, strCurDb As String, strCurDbPath As String
     Dim rs As DAO.Recordset
 
-    strTemp = ParseConnectionStr(CurrentDb.TableDefs(strTableName).Connect)
+    strTemp = ParseConnectionStr(CurrentDb.TableDefs(strTableName).connect)
     
     'fetch current database location
     Set rs = CurrentDb.OpenRecordset("qsys_Linked_tables_mismatched_info_dbs")

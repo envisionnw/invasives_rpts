@@ -290,7 +290,7 @@ On Error GoTo Err_Handler
     Dim db As DAO.Database
     Dim rs As DAO.Recordset
     Dim strSQL As String, strValueList As String
-    Dim i As Integer, count As Integer
+    Dim i As Integer, Count As Integer
     
     Initialize
     
@@ -305,9 +305,9 @@ On Error GoTo Err_Handler
 
     If Not rs.BOF And Not rs.EOF Then
         rs.MoveLast
-        count = rs.RecordCount
+        Count = rs.RecordCount
         rs.MoveFirst
-        For i = 0 To count - 1
+        For i = 0 To Count - 1
             strValueList = strValueList & "'" & rs("TgtYear") & "';'" & rs("TgtYear") & "';"
             rs.MoveNext
         Next

@@ -51,7 +51,7 @@ On Error GoTo Err_Handler
     Set tdf = db.TableDefs(strTable)
 
     'Change the connect value
-    tdf.Connect = strConn '"ODBC;DATABASE=pubs;UID=sa;PWD=;DSN=Publishers"
+    tdf.connect = strConn '"ODBC;DATABASE=pubs;UID=sa;PWD=;DSN=Publishers"
     
 Exit_Sub:
     Set tdf = Nothing
@@ -95,7 +95,7 @@ On Error GoTo Err_Handler
     Set tdf = db.TableDefs(strTable)
 
     'Change the database value
-    tdf.Connect = ";DATABASE=" & strDbPath
+    tdf.connect = ";DATABASE=" & strDbPath
     
     tdf.RefreshLink
     

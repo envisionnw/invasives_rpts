@@ -339,12 +339,12 @@ End Sub
 Private Sub lbxTgtLists_Click()
 On Error GoTo Err_Handler
 Dim strTgtLists As String, strComma As String
-Dim item As Variant
+Dim Item As Variant
 
     'determine the selected list(s)
-    For Each item In lbxTgtLists.ItemsSelected
+    For Each Item In lbxTgtLists.ItemsSelected
         
-        strTgtLists = strTgtLists & "'" & lbxTgtLists.ItemData(item) & "',"
+        strTgtLists = strTgtLists & "'" & lbxTgtLists.ItemData(Item) & "',"
 
     Next
     

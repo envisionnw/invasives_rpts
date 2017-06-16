@@ -587,7 +587,7 @@ End Sub
 ' ---------------------------------
 Public Sub tbxCode_DblClick(Cancel As Integer)
 On Error GoTo Err_Handler
-    Dim item As String
+    Dim Item As String
     Dim lbx As ListBox
     
     'check for empty Lookup code (LUCode)
@@ -608,7 +608,7 @@ On Error GoTo Err_Handler
     'add components of item (code, species (UT or whatever), & ITIS) to listbox
 
     'prepare item for listbox value
-    item = tbxCode & ";" & tbxSpecies & ";" & tbxLUCode & ";0;0;" '& tbxTransectOnly & ";" & tbxTgtAreaID & ";" 'tbxMasterCode
+    Item = tbxCode & ";" & tbxSpecies & ";" & tbxLUCode & ";0;0;" '& tbxTransectOnly & ";" & tbxTgtAreaID & ";" 'tbxMasterCode
     
     'check listbox for duplicate & skip if already present (col 0 vs 2)
     If IsListDuplicate(Forms("frm_Tgt_Species").Controls("lbxTgtSpecies"), 2, tbxLUCode) Then
@@ -620,7 +620,7 @@ On Error GoTo Err_Handler
     
     With lbx
         'add item if not duplicate
-        .AddItem item
+        .AddItem Item
     
         'update target species count
         Forms("frm_Tgt_Species").Controls("lblTgtSpeciesCount").Caption = .ListCount - 1 & " species"

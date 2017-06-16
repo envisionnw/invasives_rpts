@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_App_Data
 ' Level:        Application module
-' Version:      1.05
+' Version:      1.06
 ' Description:  data functions & procedures specific to this application
 '
 ' Source/date:  Bonnie Campbell, 2/9/2015
@@ -14,6 +14,7 @@ Option Explicit
 '               BLC - 5/22/2015 - 1.03 - added PopulateList
 '               BLC - 6/3/2015  - 1.04 - added IsUsedTargetArea
 '               BLC - 12/1/2015 - 1.05 - "extra" vs target area renaming (IsUsedTargetArea > IsUsedExtraArea)
+'               BLC - 6/14/2017 - 1.06 - add SetRecord(), GetRecords()
 ' =================================
 
 ' ---------------------------------
@@ -115,7 +116,7 @@ On Error GoTo Err_Handler
     Set frm = ctrlSource.Parent
     
     rows = rs.RecordCount
-    cols = rs.Fields.count
+    cols = rs.Fields.Count
     
     'address no records
     If Nz(rows, 0) = 0 Then
@@ -426,4 +427,301 @@ Err_Handler:
             "Error encountered (#" & Err.Number & " - IsUsedExtraArea[mod_App_Data])"
     End Select
     Resume Exit_Function
+End Function
+
+' ---------------------------------
+' Sub:          GetRecords
+' Description:  Retrieve records based on template
+' Assumptions:  -
+' Parameters:   Template - SQL template name (string)
+' Returns:      rs - data retrieved (recordset)
+' Throws:       none
+' References:
+'   user1938742, October 17, 2014
+'   http://stackoverflow.com/questions/26422970/run-query-with-parameters-and-display-in-listbox-ms-access-2013
+' Source/date:  Bonnie Campbell, July 26, 2016 - for NCPN tools
+' Adapted:      -
+' Revisions:
+'   BLC - 7/26/2016 - initial version
+'   BLC - 9/22/2016 - added templates
+'   BLC - 1/9/2017 - added templates
+'   BLC - 2/7/2017 - added template - s_location_with_loctypeID_sensitivity
+'   BLC - 3/28/2017 - added upland templates, removed big rivers templates
+'   BLC - 3/30/2017 - added option for non-parameterized queries (Else)
+'   BLC - 4/3/2017 - added qc_species_by_plot_visit
+' --------------------------------------------------------------------
+'   BLC - 4/18/2017 - added updated version to Invasives db
+' --------------------------------------------------------------------
+'   BLC - 4/18/2017 - adjusted for invasives templates
+'   BLC - 4/24/2017 - added microhabitat surface & species templates
+' ---------------------------------
+Public Function GetRecords(Template As String) As DAO.Recordset
+On Error GoTo Err_Handler
+    
+    Dim db As DAO.Database
+    Dim qdf As DAO.QueryDef
+    Dim rs As DAO.Recordset
+    
+    Set db = CurrentDb
+    
+    With db
+        Set qdf = .QueryDefs("usys_temp_qdf")
+        
+        With qdf
+        
+            'check if record exists in site
+            .SQL = GetTemplate(Template)
+        
+            Select Case Template
+                        
+                Case "s_access_level"
+                    '-- required parameters --
+                    .Parameters("lvl") = TempVars("tempLvl")
+                    
+                    'clear the tempvar
+                    TempVars.Remove "tempLvl"
+                                                                                                               
+                Case "s_get_parks"
+                    '-- required parameters --
+                                                                    
+                Case "s_park_id"
+                    '-- required parameters --
+                    .Parameters("pkcode") = TempVars("ParkCode")
+           
+                Case "s_template_num_records"
+                    '-- required parameters --
+
+                Case "qc_ndc_notrecorded_all_methods_by_plot_visit", _
+                    "qc_photos_missing_by_plot_visit", _
+                    "qc_species_by_plot_visit"
+                    '-- required parameters --
+                    .Parameters("pkcode") = TempVars("ParkCode")
+                    .Parameters("pid") = TempVars("plotID")
+                    .Parameters("vdate") = TempVars("SampleDate")
+                
+                Case "s_tsys_datasheet_defaults"
+                    '-- required parameters --
+                
+                Case "s_surface"
+                    '-- required parameters --
+                
+                Case "s_surface_by_ID"
+                    '-- required parameters --
+                    .Parameters("sid") = TempVars("SurfaceID")
+                
+                Case "s_speciescover_by_transect"
+                    '-- required parameters --
+                    .Parameters("pkcode") = TempVars("ParkCode")
+                    .Parameters("eid") = TempVars("Event_ID")
+                    .Parameters("tid") = TempVars("Transect_ID")
+                
+                Case "s_surfacecover_by_transect"
+                    '-- required parameters --
+                    '.Parameters("pkcode") = TempVars("ParkCode")
+                    '.Parameters("eid") = TempVars("Event_ID")
+                    .Parameters("tid") = TempVars("Transect_ID")
+                
+                Case Else
+                    'handle other non-parameterized queries
+                    
+            End Select
+            
+            Set rs = .OpenRecordset(dbOpenDynaset)
+            
+        End With
+        
+    End With
+    
+    Set GetRecords = rs
+    
+Exit_Handler:
+    Exit Function
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - GetRecords[mod_App_Data])"
+    End Select
+    Resume Exit_Handler
+End Function
+
+' ---------------------------------
+' Function:     SetRecord
+' Description:  Insert/update/delete record based on template
+' Assumptions:  -
+' Parameters:   template - SQL template name (string)
+'               params - array of parameters for template (variant)
+' Returns:      id - ID of record inserted, updated, deleted (long integer)
+' Throws:       none
+' References:   -
+' Source/date:  Bonnie Campbell, July 26, 2016 - for NCPN tools
+' Adapted:      -
+' Revisions:
+'   BLC - 7/26/2016 - initial version
+'   BLC - 9/21/2016 - updated i_login parameters
+'   BLC - 10/24/2016 - added flag templates (contact, site, mod wentworth)
+'   BLC - 10/28/2016 - updated TempVars("ContactID") -> TempVars("AppUserID"), updated i_task
+'   BLC - 1/24/2017 - added IsNPS flag parameter for contacts
+'   BLC - 3/24/2017 - set SkipRecordAction = False for uplands, removed unused big rivers cases,
+'                     added uplands cases, delete cases
+'   BLC - 3/29/2017 - added FieldOK, FieldCheck, Dependencies parameters for templates
+'   BLC - 4/24/2017 - add surface/species cover, set SkipRecordAction = false (invasives, uplands)
+' ---------------------------------
+Public Function SetRecord(Template As String, Params As Variant) As Long
+On Error GoTo Err_Handler
+    
+    Dim db As DAO.Database
+    Dim qdf As DAO.QueryDef
+    Dim SkipRecordAction As Boolean
+    Dim ID As Long
+    
+    'exit w/o values
+    If Not IsArray(Params) Then GoTo Exit_Handler
+    
+    'default <-- upland/invasives donot have RecordAction table implemented so skip!
+    SkipRecordAction = True 'False
+            
+    'default ID (if not set as param)
+    ID = 0
+    
+    Set db = CurrentDb
+    
+    With db
+        Set qdf = .QueryDefs("usys_temp_qdf")
+        
+        With qdf
+        
+            'check if record exists in site
+            .SQL = GetTemplate(Template)
+            
+            '-------------------
+            ' set SQL parameters --> .Parameters("") = params()
+            '-------------------
+            
+            '-------------------------------------------------------------------------
+            ' NOTE:
+            '   param(0) --> reserved for record action RefTable (ReferenceType)
+            '   last param(x) --> used as record ID for updates
+            '-------------------------------------------------------------------------
+            Select Case Template
+            
+        '-----------------------
+        '  INSERTS
+        '-----------------------
+                Case "i_num_records"
+                    '-- required parameters --
+                    .Parameters("rid") = Params(1)  'record ID
+                    .Parameters("num") = Params(2)  'number of records
+                    .Parameters("fok") = Params(3)  'field ok? (QC pass/fail)
+                    
+                Case "i_template"
+                    '-- required parameters --
+                    .Parameters("tname") = Params(1)        'TemplateName
+                    .Parameters("contxt") = Params(2)       'Context
+                    '.Parameters("tmpl").Type = dbMemo       'set it to a memo field
+                    'Limit template SQL to 255 characters to avoid
+                    'error 3271 SetRecord mod_App_Data Invalid property value.
+                    'templates > 255 characters must be edited directly in the table
+                    .Parameters("tmpl") = Left(Params(3), 255) 'TemplateSQL
+                    .Parameters("rmks") = Params(4)         'Remarks
+                    .Parameters("effdate") = Params(5)      'EffectiveDate
+                    .Parameters("cid") = Params(6)          'CreatedBy_ID (contactID)
+                    .Parameters("prms") = Params(7)         'Params
+                    .Parameters("syntx") = Params(8)        'Syntax
+                    .Parameters("vers") = Params(9)         'Version
+                    .Parameters("sflag") = Params(10)       'IsSupported
+                    .Parameters("lmid") = TempVars("AppUserID") 'lastmodifiedID
+                    .Parameters("fqc") = Params(11)         'FieldCheck
+                    .Parameters("fok") = Params(12)         'FieldOK
+                    .Parameters("dep") = Params(13)         'Dependencies
+                
+                Case "i_surface_cover"
+                    '-- required parameters --
+                    .Parameters("qid") = Params(1)
+                    .Parameters("sid") = Params(2)
+                    .Parameters("pct") = Params(3)
+                    
+'                    .Parameters("") = Params(1)
+'                    .Parameters("") = Params(2)
+'                    .Parameters("") = Params(3)
+                
+        '-----------------------
+        '  UPDATES
+        '-----------------------
+                Case "u_num_records"
+                    '-- required parameters --
+                    .Parameters("rid") = Params(1)
+                    .Parameters("num") = Params(2)
+                    .Parameters("fok") = Params(3)
+                    
+                Case "u_template"
+                    '-- required parameters --
+                    .Parameters("id") = Params(1)
+                
+                Case "u_surface_cover"
+                    '-- required parameters --
+                    .Parameters("qid") = Params(1)
+                    .Parameters("sid") = Params(2)
+                    .Parameters("pct") = Params(3)
+                    '.Parameters("sfcid") = Params(4)
+                    
+        '-----------------------
+        '  DELETES
+        '-----------------------
+                Case "d_num_records_all"
+                    '-- required parameters --
+                
+                Case "d_num_records"
+                    '-- required parameters --
+                    .Parameters("rid") = Params(1)
+            
+            End Select
+            
+            .Execute dbFailOnError
+                
+    ' -------------------
+    '  Record Action
+    ' -------------------
+            'handle unrecorded actions & those which don't generate an ID
+            If SkipRecordAction Then GoTo Exit_Handler
+            
+            If ID = 0 Then
+                'retrieve identity
+                ID = db.OpenRecordset("SELECT @@IDENTITY;")(0)
+            End If
+            
+            'set record action
+            .SQL = GetTemplate("i_record_action")
+                                            
+            '-- required parameters --
+            .Parameters("RefTable") = Params(0)
+            .Parameters("RefID") = ID
+            .Parameters("ID") = TempVars("AppUserID") 'TempVars("ContactID")
+            .Parameters("Activity") = "DE"
+            .Parameters("ActionDate") = CDate(Format(Now(), "YYYY-mm-dd hh:nn:ss AMPM"))
+                                
+            .Execute dbFailOnError
+            
+            'cleanup
+            .Close
+        
+        End With
+
+        SetRecord = ID
+    End With
+                
+Exit_Handler:
+    'cleanup
+    Set qdf = Nothing
+    Set db = Nothing
+
+    Exit Function
+Err_Handler:
+    Select Case Err.Number
+
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - SetRecord[mod_App_Data])"
+    End Select
+    Resume Exit_Handler
 End Function

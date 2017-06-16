@@ -429,7 +429,7 @@ On Error GoTo Err_Handler:
 '  Run Report
 ' --------------
     'process query
-    If QryExists(strQuery) Then
+    If qryExists(strQuery) Then
         DoCmd.SetWarnings False
         DoCmd.Hourglass True
         SysCmd acSysCmdSetStatus, "Running " & strQuery & " query... "
@@ -504,9 +504,9 @@ Public Sub Form_Close()
 
     'clear controls
     With Me
-        .Controls.item("lbxProjectID").ListIndex = 0
-        .Controls.item("lbxYear").ListIndex = 0
-        .Parent.Controls.item("tbxInstructions").Caption = " "
+        .Controls.Item("lbxProjectID").ListIndex = 0
+        .Controls.Item("lbxYear").ListIndex = 0
+        .Parent.Controls.Item("tbxInstructions").Caption = " "
     End With
     
 End Sub

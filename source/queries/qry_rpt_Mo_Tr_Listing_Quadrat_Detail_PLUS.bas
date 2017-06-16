@@ -103,11 +103,4 @@ Begin
         dbText "Name" ="sc.IsDead"
         dbLong "AggregateType" ="-1"
     End
-    Begin
-        dbText "Name" ="tbl_Locations.Plot_ID"
-        dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0x6cfb48e905a2c747b47e277cc2a9711e
-        End
-    End
 End

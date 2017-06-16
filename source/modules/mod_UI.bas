@@ -213,7 +213,7 @@ Dim parentControl As Object
       
         If TypeName(parentControl.name) = "String" Then
             'form? -> refresh the display
-            If GetAccessObjectType(parentControl.name) = -32768 Then
+            If getAccessObjectType(parentControl.name) = -32768 Then
                 parentControl.Repaint
                 Exit Do
             End If

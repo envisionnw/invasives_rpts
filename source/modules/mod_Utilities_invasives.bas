@@ -632,7 +632,7 @@ End Function
 Public Function FiscalYear(datDate As Date) As Integer
 Dim intYear As Integer
 
-intYear = Year(datDate)
+intYear = year(datDate)
 If Month(datDate) >= 10 Then
     intYear = intYear + 1
 End If
@@ -656,7 +656,7 @@ Public Sub PrintFields(strObjectName)
 Dim db As Database
 Dim tdf As TableDef
 Dim qdf As QueryDef
-Dim fld As Field
+Dim fld As field
 Dim strOutput As String
 
 On Error Resume Next
@@ -783,7 +783,7 @@ Public Function TableNamesAndIndexes(Optional varFileType As Variant) As String
 Dim db As Database
 Dim tdf As TableDef
 Dim idx As index
-Dim fld As Field
+Dim fld As field
 Dim rst As Recordset
 
 Set db = CurrentDb

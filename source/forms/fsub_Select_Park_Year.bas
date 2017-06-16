@@ -345,7 +345,7 @@ On Error GoTo Err_Handler
     'prepare value list
     strValueList = "'SEL';'Select Year';"
 
-    iYear = Year(Now()) + 2
+    iYear = year(Now()) + 2
 
     For i = 1 To 6
         strValueList = strValueList & "'" & iYear & "';'" & iYear & "';"

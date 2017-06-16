@@ -378,12 +378,12 @@ End Sub
 Private Sub lbxParks_Click()
 On Error GoTo Err_Handler
 Dim strParks As String, strComma As String
-Dim item As Variant
+Dim Item As Variant
 
     'determine the selected park(s)
-    For Each item In lbxParks.ItemsSelected
+    For Each Item In lbxParks.ItemsSelected
         
-        strParks = strParks & "'" & lbxParks.ItemData(item) & "',"
+        strParks = strParks & "'" & lbxParks.ItemData(Item) & "',"
 
     Next
     
@@ -422,12 +422,12 @@ End Sub
 Private Sub lbxYears_Click()
 On Error GoTo Err_Handler
 Dim strYears As String, strComma As String
-Dim item As Variant
+Dim Item As Variant
 
     'determine the selected year(s)
-    For Each item In lbxYears.ItemsSelected
+    For Each Item In lbxYears.ItemsSelected
         
-        strYears = strYears & lbxYears.ItemData(item) & ","
+        strYears = strYears & lbxYears.ItemData(Item) & ","
         
     Next
         

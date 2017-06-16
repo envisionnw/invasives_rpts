@@ -318,20 +318,20 @@ On Error GoTo Err_Handler
     
     Template = "i_Quadrat"
     
-    Dim params(0 To 5) As Variant
+    Dim Params(0 To 5) As Variant
 
     With Me
-        params(0) = "Quadrat"
-        params(1) = .EventID
-        params(2) = .transectID
+        Params(0) = "Quadrat"
+        Params(1) = .EventID
+        Params(2) = .transectID
 '        params(3) = .
         
         If IsUpdate Then
             Template = "u_Quadrat"
-            params(4) = .ID
+            Params(4) = .ID
         End If
         
-        .ID = SetRecord(Template, params)
+        .ID = SetRecord(Template, Params)
     End With
 
 Exit_Handler:

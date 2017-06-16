@@ -1070,7 +1070,7 @@ On Error GoTo Err_Handler
     Dim varItem As Variant
     
    'check for selected items --> if present, enable btnRemove
-    If lbxTgtSpecies.ItemsSelected.count > 0 Then
+    If lbxTgtSpecies.ItemsSelected.Count > 0 Then
         If btnRemove.backcolor <> CTRL_REMOVE_ENABLED Then
             EnableControl btnRemove, CTRL_REMOVE_ENABLED, TEXT_ENABLED
             EnableControl btnRemoveAll, CTRL_REMOVE_ENABLED, TEXT_ENABLED
@@ -1422,7 +1422,7 @@ On Error GoTo Err_Handler
     DoCmd.Hourglass True
     
     'delete the full list for current or future years
-    If CInt(TempVars("TgtYear")) > 0 And CInt(TempVars("TgtYear")) > Year(Now()) Then
+    If CInt(TempVars("TgtYear")) > 0 And CInt(TempVars("TgtYear")) > year(Now()) Then
     
         MsgBox "Removing previously saved " & TempVars("park") & " - " & TempVars("TgtYear") & _
                 " species. " & vbCrLf & vbCrLf & _
@@ -1449,7 +1449,7 @@ On Error GoTo Err_Handler
     
         'warn the user, but allow them to choose to add to the previous year list (or not)
         Dim strCurrPrev As String
-        strCurrPrev = IIf(CInt(TempVars("TgtYear")) = Year(Now()), "the current", "a previous")
+        strCurrPrev = IIf(CInt(TempVars("TgtYear")) = year(Now()), "the current", "a previous")
 
         iResponse = MsgBox("The list you are saving is for " & strCurrPrev & " year ( " & _
                 TempVars("park") & " - " & TempVars("TgtYear") & " )." & vbCrLf & vbCrLf & _

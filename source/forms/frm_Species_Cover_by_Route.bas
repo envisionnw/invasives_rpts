@@ -14,10 +14,10 @@ Begin Form
     GridY =24
     DatasheetFontHeight =9
     ItemSuffix =13
-    Left =2580
-    Top =7275
-    Right =9705
-    Bottom =10860
+    Left =840
+    Top =5835
+    Right =7965
+    Bottom =9420
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x3d34192b53bbe340
@@ -131,7 +131,6 @@ Begin Form
                     ColumnWidths ="2820"
                     AfterUpdate ="[Event Procedure]"
                     OnGotFocus ="[Event Procedure]"
-                    OnClick ="[Event Procedure]"
                     OnChange ="[Event Procedure]"
 
                     Begin
@@ -656,11 +655,6 @@ End Sub
 
 Private Sub Visit_Year_Change()
  Debug.Print Me.Visit_Year.RowSource
-End Sub
-
-Private Sub Visit_Year_Click()
-
- 
 End Sub
 
 Private Sub Visit_Year_GotFocus()

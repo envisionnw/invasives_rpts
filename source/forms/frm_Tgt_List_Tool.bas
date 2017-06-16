@@ -915,6 +915,8 @@ Option Explicit
 
 ' =================================
 ' FORM NAME:    frm_Tgt_List_Tool
+' Level:        Form module
+' Version:      1.04
 ' Description:  Standard form - main screen of the target list tool user interface
 ' Data source:  tsys_App_Defaults
 ' Data access:  edit only, no additions, moving between records or deletions
@@ -925,11 +927,12 @@ Option Explicit
 ' Source/date:  John R. Boetsch, May 24, 2006
 ' Adapted/date: Bonnie L. Campbell, April 21, 2015 from frm_Switchboard (WQ Utilities tool)
 '               --------------------------------------------------------------------------------------
-' Revisions:    BLC, 4/21/2015 - Adapted for NCPN Invasives Reports - Species Target List tool
+' Revisions:    BLC, 4/21/2015 - 1.00 -Adapted for NCPN Invasives Reports - Species Target List tool
 '                   Converted tabQAQC to tabCreate, tabLogs to tabView
-'               BLC, 4/22/2015 - Renamed
-'               BLC, 6/4/2015  - Changed View to Search tab
-'               BLC, 9/21/2015 - Added park personnel species list, park summary reports
+'               BLC, 4/22/2015 - 1.01 -Renamed
+'               BLC, 6/4/2015  - 1.02 -Changed View to Search tab
+'               BLC, 9/21/2015 - 1.03 -Added park personnel species list, park summary reports
+'               BLC, 6/15/2017 - 1.04 - Fixed references to fsub_DbAdmin controls
 ' =================================
 
 ' ********************************************************************************************
@@ -1043,19 +1046,30 @@ End Sub
 ' Adapted:      Bonnie Campbell, June, 2014 for NCPN WQ Utilities tool
 ' Revisions:    BLC, 7/31/2014 - updated to use TempVars vs gvars
 '               BLC, 6/12/2015 - replaced TempVars.item("... with TempVars("...
+'               BLC, 6/15/2017 - adjusted references to fsub_DbAdmin controls
+'                                to avoid compile issues which innaccurately point to TempVars
+'                                references are now Me.fsub_DbAdmin.Controls("XX")
+'                                w/ XX = chkBackupOnExit & chkCompactBEOnExit
 ' ---------------------------------
 Private Sub cmdExit_Click()
     On Error GoTo Err_Handler
 
     ' Prompt for backups, depending on application settings
     '   Note:  only relevant for Access back-end files
-    If TempVars("Connected") And TempVars("HasAccessBE") And Me.chkBackupOnExit Then MakeBackup
+'    If TempVars("Connected") And TempVars("HasAccessBE") And Me.chkBackupOnExit Then MakeBackup
+    If TempVars("Connected") And TempVars("HasAccessBE") And _
+        Me.fsub_DbAdmin.Controls("chkBackupOnExit") Then MakeBackup
 
     ' Compact and repair back-end database prior to exit, depending on
     '   default settings and on whether there is a valid link to the database
     '   Note:  only relevant for Access back-end files
+    
+'    If TempVars("Connected") And TempVars("HasAccessBE") _
+'        And TempVars("WritePermission") And Me.chkCompactBEOnExit Then
+    
     If TempVars("Connected") And TempVars("HasAccessBE") _
-        And TempVars("WritePermission") And Me.chkCompactBEOnExit Then
+        And TempVars("WritePermission") And _
+        Me.fsub_DbAdmin.Controls("chkCompactBEOnExit") Then
 
         Dim rst As DAO.Recordset
         Dim strOrigFile As String
@@ -1249,12 +1263,12 @@ Dim blnLeftInsetHide As Boolean
     buttonUnHighlight Me!lblInstructions
     
     'hide filter
-    Me.Controls.item("fsub_Filter").visible = False
+    Me.Controls.Item("fsub_Filter").visible = False
     
     'unhide left inset rectangle
-    Me.Controls.item("rctLeftInset").visible = True
+    Me.Controls.Item("rctLeftInset").visible = True
     If blnLeftInsetHide Then
-        Me.Controls.item("rctLeftInset").visible = False
+        Me.Controls.Item("rctLeftInset").visible = False
     End If
     
     'update title & make visible

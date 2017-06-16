@@ -1476,7 +1476,7 @@ End Sub
 ' ---------------------------------
 Private Sub tbxLUCode_DblClick(Cancel As Integer)
 On Error GoTo Err_Handler
-    Dim item As String
+    Dim Item As String
     Dim i As Integer
     Dim lbx As ListBox
     
@@ -1501,7 +1501,7 @@ On Error GoTo Err_Handler
     'add components of item (code, species (UT or whatever), & ITIS) to listbox
 
     'prepare item for listbox value
-    item = tbxMasterPlantCode & ";" & tbxMasterSpecies & ";" & tbxLUCode & ";0;0"
+    Item = tbxMasterPlantCode & ";" & tbxMasterSpecies & ";" & tbxLUCode & ";0;0"
     
     'iterate through listbox (use .Column(x,i) vs .ListIndex(i) which results in error 451 property let not defined, property get...)
     If IsListDuplicate(Forms("frm_Tgt_Species").Controls("lbxTgtSpecies"), 2, tbxLUCode) Then
@@ -1513,7 +1513,7 @@ On Error GoTo Err_Handler
     
     With lbx
         'add item if not duplicate
-        .AddItem item
+        .AddItem Item
     
         'update target species count
         Forms("frm_Tgt_Species").Controls("lblTgtSpeciesCount").Caption = .ListCount - 1 & " species"
@@ -1679,10 +1679,10 @@ On Error GoTo Err_Handler
     ShowControls Me, True, "*", True
         
     ' determine record count
-    Dim count As Integer
+    Dim Count As Integer
     If Not rs.EOF Then
         rs.MoveLast
-        count = rs.RecordCount
+        Count = rs.RecordCount
         rs.MoveFirst
         
         'hide no records
@@ -1692,13 +1692,13 @@ On Error GoTo Err_Handler
     End If
         
     'set # species found
-    lblSpeciesFound.Caption = count & " species found"
+    lblSpeciesFound.Caption = Count & " species found"
         
     'set search for caption
     lblSearchForValue.Caption = """" & strSearch & """"
     
     'extend form if species count > 0
-    If count > 0 Then
+    If Count > 0 Then
         SetWindowSize Me, 8000, Me.Width
     End If
     
@@ -1711,7 +1711,7 @@ On Error GoTo Err_Handler
     
     'leave last selections for checkboxes (don't clear TempVars.item("speciestype"))
     'must clear to clear highlighting & reset speciestypes
-    TempVars.item("speciestype") = ""
+    TempVars.Item("speciestype") = ""
 
 Exit_Sub:
     Exit Sub

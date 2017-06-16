@@ -1373,7 +1373,7 @@ Private Sub btnTestODBC_Click()
     ' Loop through the recordset and test each table if it matches the current db name
     rst.MoveFirst
     Do Until rst.EOF
-        strNewConn = rst![Connect]
+        strNewConn = rst![connect]
         ' Add the ODBC prefix to the connection string if not present
         If Left(strNewConn, 5) <> "ODBC;" Then
             strNewConn = "ODBC;" & strNewConn
@@ -1492,7 +1492,7 @@ Private Sub btnUpdateLinks_Click()
                 "[Link_db]=""" & strDbName & """")
             
             ' Start with the current connection string
-            strNewConnStr = CurrentDb.TableDefs(strTable).Connect
+            strNewConnStr = CurrentDb.TableDefs(strTable).connect
 
             ' Update connection string with new server & db name
             strNewConnStr = ReplaceString(strNewConnStr, strDbName, strNewDb)
