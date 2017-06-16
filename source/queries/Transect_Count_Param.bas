@@ -1,11 +1,9 @@
-﻿dbMemo "SQL" ="SELECT tbl_Locations.Unit_Code, tbl_Locations.Plot_ID AS Route, Year([Start_Date"
-    "]) AS Visit_Year, Count(tbl_Quadrat_Transect.Transect) AS TransectCount\015\012F"
-    "ROM tbl_Locations LEFT JOIN (tbl_Events LEFT JOIN tbl_Quadrat_Transect ON tbl_Ev"
-    "ents.Event_ID = tbl_Quadrat_Transect.Event_ID) ON tbl_Locations.Location_ID = tb"
-    "l_Events.Location_ID\015\012GROUP BY tbl_Locations.Unit_Code, tbl_Locations.Plot"
-    "_ID, Year([Start_Date])\015\012HAVING (((tbl_Locations.Unit_Code)=Forms!frm_Sele"
-    "ct_Transect_Counts!Park_Code) And ((Year([Start_Date]))=Forms!frm_Select_Transec"
-    "t_Counts!Visit_Year));\015\012"
+﻿dbMemo "SQL" ="SELECT l.Unit_Code, l.Plot_ID AS Route, Year([Start_Date]) AS Visit_Year, Count("
+    "t.Transect) AS TransectCount\015\012FROM (tbl_Locations AS l LEFT JOIN tbl_Event"
+    "s AS e ON l.Location_ID = e.Location_ID) LEFT JOIN Transect AS t ON e.Event_ID ="
+    " t.Event_ID\015\012GROUP BY l.Unit_Code, l.Plot_ID, Year([Start_Date])\015\012HA"
+    "VING (((l.Unit_Code)=Forms!frm_Select_Transect_Counts!Park_Code) \015\012And ((Y"
+    "ear([Start_Date]))=Forms!frm_Select_Transect_Counts!Visit_Year));\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -20,10 +18,6 @@ dbBinary "GUID" = Begin
     0x044edeb3832a3442822f123f78d6dc91
 End
 Begin
-    Begin
-        dbText "Name" ="tbl_Locations.Unit_Code"
-        dbLong "AggregateType" ="-1"
-    End
     Begin
         dbText "Name" ="Route"
         dbLong "AggregateType" ="-1"
@@ -44,5 +38,15 @@ Begin
         dbBinary "GUID" = Begin
             0x000050c8feca4744b434dcb1dc952b1b
         End
+        dbInteger "ColumnWidth" ="2010"
+        dbBoolean "ColumnHidden" ="0"
+    End
+    Begin
+        dbText "Name" ="l.Unit_Code"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tbl_Locations.Unit_Code"
+        dbLong "AggregateType" ="-1"
     End
 End

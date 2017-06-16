@@ -16,32 +16,6 @@ dbBinary "GUID" = Begin
 End
 Begin
     Begin
-        dbText "Name" ="Expr1"
-        dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0x591d66e6285acc4586ea98f22673706e
-        End
-    End
-    Begin
-        dbText "Name" ="Expr2"
-        dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0x93e20eb7c80d1f408ab7ad401f5b2bf3
-        End
-    End
-    Begin
-        dbText "Name" ="qry_Select_Species_Cover.Unit_Code"
-        dbInteger "ColumnWidth" ="1065"
-        dbBoolean "ColumnHidden" ="0"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="qry_Select_Species_Cover.Visit_Year"
-        dbInteger "ColumnWidth" ="1005"
-        dbBoolean "ColumnHidden" ="0"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
         dbText "Name" ="Unit_Code"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin

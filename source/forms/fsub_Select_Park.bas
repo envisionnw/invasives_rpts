@@ -202,6 +202,7 @@ Begin Form
                     TabIndex =1
                     BorderColor =10921638
                     ForeColor =4138256
+                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"10\""
                     Name ="cbxPark"
                     RowSourceType ="Table/Query"
                     RowSource ="SELECT tlu_Parks.ParkCode, tlu_Parks.ParkName FROM tlu_Parks WHERE tlu_Parks.Par"

@@ -25,7 +25,7 @@ Begin
     Left =-1
     Top =-1
     Right =952
-    Bottom =106
+    Bottom =89
     Left =0
     Top =0
     ColumnsShown =771

@@ -1,19 +1,20 @@
 ﻿dbMemo "SQL" ="SELECT (l.Plot_ID  & \"_\" & t.Transect) AS ID, l.Unit_Code, Year([Start_Date]) "
-    "AS Visit_Year, l.Plot_ID AS Route, t.Transect_ID, t.Transect, l.Area, t.E_Coord,"
-    " t.N_Coord, q.ID AS Quadrat_ID, q.Quadrat, esp.Position_m, esp.ColName, q.IsSamp"
-    "led, q.NoExotics\015\012FROM ((tbl_Locations AS l LEFT JOIN EventSamplePosition "
-    "AS esp ON esp.Location_ID = l.Location_ID) LEFT JOIN Transect AS t ON t.Event_ID"
-    " = esp.Event_ID) LEFT JOIN Quadrat AS q ON q.Transect_ID = t.Transect_ID\015\012"
-    "WHERE esp.Quadrat = q.Quadrat\015\012ORDER BY l.Unit_Code, Year(esp.Start_Date),"
-    " l.Plot_ID, t.Transect, q.Quadrat;\015\012"
+    "AS Visit_Year, e.Event_ID, l.Location_ID, l.Plot_ID AS Route, t.Transect_ID, t.T"
+    "ransect, l.Area, t.E_Coord, t.N_Coord, q.ID AS Quadrat_ID, q.Quadrat, q.IsSample"
+    "d, q.NoExotics\015\012FROM ((tbl_Locations AS l LEFT JOIN tbl_Events AS e ON e.L"
+    "ocation_ID = l.Location_ID) LEFT JOIN Transect AS t ON t.Event_ID = e.Event_ID) "
+    "LEFT JOIN Quadrat AS q ON q.Transect_ID = t.Transect_ID\015\012ORDER BY l.Plot_I"
+    "D, t.Transect;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
+dbMemo "Filter" ="((([Transect_Select_LIMITED].[Unit_Code]=\"GOSP\"))) AND ([Transect_Select_LIMIT"
+    "ED].[Visit_Year]=2016)"
 dbBoolean "OrderByOn" ="0"
 dbByte "Orientation" ="0"
 dbByte "DefaultView" ="2"
 dbBinary "GUID" = Begin
-    0x66ba1ac1c0cbbc4ca73e455c1b9742db
+    0x06d9a769e719d84e8cf686df8d64a751
 End
 dbBoolean "FilterOnLoad" ="0"
 dbBoolean "OrderByOnLoad" ="-1"
@@ -22,108 +23,102 @@ Begin
         dbText "Name" ="ID"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
-            0xbc20df4c02531849b8bc4b4a1b70784a
+            0xcba8ebe7fdd4174293c2a1a62ecf96b5
         End
-        dbInteger "ColumnWidth" ="2925"
-        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="l.Unit_Code"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
-            0x67163259f30dd94fb569cc9488ee89f9
+            0xc2dee0d27fd5bb4896a7932686be7a96
         End
     End
     Begin
         dbText "Name" ="Visit_Year"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
-            0x050230f5f358d1408ed61ee2bab61c1e
+            0x175c495d2f2dcb408a1572fda3973208
         End
     End
     Begin
         dbText "Name" ="Route"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
-            0xd95736d428ffa34a93907d2a605b30cb
+            0x3a0f4fdf76029547a729b751455b8515
         End
     End
     Begin
         dbText "Name" ="t.Transect_ID"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
-            0xfc4678161f6c444c9bd7e0af927fc997
+            0x00056997e8add942842fc87db5d8e7c8
         End
     End
     Begin
         dbText "Name" ="t.Transect"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
-            0x8dfa5afbd1c57b4381a009ba5d25e899
+            0xbc8d6d70517f90428ad870e9118d508f
         End
     End
     Begin
         dbText "Name" ="l.Area"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
-            0xc0a57d1ff11c6e499348ea5e098e6217
+            0x2cd7aa5bb07ca645a4fa6644c2fba253
         End
     End
     Begin
         dbText "Name" ="t.E_Coord"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
-            0xee7c2c7a64a65942bf639d65b4455ba1
+            0x813c2ae2ec524c44bf70bf3e6633f68e
         End
     End
     Begin
         dbText "Name" ="t.N_Coord"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
-            0xf6f7e8d8ef63a84a95ac6d3970c52305
+            0xaab660d8da85104ab1e9bea1c5861bc6
         End
     End
     Begin
-        dbText "Name" ="esp.Position_m"
+        dbText "Name" ="Quadrat_ID"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
-            0xf6c238ddbfa72745b5f91d76adbbfaf5
+            0xd8c4bd17fe63b6429a58a7976f7760ae
         End
     End
     Begin
-        dbText "Name" ="esp.ColName"
+        dbText "Name" ="q.Quadrat"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
-            0x79bcc44819ced54dbd3ca2a5e04707bf
+            0x3a7f08015e6a924ab87231745644ac7d
         End
     End
     Begin
         dbText "Name" ="q.IsSampled"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
-            0x991d1aaa7393cc45b1b28f1cbed448d7
+            0x41fd7a1d6a1e234aaf2291e7d960a079
         End
     End
     Begin
         dbText "Name" ="q.NoExotics"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
-            0xc05090cd5336474f9d67f62eb0fd5c4b
+            0xfa37e8b2e7c93e4590871c18b84f4348
         End
     End
     Begin
-        dbText "Name" ="q.ID"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="q.Quadrat"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="Quadrat_ID"
+        dbText "Name" ="l.Location_ID"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
-            0x4cc02076de1cb04488ec84b9c3428e84
+            0x9bc3cdd2420f6542a8e54e85610f946f
         End
+    End
+    Begin
+        dbText "Name" ="e.Event_ID"
+        dbLong "AggregateType" ="-1"
     End
 End

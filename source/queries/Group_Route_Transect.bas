@@ -42,12 +42,4 @@ Begin
         dbText "Name" ="Transect.Transect_ID"
         dbLong "AggregateType" ="-1"
     End
-    Begin
-        dbText "Name" ="tbl_Locations.Plot_ID"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="TransectsPerRoute"
-        dbLong "AggregateType" ="-1"
-    End
 End

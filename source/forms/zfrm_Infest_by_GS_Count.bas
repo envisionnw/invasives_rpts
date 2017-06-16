@@ -94,7 +94,6 @@ Begin Form
                     RowSource ="SELECT tlu_Parks.ParkCode, tlu_Parks.ParkName FROM tlu_Parks; "
                     ColumnWidths ="0;2565"
                     AfterUpdate ="[Event Procedure]"
-
                     Begin
                         Begin Label
                             OverlapFlags =85

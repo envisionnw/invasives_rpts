@@ -33,11 +33,13 @@ Begin
         dbText "Name" ="tbl_Locations.Unit_Code"
         dbInteger "ColumnWidth" ="1050"
         dbBoolean "ColumnHidden" ="0"
+        dbLong "AggregateType" ="-1"
     End
     Begin
         dbText "Name" ="Visit_Year"
         dbInteger "ColumnWidth" ="1005"
         dbBoolean "ColumnHidden" ="0"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x6bc6a4e32c4ca64c99dfd2bb3af02b66
         End
@@ -46,27 +48,32 @@ Begin
         dbText "Name" ="tbl_Locations.Plot_ID"
         dbInteger "ColumnWidth" ="2520"
         dbBoolean "ColumnHidden" ="0"
+        dbLong "AggregateType" ="-1"
     End
     Begin
         dbText "Name" ="tbl_Quadrat_Transect.Transect"
         dbInteger "ColumnWidth" ="885"
         dbBoolean "ColumnHidden" ="0"
+        dbLong "AggregateType" ="-1"
     End
     Begin
         dbText "Name" ="tbl_Locations.Area"
         dbInteger "ColumnWidth" ="660"
         dbBoolean "ColumnHidden" ="0"
+        dbLong "AggregateType" ="-1"
     End
     Begin
         dbText "Name" ="Species"
         dbInteger "ColumnWidth" ="1935"
         dbBoolean "ColumnHidden" ="0"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x10a9a9ce69e90d418bc8a3ab399d2fe5
         End
     End
     Begin
         dbText "Name" ="Cover_Average"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0xac5abc7694f4264f9bf35bb23b71ede8
         End

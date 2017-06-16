@@ -822,6 +822,7 @@ Begin Form
                                     FontSize =8
                                     FontWeight =700
                                     ForeColor =-2147483607
+                                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"0\""
                                     Name ="cbxVersion"
                                     ControlSource ="Release_ID"
                                     RowSourceType ="Table/Query"

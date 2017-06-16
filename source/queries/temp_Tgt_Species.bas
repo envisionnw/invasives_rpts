@@ -19,18 +19,21 @@ dbBoolean "OrderByOnLoad" ="-1"
 Begin
     Begin
         dbText "Name" ="Park"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0xd39ff39af6e2914eb7a1449f725cc67e
         End
     End
     Begin
         dbText "Name" ="TgtYear"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0xd7a049a4a2b81d44b8fbc2f1a5639bb7
         End
     End
     Begin
         dbText "Name" ="Extra_Area_ID"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0xfd65da8edd231145aa4aa9cd353609fb
         End

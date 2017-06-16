@@ -25,6 +25,7 @@ Begin
     End
     Begin
         dbText "Name" ="Visit_Year"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x50959492a799e342a2778d584cf8cb1a
         End

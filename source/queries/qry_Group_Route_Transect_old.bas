@@ -38,24 +38,28 @@ End
 Begin
     Begin
         dbText "Name" ="Expr1"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x38509c0fd1e8c54295657a89d1c4d498
         End
     End
     Begin
         dbText "Name" ="Expr2"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0xa5822b63079f654899f59731e6c44efa
         End
     End
     Begin
         dbText "Name" ="Expr3"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x153934e21761e946badc168777aad495
         End
     End
     Begin
         dbText "Name" ="Expr4"
+        dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
             0x5fd619de3e899b4e96b6b6fcab414f75
         End
@@ -70,7 +74,7 @@ Begin
     Left =-1
     Top =-1
     Right =952
-    Bottom =106
+    Bottom =89
     Left =0
     Top =0
     ColumnsShown =543

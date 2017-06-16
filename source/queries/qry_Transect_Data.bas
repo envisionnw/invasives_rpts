@@ -1,8 +1,8 @@
 ﻿Operation =1
 Option =0
-Where ="(((qry_Transect_Select.Unit_Code)=[Forms]![frm_Monitoring_Transect]![Park_Code])"
-    " AND ((qry_Transect_Select.Visit_Year)=[Forms]![frm_Monitoring_Transect]![Visit_"
-    "Year]) AND ((qry_Transect_Select.Species) Is Not Null))"
+Where ="(((qry_Transect_Select.Unit_Code)=Forms!frm_Monitoring_Transect!Park_Code) And ("
+    "(qry_Transect_Select.Visit_Year)=Forms!frm_Monitoring_Transect!Visit_Year) And ("
+    "(qry_Transect_Select.Species) Is Not Null))"
 Begin InputTables
     Name ="qry_Transect_Select"
 End
@@ -132,7 +132,7 @@ Begin
     Left =-1
     Top =-1
     Right =1073
-    Bottom =42
+    Bottom =25
     Left =0
     Top =0
     ColumnsShown =539

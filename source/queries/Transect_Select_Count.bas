@@ -100,18 +100,6 @@ Begin
         End
     End
     Begin
-        dbText "Name" ="Route"
-        dbBinary "GUID" = Begin
-            0x7f212013ac28f947b2ee31a9989dafb7
-        End
-    End
-    Begin
-        dbText "Name" ="ts.Plot_ID"
-        dbInteger "ColumnWidth" ="1800"
-        dbBoolean "ColumnHidden" ="0"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
         dbText "Name" ="ts.Route"
         dbLong "AggregateType" ="-1"
     End

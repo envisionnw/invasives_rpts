@@ -175,7 +175,7 @@ Option Explicit
 ' =================================
 ' MODULE:       frm_Select_Transect_Counts
 ' Level:        Form module
-' Version:      1.02
+' Version:      1.03
 ' Description:  Transect count related functions & subroutines
 '
 ' Source/date:  Unknown
@@ -183,6 +183,7 @@ Option Explicit
 ' Revisions:    Unknown        - 1.00 - initial version
 '               BLC, 5/10/2017 - 1.01 - documentation, added Form_Open(), Visit_Year_AfterUpdate()
 '               BLC, 6/13/2017 - 1.02 - revised to point to Transect_Count_Param vs. qry_Transect_Count_Param
+'               BLC, 6/15/2017 - 1.03 - revised to pull year from Select_Cover_Year vs qry_sel_cover_year
 ' =================================
 
 ' ---------------------------------
@@ -230,13 +231,14 @@ End Sub
 ' Adapted:      Bonnie Campbell, May 2017 - initial version
 ' Revisions:    Unknown         - initial version
 '               BLC - 5/10/2017 - added documentation, enabled Visit_Year
+'               BLC - 6/15/2017 - revised to pull year from Select_Cover_Year vs qry_sel_cover_year
 ' ---------------------------------
 Private Sub Park_Code_AfterUpdate()
 On Error GoTo Err_Handler
 
   If Not IsNull(Me!Park_Code) Then
     Me!Visit_Year.Enabled = True
-    Me!Visit_Year.RowSource = "SELECT DISTINCT Visit_Year FROM qry_sel_cover_Year WHERE [Unit_Code] = '" & Me!Park_Code & "' ORDER BY Visit_Year"
+    Me!Visit_Year.RowSource = "SELECT DISTINCT Visit_Year FROM Select_Cover_Year WHERE [Unit_Code] = '" & Me!Park_Code & "' ORDER BY Visit_Year"
     Me!Visit_Year = "" 'clear value
     Me!btnQuery.Enabled = False
     Me.Refresh
