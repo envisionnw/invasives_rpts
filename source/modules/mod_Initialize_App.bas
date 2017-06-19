@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_Initialize_App
 ' Level:        Framework module
-' Version:      1.03
+' Version:      1.05
 ' Description:  Standard module for setting initial app & database values/settings & global variables
 ' Source/date:  Bonnie Campbell, July 2014
 ' Adapted:      -
@@ -23,6 +23,9 @@ Option Explicit
 '                                       to "Break in Class Module"
 '               BLC, 6/6/2017  - 1.04 - added strUser = UserName() [from mod_User] for logging user actions in
 '                                       initApp(), fixed SQL syntax in INSERT INTO tsys_Logins()
+'               BLC, 6/19/2017 - 1.05 - updated cmdBackup reference frm!fsub_DbAdmin.Form!cmdBackup.visible
+'                                       to frm!fsub_DbAdmin.Form!btnBackup.visible, added existance
+'                                       check for lbxLinkedDbs control
 ' =================================
 ' HISTORY:
 ' MERGED MODULE: mod_Global_Variables (merged with mod_Initialize_App)
@@ -222,6 +225,9 @@ End Sub
 '               BLC, 6/6/2017  - revised to capture Logged in Username (strUser using mod_User's UserName()) to avoid Error #3141
 '                                pointing to the SQL query to insert into tsys_Logins, fixed SQL
 '                                syntax in INSERT INTO tsys_Logins()
+'               BLC, 6/19/2017 - updated cmdBackup reference frm!fsub_DbAdmin.Form!cmdBackup.visible
+'                                to frm!fsub_DbAdmin.Form!btnBackup.visible, added existance
+'                                check for lbxLinkedDbs control
 ' =================================
 Public Function AppSetup()
     On Error GoTo Err_Handler
@@ -356,10 +362,11 @@ Update_Settings:
         If TempVars("HasAccessBE") Then DoCmd.OpenForm "frm_Lock_BE", , , , , acHidden
     
         ' If there is an Access back-end, make the backups button visible
-        frm!fsub_DbAdmin.Form!cmdBackup.visible = TempVars("HasAccessBE")
+        frm!fsub_DbAdmin.Form!btnBackup.visible = TempVars("HasAccessBE")
     
         ' Requery the control that shows the linked back-ends
-        frm!lbxLinkedDbs.Requery
+        If ControlExists("lbxLinkedDbs", frm) Then _
+            frm!lbxLinkedDbs.Requery
     
         Resume Exit_Procedure
     End If

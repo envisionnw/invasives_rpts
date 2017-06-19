@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_App_Settings
 ' Level:        Application module
-' Version:      1.07
+' Version:      1.08
 ' Description:  Application-wide related values, functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, April 2015
@@ -27,6 +27,8 @@ Option Explicit
 '                       BLC, 5/13/2015 - 1.02 - added UI enabled/disabled color constants
 '                       BLC, 5/19/2015 - 1.03 - added FIX_LINKED_DBS flag constant
 '                       BLC, 5/28/2015 - 1.04 - added MAIN_APP_MENU constant
+'               BLC, 6/19/2017 - 1.08 - added APP_RELEASE_ID constant value for
+'                                       2017 Pre-Season Invasives Reporting Tool (tsys_App_Releases)
 ' =================================
 
 ' ---------------------------------
@@ -65,13 +67,14 @@ Public gSubReportCount As Integer                  'global counter for subreport
 '               BLC, 6/7/2016  - added ACCESS_ROLES to set user application permissions
 '               BLC, 9/7/2016  - added LINK_NORMAL_TEXT & _BKGD for disabling tile links
 '               BLC, 6/15/2017 - merged w/ prior version
+'               BLC, 6/19/2017 - added APP_RELEASE_ID constant value for 2017 Pre-Season Invasives Reporting Tool (tsys_App_Releases)
 ' ---------------------------------
 Public Const USER_ACCESS_CONTROL As Boolean = True             'Boolean flag -> db includes user access control or not
 Public Const DB_ADMIN_CONTROL As Boolean = True                'Boolean flag -> db does not include DbAdmin subform & controls
 Public Const FIX_LINKED_DBS As Boolean = False                  'Boolean flag -> db requires tbl_Dbs to be updated via FixLinkedDb (usually when DbAdmin is not fully implemented)
 Public Const MAIN_APP_FORM As String = "frm_Tgt_List_Tool"      'String -> main tabbed form (frm_Switchboard, etc.)
 Public Const MAIN_APP_MENU As String = "frm_Main_Menu"          'String -> main tabbed form (frm_Switchboard, etc.)
-Public Const APP_RELEASE_ID As String = ""                      'String -> release ID (tsys_App_Release.Release_ID) for current release
+Public Const APP_RELEASE_ID As String = "20170619072642-289562463.760376"  'String -> release ID (tsys_App_Release.Release_ID) for current release
                                                                 '          used when db doesn't include full DbAdmin subform & controls, otherwise NULL
 Public Const APP_URL As String = "science.nature.nps.gov/im/units/ncpn/datamanagement.cfm"
                                                                 'String -> website URL for application

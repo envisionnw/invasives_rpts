@@ -1,4 +1,4 @@
-﻿dbMemo "SQL" ="UPDATE Quadrat SET IsSampled = 1\015\012WHERE NoExotics = 1 AND IsSampled = 0;\015"
+﻿dbMemo "SQL" ="UPDATE Quadrat SET NoExotics = 0\015\012WHERE NoExotics = 1 AND IsSampled = 0;\015"
     "\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"

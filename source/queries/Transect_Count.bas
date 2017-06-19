@@ -1,9 +1,8 @@
-﻿dbMemo "SQL" ="SELECT tbl_Locations.Unit_Code, tbl_Locations.Plot_ID AS Route, Year([Start_Date"
-    "]) AS Visit_Year, Count(Transect.Transect) AS TransectCount\015\012FROM tbl_Loca"
-    "tions LEFT JOIN (tbl_Events LEFT JOIN Transect ON tbl_Events.Event_ID = Transect"
-    ".Event_ID) ON tbl_Locations.Location_ID = tbl_Events.Location_ID\015\012GROUP BY"
-    " tbl_Locations.Unit_Code, tbl_Locations.Plot_ID, Year([Start_Date])\015\012HAVIN"
-    "G (((Year([Start_Date])) Is Not Null));\015\012"
+﻿dbMemo "SQL" ="SELECT l.Unit_Code, l.Plot_ID AS Route, Year([Start_Date]) AS Visit_Year, Count("
+    "t.Transect) AS TransectCount\015\012FROM (tbl_Locations AS l LEFT JOIN tbl_Event"
+    "s AS e ON e.Location_ID = l.Location_ID) LEFT JOIN Transect AS t ON t.Event_ID ="
+    " e.Event_ID\015\012GROUP BY l.Unit_Code, l.Plot_ID, Year([Start_Date])\015\012HA"
+    "VING (((Year([Start_Date])) Is Not Null));\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -44,5 +43,9 @@ Begin
         dbBinary "GUID" = Begin
             0x7f2292987b6e6f4f96d5251fc36ce28a
         End
+    End
+    Begin
+        dbText "Name" ="l.Unit_Code"
+        dbLong "AggregateType" ="-1"
     End
 End

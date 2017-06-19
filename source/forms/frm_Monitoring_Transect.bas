@@ -299,6 +299,7 @@ End Sub
 ' Revisions:    JRB - unknown - initial version
 '               BLC - 6/6/2017 - added documentation, revised error handling, renamed button (ButtonX > btnX)
 '               BLC - 6/11/2017 - revised to pull from filtered Transect_Data query vs. qry_Transect_Data
+'               BLC - 6/19/2017 - revised to pull from revised Transect_Data query (ts vs tsc)
 ' ---------------------------------
 Private Sub btnReport_Click()
 On Error GoTo Err_Handler
@@ -320,8 +321,8 @@ On Error GoTo Err_Handler
     origSQL = qdf.SQL
     
     'prepare filter clause
-    strFilter = " WHERE tsc.Unit_Code = '" & Me!Park_Code & _
-                "' AND tsc.Visit_Year = " & Me!Visit_Year & " "
+    strFilter = " WHERE ts.Unit_Code = '" & Me!Park_Code & _
+                "' AND ts.Visit_Year = " & Me!Visit_Year & " "
     
     
     'add filter

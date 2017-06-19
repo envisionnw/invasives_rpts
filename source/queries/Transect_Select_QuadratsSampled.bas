@@ -38,10 +38,6 @@ Begin
         End
     End
     Begin
-        dbText "Name" ="ts.Transect_ID"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
         dbText "Name" ="ts.Transect"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
@@ -68,18 +64,6 @@ Begin
         dbBinary "GUID" = Begin
             0xe8068db3dbfba244bc355fdea957b69a
         End
-    End
-    Begin
-        dbText "Name" ="ts.Quadrat"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="ts.IsSampled"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="ts.NoExotics"
-        dbLong "AggregateType" ="-1"
     End
     Begin
         dbText "Name" ="SampledQuadrats"

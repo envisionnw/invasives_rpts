@@ -1,8 +1,8 @@
 ﻿dbMemo "SQL" ="SELECT l.Unit_Code, l.Plot_ID AS Route, Year([Start_Date]) AS Visit_Year, Count("
     "t.Transect) AS TransectCount\015\012FROM (tbl_Locations AS l LEFT JOIN tbl_Event"
-    "s AS e ON l.Location_ID = e.Location_ID) LEFT JOIN Transect AS t ON e.Event_ID ="
-    " t.Event_ID\015\012GROUP BY l.Unit_Code, l.Plot_ID, Year([Start_Date])\015\012HA"
-    "VING (((l.Unit_Code)=Forms!frm_Select_Transect_Counts!Park_Code) \015\012And ((Y"
+    "s AS e ON e.Location_ID = l.Location_ID) LEFT JOIN Transect AS t ON t.Event_ID ="
+    " e.Event_ID\015\012GROUP BY l.Unit_Code, l.Plot_ID, Year([Start_Date])\015\012HA"
+    "VING (((l.Unit_Code)=Forms!frm_Select_Transect_Counts!Park_Code) \015\012AND ((Y"
     "ear([Start_Date]))=Forms!frm_Select_Transect_Counts!Visit_Year));\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
@@ -43,10 +43,6 @@ Begin
     End
     Begin
         dbText "Name" ="l.Unit_Code"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="tbl_Locations.Unit_Code"
         dbLong "AggregateType" ="-1"
     End
 End

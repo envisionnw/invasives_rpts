@@ -4,12 +4,12 @@
     "tics, ts.Position_m, ts.ColName, IIf([Unit_Code] In (\"CARE\",\"DINO\",\"GOSP\","
     "\"ZION\"),[Utah_Species],\015\012IIf([Unit_Code]=\"FOBU\",[WY_Species],[Co_Speci"
     "es])) AS Species, p.Master_Common_Name, sc.PlantCode, sc.IsDead, sc.PercentCover"
-    ", sc.ID, (ts.Quadrat_ID & '-' & sc.ID) AS CountID\015\012FROM (Transect_Select_L"
-    "IMITED_ESP AS ts LEFT JOIN SpeciesCover AS sc ON sc.Quadrat_ID = ts.Quadrat_ID) "
-    "LEFT JOIN tlu_NCPN_Plants AS p ON p.Master_PLANT_Code = sc.PlantCode\015\012ORDE"
-    "R BY ts.Route, ts.Transect, ts.Quadrat, IIf([Unit_Code] In (\"CARE\",\"DINO\",\""
-    "GOSP\",\"ZION\"),[Utah_Species],\015\012IIf([Unit_Code]=\"FOBU\",[WY_Species],[C"
-    "o_Species]));\015\012"
+    ", sc.ID AS SpeciesCover_ID, (ts.Quadrat_ID & '-' & sc.ID) AS CountID\015\012FROM"
+    " (Transect_Select_LIMITED_ESP AS ts LEFT JOIN SpeciesCover AS sc ON sc.Quadrat_I"
+    "D = ts.Quadrat_ID) LEFT JOIN tlu_NCPN_Plants AS p ON p.Master_PLANT_Code = sc.Pl"
+    "antCode\015\012ORDER BY ts.Route, ts.Transect, ts.Quadrat, IIf([Unit_Code] In (\""
+    "CARE\",\"DINO\",\"GOSP\",\"ZION\"),[Utah_Species],\015\012IIf([Unit_Code]=\"FOBU"
+    "\",[WY_Species],[Co_Species]));\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -165,10 +165,6 @@ Begin
         dbText "Name" ="ID"
         dbInteger "ColumnWidth" ="4215"
         dbBoolean "ColumnHidden" ="0"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="sc.ID"
         dbLong "AggregateType" ="-1"
     End
     Begin
