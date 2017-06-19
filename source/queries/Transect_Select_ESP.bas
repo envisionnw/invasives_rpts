@@ -1,26 +1,21 @@
 ﻿dbMemo "SQL" ="SELECT DISTINCT ts.Unit_Code, ts.Visit_Year, ts.Location_ID, ts.Route, ts.Transe"
     "ct_ID, ts.Transect, ts.Area, ts.E_Coord, ts.N_Coord, ts.Quadrat_ID, ts.Quadrat, "
     "ts.IsSampled, ts.NoExotics, esp.Position_m, esp.ColName\015\012FROM Transect_Sel"
-    "ect_LIMITED AS ts LEFT JOIN EventSamplePosition AS esp ON (esp.Event_ID = ts.Eve"
-    "nt_ID) AND (esp.Location_ID = ts.Location_ID)\015\012WHERE esp.Quadrat = ts.Quad"
-    "rat\015\012ORDER BY ts.Route, ts.Transect, ts.Quadrat;\015\012"
+    "ect AS ts LEFT JOIN EventSamplePosition AS esp ON (esp.Location_ID = ts.Location"
+    "_ID) AND (esp.Event_ID = ts.Event_ID)\015\012WHERE esp.Quadrat = ts.Quadrat\015\012"
+    "ORDER BY ts.Route, ts.Transect, ts.Quadrat;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
-dbMemo "Filter" ="(([Transect_Select_LIMITED_ESP].[Unit_Code]=\"GOSP\"))"
 dbBoolean "OrderByOn" ="0"
 dbByte "Orientation" ="0"
 dbByte "DefaultView" ="2"
-dbBinary "GUID" = Begin
-    0x774708fb44add14f999f1be2188c1821
-End
 dbBoolean "FilterOnLoad" ="0"
 dbBoolean "OrderByOnLoad" ="-1"
+dbBinary "GUID" = Begin
+    0xd642c5240f81384c8f8d2ddbc4d378c1
+End
 Begin
-    Begin
-        dbText "Name" ="ts.ID"
-        dbLong "AggregateType" ="-1"
-    End
     Begin
         dbText "Name" ="ts.Unit_Code"
         dbLong "AggregateType" ="-1"

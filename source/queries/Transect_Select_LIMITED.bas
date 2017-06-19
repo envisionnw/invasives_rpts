@@ -1,10 +1,9 @@
-﻿dbMemo "SQL" ="SELECT (l.Plot_ID  & \"_\" & t.Transect) AS ID, l.Unit_Code, Year([Start_Date]) "
-    "AS Visit_Year, e.Event_ID, l.Location_ID, l.Plot_ID AS Route, t.Transect_ID, t.T"
-    "ransect, l.Area, t.E_Coord, t.N_Coord, q.ID AS Quadrat_ID, q.Quadrat, q.IsSample"
-    "d, q.NoExotics\015\012FROM ((tbl_Locations AS l LEFT JOIN tbl_Events AS e ON e.L"
-    "ocation_ID = l.Location_ID) LEFT JOIN Transect AS t ON t.Event_ID = e.Event_ID) "
-    "LEFT JOIN Quadrat AS q ON q.Transect_ID = t.Transect_ID\015\012ORDER BY l.Plot_I"
-    "D, t.Transect;\015\012"
+﻿dbMemo "SQL" ="SELECT l.Unit_Code, Year([Start_Date]) AS Visit_Year, e.Event_ID, l.Location_ID,"
+    " l.Plot_ID AS Route, t.Transect_ID, t.Transect, l.Area, t.E_Coord, t.N_Coord, q."
+    "ID AS Quadrat_ID, q.Quadrat, q.IsSampled, q.NoExotics\015\012FROM ((tbl_Location"
+    "s AS l LEFT JOIN tbl_Events AS e ON e.Location_ID = l.Location_ID) LEFT JOIN Tra"
+    "nsect AS t ON t.Event_ID = e.Event_ID) LEFT JOIN Quadrat AS q ON q.Transect_ID ="
+    " t.Transect_ID\015\012ORDER BY l.Plot_ID, t.Transect;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -19,13 +18,6 @@ End
 dbBoolean "FilterOnLoad" ="0"
 dbBoolean "OrderByOnLoad" ="-1"
 Begin
-    Begin
-        dbText "Name" ="ID"
-        dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0xcba8ebe7fdd4174293c2a1a62ecf96b5
-        End
-    End
     Begin
         dbText "Name" ="l.Unit_Code"
         dbLong "AggregateType" ="-1"
