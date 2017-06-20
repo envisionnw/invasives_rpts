@@ -64,20 +64,6 @@ Begin
         dbBoolean "ColumnHidden" ="0"
     End
     Begin
-        dbText "Name" ="Expr1005"
-        dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0x45afc71e9d36d74ea2b4c9ce42fbd509
-        End
-    End
-    Begin
-        dbText "Name" ="Expr1006"
-        dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0x614dfe62720ce9448b63c1c4ee9da62b
-        End
-    End
-    Begin
         dbText "Name" ="TotalCover"
         dbLong "AggregateType" ="-1"
     End

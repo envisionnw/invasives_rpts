@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_Strings
 ' Level:        Framework module
-' Version:      1.11
+' Version:      1.12
 ' Description:  String related functions & subroutines
 ' Requires:     Microsoft VBScript Regular Expressions 5.5 library for RemoveChars() oReg
 '
@@ -34,6 +34,7 @@ Option Explicit
 ' --------------------------------------------------------------------
 '               BLC, 4/18/2017 - 1.11 - added updated version to Invasives db, added Requires documentation
 '                                       for regular expressions
+'               BLC, 6/20/2017 - 1.12 - added ReplaceTextBetween()
 ' =================================
 
 '---------------------
@@ -332,6 +333,57 @@ Err_Handler:
     Resume Exit_Handler
 End Function
 
+' ---------------------------------
+' SUB:          ReplaceTextBetween
+' Description:  Replaces text between two words (or chars) found in a string
+' Assumptions:  -
+' Parameters:   strOriginal - original string value
+'               Word1 - word or character where replacement begins
+'               Word2 - word or character where replacement ends
+'               Replacement - string replacing the original text segment (optional, default = "")
+' Returns:      original text with the text between Word1 and Word2 replaced by the Replacement
+'               text (which defaults to an empty string)
+' Throws:       none
+' References:   none
+' Source/date:  Bonnie Campbell, June 20, 2017 - for NCPN tools
+' Adapted:      -
+' Revisions:
+'   BLC - 6/20/2017  - initial version
+' ---------------------------------
+Public Function ReplaceTextBetween(strOriginal As String, Word1 As String, _
+                                        Word2 As String, Optional Replacement As String = "")
+On Error GoTo Err_Handler
+
+    Dim strSegment As String, strNew As String
+    Dim posWord1 As Integer, posWord2 As Integer, origLength As Integer
+
+    'default
+    strNew = strOriginal
+
+    'find positions
+    posWord1 = InStr(strOriginal, Word1)
+    posWord2 = InStr(strOriginal, Word2)
+    origLength = Len(strOriginal)
+    
+    'find text to replace
+    strSegment = Mid(strOriginal, posWord1, posWord2 - posWord1)
+    
+    'replace
+    strNew = Replace(strOriginal, strSegment, Replacement)
+
+Exit_Handler:
+    ReplaceTextBetween = strNew
+    Exit Function
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - ReplaceTextBetween[mod_Strings])"
+    End Select
+    Resume Exit_Handler
+End Function
+
 ' =================================
 ' FUNCTION:     ChangeDelimiter
 ' Description:  Replaces delimiters in an input string; default is to change double-quotes
@@ -445,7 +497,6 @@ Err_Handler:
     End Select
     Resume Exit_Handler
 End Function
-
 
 ' ---------------------------------
 ' FUNCTION:     CountInString

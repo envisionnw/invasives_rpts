@@ -1,5 +1,5 @@
-﻿dbMemo "SQL" ="SELECT DISTINCT Unit_Code, Visit_Year\015\012FROM Transect_Select_LIMITED_ESP_Sp"
-    "eciesCover_Species\015\012ORDER BY Unit_Code, Visit_Year;\015\012"
+﻿dbMemo "SQL" ="SELECT DISTINCT Unit_Code, Visit_Year\015\012FROM Transect_Select_SpeciesCover\015"
+    "\012ORDER BY Unit_Code, Visit_Year;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"

@@ -175,7 +175,7 @@ Option Explicit
 ' =================================
 ' MODULE:       frm_Select_Transect_Counts
 ' Level:        Form module
-' Version:      1.03
+' Version:      1.04
 ' Description:  Transect count related functions & subroutines
 '
 ' Source/date:  Unknown
@@ -184,6 +184,7 @@ Option Explicit
 '               BLC, 5/10/2017 - 1.01 - documentation, added Form_Open(), Visit_Year_AfterUpdate()
 '               BLC, 6/13/2017 - 1.02 - revised to point to Transect_Count_Param vs. qry_Transect_Count_Param
 '               BLC, 6/15/2017 - 1.03 - revised to pull year from Select_Cover_Year vs qry_sel_cover_year
+'               BLC, 6/20/2017 - 1.04 - cleared form fields after click
 ' =================================
 
 ' ---------------------------------
@@ -301,6 +302,7 @@ End Sub
 ' Revisions:    JRB - unknown - initial version
 '               BLC - 6/6/2017 - added documentation, revised error handling, renamed button (ButtonX > btnX)
 '               BLC - 6/13/2017 - revised to point to Transect_Count_Param vs. qry_Transect_Count_Param
+'               BLC - 6/20/2017 - cleared form fields after click
 ' ---------------------------------
 Private Sub btnQuery_Click()
 On Error GoTo Err_Handler
@@ -314,6 +316,10 @@ On Error GoTo Err_Handler
 
     stDocName = "Transect_Count_Param"
     DoCmd.OpenQuery stDocName, acNormal, acEdit
+
+    'clear fields
+    Me.Park_Code = ""
+    Me.Visit_Year = ""
 
 Exit_Handler:
     Exit Sub

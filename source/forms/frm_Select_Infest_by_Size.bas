@@ -175,7 +175,7 @@ Option Explicit
 ' =================================
 ' MODULE:       frm_Select_Infest_by_Size
 ' Level:        Form module
-' Version:      1.02
+' Version:      1.03
 ' Description:  Infestation data by size related functions & subroutines
 '
 ' Source/date:  Unknown
@@ -183,6 +183,7 @@ Option Explicit
 ' Revisions:    Unknown        - 1.00 - initial version
 '               BLC, 5/10/2017 - 1.01 - documentation, added Form_Open(), Visit_Year_AfterUpdate()
 '               BLC, 6/6/2017  - 1.02 - Added documentation, revised error handling
+'               BLC, 6/20/2017 - 1.03 - cleared form fields after click
 ' =================================
 
 ' ---------------------------------
@@ -298,6 +299,7 @@ End Sub
 ' Adapted:      -
 ' Revisions:    JRB - unknown - initial version
 '               BLC - 6/6/2017 - added documentation, revised error handling, renamed button (ButtonX > btnX)
+'               BLC - 6/20/2017 - cleared form fields after click
 ' ---------------------------------
 Private Sub btnReport_Click()
 On Error GoTo Err_Handler
@@ -410,6 +412,10 @@ On Error GoTo Err_Handler
     stOpenArg = Me!Park_Code & Me!Visit_Year
     stDocName = "rpt_Infest_by_Size"
     DoCmd.OpenReport stDocName, acPreview, , , , stOpenArg
+
+    'clear fields
+    Me.Park_Code = ""
+    Me.Visit_Year = ""
 
 Exit_Handler:
     Exit Sub

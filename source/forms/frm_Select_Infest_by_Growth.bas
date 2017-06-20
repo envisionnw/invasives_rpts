@@ -175,13 +175,14 @@ Option Explicit
 ' =================================
 ' MODULE:       frm_Select_Infest_by_Growth
 ' Level:        Form module
-' Version:      1.01
+' Version:      1.02
 ' Description:  Transect count related functions & subroutines
 '
 ' Source/date:  Unknown
 ' Adapted:      Bonnie Campbell, June 2017
 ' Revisions:    Unknown        - 1.00 - initial version
 '               BLC, 5/10/2017 - 1.01 - documentation, added Form_Open(), Visit_Year_AfterUpdate()
+'               BLC, 6/20/2017 - 1.02 - cleared form fields after click
 ' =================================
 
 ' ---------------------------------
@@ -297,6 +298,7 @@ End Sub
 ' Adapted:      -
 ' Revisions:    JRB - unknown - initial version
 '               BLC - 6/6/2017 - added documentation, revised error handling, renamed button (ButtonX > btnX)
+'               BLC - 6/20/2017 - cleared form fields after click
 ' ---------------------------------
 Private Sub btnReport_Click()
 On Error GoTo Err_Handler
@@ -309,6 +311,10 @@ On Error GoTo Err_Handler
     End If
     stQryName = "qry_Infest_by_Growth_Stage"
     DoCmd.OpenQuery stQryName
+
+    'clear fields
+    Me.Park_Code = ""
+    Me.Visit_Year = ""
 
 Exit_Handler:
     Exit Sub

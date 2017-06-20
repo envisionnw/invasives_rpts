@@ -175,7 +175,7 @@ Option Explicit
 ' =================================
 ' MODULE:       frm_Monitoring_Transect
 ' Level:        Form module
-' Version:      1.02
+' Version:      1.03
 ' Description:  Transect count related functions & subroutines
 '
 ' Source/date:  Unknown
@@ -183,6 +183,8 @@ Option Explicit
 ' Revisions:    Unknown        - 1.00 - initial version
 '               BLC, 5/10/2017 - 1.01 - documentation, added Form_Open(), Visit_Year_AfterUpdate()
 '               BLC - 6/11/2017 - 1.02 - revised to pull from filtered Transect_Data query vs. qry_Transect_Data
+'               BLC - 6/20/2017 - 1.03 - added strip of existing WHERE clause if any in case user saves
+'                                        Transect_Data with the park & year filter, cleared form fields after click
 ' =================================
 
 ' ---------------------------------
@@ -300,6 +302,8 @@ End Sub
 '               BLC - 6/6/2017 - added documentation, revised error handling, renamed button (ButtonX > btnX)
 '               BLC - 6/11/2017 - revised to pull from filtered Transect_Data query vs. qry_Transect_Data
 '               BLC - 6/19/2017 - revised to pull from revised Transect_Data query (ts vs tsc)
+'               BLC - 6/20/2017 - added strip of existing WHERE clause if any in case user saves
+'                                 Transect_Data with the park & year filter, cleared form fields after click
 ' ---------------------------------
 Private Sub btnReport_Click()
 On Error GoTo Err_Handler
@@ -312,6 +316,7 @@ On Error GoTo Err_Handler
     Dim origSQL As String
     Dim strSQL As String
     Dim strFilter As String
+    Dim posWHERE As Integer, posORDER As Integer
     
     'use the Transect_Data query, but filter based on Unit_Code & Visit_Year
     Dim qdf As QueryDef
@@ -320,10 +325,16 @@ On Error GoTo Err_Handler
     'save original SQL
     origSQL = qdf.SQL
     
+    'remove any existing WHERE clause (in case user saved Transect_Data w/ park & year filter)
+    '& reset the query def to the original SQL w/o this filtering clause
+    If InStr(origSQL, "WHERE") Then
+        origSQL = ReplaceTextBetween(origSQL, "WHERE", "ORDER")
+        qdf.SQL = origSQL
+    End If
+    
     'prepare filter clause
     strFilter = " WHERE ts.Unit_Code = '" & Me!Park_Code & _
                 "' AND ts.Visit_Year = " & Me!Visit_Year & " "
-    
     
     'add filter
     strSQL = Replace(Replace(qdf.SQL, ";", ""), "ORDER", strFilter & "ORDER") & ";"
@@ -333,6 +344,10 @@ On Error GoTo Err_Handler
     
     'remove the filter (revert to original SQL) for the next iteration
     qdf.SQL = origSQL
+
+    'clear fields
+    Me.Park_Code = ""
+    Me.Visit_Year = ""
 
 Exit_Handler:
     Exit Sub

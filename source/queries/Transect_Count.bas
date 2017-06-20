@@ -32,10 +32,6 @@ Begin
         End
     End
     Begin
-        dbText "Name" ="tbl_Locations.Unit_Code"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
         dbText "Name" ="TransectCount"
         dbInteger "ColumnWidth" ="1920"
         dbBoolean "ColumnHidden" ="0"

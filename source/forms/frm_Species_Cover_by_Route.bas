@@ -178,7 +178,7 @@ Option Explicit
 ' =================================
 ' MODULE:       frm_Species_Cover_by_Route
 ' Level:        Form module
-' Version:      1.02
+' Version:      1.03
 ' Description:  File and directory related functions & subroutines
 '
 ' Source/date:  Unknown
@@ -186,6 +186,7 @@ Option Explicit
 ' Revisions:    Unknown        - 1.00 - initial version
 '               BLC, 5/10/2017 - 1.01 - documentation, added Form_Open(), Visit_Year_AfterUpdate()
 '               BLC, 6/15/2017 - 1.02 - revised to pull year from Select_Cover_Year vs qry_sel_cover_year
+'               BLC, 6/20/2017 - 1.03 - cleared form fields after click
 ' =================================
 
 ' ---------------------------------
@@ -298,6 +299,7 @@ End Sub
 ' Revisions:    RDB - 1/2010    - initial version
 '               BLC - 5/10/2017 - added documentation, removed error message for Visit_Year (revised
 '                                 to be disabled instead)
+'               BLC - 6/20/2017 - cleared form fields after click
 ' ---------------------------------
 Private Sub btnReport_Click()
 On Error GoTo Err_Handler
@@ -614,6 +616,10 @@ On Error GoTo Err_Handler
  '   MsgBox "Finished - results are in tbl_wrk_Route_Species.", , "Species Cover by Route"
    DoCmd.OpenQuery "qry_List_Route_Species"
     
+    'clear fields
+    Me.Park_Code = ""
+    Me.Visit_Year = ""
+
 Exit_Procedure:
     Exit Sub
 
