@@ -1,10 +1,10 @@
 ﻿dbMemo "SQL" ="SELECT tc.Unit_Code, tc.Visit_Year, tc.Route, tc.PlantCode, tc.IsDead, MIN(tc.To"
-    "talCover) AS TotalCover, MIN(qs.SampledQuadrats) AS SampledQuadrats, MIN(tc.Tota"
-    "lCover / qs.SampledQuadrats) AS AverageCover\015\012FROM Route_TotalCover AS tc "
-    "INNER JOIN Route_QuadratsSampled AS qs ON (qs.Route = tc.Route) AND (qs.Visit_Ye"
-    "ar = tc.Visit_Year) AND (qs.Unit_Code = tc.Unit_Code)\015\012GROUP BY tc.Unit_Co"
-    "de, tc.Visit_Year, tc.Route, tc.PlantCode, tc.IsDead\015\012ORDER BY tc.Unit_Cod"
-    "e, tc.Visit_Year, tc.Route, tc.PlantCode, tc.IsDead;\015\012"
+    "talCover) AS TotalCover, MIN(ts.TransectsSampled) AS SampledTransects, MIN(tc.To"
+    "talCover / ts.TransectsSampled) AS AverageCover\015\012FROM Route_TotalCover AS "
+    "tc INNER JOIN Route_TransectsSampled AS ts ON (ts.Unit_Code = tc.Unit_Code) AND "
+    "(ts.Visit_Year = tc.Visit_Year) AND (ts.Route = tc.Route)\015\012GROUP BY tc.Uni"
+    "t_Code, tc.Visit_Year, tc.Route, tc.PlantCode, tc.IsDead\015\012ORDER BY tc.Unit"
+    "_Code, tc.Visit_Year, tc.Route, tc.PlantCode, tc.IsDead;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -68,7 +68,9 @@ Begin
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="SampledQuadrats"
+        dbText "Name" ="SampledTransects"
+        dbInteger "ColumnWidth" ="1935"
+        dbBoolean "ColumnHidden" ="0"
         dbLong "AggregateType" ="-1"
     End
 End

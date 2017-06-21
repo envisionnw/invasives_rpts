@@ -159,11 +159,9 @@ Begin
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="CountID"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
         dbText "Name" ="SpeciesCover_ID"
         dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="1785"
+        dbBoolean "ColumnHidden" ="0"
     End
 End

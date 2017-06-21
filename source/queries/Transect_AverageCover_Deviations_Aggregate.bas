@@ -2,11 +2,10 @@
     "te) AS Route, MIN(d.Species) AS Species, MIN(d.Master_Common_Name) AS Master_Com"
     "mon_Name, MIN(d.IsDead) AS IsDead, MIN(d.TransectsSampled) AS TransectsSampled, "
     "MIN(d.TotalCover) AS TotalCover, MIN(d.TransectAverageCover) AS TransectAverageC"
-    "over, MIN(d.RouteAverageCover) AS RouteAverageCover, MIN(d.TotalDevSquared) AS T"
-    "otalDevSquared, MIN(IIF(d.TransectsSampled = 1, NULL, SQR(d.TotalDevSquared/(d.T"
-    "ransectsSampled -1)))) AS StdDeviation\015\012FROM Transect_AverageCover_Deviati"
-    "ons_Aggregate AS d\015\012GROUP BY d.Unit_Code, d.Visit_Year, d.Route, d.Species"
-    "\015\012ORDER BY d.Unit_Code, d.Visit_Year, d.Route, d.Species;\015\012"
+    "over, MIN(d.RouteAverageCover) AS RouteAverageCover, SUM(d.DeviationSquared) AS "
+    "TotalDevSquared\015\012FROM Transect_AverageCover_Deviations AS d\015\012GROUP B"
+    "Y d.Unit_Code, d.Visit_Year, d.Route, d.Species\015\012ORDER BY d.Unit_Code, d.V"
+    "isit_Year, d.Route, d.Species;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -14,7 +13,7 @@ dbBoolean "OrderByOn" ="0"
 dbByte "Orientation" ="0"
 dbByte "DefaultView" ="2"
 dbBinary "GUID" = Begin
-    0x5e4a309e69c2f744976f57cf479392b7
+    0x850af98add43c0468778af91387d8639
 End
 dbBoolean "FilterOnLoad" ="0"
 dbBoolean "OrderByOnLoad" ="-1"
@@ -29,6 +28,8 @@ Begin
     End
     Begin
         dbText "Name" ="Route"
+        dbInteger "ColumnWidth" ="2100"
+        dbBoolean "ColumnHidden" ="0"
         dbLong "AggregateType" ="-1"
     End
     Begin
@@ -36,29 +37,11 @@ Begin
         dbLong "AggregateType" ="-1"
     End
     Begin
-        dbText "Name" ="IsDead"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="TotalCover"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="RouteAverageCover"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="TotalDevSquared"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="StdDeviation"
-        dbInteger "ColumnWidth" ="1725"
-        dbBoolean "ColumnHidden" ="0"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
         dbText "Name" ="Master_Common_Name"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="IsDead"
         dbLong "AggregateType" ="-1"
     End
     Begin
@@ -66,7 +49,25 @@ Begin
         dbLong "AggregateType" ="-1"
     End
     Begin
+        dbText "Name" ="TotalCover"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
         dbText "Name" ="TransectAverageCover"
         dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="1995"
+        dbBoolean "ColumnHidden" ="0"
+    End
+    Begin
+        dbText "Name" ="RouteAverageCover"
+        dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="1890"
+        dbBoolean "ColumnHidden" ="0"
+    End
+    Begin
+        dbText "Name" ="TotalDevSquared"
+        dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="1920"
+        dbBoolean "ColumnHidden" ="0"
     End
 End

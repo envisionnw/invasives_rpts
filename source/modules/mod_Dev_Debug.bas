@@ -562,5 +562,10 @@ End Sub
 Public Sub runtest()
     'SearchDB "tbl_Quadrat_Species"
     'SearchDB "tbl_Quadrat_Transect"
-    SearchDB "qry_Transect_Select"
+    'SearchDB "qry_Transect_Select"
+     Dim qdf As QueryDef
+    Set qdf = CurrentDb.QueryDefs("Query6")
+    
+    'save original SQL
+    Debug.Print qdf.SQL
 End Sub

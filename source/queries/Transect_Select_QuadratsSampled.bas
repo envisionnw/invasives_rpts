@@ -71,5 +71,7 @@ Begin
         dbBinary "GUID" = Begin
             0xf7a8cc3f3ce6f144adbab5af8b4965b0
         End
+        dbInteger "ColumnWidth" ="1830"
+        dbBoolean "ColumnHidden" ="0"
     End
 End

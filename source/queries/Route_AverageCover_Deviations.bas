@@ -1,18 +1,18 @@
 ﻿dbMemo "SQL" ="SELECT DISTINCT ts.Unit_Code, ts.Visit_Year, ts.Route, ts.Transect, ts.Area, ts."
-    "E_Coord, ts.N_Coord, ts.Species, ts.Master_Common_Name, ts.IsDead, qs.SampledQua"
-    "drats, tc.TotalCover, (tc.TotalCover/qs.SampledQuadrats) AS AverageCover, ac.Ave"
-    "rageCover AS RouteAverageCover, (ac.AverageCover - (tc.TotalCover/qs.SampledQuad"
-    "rats)) AS Deviation, (ac.AverageCover - (tc.TotalCover/qs.SampledQuadrats))^2 AS"
-    " DeviationSquared\015\012FROM ((Transect_Select_SpeciesCover AS ts INNER JOIN Tr"
-    "ansect_Select_QuadratsSampled AS qs ON (qs.Unit_Code = ts.Unit_Code) AND (qs.Vis"
-    "it_Year = ts.Visit_Year) AND (qs.Route = ts.Route)) INNER JOIN Transect_Select_T"
-    "otalCover AS tc ON (tc.Unit_Code = ts.Unit_Code) AND (tc.Visit_Year = ts.Visit_Y"
-    "ear) AND (tc.Route = ts.Route) AND (tc.Transect = ts.Transect) AND (tc.E_Coord ="
-    " ts.E_Coord) AND (tc.N_Coord = ts.N_Coord) AND (tc.PlantCode = ts.PlantCode) AND"
-    " (tc.IsDead = ts.IsDead)) LEFT JOIN Route_AverageCover AS ac ON (ac.Unit_Code = "
-    "ts.Unit_Code) AND (ac.Visit_Year = ts.Visit_Year) AND (ac.Route = ts.Route) AND "
-    "(ac.PlantCode = ts.PlantCode) AND (ac.IsDead = ts.IsDead)\015\012ORDER BY ts.Uni"
-    "t_Code, ts.Visit_Year, ts.Route, ts.Transect, ts.Species;\015\012"
+    "E_Coord, ts.N_Coord, ts.Species, ts.Master_Common_Name, ts.IsDead, st.TransectsS"
+    "ampled, tc.TotalCover, (tc.TotalCover/st.TransectsSampled) AS AverageCover, ac.A"
+    "verageCover AS RouteAverageCover, (ac.AverageCover - (tc.TotalCover/st.Transects"
+    "Sampled)) AS Deviation, (ac.AverageCover - (tc.TotalCover/st.TransectsSampled))^"
+    "2 AS DeviationSquared\015\012FROM ((Transect_Select_SpeciesCover AS ts INNER JOI"
+    "N Route_TransectsSampled AS st ON (st.Route = ts.Route) AND (st.Visit_Year = ts."
+    "Visit_Year) AND (st.Unit_Code = ts.Unit_Code)) INNER JOIN Transect_Select_TotalC"
+    "over AS tc ON (tc.IsDead = ts.IsDead) AND (tc.PlantCode = ts.PlantCode) AND (tc."
+    "N_Coord = ts.N_Coord) AND (tc.E_Coord = ts.E_Coord) AND (tc.Transect = ts.Transe"
+    "ct) AND (tc.Route = ts.Route) AND (tc.Visit_Year = ts.Visit_Year) AND (tc.Unit_C"
+    "ode = ts.Unit_Code)) LEFT JOIN Route_AverageCover AS ac ON (ac.IsDead = ts.IsDea"
+    "d) AND (ac.PlantCode = ts.PlantCode) AND (ac.Route = ts.Route) AND (ac.Visit_Yea"
+    "r = ts.Visit_Year) AND (ac.Unit_Code = ts.Unit_Code)\015\012ORDER BY ts.Unit_Cod"
+    "e, ts.Visit_Year, ts.Route, ts.Transect, ts.Species;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -89,13 +89,6 @@ Begin
         End
     End
     Begin
-        dbText "Name" ="qs.SampledQuadrats"
-        dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0x0394b48bda6e414baf6d87351c66ec6d
-        End
-    End
-    Begin
         dbText "Name" ="tc.TotalCover"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
@@ -138,6 +131,12 @@ Begin
     End
     Begin
         dbText "Name" ="ts.IsDead"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="st.TransectsSampled"
+        dbInteger "ColumnWidth" ="2160"
+        dbBoolean "ColumnHidden" ="0"
         dbLong "AggregateType" ="-1"
     End
 End

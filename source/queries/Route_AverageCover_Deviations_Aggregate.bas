@@ -1,10 +1,11 @@
 ﻿dbMemo "SQL" ="SELECT MIN(d.Unit_Code) AS Unit_Code, MIN(d.Visit_Year) AS Visit_Year, MIN(d.Rou"
-    "te) AS Route, MIN(d.Species) AS Species, MIN(d.IsDead) AS IsDead, MIN(d.SampledQ"
-    "uadrats) AS SampledQuadrats, MIN(d.TotalCover) AS TotalCover, MIN(d.AverageCover"
-    ") AS AverageCover, MIN(d.RouteAverageCover) AS RouteAverageCover, SUM(d.Deviatio"
-    "nSquared) AS TotalDevSquared\015\012FROM Route_AverageCover_Deviations AS d\015\012"
-    "GROUP BY d.Unit_Code, d.Visit_Year, d.Route, d.Species\015\012ORDER BY d.Unit_Co"
-    "de, d.Visit_Year, d.Route, d.Species;\015\012"
+    "te) AS Route, MIN(d.Species) AS Species, MIN(d.Master_Common_Name) AS Master_Com"
+    "mon_Name, MIN(d.IsDead) AS IsDead, MIN(d.TransectsSampled) AS TransectsSampled, "
+    "MIN(d.TotalCover) AS TotalCover, MIN(d.AverageCover) AS AverageCover, MIN(d.Rout"
+    "eAverageCover) AS RouteAverageCover, SUM(d.DeviationSquared) AS TotalDevSquared\015"
+    "\012FROM Route_AverageCover_Deviations AS d\015\012GROUP BY d.Unit_Code, d.Visit"
+    "_Year, d.Route, d.Species\015\012ORDER BY d.Unit_Code, d.Visit_Year, d.Route, d."
+    "Species;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -22,17 +23,17 @@ Begin
     Begin
         dbText "Name" ="Route"
         dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="2790"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="Species"
         dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="2220"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="IsDead"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="SampledQuadrats"
         dbLong "AggregateType" ="-1"
     End
     Begin
@@ -48,7 +49,7 @@ Begin
     Begin
         dbText "Name" ="RouteAverageCover"
         dbLong "AggregateType" ="-1"
-        dbInteger "ColumnWidth" ="1605"
+        dbInteger "ColumnWidth" ="2445"
         dbBoolean "ColumnHidden" ="0"
     End
     Begin
@@ -63,6 +64,14 @@ Begin
     End
     Begin
         dbText "Name" ="Visit_Year"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="TransectsSampled"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="Master_Common_Name"
         dbLong "AggregateType" ="-1"
     End
 End
