@@ -140,7 +140,7 @@ Debug.Print "useraccesslvl=" & TempVars("UserAccessLevel")
         ' admin (full control)
         '-------------------------------
             Case "admin"
-                Select Case .name
+                Select Case .Name
                     Case "frm_App_Releases"
                         With .subBugs
                             .Locked = False
@@ -185,7 +185,7 @@ Debug.Print "useraccesslvl=" & TempVars("UserAccessLevel")
         ' power user
         '-------------------------------
             Case "power user"
-                Select Case .name
+                Select Case .Name
                     Case "frm_App_Releases"
                         'power user, data entry & read only the same
                         GoTo Catch_All_Else:
@@ -224,7 +224,7 @@ Debug.Print "useraccesslvl=" & TempVars("UserAccessLevel")
         ' data entry
         '-------------------------------
             Case "data entry"
-                Select Case .name
+                Select Case .Name
                     Case "frm_App_Releases"
                         'power user, data entry & read only the same
                         GoTo Catch_All_Else:
@@ -333,7 +333,7 @@ Debug.Print "useraccesslvl=" & TempVars("UserAccessLevel")
         ' read only (default)
         '-------------------------------
             Case Else
-                Select Case .name
+                Select Case .Name
                     Case "frm_App_Releases"
                         'power user, data entry & read only the same
                         GoTo Catch_All_Else:
@@ -452,7 +452,7 @@ Exit_Procedure:
 Admin_PowerUser:
 
     With frm
-        Select Case .name
+        Select Case .Name
             Case "fsub_DbAdmin"
                 .btnEditLog.Enabled = True
                 .btnSetRoles.Enabled = True
@@ -545,7 +545,7 @@ Admin_PowerUser:
 '------------------------------------------
 Admin_PowerUser_DataEntry:
     With frm
-        Select Case .name
+        Select Case .Name
             Case "fsub_Events_Browser"
                 .btnEdit.Caption = "Edit"           'Set button caption
             Case ""
@@ -559,7 +559,7 @@ Admin_PowerUser_DataEntry:
 '------------------------------------
 DataEntry_ReadOnly:
     With frm
-        Select Case .name
+        Select Case .Name
             Case "frm_Schedule"
                 .subSchedule.Form.AllowAdditions = False
                 .subSchedule.Form.AllowDeletions = False
@@ -576,7 +576,7 @@ DataEntry_ReadOnly:
 '------------------------------------------
 Catch_All_Else:
     With frm
-        Select Case .name
+        Select Case .Name
             Case "frm_App_Releases"
                 With .subBugs
                     .Locked = True
@@ -619,7 +619,7 @@ Dim strSQL As String
     '-------------------------------
     With frm
     
-        Select Case .name
+        Select Case .Name
             Case "frm_Switchboard"
                 ' Log the user exit time if the back end is connected and the user has write privileges
                 If TempVars("Connected") And TempVars("WritePermission") Then

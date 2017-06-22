@@ -136,7 +136,7 @@ Public Function UpdateQAResults(Optional blnUpdateAll As Boolean = True, _
     intNQueries = 0
 
     For Each qdf In qdfs
-        If Left(qdf.name, 3) = "qa_" Then intNQueries = intNQueries + 1
+        If Left(qdf.Name, 3) = "qa_" Then intNQueries = intNQueries + 1
     Next qdf
 
     On Error Resume Next
@@ -154,7 +154,7 @@ Public Function UpdateQAResults(Optional blnUpdateAll As Boolean = True, _
     intScope = Forms!frm_QA_Tool.optgScope ' Me.optgScope
 
     For Each qdf In qdfs
-        If Left(qdf.name, 3) = "qa_" Then
+        If Left(qdf.Name, 3) = "qa_" Then
             intI = intI + 1
             ' Update the percent complete in the progress popup
             frm!txtPercent = Round(100 * intI / intNQueries)
@@ -164,7 +164,7 @@ Public Function UpdateQAResults(Optional blnUpdateAll As Boolean = True, _
             frm!txtProgress = strProgress
             ' Update the progress meter in the status bar
             varReturn = SysCmd(acSysCmdUpdateMeter, intI)
-            strQName = qdf.name
+            strQName = qdf.Name
             ' Update the query name in the progress popup
             frm!txtMsg = strQName
             frm.Repaint
@@ -191,7 +191,7 @@ Public Function UpdateQAResults(Optional blnUpdateAll As Boolean = True, _
                     "[Query_name]=""" & strQName & """ AND [Time_frame]=""" _
                     & strTimeframe & """ AND [Data_scope]=" & intScope)
                 ' Update existing records to refresh the results
-                strQResult = DCount("*", qdf.name)  ' the number of records currently returned
+                strQResult = DCount("*", qdf.Name)  ' the number of records currently returned
                 ' Create the statement to add the query description and expression
                 '   (expression not always present)
                 strQDesc = " - none defined - "         ' Default in case of error

@@ -977,7 +977,7 @@ On Error GoTo Err_Handler
     setUserAccess Me, "update"
     
     ' Initialize UI
-    optGrpTabs.value = 1 'Create
+    optGrpTabs.Value = 1 'Create
     
     Me.optGrpTabs_Click
     Me!fsub_Filter.visible = False
@@ -1212,7 +1212,7 @@ Dim blnLeftInsetHide As Boolean
     strAction = ""
     
     'identify current tab
-    Select Case optGrpTabs.value
+    Select Case optGrpTabs.Value
         Case 1 'Create
             strTab = "tabCreate"
             strAction = "tbl"
@@ -1408,7 +1408,7 @@ On Error GoTo Err_Handler:
     'End If
 
     strCrumbs = tglCreate.Caption & "|" & lblInsetTitle.Caption & "|" _
-                    & strField & Replace(ctrl.name, "btn", "")
+                    & strField & Replace(ctrl.Name, "btn", "")
                     
                     '& lblField.Caption & "|" & Replace(ctrl.name, "btn", "")
     
@@ -1422,7 +1422,7 @@ On Error GoTo Err_Handler:
     
     'set & pass variables
     Dim strAction As String
-    strAction = Replace(ctrl.name, "btn", "")
+    strAction = Replace(ctrl.Name, "btn", "")
     
     'check for existence, add analysis tempvar if needed
     If IsNull(TempVars("analysis")) Then
@@ -1457,12 +1457,12 @@ On Error GoTo Err_Handler:
         .visible = True
         Select Case fsub_Filter.SourceObject
             Case "fsub_Select_Park_Year"
-                !cbxPark.value = ""
-                !cbxYear.value = "SEL"
+                !cbxPark.Value = ""
+                !cbxYear.Value = "SEL"
             Case "fsub_Select_Tgt_Lists"
             Case "fsub_Select_Year"
             Case "fsub_Select_Park"
-                !cbxPark.value = ""
+                !cbxPark.Value = ""
             End Select
     End With
     

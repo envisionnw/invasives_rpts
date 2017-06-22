@@ -1157,7 +1157,7 @@ End Sub
 Private Sub tbxSearchFor_LostFocus()
 On Error GoTo Err_Handler
     
-    If Len(tbxSearchFor.value) > 0 Then
+    If Len(tbxSearchFor.Value) > 0 Then
         'check if species list is identified
         If Len(TempVars("speciestype")) > 0 Then
             'enable the search "button"
@@ -1521,7 +1521,7 @@ On Error GoTo Err_Handler
     End With
     
     'minimize search form
-    DoCmd.SelectObject acForm, Me.name, False
+    DoCmd.SelectObject acForm, Me.Name, False
     DoCmd.Minimize
     
     'return focus to calling form
@@ -1574,13 +1574,13 @@ Private Sub btnSearch_Click()
 On Error GoTo Err_Handler
     
     Dim speciestype As Variant
-    Dim strSearch As String, strSpecies As String, strWhere As String, strSQL As String
+    Dim strSearch As String, strSpecies As String, strWHERE As String, strSQL As String
     Dim i As Integer
 
     'ignore if disabled
     If btnSearch.Enabled = False Then GoTo Exit_Sub
 
-    strSearch = Trim(tbxSearchFor.value)
+    strSearch = Trim(tbxSearchFor.Value)
             
     'check strSearch is alpha numeric
     
@@ -1595,7 +1595,7 @@ On Error GoTo Err_Handler
     End If
     
     'determine which species names are to be searched (ITIS, UT, CO, WY, Common)
-    strWhere = " WHERE "
+    strWHERE = " WHERE "
         
     'reset headers
     ResetHeaders Me, True, "*", False, 0, 8355711 ', vbWhite '#7F7F7F rgb(127,127,127)
@@ -1618,7 +1618,7 @@ On Error GoTo Err_Handler
             'If CountInString(speciestype, ";") > 1 Then
             i = i + 1
             If i > 1 Then
-                strWhere = strWhere & " OR "
+                strWHERE = strWHERE & " OR "
             
             End If
         
@@ -1644,19 +1644,19 @@ On Error GoTo Err_Handler
                     strSpecies = "LU_Code"
             End Select
                     
-            strWhere = strWhere & " " & strSpecies & " LIKE '*" & strSearch & "*'"
+            strWHERE = strWHERE & " " & strSpecies & " LIKE '*" & strSearch & "*'"
             
         End If
     Next
     
     'prep WHERE clause
-    If Len(Replace(strWhere, "WHERE", "")) = 0 Then strWhere = ""
+    If Len(Replace(strWHERE, "WHERE", "")) = 0 Then strWHERE = ""
     
     'build SQL statement
     strSQL = "SELECT DISTINCT LU_Code, Master_Species, Utah_Species, CO_Species, WY_Species, " _
             & "Master_Common_Name, Master_PLANT_Code " _
             & "FROM tlu_NCPN_Plants " _
-            & strWhere & ";"
+            & strWHERE & ";"
                
     'run search
     Dim rs As DAO.Recordset

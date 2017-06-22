@@ -486,7 +486,7 @@ Public Function CheckLink(strTableName As String) As Boolean
     On Error Resume Next
     ' Check for failure.  If can't determine the name of
     ' the first field in the table, the link must be bad.
-    varRet = CurrentDb.TableDefs(strTableName).Fields(0).name
+    varRet = CurrentDb.TableDefs(strTableName).Fields(0).Name
     If Err <> 0 Then
         CheckLink = False
     Else
@@ -716,7 +716,7 @@ Public Function RefreshLinks(strDbName As String, ByVal strNewConnStr As String,
             frm.Repaint
             strTable = rst![Link_table]
             Debug.Print strTable
-            varReturn = dbGet.TableDefs(strTable).Fields(0).name
+            varReturn = dbGet.TableDefs(strTable).Fields(0).Name
             rst.MoveNext
         Loop
 
@@ -1140,7 +1140,7 @@ Public Function VerifyLinks() As Boolean
         strProgress = String(Round(19 * intI / intNumTables), "Û")
         frm!tbxProgress = strProgress
         frm.Repaint
-        strLinkTableName = rst![name]
+        strLinkTableName = rst![Name]
         ' Make sure the linked table opens properly
         If CheckLink(strLinkTableName) = False Then
             ' Unable to open a linked table (not a critical error)

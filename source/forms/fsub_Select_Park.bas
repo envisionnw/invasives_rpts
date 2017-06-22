@@ -322,9 +322,9 @@ Private Sub cbxPark_Change()
 On Error GoTo Err_Handler
     
     'set park & enable continue when a 4-letter park code is selected
-    If Len(cbxPark.value) > 3 Then
+    If Len(cbxPark.Value) > 3 Then
         'set park
-        TempVars("park") = Trim(cbxPark.value)
+        TempVars("park") = Trim(cbxPark.Value)
         
         'enable the continue button
         If Len(cbxPark) > 3 Then
@@ -362,7 +362,7 @@ On Error GoTo Err_Handler
     'clear park (prevents NULL errors & click continue if values aren't set)
     'cbxPark.Value = ""
        
-    TempVars("Park") = cbxPark.value
+    TempVars("Park") = cbxPark.Value
     
     If Len(TempVars("Park")) > 0 Then
     

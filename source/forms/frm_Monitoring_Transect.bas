@@ -175,16 +175,17 @@ Option Explicit
 ' =================================
 ' MODULE:       frm_Monitoring_Transect
 ' Level:        Form module
-' Version:      1.03
+' Version:      1.04
 ' Description:  Transect count related functions & subroutines
 '
 ' Source/date:  Unknown
 ' Adapted:      Bonnie Campbell, June 2017
 ' Revisions:    Unknown        - 1.00 - initial version
 '               BLC, 5/10/2017 - 1.01 - documentation, added Form_Open(), Visit_Year_AfterUpdate()
-'               BLC - 6/11/2017 - 1.02 - revised to pull from filtered Transect_Data query vs. qry_Transect_Data
-'               BLC - 6/20/2017 - 1.03 - added strip of existing WHERE clause if any in case user saves
+'               BLC, 6/11/2017 - 1.02 - revised to pull from filtered Transect_Data query vs. qry_Transect_Data
+'               BLC, 6/20/2017 - 1.03 - added strip of existing WHERE clause if any in case user saves
 '                                        Transect_Data with the park & year filter, cleared form fields after click
+'               BLC, 6/22/2017 - 1.04 - Removed extraneous posWHERE, posORDER from btnReport_Click()
 ' =================================
 
 ' ---------------------------------
@@ -304,6 +305,7 @@ End Sub
 '               BLC - 6/19/2017 - revised to pull from revised Transect_Data query (ts vs tsc)
 '               BLC - 6/20/2017 - added strip of existing WHERE clause if any in case user saves
 '                                 Transect_Data with the park & year filter, cleared form fields after click
+'               BLC - 6/22/2017 - Removed extraneous posWHERE, posORDER
 ' ---------------------------------
 Private Sub btnReport_Click()
 On Error GoTo Err_Handler
@@ -316,7 +318,7 @@ On Error GoTo Err_Handler
     Dim origSQL As String
     Dim strSQL As String
     Dim strFilter As String
-    Dim posWHERE As Integer, posORDER As Integer
+'    Dim posWHERE As Integer, posORDER As Integer
     
     'use the Transect_Data query, but filter based on Unit_Code & Visit_Year
     Dim qdf As QueryDef

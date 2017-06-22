@@ -314,7 +314,7 @@ On Error GoTo Err_Handler
     End If
     
     cbxYear.RowSource = strValueList
-    cbxYear.value = "SEL"
+    cbxYear.Value = "SEL"
     
     'disable continue to start
     btnContinue.Enabled = False
@@ -351,7 +351,7 @@ On Error GoTo Err_Handler
 
     If Len(Trim(cbxYear)) > 0 Then
         'set year
-        TempVars("TgtYear") = cbxYear.value
+        TempVars("TgtYear") = cbxYear.Value
         'enable continue
         btnContinue.Enabled = True
     End If
@@ -388,7 +388,7 @@ End Sub
 Private Sub btnContinue_Click()
 On Error GoTo Err_Handler
        
-    TempVars("TgtYear") = cbxYear.value
+    TempVars("TgtYear") = cbxYear.Value
     
     If TempVars("TgtYear") > 0 Then
     

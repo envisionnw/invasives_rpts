@@ -1000,7 +1000,7 @@ Dim rs As DAO.Recordset
     SetListRecordset lbxTgtSpecies, True, aryFields, aryFieldTypes, "temp_Listbox_Recordset", True
 
     'open tgt species list form
-    DoCmd.OpenForm "frm_Select_List", acNormal, , , , acWindowNormal, Me.name
+    DoCmd.OpenForm "frm_Select_List", acNormal, , , , acWindowNormal, Me.Name
 
 Exit_Sub:
     Exit Sub
@@ -1615,7 +1615,7 @@ On Error GoTo Err_Handler
     varReturn = SysCmd(acSysCmdSetStatus, " ")
 
     'close form
-    DoCmd.Close acForm, Me.name
+    DoCmd.Close acForm, Me.Name
 
 Exit_Sub:
     DoCmd.Hourglass False
@@ -1649,7 +1649,7 @@ Private Sub btnSearch_Click()
 On Error GoTo Err_Handler
     Dim originForm As String
     
-    originForm = Me.name
+    originForm = Me.Name
     
     'open species search form
     DoCmd.OpenForm "frm_Species_Search", acNormal, , , , acWindowNormal, originForm

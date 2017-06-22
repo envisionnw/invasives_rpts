@@ -29,20 +29,20 @@ Private m_SpeciesCover As DAO.Recordset
 '---------------------
 ' Events
 '---------------------
-Public Event InvalidID(value As Long)
-Public Event InvalidEventID(value As Long)
-Public Event InvalidTransectID(value As Long)
-Public Event InvalidSurfaceCover(value As DAO.Recordset)
-Public Event InvalidSpeciesCover(value As DAO.Recordset)
+Public Event InvalidID(Value As Long)
+Public Event InvalidEventID(Value As Long)
+Public Event InvalidTransectID(Value As Long)
+Public Event InvalidSurfaceCover(Value As DAO.Recordset)
+Public Event InvalidSpeciesCover(Value As DAO.Recordset)
 
 '---------------------
 ' Properties
 '---------------------
-Public Property Let ID(value As Long)
-    If varType(value) = vbLong Then
-        m_ID = value
+Public Property Let ID(Value As Long)
+    If varType(Value) = vbLong Then
+        m_ID = Value
     Else
-        RaiseEvent InvalidID(value)
+        RaiseEvent InvalidID(Value)
     End If
 End Property
 
@@ -50,11 +50,11 @@ Public Property Get ID() As Long
     ID = m_ID
 End Property
 
-Public Property Let EventID(value As Long)
-    If varType(value) = vbLong Then
-        m_EventID = value
+Public Property Let EventID(Value As Long)
+    If varType(Value) = vbLong Then
+        m_EventID = Value
     Else
-        RaiseEvent InvalidEventID(value)
+        RaiseEvent InvalidEventID(Value)
     End If
 End Property
 
@@ -62,11 +62,11 @@ Public Property Get EventID() As Long
     EventID = m_EventID
 End Property
 
-Public Property Let transectID(value As Long)
-    If varType(value) = vbLong Then
-        m_TransectID = value
+Public Property Let transectID(Value As Long)
+    If varType(Value) = vbLong Then
+        m_TransectID = Value
     Else
-        RaiseEvent InvalidTransectID(value)
+        RaiseEvent InvalidTransectID(Value)
     End If
 End Property
 
@@ -74,12 +74,12 @@ Public Property Get transectID() As Long
     transectID = m_TransectID
 End Property
 
-Public Property Let SpeciesCover(value As DAO.Recordset)
+Public Property Let SpeciesCover(Value As DAO.Recordset)
     'assume vbDaataObject is a DAO.Recordset
-    If varType(value) = vbDataObject Then
-        Set m_SpeciesCover = value
+    If varType(Value) = vbDataObject Then
+        Set m_SpeciesCover = Value
     Else
-        RaiseEvent InvalidSpeciesCover(value)
+        RaiseEvent InvalidSpeciesCover(Value)
     End If
 End Property
 
@@ -87,12 +87,12 @@ Public Property Get SpeciesCover() As DAO.Recordset
     Set SpeciesCover = m_SpeciesCover
 End Property
 
-Public Property Let SurfaceCover(value As DAO.Recordset)
+Public Property Let SurfaceCover(Value As DAO.Recordset)
     'assume vbDaataObject is a DAO.Recordset
-    If varType(value) = vbDataObject Then
-        Set m_SurfaceCover = value
+    If varType(Value) = vbDataObject Then
+        Set m_SurfaceCover = Value
     Else
-        RaiseEvent InvalidSurfaceCover(value)
+        RaiseEvent InvalidSurfaceCover(Value)
     End If
 End Property
 

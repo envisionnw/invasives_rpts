@@ -828,8 +828,8 @@ Private Sub cbxIs_ODBC_KeyDown(KeyCode As Integer, Shift As Integer)
         Me.ActiveControl.Undo
     Else
         'disable cbxBackups control
-        ToggleControl Me.name, "cbxBackups"
-        ToggleControl Me.name, "lblBackups", lngLtGray
+        ToggleControl Me.Name, "cbxBackups"
+        ToggleControl Me.Name, "lblBackups", lngLtGray
     End If
 
 Exit_Sub:
@@ -874,16 +874,16 @@ Private Sub cbxIs_ODBC_BeforeUpdate(Cancel As Integer)
     If Me.ActiveControl = False Then
         
         'enable cbxBackups control
-        ToggleControl Me.name, "cbxBackups"
-        ToggleControl Me.name, "lblBackups", lngBlack
+        ToggleControl Me.Name, "cbxBackups"
+        ToggleControl Me.Name, "lblBackups", lngBlack
     
     Else
     
     'ODBC (true)
     
         'disable cbxBackups control
-        ToggleControl Me.name, "cbxBackups"
-        ToggleControl Me.name, "lblBackups", lngLtGray
+        ToggleControl Me.Name, "cbxBackups"
+        ToggleControl Me.Name, "lblBackups", lngLtGray
     
     End If
 
@@ -926,8 +926,8 @@ Private Sub cbxBackups_KeyDown(KeyCode As Integer, Shift As Integer)
                 DoCmd.CancelEvent
             Else
                 'disable cbxIs_ODBC control
-                ToggleControl Me.name, "cbxIs_ODBC"
-                ToggleControl Me.name, "lblIs_ODBC", lngLtGray
+                ToggleControl Me.Name, "cbxIs_ODBC"
+                ToggleControl Me.Name, "lblIs_ODBC", lngLtGray
                 Me.Requery
             End If
         End If
@@ -974,18 +974,18 @@ Private Sub cbxBackups_BeforeUpdate(Cancel As Integer)
                 "Confirm change") = vbNo Then
                 DoCmd.CancelEvent
                 'disable cbxIs_ODBC control
-                ToggleControl Me.name, "cbxIs_ODBC"
-                ToggleControl Me.name, "lblIs_ODBC", lngLtGray
+                ToggleControl Me.Name, "cbxIs_ODBC"
+                ToggleControl Me.Name, "lblIs_ODBC", lngLtGray
             Else
                 'enable cbxIs_ODBC control
-                ToggleControl Me.name, "cbxIs_ODBC"
-                ToggleControl Me.name, "lblIs_ODBC", lngBlack
+                ToggleControl Me.Name, "cbxIs_ODBC"
+                ToggleControl Me.Name, "lblIs_ODBC", lngBlack
             End If
         End If
     Else
         'disable cbxIs_ODBC control
-        ToggleControl Me.name, "cbxIs_ODBC"
-        ToggleControl Me.name, "lblIs_ODBC", lngLtGray
+        ToggleControl Me.Name, "cbxIs_ODBC"
+        ToggleControl Me.Name, "lblIs_ODBC", lngLtGray
 '    ElseIf Me.cbxIs_ODBC = True Then
 '        MsgBox "This option does not apply to ODBC connections", , "File backups"
 '        DoCmd.CancelEvent
@@ -1378,7 +1378,7 @@ Private Sub btnTestODBC_Click()
         If Left(strNewConn, 5) <> "ODBC;" Then
             strNewConn = "ODBC;" & strNewConn
         End If
-        strTable = rst![name]
+        strTable = rst![Name]
         strNewDb = Trim(Me.tbxNew_db)
         strNewConn = ReplaceString(strNewConn, rst![CurrDb], strNewDb)
         strNewServer = Trim(Me.tbxNew_server)
@@ -1550,9 +1550,9 @@ Private Sub btnUpdateLinks_Click()
 
         With rst
             .Edit
-            !Link_db = rst.Fields("New_db").value
-            !File_path = rst.Fields("New_path").value
-            !Server = rst.Fields("New_server").value
+            !Link_db = rst.Fields("New_db").Value
+            !File_path = rst.Fields("New_path").Value
+            !Server = rst.Fields("New_server").Value
             !New_db = Null
             !New_path = Null
             !New_server = Null

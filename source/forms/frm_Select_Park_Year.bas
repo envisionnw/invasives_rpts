@@ -252,7 +252,7 @@ Option Explicit
 Private Sub Form_Load()
 On Error GoTo Err_Handler
         
-    Dim oArgs() As String, strWhere As String, strSQL As String
+    Dim oArgs() As String, strWHERE As String, strSQL As String
         
     'check for info
     If IsNull(Me.OpenArgs) Then GoTo Exit_Sub
@@ -403,7 +403,7 @@ On Error GoTo Err_Handler
 'SELECT * FROM qry_EDSW_by_Park
 'WHERE Unit_Code = 'COLM' AND Visit_Year = 2013;
 
-    Dim oArgs As String, qry As String, aryArgs() As String, strWhere As String
+    Dim oArgs As String, qry As String, aryArgs() As String, strWHERE As String
     Dim iResult As Integer
 
     'parse open args ( MsgBox.Title = lblTitle.caption )
@@ -422,16 +422,16 @@ On Error GoTo Err_Handler
     End If
     
     'prepare where clause for filtering by park & year
-    strWhere = ""
+    strWHERE = ""
     If Len(Trim(aryArgs(4))) > 0 Then
-        strWhere = "WHERE Unit_Code = '" & Trim(aryArgs(4)) & "'"
+        strWHERE = "WHERE Unit_Code = '" & Trim(aryArgs(4)) & "'"
     End If
     
     If Len(Trim(aryArgs(5))) > 0 Then
-        If Len(strWhere) > 0 Then
-            strWhere = strWhere & " AND Visit_Year = " & CInt(aryArgs(5))
+        If Len(strWHERE) > 0 Then
+            strWHERE = strWHERE & " AND Visit_Year = " & CInt(aryArgs(5))
         Else
-            strWhere = "WHERE Visit_Year = " & CInt(aryArgs(5))
+            strWHERE = "WHERE Visit_Year = " & CInt(aryArgs(5))
         End If
     End If
          
@@ -442,7 +442,7 @@ On Error GoTo Err_Handler
     Me.lbxYear = ""
     
     'apply filter if park/year selected --> apply filter requires qry, valid WHERE clause w/o the WHERE
-    If Len(strWhere) > 0 Then DoCmd.ApplyFilter qry, Replace(strWhere, "WHERE ", "")
+    If Len(strWHERE) > 0 Then DoCmd.ApplyFilter qry, Replace(strWHERE, "WHERE ", "")
         
 Exit_Sub:
     Exit Sub

@@ -387,34 +387,34 @@ End Sub
 ' ---------------------------------
 Private Sub btnContinue_Click()
 On Error GoTo Err_Handler
-    Dim strReport As String, strWhere As String
+    Dim strReport As String, strWHERE As String
     
     Select Case TempVars("rpt")
         
         Case "CrewSpeciesList" ' Reports > Field Crew Species List
             strReport = "rpt_Tgt_Species_List"
-            strWhere = "TgtList IN (" & TempVars("TgtLists") & ")"
+            strWHERE = "TgtList IN (" & TempVars("TgtLists") & ")"
         
         Case "ParkSpeciesList" ' Reports > Park Personnel Species List
             strReport = "rpt_Tgt_Species_List_for_Park"
-            strWhere = "TgtList IN (" & TempVars("TgtLists") & ")"
+            strWHERE = "TgtList IN (" & TempVars("TgtLists") & ")"
         
         Case "SpeciesListByPark" ' Reports > Species List By Park
             strReport = "rpt_Tgt_Species_List_By_Park"
-            strWhere = "TgtList IN (" & TempVars("TgtLists") & ")"
+            strWHERE = "TgtList IN (" & TempVars("TgtLists") & ")"
         
         Case "TgtListParkSummary" ' Reports > Park Species List Summary
             strReport = "rpt_Tgt_Species_List_Park_Summary"
-            strWhere = ""
+            strWHERE = ""
         
         Case "TgtListAnnualSummary" ' Reports > Annual Species List Summary
             strReport = "rpt_Tgt_Species_List_Annual_Summary"
-            strWhere = ""
+            strWHERE = ""
             
     End Select
     
     'open target species list
-    DoCmd.OpenReport strReport, acViewReport, , strWhere
+    DoCmd.OpenReport strReport, acViewReport, , strWHERE
         
 Exit_Sub:
     Exit Sub

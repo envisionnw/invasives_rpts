@@ -341,9 +341,9 @@ On Error GoTo Err_Handler
     Dim QDef As QueryDef
 
     For Each QDef In CurrentDb.QueryDefs
-        If QDef.name Like QryName Then
+        If QDef.Name Like QryName Then
             If InStr(QDef.SQL, SearchText) > 0 Then
-                Debug.Print QDef.name
+                Debug.Print QDef.Name
                 If ShowSQL Then Debug.Print QDef.SQL & vbCrLf
             End If
         End If
@@ -417,17 +417,17 @@ On Error GoTo Err_Handler
                 Debug.Print "Forms:"
                 On Error Resume Next
                 For Each obj In CurrentProject.AllForms
-                    If obj.name Like ObjName Then
+                    If obj.Name Like ObjName Then
                         oLoaded = obj.IsLoaded
-                        If Not oLoaded Then DoCmd.OpenForm obj.name, acDesign, , , , acHidden
-                        Set frm = Application.Forms(obj.name)
+                        If Not oLoaded Then DoCmd.OpenForm obj.Name, acDesign, , , , acHidden
+                        Set frm = Application.Forms(obj.Name)
                         For Each prop In frm.Properties
                             Err.Clear
-                            If InStr(prop.value, SearchText) > 0 Then
+                            If InStr(prop.Value, SearchText) > 0 Then
                                 If Err.Number = 0 Then
-                                    Debug.Print "Form: " & frm.name & _
-                                                "  Property: " & prop.name & _
-                                                "  Value: " & prop.value
+                                    Debug.Print "Form: " & frm.Name & _
+                                                "  Property: " & prop.Name & _
+                                                "  Value: " & prop.Value
                                 End If
                             End If
                         Next prop
@@ -439,25 +439,25 @@ On Error GoTo Err_Handler
                                 sline = eline + 1: scol = 0: eline = 0: ecol = 0
                                 found = frm.Module.Find(SearchText, sline, scol, eline, ecol)
                             Loop
-                            If instances > 0 Then Debug.Print "Form: " & frm.name & _
+                            If instances > 0 Then Debug.Print "Form: " & frm.Name & _
                                "  Module: " & instances & " instances"
         
                         End If
                         For Each ctl In frm.Controls
                             For Each prop In ctl.Properties
                                 Err.Clear
-                                If InStr(prop.value, SearchText) > 0 Then
+                                If InStr(prop.Value, SearchText) > 0 Then
                                     If Err.Number = 0 Then
-                                        Debug.Print "Form: " & frm.name & _
-                                                    "  Control: " & ctl.name & _
-                                                    "  Property: " & prop.name & _
-                                                    "  Value: " & prop.value
+                                        Debug.Print "Form: " & frm.Name & _
+                                                    "  Control: " & ctl.Name & _
+                                                    "  Property: " & prop.Name & _
+                                                    "  Value: " & prop.Value
                                     End If
                                 End If
                             Next prop
                         Next ctl
                         Set frm = Nothing
-                        If Not oLoaded Then DoCmd.Close acForm, obj.name, acSaveNo
+                        If Not oLoaded Then DoCmd.Close acForm, obj.Name, acSaveNo
                         DoEvents
                     End If
                 Next obj
@@ -468,10 +468,10 @@ On Error GoTo Err_Handler
             Case acModule
                 Debug.Print "Modules:"
                 For Each obj In CurrentProject.AllModules
-                    If obj.name Like ObjName Then
+                    If obj.Name Like ObjName Then
                         oLoaded = obj.IsLoaded
-                        If Not oLoaded Then DoCmd.OpenModule obj.name
-                        Set mdl = Application.Modules(obj.name)
+                        If Not oLoaded Then DoCmd.OpenModule obj.Name
+                        Set mdl = Application.Modules(obj.Name)
                         sline = 0: scol = 0: eline = 0: ecol = 0: instances = 0
                         found = mdl.Find(SearchText, sline, scol, eline, ecol)
                         Do Until Not found
@@ -479,9 +479,9 @@ On Error GoTo Err_Handler
                             sline = eline + 1: scol = 0: eline = 0: ecol = 0
                             found = mdl.Find(SearchText, sline, scol, eline, ecol)
                         Loop
-                        If instances > 0 Then Debug.Print obj.name & ": " & instances & " instances"
+                        If instances > 0 Then Debug.Print obj.Name & ": " & instances & " instances"
                         Set mdl = Nothing
-                        If Not oLoaded Then DoCmd.Close acModule, obj.name
+                        If Not oLoaded Then DoCmd.Close acModule, obj.Name
                     End If
                 Next obj
                 Debug.Print vbCrLf
@@ -496,17 +496,17 @@ On Error GoTo Err_Handler
                 Debug.Print "Reports:"
                 On Error Resume Next
                 For Each obj In CurrentProject.AllReports
-                    If obj.name Like ObjName Then
+                    If obj.Name Like ObjName Then
                         oLoaded = obj.IsLoaded
-                        If Not oLoaded Then DoCmd.OpenReport obj.name, acDesign
-                        Set rpt = Application.Reports(obj.name)
+                        If Not oLoaded Then DoCmd.OpenReport obj.Name, acDesign
+                        Set rpt = Application.Reports(obj.Name)
                         For Each prop In rpt.Properties
                             Err.Clear
-                            If InStr(prop.value, SearchText) > 0 Then
+                            If InStr(prop.Value, SearchText) > 0 Then
                                 If Err.Number = 0 Then
-                                    Debug.Print "Report: " & rpt.name & _
-                                                "  Property: " & prop.name & _
-                                                "  Value: " & prop.value
+                                    Debug.Print "Report: " & rpt.Name & _
+                                                "  Property: " & prop.Name & _
+                                                "  Value: " & prop.Value
                                 End If
                             End If
                         Next prop
@@ -518,22 +518,22 @@ On Error GoTo Err_Handler
                                 sline = eline + 1: scol = 0: eline = 0: ecol = 0
                                 found = rpt.Module.Find(SearchText, sline, scol, eline, ecol)
                             Loop
-                            If instances > 0 Then Debug.Print "Report: " & rpt.name & _
+                            If instances > 0 Then Debug.Print "Report: " & rpt.Name & _
                                "  Module: " & instances & " instances"
         
                         End If
                         For Each ctl In rpt.Controls
                             For Each prop In ctl.Properties
-                                If InStr(prop.value, SearchText) > 0 Then
-                                    Debug.Print "Report: " & rpt.name & _
-                                                "  Control: " & ctl.name & _
-                                                "  Property: " & prop.name & _
-                                                "  Value: " & prop.value
+                                If InStr(prop.Value, SearchText) > 0 Then
+                                    Debug.Print "Report: " & rpt.Name & _
+                                                "  Control: " & ctl.Name & _
+                                                "  Property: " & prop.Name & _
+                                                "  Value: " & prop.Value
                                 End If
                             Next prop
                         Next ctl
                         Set rpt = Nothing
-                        If Not oLoaded Then DoCmd.Close acReport, obj.name, acSaveNo
+                        If Not oLoaded Then DoCmd.Close acReport, obj.Name, acSaveNo
                         DoEvents
                     End If
                 Next obj
@@ -563,9 +563,17 @@ Public Sub runtest()
     'SearchDB "tbl_Quadrat_Species"
     'SearchDB "tbl_Quadrat_Transect"
     'SearchDB "qry_Transect_Select"
-     Dim qdf As QueryDef
-    Set qdf = CurrentDb.QueryDefs("Query6")
+'     Dim qdf As QueryDef
+'    Set qdf = CurrentDb.QueryDefs("Query6")
+'
+'    'save original SQL
+'    Debug.Print qdf.SQL
     
-    'save original SQL
-    Debug.Print qdf.SQL
+    
+    Dim tbl As String 'DAO.TableDef
+
+    'Set tbl = CurrentDb.TableDefs("DINO_2014_SpeciesCover_by_Route_Result")
+    tbl = "DINO_2014_SpeciesCover_by_Route_Result"
+    CollapseRows tbl
+
 End Sub

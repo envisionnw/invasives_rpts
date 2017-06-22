@@ -562,8 +562,8 @@ Private Sub cmdUpdateLinks_Click()
             
             With rst
                 .Edit
-                !Link_file_name = rst.Fields("New_file_name").value
-                !Link_file_path = rst.Fields("New_file_path").value
+                !Link_file_name = rst.Fields("New_file_name").Value
+                !Link_file_path = rst.Fields("New_file_path").Value
                 !New_file_name = Null
                 !New_file_path = Null
                 .Update
@@ -627,7 +627,7 @@ End Sub
 Private Sub cmdClose_Click()
     On Error GoTo Err_Handler
 
-DoCmd.Close acForm, Me.name, acSaveNo
+DoCmd.Close acForm, Me.Name, acSaveNo
 'clear new file name, new file path
 CurrentDb.Execute "UPDATE tsys_Link_Files SET New_file_name=null, New_file_path=null;"
 

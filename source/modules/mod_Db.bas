@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_Db
 ' Level:        Framework module
-' Version:      1.19
+' Version:      1.20
 ' Description:  Database related functions & subroutines
 ' Requires:     Microsoft Scripting Runtime (scrrun.dll) for Scripting.Dictionary
 '
@@ -50,6 +50,7 @@ Option Explicit
 '                                       revised GetTemplates to avoid error on dictTemplates.Add
 '               BLC, 6/19/2017 - 1.19 - updated SQL for OpenRecordset to properly order by tsys_BE_Updates.Update_ID vs.
 '                                       tsys_BE_Updates.ID which does not exist
+'               BLC, 6/22/2017 - 1.20 - added SetColumnOrdinalPosition(), CombineTableSQL()
 ' =================================
 
 ' ---------------------------------
@@ -233,7 +234,7 @@ On Error GoTo Err_Handler
         'add rsB values as new rsOut records
         rsOut.AddNew
         For iCount = 0 To rsB.Fields.Count - 1
-            rsOut.Fields(iCount).value = rsB.Fields(iCount).value
+            rsOut.Fields(iCount).Value = rsB.Fields(iCount).Value
         Next
         rsOut.Update
         rsB.MoveNext
@@ -366,7 +367,7 @@ On Error GoTo Err_Handler
     
     For Each obj In dbColl
     
-        If obj.name = strName Then
+        If obj.Name = strName Then
             DbObjectExists = True
             GoTo Exit_Handler
         End If
@@ -534,7 +535,7 @@ Public Function qryExists(strQueryName As String) As Boolean
   
     For Each qdf In CurrentDb.QueryDefs
 '        Debug.Print qdf.Name
-        If qdf.name = strQueryName Then
+        If qdf.Name = strQueryName Then
             qryExists = True
             Exit For
         End If
@@ -920,7 +921,7 @@ On Error GoTo Err_Handler
         With fld
                 
             'prepare array of info
-            aryFieldInfo(iCol) = .name & "|" & _
+            aryFieldInfo(iCol) = .Name & "|" & _
                             .Type & "|" & _
                             .Size & "|" & _
                             .Required & "|" & _
@@ -978,7 +979,7 @@ On Error GoTo Err_Handler
 Dim i As Integer
 
     For i = 0 To [TempVars].Count - 1
-        If [TempVars].Item(i).name = stritem Then
+        If [TempVars].Item(i).Name = stritem Then
             'fetch the index and exit
             GetTempVarIndex = i
             Exit Function
@@ -1078,7 +1079,7 @@ Public Sub GetTemplates(Optional strSyntax As String = "", Optional Params As St
     Dim db As DAO.Database
     Dim rs As DAO.Recordset
     Dim strSQL As String, strSQLWhere As String, key As String
-    Dim value As Variant
+    Dim Value As Variant
     
     'handle default
     strSQLWhere = " WHERE IsSupported > 0"
@@ -1173,17 +1174,17 @@ Public Sub GetTemplates(Optional strSyntax As String = "", Optional Params As St
                 
                 Next
                 
-                Set value = dictParam
+                Set Value = dictParam
 
             Else
-                value = Nz(rs.Fields(ary(i)), "")
+                Value = Nz(rs.Fields(ary(i)), "")
             End If
             
             'add key if it isn't already there
             If Not dict.Exists(key) Then
-                If IsNull(value) Then MsgBox key, vbOKCancel, "is NULL"
+                If IsNull(Value) Then MsgBox key, vbOKCancel, "is NULL"
                 'Debug.Print Nz(Value, key & "-NULL")
-                dict.Add key, value
+                dict.Add key, Value
             End If
         
         Next
@@ -2052,18 +2053,18 @@ On Error GoTo Err_Handler
     For Each tdf In CurrentDb.TableDefs
 'Debug.Print tdf.Name
         'handle MSys tables
-        If Len(tdf.name) > Len(Replace(tdf.name, "MSys", "")) And ShowMSysTables = False Then GoTo Continue
+        If Len(tdf.Name) > Len(Replace(tdf.Name, "MSys", "")) And ShowMSysTables = False Then GoTo Continue
         
         'handle tsys tables
-        If Len(tdf.name) > Len(Replace(tdf.name, "tsys", "")) And ShowMSysTables = False Then GoTo Continue
+        If Len(tdf.Name) > Len(Replace(tdf.Name, "tsys", "")) And ShowMSysTables = False Then GoTo Continue
                 
         'handle usys tables
-        If Len(tdf.name) > Len(Replace(tdf.name, "usys", "")) And ShowMSysTables = False Then GoTo Continue
+        If Len(tdf.Name) > Len(Replace(tdf.Name, "usys", "")) And ShowMSysTables = False Then GoTo Continue
         
         'handle linked tables
         If Len(tdf.connect) > 0 And ShowLinkedTables = False Then GoTo Continue
         
-        tbls = tbls & "|" & tdf.name
+        tbls = tbls & "|" & tdf.Name
         
 Continue:
     Next
@@ -2192,7 +2193,7 @@ On Error GoTo Err_Handler
         
         If tdf.Fields.Count > max Then
             max = tdf.Fields.Count
-            qtName = tdf.name
+            qtName = tdf.Name
         End If
 
     Next
@@ -2201,7 +2202,7 @@ On Error GoTo Err_Handler
     
         If qdf.Fields.Count > max Then
             max = qdf.Fields.Count
-            qtName = qdf.name
+            qtName = qdf.Name
         End If
 
     Next
@@ -2626,7 +2627,7 @@ On Error Resume Next
             Set prp = .CreateProperty(prop, dbText, val)
             .Properties.Append prp
         Else
-            prp.value = val
+            prp.Value = val
         End If
     End With
     
@@ -2645,3 +2646,126 @@ Err_Handler:
     End Select
     Resume Exit_Handler
 End Sub
+
+' ---------------------------------
+' SUB:          CombineTableSQL
+' Description:  Combines two tables into a resulting table
+' Assumptions:  -
+' Parameters:   tbl - table being modified (TableDef)
+'               MoveCol - name of column to position (move) (string)
+'               AfterCol - name of column to position after (string)
+' Returns:      -
+' Throws:       none
+' References:
+'   Laurence, September 13, 2013
+'   https://stackoverflow.com/questions/18795263/how-to-merge-two-database-tables-when-only-some-fields-are-common
+' Source/date:  -
+' Adapted:      Bonnie Campbell, June 22, 2017 - for NCPN tools
+' Revisions:
+'   BLC - 6/22/2017 - initial version
+' ---------------------------------
+Function CombineTableSQL(Table1 As String, Table2 As String, Destination As String)
+    Dim lDb As Database
+    Dim lTd1 As TableDef, lTd2 As TableDef
+    Dim lField As field, lF2 As field
+    Dim lS1 As String, lS2 As String, lSep As String
+
+    CombineTableSQL = "Select "
+    lS1 = "Select "
+    lS2 = "Select "
+
+    Set lDb = CurrentDb
+    Set lTd1 = lDb.TableDefs(Table1)
+    Set lTd2 = lDb.TableDefs(Table2)
+
+    For Each lField In lTd1.Fields
+        CombineTableSQL = CombineTableSQL & lSep & "x.[" & lField.Name & "]"
+        lS1 = lS1 & lSep & "a.[" & lField.Name & "]"
+        Set lF2 = Nothing
+        On Error Resume Next
+        Set lF2 = lTd2.Fields(lField.Name)
+        On Error GoTo 0
+        If lF2 Is Nothing Then
+            lS2 = lS2 & lSep & "Null"
+        Else
+            lS2 = lS2 & lSep & "b.[" & lField.Name & "]"
+        End If
+        lSep = ", "
+    Next
+
+    For Each lField In lTd2.Fields
+        Set lF2 = Nothing
+        On Error Resume Next
+        Set lF2 = lTd1.Fields(lField.Name)
+        On Error GoTo 0
+        If lF2 Is Nothing Then
+            CombineTableSQL = CombineTableSQL & lSep & "x.[" & lField.Name & "]"
+            lS1 = lS1 & lSep & "Null as [" & lField.Name & "]"
+            lS2 = lS2 & lSep & "b.[" & lField.Name & "]"
+        End If
+        lSep = ", "
+    Next
+
+    CombineTableSQL = CombineTableSQL & " Into [" & Destination & "] From ( " & lS1 & " From [" & Table1 & "] a Union All " & lS2 & " From [" & Table2 & "] b ) x"
+
+Exit_Handler:
+    Exit Function
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - CombineTableSQL[mod_Db])"
+    End Select
+    Resume Exit_Handler
+End Function
+
+' ---------------------------------
+' SUB:          SetColumnOrdinalPosition
+' Description:  Sets the position for a column in a table
+' Assumptions:  -
+' Parameters:   tdf - table being modified (TableDef)
+'               MoveCol - name of column to position (move) (string)
+'               AfterCol - name of column to position after (string)
+' Returns:      True or False depending on whether move occurred
+' Throws:       none
+' References:
+'   Paul Shapiro, Jan 6,2010
+'   https://www.pcreview.co.uk/threads/how-can-i-change-the-column-order-using-vba.3948127/
+' Source/date:  -
+' Adapted:      Bonnie Campbell, June 22, 2017 - for NCPN tools
+' Revisions:
+'   BLC - 6/22/2017 - initial version
+' ---------------------------------
+Public Function SetColumnOrdinalPosition( _
+    tdf As DAO.TableDef, MoveCol As String, AfterCol As String) As Boolean
+    
+    'move MoveCol from tbl to the position immediately following AfterCol
+    Dim fldNew As DAO.field
+    Dim MoveTo As Long
+    
+    'Get the ordinal position desired for the field
+    Set fldNew = tdf.Fields(AfterCol)
+    MoveTo = fldNew.OrdinalPosition + 1
+    Set fldNew = Nothing
+    
+    'Increment ordinal positions and make space for the newly-assigned field
+    For Each fldNew In tdf.Fields
+        If fldNew.Name = MoveCol Then
+            fldNew.OrdinalPosition = MoveTo
+        ElseIf fldNew.OrdinalPosition >= MoveTo Then
+            fldNew.OrdinalPosition = fldNew.OrdinalPosition + 1
+        End If
+    Next
+    
+Exit_Handler:
+    Exit Function
+    
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - SetColumnOrdinalPosition[mod_Db])"
+    End Select
+    Resume Exit_Handler
+End Function

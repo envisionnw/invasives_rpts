@@ -346,7 +346,7 @@ End Sub
 Public Sub ClearFields(frm As Form)
 On Error GoTo Err_Handler
 
-    Select Case frm.name
+    Select Case frm.Name
     
         Case "frm_Species_Search"
             frm.Controls("cbxCO").DefaultValue = False
@@ -354,7 +354,7 @@ On Error GoTo Err_Handler
             frm.Controls("cbxWY").DefaultValue = False
             frm.Controls("cbxITIS").DefaultValue = False
             frm.Controls("cbxCommon").DefaultValue = False
-            frm.Controls("tbxSearchFor").value = ""
+            frm.Controls("tbxSearchFor").Value = ""
     End Select
     
 Exit_Sub:

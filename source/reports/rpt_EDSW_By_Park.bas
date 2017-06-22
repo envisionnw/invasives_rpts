@@ -637,7 +637,7 @@ Option Explicit
 Private Sub Report_Open(Cancel As Integer)
 On Error GoTo Err_Handler
         
-    Dim oArgs() As String, strSQL As String, strWhere As String
+    Dim oArgs() As String, strSQL As String, strWHERE As String
         
     'check for info
     If IsNull(Me.OpenArgs) Then GoTo Exit_Sub
@@ -647,20 +647,20 @@ On Error GoTo Err_Handler
     oArgs = Split(Me.OpenArgs, "|")
         
     'prepare where clause for filtering by park & year
-    strWhere = ""
+    strWHERE = ""
     If Len(Trim(oArgs(4))) > 0 Then
-        strWhere = "WHERE Unit_Code = '" & Trim(oArgs(4)) & "'"
+        strWHERE = "WHERE Unit_Code = '" & Trim(oArgs(4)) & "'"
     End If
     
     If Len(Trim(oArgs(5))) > 0 Then
-        If Len(strWhere) > 0 Then
-            strWhere = strWhere & " AND Visit_Year = " & CInt(oArgs(5))
+        If Len(strWHERE) > 0 Then
+            strWHERE = strWHERE & " AND Visit_Year = " & CInt(oArgs(5))
         Else
-            strWhere = "WHERE Visit_Year = " & CInt(oArgs(5))
+            strWHERE = "WHERE Visit_Year = " & CInt(oArgs(5))
         End If
     End If
     
-    strSQL = oArgs(3) & strWhere & ";"
+    strSQL = oArgs(3) & strWHERE & ";"
     
     Me.RecordSource = strSQL
     

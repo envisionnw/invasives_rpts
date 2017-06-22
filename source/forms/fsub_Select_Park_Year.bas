@@ -354,7 +354,7 @@ On Error GoTo Err_Handler
     Next
     
     cbxYear.RowSource = strValueList
-    cbxYear.value = "SEL"
+    cbxYear.Value = "SEL"
 
     'disable continue to start
     btnContinue.Enabled = False
@@ -390,9 +390,9 @@ Private Sub cbxPark_Change()
 On Error GoTo Err_Handler
     
     'set park & enable continue when a 4-letter park code is selected
-    If Len(cbxPark.value) > 3 Then
+    If Len(cbxPark.Value) > 3 Then
         'set park
-        TempVars("park") = Trim(cbxPark.value)
+        TempVars("park") = Trim(cbxPark.Value)
         
         'enable the continue button
         If Len(cbxPark) > 3 And TempVars("TgtYear") > 0 Then
@@ -430,7 +430,7 @@ On Error GoTo Err_Handler
 
     If Len(Trim(cbxYear)) > 0 Then
         'set year
-        TempVars("TgtYear") = cbxYear.value
+        TempVars("TgtYear") = cbxYear.Value
         
         'enable the continue button
         If Len(cbxPark) > 3 And TempVars("TgtYear") > 0 Then
@@ -474,8 +474,8 @@ Private Sub btnContinue_Click()
 On Error GoTo Err_Handler
        
     'clear year & park (prevents NULL errors & click continue if values aren't set)
-    cbxYear.value = "SEL"
-    cbxPark.value = ""
+    cbxYear.Value = "SEL"
+    cbxPark.Value = ""
        
     'open target species list
     DoCmd.OpenForm "frm_Tgt_Species", acNormal, , , , , TempVars("TgtYear")

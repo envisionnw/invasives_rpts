@@ -32,32 +32,32 @@ Private m_PercentCover As Single
 '---------------------
 ' Events
 '---------------------
-Public Event InvalidQuadratID(value As Long)
-Public Event InvalidPercentCover(value As Single)
+Public Event InvalidQuadratID(Value As Long)
+Public Event InvalidPercentCover(Value As Single)
 
 '-- base events (surface)
-Public Event InvalidID(value As Long)
-Public Event InvalidSfcID(value As Long)
-Public Event InvalidSfcName(value As String)
-Public Event InvalidSfcDescription(value As String)
-Public Event InvalidOrigColumnName(value As String)
+Public Event InvalidID(Value As Long)
+Public Event InvalidSfcID(Value As Long)
+Public Event InvalidSfcName(Value As String)
+Public Event InvalidSfcDescription(Value As String)
+Public Event InvalidOrigColumnName(Value As String)
 
 '---------------------
 ' Properties
 '---------------------
-Public Property Let QuadratID(value As Long)
-    m_QuadratID = value
+Public Property Let QuadratID(Value As Long)
+    m_QuadratID = Value
 End Property
 
 Public Property Get QuadratID() As Long
     QuadratID = m_QuadratID
 End Property
 
-Public Property Let PercentCover(value As Single)
-    If IsBetween(value, 0, 100, True) Then
-        m_PercentCover = value
+Public Property Let PercentCover(Value As Single)
+    If IsBetween(Value, 0, 100, True) Then
+        m_PercentCover = Value
     Else
-        RaiseEvent InvalidPercentCover(value)
+        RaiseEvent InvalidPercentCover(Value)
     End If
 End Property
 
@@ -73,13 +73,13 @@ End Property
 ' ---------------------------
 ' base class = Surface
 ' ---------------------------
-Public Property Let ID(value As Long)
-    If varType(value) = vbLong Then
-        m_ID = value
+Public Property Let ID(Value As Long)
+    If varType(Value) = vbLong Then
+        m_ID = Value
         'also set surfaceID value
-        m_SurfaceID = value
+        m_SurfaceID = Value
     Else
-        RaiseEvent InvalidID(value)
+        RaiseEvent InvalidID(Value)
     End If
 End Property
 
@@ -87,11 +87,11 @@ Public Property Get ID() As Long
     ID = m_ID
 End Property
 
-Public Property Let SurfaceID(value As Long)
-    If varType(value) = vbLong Then
-        m_SurfaceID = value
+Public Property Let SurfaceID(Value As Long)
+    If varType(Value) = vbLong Then
+        m_SurfaceID = Value
     Else
-        RaiseEvent InvalidSfcID(value)
+        RaiseEvent InvalidSfcID(Value)
     End If
 End Property
 
@@ -99,12 +99,12 @@ Public Property Get SurfaceID() As Long
     SurfaceID = m_SurfaceID
 End Property
 
-Public Property Let SfcName(value As String)
+Public Property Let SfcName(Value As String)
     'valid length varchar(25) or ZLS
-    If IsBetween(Len(value), 1, 25, True) Then
-        m_Surface.SfcName = value
+    If IsBetween(Len(Value), 1, 25, True) Then
+        m_Surface.SfcName = Value
     Else
-        RaiseEvent InvalidSfcName(value)
+        RaiseEvent InvalidSfcName(Value)
     End If
 End Property
 
@@ -112,12 +112,12 @@ Public Property Get SfcName() As String
     SfcName = m_Surface.SfcName
 End Property
 
-Public Property Let SfcDescription(value As String)
+Public Property Let SfcDescription(Value As String)
     'valid length varchar(255) or ZLS
-    If IsBetween(Len(value), 1, 255, True) Then
-        m_Surface.SfcDescription = value
+    If IsBetween(Len(Value), 1, 255, True) Then
+        m_Surface.SfcDescription = Value
     Else
-        RaiseEvent InvalidSfcDescription(value)
+        RaiseEvent InvalidSfcDescription(Value)
     End If
 End Property
 
@@ -125,12 +125,12 @@ Public Property Get SfcDescription() As String
     SfcDescription = m_Surface.SfcDescription
 End Property
 
-Public Property Let OrigColumnName(value As String)
+Public Property Let OrigColumnName(Value As String)
     'valid length varchar(25) or ZLS
-    If IsBetween(Len(value), 1, 25, True) Then
-        m_Surface.OrigColumnName = value
+    If IsBetween(Len(Value), 1, 25, True) Then
+        m_Surface.OrigColumnName = Value
     Else
-        RaiseEvent InvalidOrigColumnName(value)
+        RaiseEvent InvalidOrigColumnName(Value)
     End If
 End Property
 

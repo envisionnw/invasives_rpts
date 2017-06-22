@@ -16,8 +16,8 @@ Begin Form
     ItemSuffix =13
     Left =840
     Top =5835
-    Right =7965
-    Bottom =9420
+    Right =8040
+    Bottom =9195
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x3d34192b53bbe340
@@ -126,12 +126,10 @@ Begin Form
                     ColumnInfo ="\"\";\"\";\"3\";\"2\""
                     Name ="Visit_Year"
                     RowSourceType ="Table/Query"
-                    RowSource ="SELECT DISTINCT Visit_Year FROM qry_sel_cover_Year WHERE [Unit_Code] = 'COLM' OR"
-                        "DER BY Visit_Year; "
+                    RowSource ="SELECT Distinct Visit_Year FROM Select_Cover_Year WHERE [Unit_Code] = 'DINO' ORD"
+                        "ER BY Visit_Year"
                     ColumnWidths ="2820"
                     AfterUpdate ="[Event Procedure]"
-                    OnGotFocus ="[Event Procedure]"
-                    OnChange ="[Event Procedure]"
 
                     Begin
                         Begin Label
@@ -178,7 +176,7 @@ Option Explicit
 ' =================================
 ' MODULE:       frm_Species_Cover_by_Route
 ' Level:        Form module
-' Version:      1.03
+' Version:      1.04
 ' Description:  File and directory related functions & subroutines
 '
 ' Source/date:  Unknown
@@ -187,6 +185,8 @@ Option Explicit
 '               BLC, 5/10/2017 - 1.01 - documentation, added Form_Open(), Visit_Year_AfterUpdate()
 '               BLC, 6/15/2017 - 1.02 - revised to pull year from Select_Cover_Year vs qry_sel_cover_year
 '               BLC, 6/20/2017 - 1.03 - cleared form fields after click
+'               BLC, 6/22/2017 - 1.04 - revised to construct result from queries (Route_SpeciesCover_Crosstab_*,
+'                                       where * = TCount, PctCover, SE)
 ' =================================
 
 ' ---------------------------------
@@ -300,327 +300,194 @@ End Sub
 '               BLC - 5/10/2017 - added documentation, removed error message for Visit_Year (revised
 '                                 to be disabled instead)
 '               BLC - 6/20/2017 - cleared form fields after click
+'               BLC - 6/22/2017 - revised to construct result from queries (Route_SpeciesCover_Crosstab_*,
+'                                       where * = TCount, PctCover, SE)
 ' ---------------------------------
 Private Sub btnReport_Click()
 On Error GoTo Err_Handler
 
-  Dim db As DAO.Database
-  Dim tdf As TableDef
-  Dim WorkOutput As DAO.Recordset
-  Dim SpeciesIn As DAO.Recordset
-  Dim Transects As DAO.Recordset
-  Dim WorkStdDev As DAO.Recordset
-  Dim Routes As DAO.Recordset
-  Dim strSQL As String
-  Dim PlotSave As String
-  Dim SpeciesSave As String
-  Dim CommonSave As String
-  Dim SearchChar As String
-  Dim strFieldName As String
-  Dim strRouteColumnName As String
-  Dim strCountColumnName As String
-  Dim strCoverColumnName As String
-  Dim strSEColumnName As String
-  Dim RouteArray(50, 1) As String  '  Array for route names
-  ' column 1 is route name
-  ' column 2 is total transect count
-  Dim TCount As Variant
-  Dim ArrayIndex As Integer
-  Dim ArrayEnd As Integer
-  Dim EmptyTransects As Integer
-  Dim PlotCount As Integer  ' Count of transects in which species was found
-  Dim intTextLength As Integer
-  Dim CoverSum As Double
-  Dim CoverCalc As Double
-  Dim varStandardDeviation As Variant
-  
-'   If IsNull(Me!Park_Code) Or IsNull(Me!Visit_Year) Then
-'     MsgBox "You must select both park and year.", , "Species cover by route"
-'     Exit Sub
-'   End If
-   
-'   On Error Resume Next
-   'remove existing work table (if it exists)
-   DoCmd.DeleteObject acTable, "tbl_wrk_Route_Species"
-   
-'   On Error GoTo Err_ButtonReport_Click
-   ' Copy template table
-   DoCmd.CopyObject , "tbl_wrk_Route_Species", acTable, "tbl_Species_Cover_Template"
+    If IsNull(Me!Park_Code) Or IsNull(Me!Visit_Year) Then
+      MsgBox "You must select both park and year.", , "Monitoring Transect Data"
+      Exit Sub
+    End If
 
-  ' Create necessary table fields
-   strSQL = "SELECT Plot_ID FROM qry_Group_Cover_Route WHERE Unit_Code= '" & Me!Park_Code & _
-            "' AND Visit_Year= " & Me!Visit_Year
-   Set db = CurrentDb
-   Set Routes = db.OpenRecordset(strSQL)
-   Set tdf = db.TableDefs("tbl_wrk_Route_Species")
-   
-   ArrayIndex = 0
-   
-   'iterate through transect routes
-   Do Until Routes.EOF
-     strSQL = "SELECT Count(Transect) AS Transect_Count " & _
-        "FROM qry_Group_Route_Transect " & _
-        "GROUP BY Unit_Code, Visit_Year, Plot_ID " & _
-        "HAVING Unit_Code= '" & Me!Park_Code & "' AND Plot_ID= '" & Routes!Plot_ID & _
-        "' AND Visit_Year= " & Me!Visit_Year
-     Set Transects = db.OpenRecordset(strSQL)
-     
-     'save transect count
-     TCount = Transects!transect_count
-     
-     'cleanup
-     Transects.Close
-     Set Transects = Nothing
-     
-     strRouteColumnName = Left(Routes!Plot_ID, 48) & "(" & TCount & ")"
-     strCountColumnName = strRouteColumnName & "PlotCount"
-     strCoverColumnName = strRouteColumnName & "CoverPct"
-     strSEColumnName = strRouteColumnName & " (SE)"
-     
-     'add fields to table
-     With tdf
-  '     .Fields.Append .CreateField(strRouteColumnName, dbText, 50)
-       .Fields.Append .CreateField(strCountColumnName, dbInteger)
-       .Fields.Append .CreateField(strCoverColumnName, dbDouble)
-       .Fields.Append .CreateField(strSEColumnName, dbDouble)
-     End With
-     
-     'save funky route name (RDB)
-     RouteArray(ArrayIndex, 0) = strRouteColumnName
-     RouteArray(ArrayIndex, 1) = TCount
-     
-     'save last entry index
-     ArrayEnd = ArrayIndex
-     ArrayIndex = ArrayIndex + 1
-     
-     If ArrayIndex > 49 Then
-       MsgBox "Route array overflow - increase array size.", , "Load Route Names"
-       Exit Sub
-     End If
-     
-     Routes.MoveNext
-   Loop
-   
-   'cleanup
-   Routes.Close
-   Set tdf = Nothing
-   Set Routes = Nothing
+    'notify user system is busy
+    DoCmd.Hourglass True
+    Dim msg As String
+    msg = "Generating " & Me.Park_Code & " " & Me.Visit_Year & " results..."
+    SysCmd acSysCmdSetStatus, msg
 
-   'calculate species cover by plot
-'   strSQL = "SELECT * FROM qry_Select_Species_Cover " & _
-'        "WHERE Unit_Code = '" & Me!Park_Code & "' AND Visit_Year= " & Me!Visit_Year & _
-'        " ORDER BY Plot_ID, Species"
-   strSQL = "SELECT * FROM Select_Species_Cover " & _
-        "WHERE Unit_Code = '" & Me!Park_Code & "' AND Visit_Year= " & Me!Visit_Year & _
-        " ORDER BY Plot_ID, Species"
-   
-    Set SpeciesIn = db.OpenRecordset(strSQL)
-    SpeciesIn.MoveFirst
-    PlotSave = Left(SpeciesIn!Plot_ID, 48)
-    SpeciesSave = SpeciesIn!Species
-    CommonSave = SpeciesIn!Master_Common_Name
-    PlotCount = 0
-    CoverCalc = 0
-    CoverSum = 0
-    SearchChar = "("
-    DoCmd.SetWarnings False
-    DoCmd.OpenQuery "qry_Clear_StdDev"  ' Clear Standard Deviation work table
-    DoCmd.SetWarnings True
+    Dim db As DAO.Database
+    Dim qdf As DAO.QueryDef
+    Dim tbl As DAO.TableDef
+    Dim strFilter As String
+    Dim strWHERE As String
+    Dim origSQL As String
+    Dim strSQL As String
+    Dim strQuery As String
+    Dim qry As Variant
+    Dim strTableSQL As String
+    Dim strComponent As String
+    Dim strNewTable As String
+    Dim strTable As String
+    Dim strResult As String
+    Dim strResultOld As String
+    Dim ary As Variant
     
-    Do Until SpeciesIn.EOF
-     
-        If PlotSave <> Left(SpeciesIn!Plot_ID, 48) Or SpeciesSave <> SpeciesIn!Species Then
-           ' write output record
-           strSQL = "SELECT * FROM tbl_wrk_Route_Species " & _
-                    "WHERE [Unit_Code]= '" & Me!Park_Code & _
-                    "' AND [Species] = '" & SpeciesSave & "' AND [Visit_Year] = " & Me!Visit_Year
-           
-           Set WorkOutput = db.OpenRecordset(strSQL)
-           If WorkOutput.EOF Then
-             WorkOutput.Close
-             Set WorkOutput = db.OpenRecordset("tbl_wrk_Route_Species")
-             WorkOutput.AddNew
-             WorkOutput!Unit_Code = Me!Park_Code
-             WorkOutput!Visit_Year = Me!Visit_Year
-             WorkOutput!Species = SpeciesSave
-             WorkOutput!Common_Name = CommonSave
-           Else
-             WorkOutput.Edit
-           End If
-
-        ArrayIndex = 0
-        Do Until ArrayIndex > ArrayEnd
-            intTextLength = InStr(1, RouteArray(ArrayIndex, 0), SearchChar) - 1
-            If Left(RouteArray(ArrayIndex, 0), intTextLength) = PlotSave Then
-                strFieldName = RouteArray(ArrayIndex, 0) & "Plotcount"
-                WorkOutput(strFieldName) = PlotCount
-                strFieldName = RouteArray(ArrayIndex, 0) & "CoverPct"
-                WorkOutput(strFieldName) = CoverSum / RouteArray(ArrayIndex, 1)
-                
-                ' Standard deviation calculations
-                If RouteArray(ArrayIndex, 1) > PlotCount Then
-                    EmptyTransects = RouteArray(ArrayIndex, 1) - PlotCount  ' calculate number of empty transects
-                    
-                    Set WorkStdDev = db.OpenRecordset("tbl_wrk_StdDev")
-                    
-                    Do Until EmptyTransects = 0  ' add records to StdDev work table for plots in which species was not found
-                      WorkStdDev.AddNew
-                      WorkStdDev!CoverPct = 0 ' zero cover for these plots
-                      WorkStdDev.Update
-                      EmptyTransects = EmptyTransects - 1
-                    Loop
-                    
-                    WorkStdDev.Close
-                    Set WorkStdDev = Nothing
-                End If
+    'prepare filter clause
+    strFilter = " WHERE sc.Unit_Code = '" & Me!Park_Code & _
+                "' AND sc.Visit_Year = " & Me!Visit_Year & " "
     
-                varStandardDeviation = DStDev("CoverPct", "tbl_wrk_StdDev")
-                If Not IsNull(varStandardDeviation) Then
-                    strFieldName = RouteArray(ArrayIndex, 0) & " (SE)"
-                    ' WorkOutput(strFieldName) = varStandardDeviation / Sqr(PlotCount)  ' Use number of plots in which species is found
-                    WorkOutput(strFieldName) = varStandardDeviation / Sqr(RouteArray(ArrayIndex, 1))  ' Use total plots in route
-                End If
-                Exit Do
-            End If
+    'prepare table name component
+    strComponent = Me!Park_Code & "_" & Me!Visit_Year & "_"
     
-            ArrayIndex = ArrayIndex + 1
-            
-            If ArrayIndex > ArrayEnd Then
-                MsgBox "Name not found in route array", , "Set route name"
-                Exit Sub
-            End If
-        Loop
+    'prepare db
+    Set db = CurrentDb
     
-        WorkOutput.Update
-        WorkOutput.Close
-        Set WorkOutput = Nothing
+    'set array
+    ary = Array("TCount", "PctCover", "SE")
+    
+    For Each qry In ary
         
-       ' Save necessary fields
-       PlotSave = Left(SpeciesIn!Plot_ID, 48)
-       SpeciesSave = SpeciesIn!Species
-       CommonSave = SpeciesIn!Master_Common_Name
-       PlotCount = 0
-       CoverCalc = 0
-       CoverSum = 0
-       DoCmd.SetWarnings False
-       DoCmd.OpenQuery "qry_Clear_StdDev"  ' Clear Standard Deviation work table
-       DoCmd.SetWarnings True
-     End If
-     
-     PlotCount = PlotCount + 1
-     CoverCalc = 0
-     
-     Select Case SpeciesIn!Visit_Year  ' put transect average in covercalc
-       Case 2008
-         If Not IsNull(SpeciesIn!Q1) + IsNull(SpeciesIn!Q2) + IsNull(SpeciesIn!Q3) = -3 Then
-           If Not IsNull(SpeciesIn!Q1) Then
-             CoverCalc = SpeciesIn!Q1
-           End If
-           If Not IsNull(SpeciesIn!Q2) Then
-             CoverCalc = CoverCalc + SpeciesIn!Q2
-           End If
-           If Not IsNull(SpeciesIn!Q3) Then
-             CoverCalc = CoverCalc + SpeciesIn!Q3
-           End If
-         End If
-       Case 2009
-         If Not IsNull(SpeciesIn!Q1_3m) + IsNull(SpeciesIn!Q2_8m) + IsNull(SpeciesIn!Q3_13m) = -3 Then
-           If Not IsNull(SpeciesIn!Q1_3m) Then
-             CoverCalc = SpeciesIn!Q1_3m
-           End If
-           If Not IsNull(SpeciesIn!Q2_8m) Then
-             CoverCalc = CoverCalc + SpeciesIn!Q2_8m
-           End If
-           If Not IsNull(SpeciesIn!Q3_13m) Then
-             CoverCalc = CoverCalc + SpeciesIn!Q3_13m
-           End If
-         End If
-       Case Else
-         If Not IsNull(SpeciesIn!Q1_hm) + IsNull(SpeciesIn!Q2_5m) + IsNull(SpeciesIn!Q3_10m) = -3 Then
-           If Not IsNull(SpeciesIn!Q1_hm) Then
-             CoverCalc = SpeciesIn!Q1_hm
-           End If
-           If Not IsNull(SpeciesIn!Q2_5m) Then
-             CoverCalc = CoverCalc + SpeciesIn!Q2_5m
-           End If
-           If Not IsNull(SpeciesIn!Q3_10m) Then
-             CoverCalc = CoverCalc + SpeciesIn!Q3_10m
-           End If
-         End If
-     End Select
-     
-     CoverSum = CoverSum + (CoverCalc / 3) ' accumulate averages
-     Set WorkStdDev = db.OpenRecordset("tbl_wrk_StdDev")  ' save averages for standard deviation calculation
-     WorkStdDev.AddNew
-     WorkStdDev!CoverPct = (CoverCalc / 3) ' save average for plot in standard deviation work table
-     WorkStdDev.Update
-     WorkStdDev.Close
-     Set WorkStdDev = Nothing
-     SpeciesIn.MoveNext
-   Loop
-     ' write last output record
-       strSQL = "SELECT * FROM tbl_wrk_Route_Species " & _
-                "WHERE [Unit_Code]= '" & Me!Park_Code & _
-                "' AND [Species] = '" & SpeciesSave & "' AND [Visit_Year] = " & Me!Visit_Year
-       Set WorkOutput = db.OpenRecordset(strSQL)
-       If WorkOutput.EOF Then
-         WorkOutput.Close
-         Set WorkOutput = db.OpenRecordset("tbl_wrk_Route_Species")
-         WorkOutput.AddNew
-         WorkOutput!Unit_Code = Me!Park_Code
-         WorkOutput!Visit_Year = Me!Visit_Year
-         WorkOutput!Species = SpeciesSave
-         WorkOutput!Common_Name = CommonSave
-       Else
-         WorkOutput.Edit
-       End If
-         ArrayIndex = 0
-         Do Until ArrayIndex > ArrayEnd
-           intTextLength = InStr(1, RouteArray(ArrayIndex, 0), SearchChar) - 1
-           If Left(RouteArray(ArrayIndex, 0), intTextLength) = PlotSave Then
-             strFieldName = RouteArray(ArrayIndex, 0) & "Plotcount"
-             WorkOutput(strFieldName) = PlotCount
-             strFieldName = RouteArray(ArrayIndex, 0) & "CoverPct"
-             WorkOutput(strFieldName) = CoverSum / RouteArray(ArrayIndex, 1)
-             ' Standard deviation calculations
-             If RouteArray(ArrayIndex, 1) > PlotCount Then
-               EmptyTransects = RouteArray(ArrayIndex, 1) - PlotCount  ' calculate number of empty transects
-               Set WorkStdDev = db.OpenRecordset("tbl_wrk_StdDev")
-               Do Until EmptyTransects = 0  ' add records to StdDev work table for plots in which species was not found
-                 WorkStdDev.AddNew
-                 WorkStdDev!CoverPct = 0 ' zero cover for these plots
-                 WorkStdDev.Update
-                 EmptyTransects = EmptyTransects - 1
-               Loop
-               WorkStdDev.Close
-               Set WorkStdDev = Nothing
-             End If
-             varStandardDeviation = DStDev("CoverPct", "tbl_wrk_StdDev")
-             If Not IsNull(varStandardDeviation) Then
-               strFieldName = RouteArray(ArrayIndex, 0) & " (SE)"
-               WorkOutput(strFieldName) = varStandardDeviation / Sqr(RouteArray(ArrayIndex, 1))  ' Use total plots in route
-             End If
-             Exit Do
-           End If
-           ArrayIndex = ArrayIndex + 1
-           If ArrayIndex > ArrayEnd Then
-             MsgBox "Name not found in route array", , "Set route name"
-             Exit Sub
-           End If
-         Loop
-         WorkOutput.Update
-   SpeciesIn.Close
-   Set SpeciesIn = Nothing
-   WorkOutput.Close
-   Set WorkOutput = Nothing
- '   MsgBox "Finished - results are in tbl_wrk_Route_Species.", , "Species Cover by Route"
-   DoCmd.OpenQuery "qry_List_Route_Species"
+        msg = "Generating " & Me.Park_Code & " " & Me.Visit_Year & " " & qry & "..."
+        SysCmd acSysCmdSetStatus, msg
+        
+        'construct query, table names
+        strQuery = "Route_SpeciesCover_Crosstab_" & qry
+        strNewTable = strComponent & qry
+        
+        'use the existing queries, but filter based on Unit_Code & Visit_Year
+        Set qdf = db.QueryDefs(strQuery)
+        
+        'save original SQL
+        origSQL = qdf.SQL
+        
+        'remove any existing WHERE clause (in case user saved query w/ park & year filter)
+        '& reset the query def to the original SQL w/o this filtering clause
+        If InStr(origSQL, "WHERE") Then
+            origSQL = ReplaceTextBetween(origSQL, "WHERE", "GROUP")
+            qdf.SQL = origSQL
+        End If
+                
+        'add filter
+        strSQL = Replace(Replace(qdf.SQL, ";", ""), "GROUP", strFilter & "GROUP") & ";"
+        qdf.SQL = strSQL
+        
+        'delete table if it exists
+        If TableExists(strNewTable) Then _
+            DoCmd.DeleteObject acTable, strNewTable
+        
+        'save query to table
+        strTableSQL = "SELECT * INTO " & strComponent & qry & _
+                       " FROM " & strQuery & ";"
+        
+        DoCmd.SetWarnings False
+        db.Execute strTableSQL
+        DoCmd.SetWarnings True
+        
+        'DoCmd.OpenQuery strQuery, acViewNormal, acReadOnly
+        
+        msg = "Combining " & Me.Park_Code & " " & Me.Visit_Year & " results ..."
+        SysCmd acSysCmdSetStatus, msg
+        
+        'add the table to the overall species table
+        strTable = strComponent & "SpeciesCover_by_Route"
+        strResult = strTable & "_Result"
+        strResultOld = strResult & "_OLD"
+        
+        If Not TableExists(strTable) Then
+            'copy the table to new table
+            DoCmd.CopyObject , strTable, acTable, strNewTable
+        Else
+            'delete only on the 1st (TCount) iteration
+            If qry = "TCount" Then
+                'remove existing prior results table of same name
+                If TableExists(strResult) Then _
+                    DoCmd.DeleteObject acTable, strResult
+                'add table to existing table
+                db.Execute CombineTableSQL(strTable, strNewTable, strResult)
+            Else
+                'remove any previous "OLD" table
+                'If TableExists(strResultOld) Then DoCmd.DeleteObject acTable, strResultOld
+                
+                'rename strResult to strResultOld
+                DoCmd.Rename strResultOld, acTable, strResult
+                
+                'add table to existing table
+                db.Execute CombineTableSQL(strResultOld, strNewTable, strResult)
+                
+                'remove old result
+                DoCmd.DeleteObject acTable, strResultOld
+            End If
+            
+        End If
+        
+        'remove the filter (revert to original SQL) for the next iteration
+        qdf.SQL = origSQL
+        
+    Next
+                    
+    'cleanup & clear memory
+    Set ary = Nothing
+    Set qdf = Nothing
+    Set tbl = Nothing
+    Set db = Nothing
     
+    msg = "Shifting " & Me.Park_Code & " " & Me.Visit_Year & " results columns..."
+    SysCmd acSysCmdSetStatus, msg
+    
+    'definitions
+    Dim tdf As DAO.TableDef
+    Dim col As DAO.field
+    Dim strCol As String
+    Dim strRoute As String
+    Dim strPrevRoute As String
+    Dim strTCount As String, strPctCover As String, strSE As String
+    
+    Set db = CurrentDb
+    Set tdf = db.TableDefs(strResult)
+    strPrevRoute = ""
+    
+    With tdf
+    'order result columns (fields)
+    For Each col In tdf.Fields
+    
+        'get column name
+        strCol = col.Name
+        strRoute = Left(strCol, InStr(col.Name, ") ") + 1)
+        
+        'ignore 1-5 (static Park, Year, Species, Master Common Name, IsDead)
+        If col.OrdinalPosition > 5 Then
+        
+            'if the routes differ we're onto another set to move
+            If strRoute <> strPrevRoute Then
+                strTCount = strRoute & "TCount"
+                strPctCover = strRoute & "PctCover"
+                strSE = strRoute & "SE"
+                
+                'move route's PctCover after TCount, SE after PctCover
+                SetColumnOrdinalPosition tdf, strPctCover, strTCount
+                SetColumnOrdinalPosition tdf, strSE, strPctCover
+            
+                strPrevRoute = strRoute
+            End If
+            
+        End If
+    Next
+    End With
+    
+    msg = Me.Park_Code & " " & Me.Visit_Year & " results complete..."
+    SysCmd acSysCmdSetStatus, msg
+    
+Exit_Procedure:
     'clear fields
     Me.Park_Code = ""
     Me.Visit_Year = ""
 
-Exit_Procedure:
+    'clear notification
+    DoCmd.Hourglass False
+    SysCmd acSysCmdClearStatus
+    
     Exit Sub
 
 Err_Handler:
@@ -661,10 +528,126 @@ Err_Handler:
     Resume Exit_Procedure
 End Sub
 
-Private Sub Visit_Year_Change()
- Debug.Print Me.Visit_Year.RowSource
-End Sub
+'Private Sub Visit_Year_Change()
+' Debug.Print Me.Visit_Year.RowSource
+'End Sub
+'
+'Private Sub Visit_Year_GotFocus()
+' Debug.Print Me.Visit_Year.RowSource
+'End Sub
 
-Private Sub Visit_Year_GotFocus()
- Debug.Print Me.Visit_Year.RowSource
-End Sub
+'' ---------------------------------
+'' SUB:          CollapseRows
+'' Description:  Collapses TCount, PctCover, SE for one species/IsDead into one row
+'' Parameters:   -
+'' Returns:      -
+'' Throws:       -
+'' References:   -
+''   R.Hicks, Sept 15, 2002
+''   http://www.utteraccess.com/forum/copy-table-structure-vb-t117555.html
+'' Source/date:  Bonnie Campbell, June 22 2017
+'' Adapted:      -
+'' Revisions:    BLC - 6/22/2017 - initial version
+'' ---------------------------------
+'Public Sub CollapseRows(tbl As TableDef)
+'On Error GoTo Err_Handler
+'
+'    Dim db As DAO.Database
+'    Dim tdf As DAO.TableDef
+'    Dim col As field
+'    Dim rs As DAO.Recordset
+'    Dim rsPctCover As DAO.Recordset
+'    Dim rsSE As DAO.Recordset
+'    Dim strNewTable As String
+'    Dim Park As String, VisitYear As String, Species As String, CommonName As String, _
+'        IsDead As String, Route As String
+'    Dim PrevPark As String, PrevVisitYear As String, PrevSpecies As String, _
+'        PrevCommonName As String, PrevIsDead As String, PrevRoute As String
+'    Dim TCount As Integer
+'    Dim PctCover As String
+'    Dim SE As Double
+'
+'    strNewTable = tbl.Name & "_NEW"
+'
+'    PrevPark = ""
+'    PrevVisitYear = ""
+'    PrevSpecies = ""
+'    PrevCommonName = ""
+'    PrevIsDead = ""
+'
+'    Set db = CurrentDb
+'    Set tdf = db.TableDefs(tdf)
+'
+'    Set rs = db.OpenRecordset(tbl)
+'
+'    'create empty table w/ same columns to fill into
+'    DoCmd.TransferDatabase acExport, "Microsoft Access", db.Name, acTable, tbl.Name, strTableNew, True
+'
+'    With tdf
+'        'iterate through ALL
+'        Do Until rs.BOF And rs.EOF
+'
+'            'order result columns (fields)
+'            For Each col In tdf.Fields
+'
+'                'get park, visit year, species, common name & isdead
+'                If col.OrdinalPosition = 1 Then Park = col.Value
+'                If col.OrdinalPosition = 2 Then VisitYear = col.Value
+'                If col.OrdinalPosition = 3 Then Species = col.Value
+'                If col.OrdinalPosition = 4 Then CommonName = col.Value
+'                If col.OrdinalPosition = 5 Then IsDead = col.Value
+'
+'                'ignore 1-5 (static Park, Year, Species, Master Common Name, IsDead)
+'                If col.OrdinalPosition > 5 Then
+'
+'                    'get column & route name
+'                    strCol = col.Name
+'                    Route = Left(strCol, InStr(col.Name, ") ") + 1)
+'
+'                    Select Case Replace(strCol, strRoute)
+'                        Case "TCount"
+'                            TCount = col.Value
+'                        Case "AvgCover"
+'                            AvgCover = col.Value
+'                        Case "SE"
+'                            SE = col.Value
+'                    End Select
+'
+'                    'concatenate for comparison
+'                    Concat = Park & VisitYear & Species & CommonName & IsDead & Route
+'
+'                    If Concat <> PrevConcat Then
+'
+'                    'add these to the new table if they don't already exist
+'
+'
+'                    If PrevSpecies = rs!Species And PrevIsDead = rs!IsDead Then
+'
+'                    End If
+'                End If
+'
+'                'capture the previous values
+'                PrevConcat = Concat
+'                PrevPark = Park
+'                PrevVisitYear = VisitYear
+'                PrevSpecies = Species
+'                PrevCommonName = CommonName
+'                PrevIsDead = IsDead
+'
+'            Next
+'
+'
+'        Loop
+'    End With
+'
+'Exit_Procedure:
+'    Exit Sub
+'
+'Err_Handler:
+'    Select Case Err.Number
+'      Case Else
+'        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+'            "Error encountered (#" & Err.Number & " - CollapseRows[frm_Species_Cover_by_Route])"
+'    End Select
+'    Resume Exit_Procedure
+'End Sub

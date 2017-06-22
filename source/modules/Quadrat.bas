@@ -36,24 +36,24 @@ Private m_NoExoticsQ3 As Boolean
 '---------------------
 ' Events
 '---------------------
-Public Event InvalidID(value As Long)
+Public Event InvalidID(Value As Long)
 
-Public Event InvalidEventID(value As Long)
-Public Event InvalidTransectID(value As Long)
-Public Event InvalidQuadratID(value As Long)
-Public Event InvalidIsSampled(value As Boolean)
-Public Event InvalidNoExotics(value As Boolean)
-Public Event InvalidSurfaceCover(value As DAO.Recordset)
-Public Event InvalidSpeciesCover(value As DAO.Recordset)
+Public Event InvalidEventID(Value As Long)
+Public Event InvalidTransectID(Value As Long)
+Public Event InvalidQuadratID(Value As Long)
+Public Event InvalidIsSampled(Value As Boolean)
+Public Event InvalidNoExotics(Value As Boolean)
+Public Event InvalidSurfaceCover(Value As DAO.Recordset)
+Public Event InvalidSpeciesCover(Value As DAO.Recordset)
 
 '---------------------
 ' Properties
 '---------------------
-Public Property Let ID(value As Long)
-    If varType(value) = vbLong Then
-        m_ID = value
+Public Property Let ID(Value As Long)
+    If varType(Value) = vbLong Then
+        m_ID = Value
     Else
-        RaiseEvent InvalidID(value)
+        RaiseEvent InvalidID(Value)
     End If
 End Property
 
@@ -61,11 +61,11 @@ Public Property Get ID() As Long
     ID = m_ID
 End Property
 
-Public Property Let EventID(value As Long)
-    If varType(value) = vbLong Then
-        m_EventID = value
+Public Property Let EventID(Value As Long)
+    If varType(Value) = vbLong Then
+        m_EventID = Value
     Else
-        RaiseEvent InvalidEventID(value)
+        RaiseEvent InvalidEventID(Value)
     End If
 End Property
 
@@ -73,11 +73,11 @@ Public Property Get EventID() As Long
     EventID = m_EventID
 End Property
 
-Public Property Let transectID(value As Long)
-    If varType(value) = vbLong Then
-        m_TransectID = value
+Public Property Let transectID(Value As Long)
+    If varType(Value) = vbLong Then
+        m_TransectID = Value
     Else
-        RaiseEvent InvalidTransectID(value)
+        RaiseEvent InvalidTransectID(Value)
     End If
 End Property
 
@@ -86,11 +86,11 @@ Public Property Get transectID() As Long
 End Property
 
 
-Public Property Let QuadratID(value As Long)
-    If varType(value) = vbLong Then
-        m_QuadratID = value
+Public Property Let QuadratID(Value As Long)
+    If varType(Value) = vbLong Then
+        m_QuadratID = Value
     Else
-        RaiseEvent InvalidQuadratID(value)
+        RaiseEvent InvalidQuadratID(Value)
     End If
 End Property
 
@@ -98,12 +98,12 @@ Public Property Get QuadratID() As Long
     QuadratID = m_QuadratID
 End Property
 
-Public Property Let SpeciesCover(value As DAO.Recordset)
+Public Property Let SpeciesCover(Value As DAO.Recordset)
     'assume vbDaataObject is a DAO.Recordset
-    If varType(value) = vbDataObject Then
-        Set m_SpeciesCover = value
+    If varType(Value) = vbDataObject Then
+        Set m_SpeciesCover = Value
     Else
-        RaiseEvent InvalidSpeciesCover(value)
+        RaiseEvent InvalidSpeciesCover(Value)
     End If
 End Property
 
@@ -111,12 +111,12 @@ Public Property Get SpeciesCover() As DAO.Recordset
     Set SpeciesCover = m_SpeciesCover
 End Property
 
-Public Property Let SurfaceCover(value As DAO.Recordset)
+Public Property Let SurfaceCover(Value As DAO.Recordset)
     'assume vbDaataObject is a DAO.Recordset
-    If varType(value) = vbDataObject Then
-        Set m_SurfaceCover = value
+    If varType(Value) = vbDataObject Then
+        Set m_SurfaceCover = Value
     Else
-        RaiseEvent InvalidSurfaceCover(value)
+        RaiseEvent InvalidSurfaceCover(Value)
     End If
 End Property
 
@@ -124,11 +124,11 @@ Public Property Get SurfaceCover() As DAO.Recordset
     Set SurfaceCover = m_SurfaceCover
 End Property
 
-Public Property Let IsSampledQ1(value As Boolean)
-    If varType(value) = vbBoolean Then
-        m_IsSampledQ1 = value
+Public Property Let IsSampledQ1(Value As Boolean)
+    If varType(Value) = vbBoolean Then
+        m_IsSampledQ1 = Value
     Else
-        RaiseEvent InvalidIsSampled(value)
+        RaiseEvent InvalidIsSampled(Value)
     End If
 End Property
 
@@ -136,11 +136,11 @@ Public Property Get IsSampledQ1() As Boolean
     IsSampledQ1 = m_IsSampledQ1
 End Property
 
-Public Property Let IsSampledQ2(value As Boolean)
-    If varType(value) = vbBoolean Then
-        m_IsSampledQ2 = value
+Public Property Let IsSampledQ2(Value As Boolean)
+    If varType(Value) = vbBoolean Then
+        m_IsSampledQ2 = Value
     Else
-        RaiseEvent InvalidIsSampled(value)
+        RaiseEvent InvalidIsSampled(Value)
     End If
 End Property
 
@@ -148,11 +148,11 @@ Public Property Get IsSampledQ2() As Boolean
     IsSampledQ2 = m_IsSampledQ2
 End Property
 
-Public Property Let IsSampledQ3(value As Boolean)
-    If varType(value) = vbBoolean Then
-        m_IsSampledQ3 = value
+Public Property Let IsSampledQ3(Value As Boolean)
+    If varType(Value) = vbBoolean Then
+        m_IsSampledQ3 = Value
     Else
-        RaiseEvent InvalidIsSampled(value)
+        RaiseEvent InvalidIsSampled(Value)
     End If
 End Property
 
@@ -160,11 +160,11 @@ Public Property Get IsSampledQ3() As Boolean
     IsSampledQ3 = m_IsSampledQ3
 End Property
 
-Public Property Let NoExoticsQ1(value As Boolean)
-    If varType(value) = vbBoolean Then
-        NoExoticsQ1 = value
+Public Property Let NoExoticsQ1(Value As Boolean)
+    If varType(Value) = vbBoolean Then
+        NoExoticsQ1 = Value
     Else
-        RaiseEvent InvalidNoExotics(value)
+        RaiseEvent InvalidNoExotics(Value)
     End If
 End Property
 
@@ -172,11 +172,11 @@ Public Property Get NoExoticsQ1() As Boolean
     NoExoticsQ1 = m_NoExoticsQ1
 End Property
 
-Public Property Let NoExoticsQ2(value As Boolean)
-    If varType(value) = vbBoolean Then
-        NoExoticsQ2 = value
+Public Property Let NoExoticsQ2(Value As Boolean)
+    If varType(Value) = vbBoolean Then
+        NoExoticsQ2 = Value
     Else
-        RaiseEvent InvalidNoExotics(value)
+        RaiseEvent InvalidNoExotics(Value)
     End If
 End Property
 
@@ -184,11 +184,11 @@ Public Property Get NoExoticsQ2() As Boolean
     NoExoticsQ2 = m_NoExoticsQ2
 End Property
 
-Public Property Let NoExoticsQ3(value As Boolean)
-    If varType(value) = vbBoolean Then
-        NoExoticsQ3 = value
+Public Property Let NoExoticsQ3(Value As Boolean)
+    If varType(Value) = vbBoolean Then
+        NoExoticsQ3 = Value
     Else
-        RaiseEvent InvalidNoExotics(value)
+        RaiseEvent InvalidNoExotics(Value)
     End If
 End Property
 

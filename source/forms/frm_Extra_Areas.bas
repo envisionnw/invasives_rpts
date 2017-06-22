@@ -526,7 +526,7 @@ On Error GoTo Err_Handler
     
     Initialize
        
-    If Len(tbxExtraArea.value) = 0 Then
+    If Len(tbxExtraArea.Value) = 0 Then
         'disable search until something is entered
         btnAddExtraArea.Enabled = False
         DisableControl btnAddExtraArea
@@ -562,7 +562,7 @@ End Sub
 Private Sub tbxExtraArea_Change()
 On Error GoTo Err_Handler
     
-    If Len(tbxExtraArea.value) > 0 Then
+    If Len(tbxExtraArea.Value) > 0 Then
         'enable the search "button"
         EnableControl btnAddExtraArea, CTRL_ADD_ENABLED, TEXT_ENABLED
         btnAddExtraArea.Enabled = True
@@ -601,7 +601,7 @@ End Sub
 Private Sub tbxExtraArea_LostFocus()
 On Error GoTo Err_Handler
     
-    If Len(tbxExtraArea.value) > 0 Then
+    If Len(tbxExtraArea.Value) > 0 Then
         'enable the search "button"
         btnAddExtraArea.Enabled = True
     Else
@@ -639,7 +639,7 @@ End Sub
 Private Sub tbxExtraArea_KeyUp(KeyCode As Integer, Shift As Integer)
 On Error GoTo Err_Handler
     
-    If Len(tbxExtraArea.value) > 0 Then
+    If Len(tbxExtraArea.Value) > 0 Then
         'enable the search "button"
          btnAddExtraArea.Enabled = True
         EnableControl btnAddExtraArea, lngLtLime, lngBlue, lngDkLime, lngBrtLime, lngLtGreen, lngDkGray, lngLtLime
@@ -679,8 +679,8 @@ Private Sub btnAddExtraArea_Click()
 On Error GoTo Err_Handler
     Dim strExtraArea As String
     
-    If ValidateString(tbxExtraArea.value, "alphaspace") = True Then
-        strExtraArea = Trim(tbxExtraArea.value)
+    If ValidateString(tbxExtraArea.Value, "alphaspace") = True Then
+        strExtraArea = Trim(tbxExtraArea.Value)
                 
         Dim rs As Recordset
     
@@ -735,7 +735,7 @@ On Error GoTo Err_Handler
     ' _AXL:ment Name="Message">=[MacroError].[Description]</Argument></Action></Statements></If></ConditionalBlock></Statements></UserInterfaceMacro>
     On Error Resume Next
     
-    DoCmd.GoToControl Screen.PreviousControl.name
+    DoCmd.GoToControl Screen.PreviousControl.Name
     Err.Clear
     
     If (Not Form.NewRecord) Then

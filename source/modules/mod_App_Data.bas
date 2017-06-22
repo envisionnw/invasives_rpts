@@ -46,7 +46,7 @@ On Error GoTo Err_Handler
     'output to form or listbox control?
    
     'determine data source
-    Select Case ctrlSource.name
+    Select Case ctrlSource.Name
     
         Case "lbxDataSheets", "sfrmDatasheets" 'Datasheets
             strQuery = "qry_Active_Datasheets"
@@ -182,7 +182,7 @@ On Error GoTo Err_Handler
                     'check if column is displayed width > 0
                     If CInt(aryColWidths(j)) > 0 Then
                     
-                        stritem = stritem & rs.Fields(j).value & ";"
+                        stritem = stritem & rs.Fields(j).Value & ";"
                     
                         'determine how many separators there are (";") --> should equal # cols
                         matches = (Len(stritem) - Len(Replace$(stritem, ";", ""))) / Len(";")
@@ -315,7 +315,7 @@ On Error GoTo Err_Handler
     
     'assume only 1 record returned
     If rs.RecordCount > 0 Then
-        state = rs.Fields("ParkState").value
+        state = rs.Fields("ParkState").Value
     End If
    
     'return value
@@ -725,3 +725,127 @@ Err_Handler:
     End Select
     Resume Exit_Handler
 End Function
+
+
+' ---------------------------------
+' SUB:          CollapseRows
+' Description:  Collapses TCount, PctCover, SE for one species/IsDead into one row
+' Parameters:   -
+' Returns:      -
+' Throws:       -
+' References:   -
+'   R.Hicks, Sept 15, 2002
+'   http://www.utteraccess.com/forum/copy-table-structure-vb-t117555.html
+' Source/date:  Bonnie Campbell, June 22 2017
+' Adapted:      -
+' Revisions:    BLC - 6/22/2017 - initial version
+' ---------------------------------
+Public Sub CollapseRows(tbl As String) 'tdf As DAO.TableDef)
+On Error GoTo Err_Handler
+
+    Dim db As DAO.Database
+    Dim tdf As DAO.TableDef
+    Dim col As field
+    Dim rs As DAO.Recordset
+    Dim rsPctCover As DAO.Recordset
+    Dim rsSE As DAO.Recordset
+    Dim strTableNew As String
+    Dim strCol As String
+    Dim Park As String, VisitYear As String, Species As String, CommonName As String, _
+        IsDead As String, Route As String
+    Dim PrevPark As String, PrevVisitYear As String, PrevSpecies As String, _
+        PrevCommonName As String, PrevIsDead As String, PrevRoute As String
+    Dim TCount As Integer
+    Dim PctCover As String
+    Dim SE As Double
+    Dim Concat As String, PrevConcat As String
+    
+    strTableNew = tbl & "_NEW"
+    
+    PrevPark = ""
+    PrevVisitYear = ""
+    PrevSpecies = ""
+    PrevCommonName = ""
+    PrevIsDead = ""
+    
+    Set db = CurrentDb
+    Set tdf = db.TableDefs(tbl)
+    
+    Set rs = db.OpenRecordset(tdf.Name)
+    
+    'remove table if it exists
+    If TableExists(strTableNew) Then DoCmd.DeleteObject acTable, strTableNew
+    
+    'create empty table w/ same columns to fill into
+    DoCmd.TransferDatabase acExport, "Microsoft Access", db.Name, acTable, tdf.Name, strTableNew, True
+    
+    With tdf
+        'iterate through ALL
+        Do Until rs.BOF And rs.EOF
+        
+            'iterate result columns (fields)
+            For Each col In tdf.Fields
+            
+                'get park, visit year, species, common name & isdead
+                If col.OrdinalPosition = 1 Then Park = rs!Unit_Code
+                If col.OrdinalPosition = 2 Then VisitYear = rs!Visit_Year
+                If col.OrdinalPosition = 3 Then Species = rs!Species
+                If col.OrdinalPosition = 4 Then CommonName = rs!Master_Common_Name
+                If col.OrdinalPosition = 5 Then IsDead = rs!IsDead
+            
+                'ignore 1-5 (static Park, Year, Species, Master Common Name, IsDead)
+                If col.OrdinalPosition > 5 Then
+                
+                    'get column & route name
+                    strCol = col.Name
+                    Route = Left(strCol, InStr(col.Name, ") ") + 1)
+                                     
+                    Select Case Replace(strCol, Route, "")
+                        Case "TCount"
+                            TCount = col.Value
+                        Case "AvgCover"
+                            PctCover = col.Value
+                        Case "SE"
+                            SE = col.Value
+                    End Select
+
+                    'concatenate for comparison
+                    Concat = Park & VisitYear & Species & CommonName & IsDead & Route
+                    
+                    If Concat <> PrevConcat Then
+                
+                    'add these to the new table if they don't already exist
+                    End If
+    
+                    If PrevSpecies = rs!Species And PrevIsDead = rs!IsDead Then
+                    
+                    End If
+                End If
+                
+                'capture the previous values
+                PrevConcat = Concat
+                PrevPark = Park
+                PrevVisitYear = VisitYear
+                PrevSpecies = Species
+                PrevCommonName = CommonName
+                PrevIsDead = IsDead
+                
+           Next
+           
+        Loop
+    
+    End With
+
+Exit_Procedure:
+    Set tdf = Nothing
+    Set rs = Nothing
+    Exit Sub
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - CollapseRows[frm_Species_Cover_by_Route])"
+    End Select
+    Resume Exit_Procedure
+End Sub

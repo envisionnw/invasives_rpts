@@ -29,7 +29,7 @@ Public Sub initializeControls(frm As Form)
     Dim i As Integer
 
     With frm
-        Select Case .name
+        Select Case .Name
             Case "frm_Set_Defaults"
                 'TempVars not yet populated -> use fsub_DbAdmin control defaults
                 aryCtrls = Array("User", "Project", "GPS_model", "Park", "Datum", "Declination", "Timeframe", "Project")
@@ -42,7 +42,7 @@ Public Sub initializeControls(frm As Form)
                     Else
                         tgtCtrlName = "cbx" & aryCtrls(i)
                     End If
-                    .Controls(tgtCtrlName) = Forms!frm_Switchboard.fsub_DbAdmin.Form.Controls(ctrlName).value
+                    .Controls(tgtCtrlName) = Forms!frm_Switchboard.fsub_DbAdmin.Form.Controls(ctrlName).Value
                 Next
         End Select
     End With
