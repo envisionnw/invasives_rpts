@@ -1,9 +1,9 @@
 ﻿dbMemo "SQL" ="SELECT l.Unit_Code, Year(e.Start_Date) AS Visit_Year, l.Plot_ID AS Route, LEFT(l"
-    ".Plot_ID, 48) AS RouteTruncated, COUNT(t.Transect) AS TransectCount\015\012FROM "
-    "(Transect AS t LEFT JOIN tbl_Events AS e ON e.Event_ID = t.Event_ID) LEFT JOIN t"
-    "bl_Locations AS l ON l.Location_ID = e.Location_ID\015\012GROUP BY l.Unit_Code, "
-    "Year(e.Start_Date), l.Plot_ID\015\012ORDER BY l.Unit_Code, Year(e.Start_Date), l"
-    ".Plot_ID;\015\012"
+    ".Plot_ID, 48) AS RouteTruncated, l.Area, COUNT(t.Transect) AS TransectCount\015\012"
+    "FROM (Transect AS t LEFT JOIN tbl_Events AS e ON e.Event_ID = t.Event_ID) LEFT J"
+    "OIN tbl_Locations AS l ON l.Location_ID = e.Location_ID\015\012GROUP BY l.Unit_C"
+    "ode, Year(e.Start_Date), l.Plot_ID, l.Area\015\012ORDER BY l.Unit_Code, Year(e.S"
+    "tart_Date), l.Plot_ID, l.Area;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -54,6 +54,10 @@ Begin
         dbText "Name" ="RouteTruncated"
         dbInteger "ColumnWidth" ="3990"
         dbBoolean "ColumnHidden" ="0"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="l.Area"
         dbLong "AggregateType" ="-1"
     End
 End

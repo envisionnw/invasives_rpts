@@ -13,6 +13,8 @@ dbBinary "GUID" = Begin
 End
 dbBoolean "FilterOnLoad" ="0"
 dbBoolean "OrderByOnLoad" ="-1"
+dbMemo "Filter" ="((([Route_TotalCover].[Unit_Code]=\"CARE\"))) AND ([Route_TotalCover].[Visit_Yea"
+    "r]=2015)"
 Begin
     Begin
         dbText "Name" ="ts.Unit_Code"

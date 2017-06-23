@@ -1,8 +1,9 @@
-﻿dbMemo "SQL" ="SELECT rt.Unit_Code, rt.Visit_Year, rt.Route, MIN(t.TransectCount) AS TransectCo"
-    "unt, SUM(rt.TransectSampled) AS TransectsSampled\015\012FROM Route_Transect AS r"
-    "t LEFT JOIN Route_Transects AS t ON (t.Route = rt.Route) AND (t.Visit_Year = rt."
-    "Visit_Year) AND (t.Unit_Code = rt.Unit_Code)\015\012GROUP BY rt.Unit_Code, rt.Vi"
-    "sit_Year, rt.Route\015\012ORDER BY rt.Unit_Code, rt.Visit_Year, rt.Route;\015\012"
+﻿dbMemo "SQL" ="SELECT rt.Unit_Code, rt.Visit_Year, rt.Route, rt.Area, SUM(rt.TransectSampled) A"
+    "S TransectsSampled\015\012FROM Route_Transect AS rt LEFT JOIN Route_Transects AS"
+    " t ON (t.Area = rt.Area) AND (t.Unit_Code = rt.Unit_Code) AND (t.Visit_Year = rt"
+    ".Visit_Year) AND (t.Route = rt.Route)\015\012GROUP BY rt.Unit_Code, rt.Visit_Yea"
+    "r, rt.Route, rt.Area\015\012ORDER BY rt.Unit_Code, rt.Visit_Year, rt.Route, rt.A"
+    "rea;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -44,5 +45,9 @@ Begin
         dbBinary "GUID" = Begin
             0x3aad3e9150d38140ab8b70749ad06c2e
         End
+    End
+    Begin
+        dbText "Name" ="rt.Area"
+        dbLong "AggregateType" ="-1"
     End
 End

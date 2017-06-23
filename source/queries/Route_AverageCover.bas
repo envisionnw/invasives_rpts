@@ -1,8 +1,8 @@
 ﻿dbMemo "SQL" ="SELECT tc.Unit_Code, tc.Visit_Year, tc.Route, tc.PlantCode, tc.IsDead, MIN(tc.To"
     "talCover) AS TotalCover, MIN(ts.TransectsSampled) AS SampledTransects, MIN(tc.To"
     "talCover / ts.TransectsSampled) AS AverageCover\015\012FROM Route_TotalCover AS "
-    "tc INNER JOIN Route_TransectsSampled AS ts ON (ts.Unit_Code = tc.Unit_Code) AND "
-    "(ts.Visit_Year = tc.Visit_Year) AND (ts.Route = tc.Route)\015\012GROUP BY tc.Uni"
+    "tc INNER JOIN Route_TransectsSampled AS ts ON (ts.Route = tc.Route) AND (ts.Visi"
+    "t_Year = tc.Visit_Year) AND (ts.Unit_Code = tc.Unit_Code)\015\012GROUP BY tc.Uni"
     "t_Code, tc.Visit_Year, tc.Route, tc.PlantCode, tc.IsDead\015\012ORDER BY tc.Unit"
     "_Code, tc.Visit_Year, tc.Route, tc.PlantCode, tc.IsDead;\015\012"
 dbMemo "Connect" =""
@@ -16,8 +16,8 @@ dbBinary "GUID" = Begin
 End
 dbBoolean "FilterOnLoad" ="0"
 dbBoolean "OrderByOnLoad" ="-1"
-dbMemo "Filter" ="((([Route_AverageCover].[Unit_Code]=\"GOSP\"))) AND ([Route_AverageCover].[Visit"
-    "_Year]=2016)"
+dbMemo "Filter" ="((([Route_AverageCover].[Unit_Code]=\"CARE\"))) AND ([Route_AverageCover].[Visit"
+    "_Year]=2015)"
 Begin
     Begin
         dbText "Name" ="tc.PlantCode"

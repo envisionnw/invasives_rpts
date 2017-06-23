@@ -1,8 +1,8 @@
-﻿dbMemo "SQL" ="SELECT ts.Unit_Code, ts.Visit_Year, ts.Route, ts.Transect, IIF(SUM(ts.IsSampled)"
-    ">0,1,0) AS TransectSampled, SUM(ts.IsSampled) AS QuadratsSampled\015\012FROM Tra"
-    "nsect_Select_Quadrat AS ts\015\012GROUP BY ts.Unit_Code, ts.Visit_Year, ts.Route"
-    ", ts.Transect\015\012ORDER BY ts.Unit_Code, ts.Visit_Year, ts.Route, ts.Transect"
-    ";\015\012"
+﻿dbMemo "SQL" ="SELECT ts.Unit_Code, ts.Visit_Year, ts.Route, ts.Area, ts.Transect, IIF(SUM(ts.I"
+    "sSampled)>0,1,0) AS TransectSampled, SUM(ts.IsSampled) AS QuadratsSampled\015\012"
+    "FROM Transect_Select_Quadrat AS ts\015\012GROUP BY ts.Unit_Code, ts.Visit_Year, "
+    "ts.Route, ts.Area, ts.Transect\015\012ORDER BY ts.Unit_Code, ts.Visit_Year, ts.R"
+    "oute, ts.Area, ts.Transect;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -51,6 +51,10 @@ Begin
     End
     Begin
         dbText "Name" ="QuadratsSampled"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="ts.Area"
         dbLong "AggregateType" ="-1"
     End
 End
