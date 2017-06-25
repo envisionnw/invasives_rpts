@@ -8,9 +8,9 @@
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
-dbMemo "Filter" ="((([Transet_Select_SpeciesCover_Aggregate_TransectsDetected].[Unit_Code]=\"CARE\""
-    "))) AND ([Transet_Select_SpeciesCover_Aggregate_TransectsDetected].[Visit_Year]="
-    "2015)"
+dbMemo "Filter" ="((([Transect_Select_SpeciesCover_Aggregate_TransectsDetected].[Unit_Code]=\"CARE"
+    "\"))) AND ([Transect_Select_SpeciesCover_Aggregate_TransectsDetected].[Visit_Yea"
+    "r]=2015)"
 dbBoolean "OrderByOn" ="0"
 dbByte "Orientation" ="0"
 dbByte "DefaultView" ="2"
@@ -27,10 +27,14 @@ Begin
     Begin
         dbText "Name" ="ts.Visit_Year"
         dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="825"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="ts.Route"
         dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="2040"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="ts.Species"
@@ -47,6 +51,8 @@ Begin
     Begin
         dbText "Name" ="ts.IsDead"
         dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="615"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="TransectsDetected"
@@ -56,12 +62,14 @@ Begin
     End
     Begin
         dbText "Name" ="RouteTotalCover"
-        dbInteger "ColumnWidth" ="2580"
+        dbInteger "ColumnWidth" ="1290"
         dbBoolean "ColumnHidden" ="0"
         dbLong "AggregateType" ="-1"
     End
     Begin
         dbText "Name" ="ts.Area"
         dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="420"
+        dbBoolean "ColumnHidden" ="0"
     End
 End

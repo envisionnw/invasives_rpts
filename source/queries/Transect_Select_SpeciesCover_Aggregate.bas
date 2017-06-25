@@ -1,11 +1,9 @@
-﻿dbMemo "SQL" ="SELECT DISTINCT ts.Unit_Code, ts.Visit_Year, ts.Route, ts.Area, ts.Transect, MIN"
-    "(ts.Quadrat) AS Quadrat, MIN(ts.IsSampled) AS IsSampled, MIN(ts.NoExotics) AS No"
-    "Exotics, MIN(ts.ColName) AS ColName, ts.Species, MIN(ts.Master_Common_Name) AS M"
-    "aster_Common_Name, MIN(ts.PlantCode) AS PlantCode, ts.IsDead, MIN(ts.PercentCove"
-    "r) AS PercentCover\015\012FROM Transect_Select_SpeciesCover AS ts\015\012GROUP B"
-    "Y ts.Unit_Code, ts.Visit_Year, ts.Route, ts.Area, ts.Transect, ts.Species, ts.Is"
-    "Dead\015\012ORDER BY ts.Unit_Code, ts.Visit_Year, ts.Route, ts.Area, ts.Transect"
-    ", ts.Species, ts.IsDead;\015\012"
+﻿dbMemo "SQL" ="SELECT DISTINCT ts.Unit_Code, ts.Visit_Year, ts.Route, ts.Area, ts.Transect, ts."
+    "Species, MIN(ts.Master_Common_Name) AS Master_Common_Name, MIN(ts.PlantCode) AS "
+    "PlantCode, ts.IsDead, SUM(ts.PercentCover) AS PercentCover\015\012FROM Transect_"
+    "Select_SpeciesCover AS ts\015\012GROUP BY ts.Unit_Code, ts.Visit_Year, ts.Route,"
+    " ts.Area, ts.Transect, ts.Species, ts.IsDead\015\012ORDER BY ts.Unit_Code, ts.Vi"
+    "sit_Year, ts.Route, ts.Area, ts.Transect, ts.Species, ts.IsDead;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -17,6 +15,8 @@ dbBinary "GUID" = Begin
 End
 dbBoolean "FilterOnLoad" ="0"
 dbBoolean "OrderByOnLoad" ="-1"
+dbMemo "Filter" ="((([Transect_Select_SpeciesCover_Aggregate].[Unit_Code]=\"CARE\"))) AND ([Transe"
+    "ct_Select_SpeciesCover_Aggregate].[Visit_Year]=2015)"
 Begin
     Begin
         dbText "Name" ="ts.Unit_Code"
@@ -38,6 +38,8 @@ Begin
         dbBinary "GUID" = Begin
             0x9acb42f437f2d544a4dde8829abb7b16
         End
+        dbInteger "ColumnWidth" ="2445"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="ts.Transect"
@@ -45,6 +47,8 @@ Begin
         dbBinary "GUID" = Begin
             0xeb194451ac4e6e4289fef03073ba999a
         End
+        dbInteger "ColumnWidth" ="705"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="ts.Species"
@@ -101,6 +105,8 @@ Begin
         dbBinary "GUID" = Begin
             0xeefbea009a64db4c8faab18072d0eb3c
         End
+        dbInteger "ColumnWidth" ="750"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="PercentCover"

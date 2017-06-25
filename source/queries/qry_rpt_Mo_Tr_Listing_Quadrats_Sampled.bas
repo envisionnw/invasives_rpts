@@ -21,6 +21,8 @@ dbBinary "GUID" = Begin
 End
 dbBoolean "FilterOnLoad" ="0"
 dbBoolean "OrderByOnLoad" ="-1"
+dbMemo "Filter" ="((([qry_rpt_Mo_Tr_Listing_Quadrats_Sampled].[Unit_Code]=\"CARE\"))) AND ([qry_rp"
+    "t_Mo_Tr_Listing_Quadrats_Sampled].[Visit_Year]=2015)"
 Begin
     Begin
         dbText "Name" ="qry_rpt_Mo_Tr_Listing_Quadrat_Detail.Unit_Code"
@@ -42,6 +44,8 @@ Begin
         dbBinary "GUID" = Begin
             0xcbb50c90c57a29489b692eca66dec8e2
         End
+        dbInteger "ColumnWidth" ="1695"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="qry_rpt_Mo_Tr_Listing_Quadrat_Detail.Transect"
@@ -56,6 +60,8 @@ Begin
         dbBinary "GUID" = Begin
             0x9d466c3407a116429af3ae536ea0c1f6
         End
+        dbInteger "ColumnWidth" ="435"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="qry_rpt_Mo_Tr_Listing_Quadrat_Detail.E_Coord"

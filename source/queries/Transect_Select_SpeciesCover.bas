@@ -20,6 +20,8 @@ dbBoolean "OrderByOnLoad" ="-1"
 dbBinary "GUID" = Begin
     0x50e821d6e49ada4c92786a5fed5f9d00
 End
+dbMemo "Filter" ="((([Transect_Select_SpeciesCover].[Unit_Code]=\"CARE\"))) AND ([Transect_Select_"
+    "SpeciesCover].[Visit_Year]=2015)"
 Begin
     Begin
         dbText "Name" ="ts.Unit_Code"

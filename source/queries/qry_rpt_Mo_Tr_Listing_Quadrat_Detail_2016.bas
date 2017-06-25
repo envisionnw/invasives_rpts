@@ -3,21 +3,20 @@
     "rd, Quadrat.Quadrat, Quadrat.IsSampled, Quadrat.NoExotics\015\012FROM tbl_Locati"
     "ons INNER JOIN ((tbl_Events INNER JOIN Transect ON tbl_Events.Event_ID = Transec"
     "t.Event_ID) INNER JOIN Quadrat ON Transect.Transect_ID = Quadrat.Transect_ID) ON"
-    " tbl_Locations.Location_ID = tbl_Events.Location_ID\015\012ORDER BY tbl_Location"
-    "s.Plot_ID, Transect.Transect, Quadrat.Quadrat;\015\012"
+    " tbl_Locations.Location_ID = tbl_Events.Location_ID\015\012WHERE (((tbl_Location"
+    "s.Unit_Code)=\"gosp\") AND ((Year([Start_Date]))=2016))\015\012ORDER BY tbl_Loca"
+    "tions.Plot_ID, Transect.Transect, Quadrat.Quadrat;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
 dbBoolean "OrderByOn" ="0"
 dbByte "Orientation" ="0"
 dbByte "DefaultView" ="2"
+dbBinary "GUID" = Begin
+    0x0adb0208549ae648a761404a3ffc71cd
+End
 dbBoolean "FilterOnLoad" ="0"
 dbBoolean "OrderByOnLoad" ="-1"
-dbBinary "GUID" = Begin
-    0x8ee8d1064f01f84c95a6d9e5b2009166
-End
-dbMemo "Filter" ="((([qry_rpt_Mo_Tr_Listing_Quadrat_Detail].[Unit_Code]=\"CARE\"))) AND ([qry_rpt_"
-    "Mo_Tr_Listing_Quadrat_Detail].[Visit_Year]=2015)"
 Begin
     Begin
         dbText "Name" ="tbl_Locations.Unit_Code"

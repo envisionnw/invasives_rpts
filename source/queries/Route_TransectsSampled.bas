@@ -1,7 +1,7 @@
 ﻿dbMemo "SQL" ="SELECT rt.Unit_Code, rt.Visit_Year, rt.Route, rt.Area, SUM(rt.TransectSampled) A"
     "S TransectsSampled\015\012FROM Route_Transect AS rt LEFT JOIN Route_Transects AS"
-    " t ON (t.Area = rt.Area) AND (t.Unit_Code = rt.Unit_Code) AND (t.Visit_Year = rt"
-    ".Visit_Year) AND (t.Route = rt.Route)\015\012GROUP BY rt.Unit_Code, rt.Visit_Yea"
+    " t ON (t.Route = rt.Route) AND (t.Visit_Year = rt.Visit_Year) AND (t.Unit_Code ="
+    " rt.Unit_Code) AND (t.Area = rt.Area)\015\012GROUP BY rt.Unit_Code, rt.Visit_Yea"
     "r, rt.Route, rt.Area\015\012ORDER BY rt.Unit_Code, rt.Visit_Year, rt.Route, rt.A"
     "rea;\015\012"
 dbMemo "Connect" =""
@@ -15,6 +15,8 @@ dbBinary "GUID" = Begin
 End
 dbBoolean "FilterOnLoad" ="0"
 dbBoolean "OrderByOnLoad" ="-1"
+dbMemo "Filter" ="((([Route_TransectsSampled].[Unit_Code]=\"CARE\"))) AND ([Route_TransectsSampled"
+    "].[Visit_Year]=2015)"
 Begin
     Begin
         dbText "Name" ="rt.Unit_Code"
