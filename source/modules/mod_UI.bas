@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_UI
 ' Level:        Framework module
-' Version:      1.03
+' Version:      1.04
 ' Description:  User interface related functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, April 2015
@@ -13,6 +13,7 @@ Option Explicit
 '               BLC, 5/27/2015 - 1.02 - added functions
 '               BLC, 6/30/2015 - 1.03 - moved to mod_Forms: FormIsOpen, FormIsLoaded, SwitchboardIsOpen
 '                                       moved from mod_Forms: ChangeBackColor
+'               BLC, 6/25/2017 - 1.04 - added SetNavGroup
 ' =================================
 
 ' ---------------------------------
@@ -121,6 +122,201 @@ Err_Handler:
     End Select
     Resume Exit_Procedure
 End Sub
+
+' ---------------------------------
+' SUB:          SetNavGroup
+' Description:
+' Parameters:   strGroup - name of group to move object to (string)
+'               stTable - name of table (object) to move (string)
+'               strType - type of object to move (string)
+' Returns:      -
+' Throws:       none
+' References:
+'   Wayne G. Dunn, December 9, 2014
+'   Phillippe R, February 9, 2016
+'   https://stackoverflow.com/questions/27366038/change-navigation-pane-group-in-access-through-vba
+' Source/date:  Bonnie Campbell June 25, 2017 - NCPN tools
+' Adapted:      -
+' Revisions:    BLC, 6/25/2017 - initial version
+' ---------------------------------
+Function SetNavGroup(strGroup As String, strTable As String, strType As String) As String
+On Error GoTo Err_Handler
+
+    Dim strSQL          As String
+    Dim dbs             As DAO.Database
+    Dim rs              As DAO.Recordset
+    Dim lCatID          As Long
+    Dim lGrpID          As Long
+    Dim lObjID          As Long
+    Dim lType           As Long
+
+    'default
+    SetNavGroup = "Failed"
+    
+    Set dbs = CurrentDb
+
+    '-- Category Code --
+    ' Ignore the following code unless you want to manage 'Categories'
+    '    Table MSysNavPaneGroupCategories has fields: Filter, Flags, Id (AutoNumber), Name, Position, SelectedObjectID, Type
+    '    strSQL = "SELECT Id, Name, Position, Type " & _
+    '            "FROM MSysNavPaneGroupCategories " & _
+    '            "WHERE (((MSysNavPaneGroupCategories.Name)='" & strGroup & "'));"
+    '    Set rs = dbs.OpenRecordset(strSQL)
+    '    If rs.EOF Then
+    '        MsgBox "No group named '" & strGroup & "' found. Will quit now.", vbOKOnly, "No Group Found"
+    '        rs.Close
+    '        Set rs = Nothing
+    '        dbs.Close
+    '        Set dbs = Nothing
+    '        Exit Function
+    '    End If
+    '    lCatID = rs!ID
+    '    rs.Close
+
+    ' New table's names are added to table 'MSysNavPaneObjectIDs'
+
+    ' Types
+        ' Type TypeDesc
+        '-32768  Form                       1   Table - Local Access Tables
+        '-32766  Macro                      2   Access object - Database
+        '-32764  Reports                    3   Access object - Containers
+        '-32761  Module                     4   Table - Linked ODBC Tables
+        '-32758  Users                      5   Queries
+        '-32757  Database Document          6   Table - Linked Access Tables
+        '-32756  Data Access Pages          8   SubDataSheets
+        
+    If LCase(strType) = "table" Then
+        lType = 1
+    ElseIf LCase(strType) = "query" Then
+        lType = 5
+    ElseIf LCase(strType) = "form" Then
+        lType = -32768
+    ElseIf LCase(strType) = "report" Then
+        lType = -32764
+    ElseIf LCase(strType) = "module" Then
+        lType = -32761
+    ElseIf LCase(strType) = "macro" Then
+        lType = -32766
+    Else
+        MsgBox "Add your own code to handle the object type of '" & strType & "'", vbOKOnly, _
+                "Add Code"
+        dbs.Close
+        Set dbs = Nothing
+        Exit Function
+    End If
+
+    ' Table MSysNavPaneGroups has fields: Flags, GroupCategoryID, Id, Name,
+    '                                     Object, Type, Group, ObjectID, Position
+'    Debug.Print "---------------------------------------"
+'    Debug.Print "Add '" & strType & "' " & strTable & "' to Group '" & strGroup & "'"
+    strSQL = "SELECT GroupCategoryID, Id, Name " & _
+            "FROM MSysNavPaneGroups " & _
+            "WHERE (((MSysNavPaneGroups.Name)='" & strGroup & "') " & _
+            "AND ((MSysNavPaneGroups.Name) Not Like 'Unassigned*'));"
+    Set rs = dbs.OpenRecordset(strSQL)
+    If rs.EOF Then
+        MsgBox "No group named '" & strGroup & "' found. Will quit now.", vbOKOnly, _
+                "No Group Found"
+        rs.Close
+        Set rs = Nothing
+        dbs.Close
+        Set dbs = Nothing
+        Exit Function
+    End If
+ '   Debug.Print rs!GroupCategoryID & vbTab & rs!ID & vbTab & rs!Name
+    lGrpID = rs!ID
+    rs.Close
+
+    ' Get Table ID From MSysObjects
+    strSQL = "SELECT * " & _
+        "FROM MSysObjects " & _
+        "WHERE (((MSysObjects.Name)='" & strTable & "') AND ((MSysObjects.Type)=" & lType & "));"
+    Set rs = dbs.OpenRecordset(strSQL)
+    If rs.EOF Then
+        MsgBox "This is crazy! Table '" & strTable & "' not found in MSysObjects.", vbOKOnly, "No Table Found"
+        rs.Close
+        Set rs = Nothing
+        dbs.Close
+        Set dbs = Nothing
+        Exit Function
+    End If
+    
+    lObjID = rs!ID
+
+    Debug.Print "Table found in MSysObjects " & lObjID & " . Lets compare to MSysNavPaneObjectIDs."
+
+    ' Filter By Type
+    strSQL = "SELECT Id, Name, Type " & _
+            "FROM MSysNavPaneObjectIDs " & _
+            "WHERE (((MSysNavPaneObjectIDs.ID)=" & lObjID & ") AND ((MSysNavPaneObjectIDs.Type)=" & lType & "));"
+    Set rs = dbs.OpenRecordset(strSQL)
+    If rs.EOF Then
+        ' Seems to be a refresh issue / delay!  I have found no way to force a refresh.
+        ' This table gets rebuilt at the whim of Access, so let's try a different approach....
+        ' Lets add the record via this code.
+        Debug.Print "Table not found in MSysNavPaneObjectIDs, add it from MSysObjects."
+        strSQL = "INSERT INTO MSysNavPaneObjectIDs ( ID, Name, Type ) VALUES ( " & lObjID & ", '" & strTable & "', " & lType & ")"
+        dbs.Execute strSQL
+    End If
+    Debug.Print lObjID & vbTab & strTable & vbTab & lType
+    rs.Close
+
+'Try_Again:
+'    ' Filter By Type
+'    strSQL = "SELECT Id, Name, Type " & _
+'            "FROM MSysNavPaneObjectIDs " & _
+'            "WHERE (((MSysNavPaneObjectIDs.Name)='" & strTable & "') " _
+'            & "AND ((MSysNavPaneObjectIDs.Type)=" & lType & "));"
+'
+'    Set rs = dbs.OpenRecordset(strSQL)
+'    If rs.EOF Then
+'        ' Seems to be a refresh issue / delay!  I have found no way to force a refresh.
+'        ' This table gets rebuilt at the whim of Access, so let's try a different approach....
+'        ' Lets add the record vis code.
+'        Debug.Print "Table not found in MSysNavPaneObjectIDs, try MSysObjects."
+'         strSQL = "SELECT * " & _
+'            "FROM MSysObjects " & _
+'            "WHERE (((MSysObjects.Name)='" & strTable & "') AND " & _
+'            "((MSysObjects.Type)=" & lType & "));"
+'        Set rs = dbs.OpenRecordset(strSQL)
+'        If rs.EOF Then
+'            MsgBox "This is crazy! Table '" & strTable & "' not found in MSysObjects.", vbOKOnly, "No Table Found"
+'            rs.Close
+'            Set rs = Nothing
+'            dbs.Close
+'            Set dbs = Nothing
+'            Exit Function
+'        Else
+'            Debug.Print "Table not found in MSysNavPaneObjectIDs, but was found in MSysObjects. Lets try to add via code."
+'            strSQL = "INSERT INTO MSysNavPaneObjectIDs ( ID, Name, Type ) VALUES ( " & rs!ID & ", '" & strTable & "', " & lType & ")"
+'            dbs.Execute strSQL
+'            GoTo Try_Again
+'        End If
+'    End If
+''    Debug.Print rs!ID & vbTab & rs!Name & vbTab & rs!Type
+'    lObjID = rs!ID
+'    rs.Close
+
+    ' Add the table to the Custom group
+    strSQL = "INSERT INTO MSysNavPaneGroupToObjects ( GroupID, ObjectID, Name ) VALUES ( " & lGrpID & ", " & lObjID & ", '" & strTable & "' )"
+    dbs.Execute strSQL
+
+    dbs.Close
+    Set dbs = Nothing
+    SetNavGroup = "Passed"
+
+Exit_Handler:
+    Exit Function
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - SetNavGroup[mod_UI])"
+    End Select
+    Resume Exit_Handler
+
+End Function
 
 ' ---------------------------------
 '  Forms

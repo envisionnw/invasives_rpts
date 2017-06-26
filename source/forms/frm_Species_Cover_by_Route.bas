@@ -17,7 +17,7 @@ Begin Form
     Left =840
     Top =5835
     Right =8040
-    Bottom =9195
+    Bottom =9420
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x3d34192b53bbe340
@@ -176,7 +176,7 @@ Option Explicit
 ' =================================
 ' MODULE:       frm_Species_Cover_by_Route
 ' Level:        Form module
-' Version:      1.04
+' Version:      1.05
 ' Description:  File and directory related functions & subroutines
 '
 ' Source/date:  Unknown
@@ -187,6 +187,7 @@ Option Explicit
 '               BLC, 6/20/2017 - 1.03 - cleared form fields after click
 '               BLC, 6/22/2017 - 1.04 - revised to construct result from queries (Route_SpeciesCover_Crosstab_*,
 '                                       where * = TCount, PctCover, SE)
+'               BLC, 6/25/2017 - 1.05 - move tables to RESULT TABLE group
 ' =================================
 
 ' ---------------------------------
@@ -302,6 +303,7 @@ End Sub
 '               BLC - 6/20/2017 - cleared form fields after click
 '               BLC - 6/22/2017 - revised to construct result from queries (Route_SpeciesCover_Crosstab_*,
 '                                       where * = TCount, PctCover, SE)
+'               BLC - 6/25/2017 - moved tables to RESULTS TABLE group
 ' ---------------------------------
 Private Sub btnReport_Click()
 On Error GoTo Err_Handler
@@ -385,6 +387,9 @@ On Error GoTo Err_Handler
         db.Execute strTableSQL
         DoCmd.SetWarnings True
         
+        'move table to RESULT TABLES group
+        SetNavGroup "RESULT TABLES", strNewTable, "table"
+        
         'DoCmd.OpenQuery strQuery, acViewNormal, acReadOnly
         
         msg = "Combining " & Me.Park_Code & " " & Me.Visit_Year & " results ..."
@@ -398,6 +403,9 @@ On Error GoTo Err_Handler
         If Not TableExists(strTable) Then
             'copy the table to new table
             DoCmd.CopyObject , strTable, acTable, strNewTable
+            
+            'move to RESULT TABLES group
+            SetNavGroup "RESULT TABLES", strTable, "table"
         Else
             'delete only on the 1st (TCount) iteration
             If qry = "TCount" Then
@@ -406,7 +414,15 @@ On Error GoTo Err_Handler
                     DoCmd.DeleteObject acTable, strResult
                 'add table to existing table
                 db.Execute CombineTableSQL(strTable, strNewTable, strResult)
+                
+                'move table to RESULT TABLES group
+                SetNavGroup "RESULT TABLES", strResult, "table"
+
             Else
+                'create the result table if it does not exist
+                If Not TableExists(strResult) Then _
+                    DoCmd.CopyObject , strResult, acTable, strTable
+                
                 'remove any previous "OLD" table
                 'If TableExists(strResultOld) Then DoCmd.DeleteObject acTable, strResultOld
                 
@@ -420,6 +436,11 @@ On Error GoTo Err_Handler
                 DoCmd.DeleteObject acTable, strResultOld
             End If
             
+        End If
+        
+        If TableExists(strResult) Then
+            'move table to RESULT TABLES group
+            SetNavGroup "RESULT TABLES", strResult, "table"
         End If
         
         'remove the filter (revert to original SQL) for the next iteration
@@ -475,6 +496,12 @@ On Error GoTo Err_Handler
         End If
     Next
     End With
+
+    msg = "Collapsing " & Me.Park_Code & " " & Me.Visit_Year & " results rows..."
+    SysCmd acSysCmdSetStatus, msg
+    
+    'collapse rows of the result table
+    CollapseRows tdf
     
     msg = Me.Park_Code & " " & Me.Visit_Year & " results complete..."
     SysCmd acSysCmdSetStatus, msg
@@ -536,118 +563,135 @@ End Sub
 ' Debug.Print Me.Visit_Year.RowSource
 'End Sub
 
-'' ---------------------------------
-'' SUB:          CollapseRows
-'' Description:  Collapses TCount, PctCover, SE for one species/IsDead into one row
-'' Parameters:   -
-'' Returns:      -
-'' Throws:       -
-'' References:   -
-''   R.Hicks, Sept 15, 2002
-''   http://www.utteraccess.com/forum/copy-table-structure-vb-t117555.html
-'' Source/date:  Bonnie Campbell, June 22 2017
-'' Adapted:      -
-'' Revisions:    BLC - 6/22/2017 - initial version
-'' ---------------------------------
-'Public Sub CollapseRows(tbl As TableDef)
-'On Error GoTo Err_Handler
-'
-'    Dim db As DAO.Database
-'    Dim tdf As DAO.TableDef
-'    Dim col As field
-'    Dim rs As DAO.Recordset
-'    Dim rsPctCover As DAO.Recordset
-'    Dim rsSE As DAO.Recordset
-'    Dim strNewTable As String
-'    Dim Park As String, VisitYear As String, Species As String, CommonName As String, _
-'        IsDead As String, Route As String
-'    Dim PrevPark As String, PrevVisitYear As String, PrevSpecies As String, _
-'        PrevCommonName As String, PrevIsDead As String, PrevRoute As String
-'    Dim TCount As Integer
-'    Dim PctCover As String
-'    Dim SE As Double
-'
-'    strNewTable = tbl.Name & "_NEW"
-'
-'    PrevPark = ""
-'    PrevVisitYear = ""
-'    PrevSpecies = ""
-'    PrevCommonName = ""
-'    PrevIsDead = ""
-'
-'    Set db = CurrentDb
-'    Set tdf = db.TableDefs(tdf)
-'
-'    Set rs = db.OpenRecordset(tbl)
-'
-'    'create empty table w/ same columns to fill into
-'    DoCmd.TransferDatabase acExport, "Microsoft Access", db.Name, acTable, tbl.Name, strTableNew, True
-'
-'    With tdf
-'        'iterate through ALL
-'        Do Until rs.BOF And rs.EOF
-'
-'            'order result columns (fields)
-'            For Each col In tdf.Fields
-'
-'                'get park, visit year, species, common name & isdead
-'                If col.OrdinalPosition = 1 Then Park = col.Value
-'                If col.OrdinalPosition = 2 Then VisitYear = col.Value
-'                If col.OrdinalPosition = 3 Then Species = col.Value
-'                If col.OrdinalPosition = 4 Then CommonName = col.Value
-'                If col.OrdinalPosition = 5 Then IsDead = col.Value
-'
-'                'ignore 1-5 (static Park, Year, Species, Master Common Name, IsDead)
-'                If col.OrdinalPosition > 5 Then
-'
-'                    'get column & route name
-'                    strCol = col.Name
-'                    Route = Left(strCol, InStr(col.Name, ") ") + 1)
-'
-'                    Select Case Replace(strCol, strRoute)
-'                        Case "TCount"
-'                            TCount = col.Value
-'                        Case "AvgCover"
-'                            AvgCover = col.Value
-'                        Case "SE"
-'                            SE = col.Value
-'                    End Select
-'
-'                    'concatenate for comparison
-'                    Concat = Park & VisitYear & Species & CommonName & IsDead & Route
-'
-'                    If Concat <> PrevConcat Then
-'
-'                    'add these to the new table if they don't already exist
-'
-'
-'                    If PrevSpecies = rs!Species And PrevIsDead = rs!IsDead Then
-'
-'                    End If
-'                End If
-'
-'                'capture the previous values
-'                PrevConcat = Concat
-'                PrevPark = Park
-'                PrevVisitYear = VisitYear
-'                PrevSpecies = Species
-'                PrevCommonName = CommonName
-'                PrevIsDead = IsDead
-'
-'            Next
-'
-'
-'        Loop
-'    End With
-'
-'Exit_Procedure:
-'    Exit Sub
-'
-'Err_Handler:
-'    Select Case Err.Number
-'      Case Else
-'        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
-'            "Error encountered (#" & Err.Number & " - CollapseRows[frm_Species_Cover_by_Route])"
-'    End Select
-'    Resume Exit_Procedure
-'End Sub
+' ---------------------------------
+' SUB:          CollapseRows
+' Description:  Collapses TCount, PctCover, SE for one species/IsDead into one row
+' Parameters:   -
+' Returns:      -
+' Throws:       -
+' References:   -
+'   R.Hicks, Sept 15, 2002
+'   http://www.utteraccess.com/forum/copy-table-structure-vb-t117555.html
+' Source/date:  Bonnie Campbell, June 22 2017
+' Adapted:      -
+' Revisions:    BLC - 6/22/2017 - initial version
+' ---------------------------------
+Public Sub CollapseRows(tdf As TableDef) 'tbl As TableDef)
+On Error GoTo Err_Handler
+
+    Dim db As DAO.Database
+    Dim col As field
+    Dim rs As DAO.Recordset
+    Dim strNewTable As String, strSQL As String, strRoute As String
+    Dim Park As String, VisitYear As String, Species As String, CommonName As String, _
+        IsDead As String, Route As String
+    Dim TCount As Integer, iCounter As Integer
+    Dim AvgCover As Double
+    Dim PctCover As String
+    Dim SE As Double
+    Dim retVal As Long
+
+    strNewTable = tdf.Name & "_NEW"
+
+    Set db = CurrentDb
+
+    Set rs = db.OpenRecordset(tdf.Name)
+    rs.MoveLast
+    rs.MoveFirst
+        
+    'Initialize the Progress Meter, set Maximum Value = intNoOfRecs
+    'Show the progress bar
+     SysCmd acSysCmdInitMeter, "working...", rs.RecordCount
+    'retVal = SysCmd(acSysCmdInitMeter, "Updating...", rs.RecordCount)
+
+    'create empty table w/ same columns to fill into
+    DoCmd.TransferDatabase acExport, "Microsoft Access", db.Name, acTable, tdf.Name, strNewTable, True
+
+    'populate w/ park, visit year, species, master common name, isdead ([Alive?])
+    strSQL = "INSERT INTO " & strNewTable & " SELECT DISTINCT Unit_Code, Visit_Year, " & _
+                "Species, Master_Common_Name, [Alive?] " & _
+                "FROM " & tdf.Name & " ;"
+
+    DoCmd.SetWarnings False
+    DoCmd.RunSQL strSQL
+    DoCmd.SetWarnings True
+
+    With tdf
+                
+        'iterate through ALL
+        Do While Not rs.EOF
+
+        iCounter = iCounter + 1
+        
+        'Update the Progress Meter to (iCounter/intNoOfRecs)%
+        'retVal = SysCmd(acSysCmdUpdateMeter, iCounter).Update
+        SysCmd acSysCmdUpdateMeter, iCounter
+
+            'order result columns (fields)
+            For Each col In tdf.Fields
+
+                'get park, visit year, species, common name & isdead
+                If col.OrdinalPosition = 1 Then Park = rs(col.Name)
+                If col.OrdinalPosition = 2 Then VisitYear = rs(col.Name)
+                If col.OrdinalPosition = 3 Then Species = rs(col.Name)
+                If col.OrdinalPosition = 4 Then CommonName = rs(col.Name)
+                If col.OrdinalPosition = 5 Then IsDead = rs(col.Name)
+
+                'ignore 1-5 (static Park, Year, Species, Master Common Name, IsDead)
+                If col.OrdinalPosition > 5 Then
+
+                    'get column & route name
+                    Route = Left(col.Name, InStr(col.Name, ") ") + 1)
+
+                    If Not IsNull(rs(col.Name)) Then
+                    
+                        Select Case Trim(Replace(col.Name, Route, ""))
+                            Case "TCount"
+                                TCount = rs(col.Name)
+                            Case "AvgCover"
+                                AvgCover = rs(col.Name)
+                            Case "SE"
+                                SE = rs(col.Name)
+                        End Select
+    
+                        'update record
+                        strSQL = "UPDATE " & strNewTable & " SET [" & col.Name & "] = " & rs(col.Name) & _
+                                " WHERE Unit_Code = '" & Park & "' AND Visit_Year = " & VisitYear & _
+                                " AND Species = '" & Species & "' AND [Alive?] = '" & IsDead & "';"
+                        
+                        DoCmd.SetWarnings False
+                        DoCmd.RunSQL strSQL
+                        DoCmd.SetWarnings True
+
+                    End If
+
+                End If
+
+            Next
+
+            rs.MoveNext
+        Loop
+    
+    'Remove the Progress Meter
+    'retVal = SysCmd(acSysCmdClearStatus)
+    SysCmd acSysCmdRemoveMeter
+    
+    End With
+    
+    DoCmd.OpenTable strNewTable, acViewNormal, acReadOnly
+
+Exit_Procedure:
+    'cleanup
+    rs.Close
+    Set rs = Nothing
+    Set db = Nothing
+    Exit Sub
+
+Err_Handler:
+    Select Case Err.Number
+      Case Else
+        MsgBox "Error #" & Err.Number & ": " & Err.Description, vbCritical, _
+            "Error encountered (#" & Err.Number & " - CollapseRows[frm_Species_Cover_by_Route])"
+    End Select
+    Resume Exit_Procedure
+End Sub
