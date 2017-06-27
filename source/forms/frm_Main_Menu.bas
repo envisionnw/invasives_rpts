@@ -297,7 +297,7 @@ Option Explicit
 
 ' =================================
 ' FORM NAME:    frm_Main_Menu
-' Version:      1.04
+' Version:      1.05
 ' Description:  Standard form - main user interface
 ' Data source:
 ' Data access:  links to various forms/reports
@@ -311,6 +311,7 @@ Option Explicit
 '               BLC, 6/4/2015  - 1.02 - Replaced toggle w/ EnableTargetTool
 '               BLC, 6/12/2015 - 1.03 - Added Form_Activate()
 '               BLC, 6/6/2017  - 1.04 - Added documentation, revised error handling
+'               BLC, 6/27/2017 - 1.05 - Renamed frm_Select_Park_Year to frm_Select_EDSW_Data to match content
 ' =================================
 
 ' ---------------------------------
@@ -633,6 +634,7 @@ End Sub
 ' Adapted:      -
 ' Revisions:
 '   BLC - 12/3/2015 - initial version
+'   BLC - 6/27/2017 - Renamed frm_Select_Park_Year to frm_Select_EDSW_Data to match content
 ' ---------------------------------
 Private Sub btnEDSW_Click()
 On Error GoTo Err_Handler
@@ -650,7 +652,7 @@ On Error GoTo Err_Handler
     rpt = "rpt_EDSW_By_Park"
     oArgs = rpt & " | Park EDSW Data | Park EDSW Data | SELECT DISTINCT Visit_Year FROM qry_EDSW_by_Park ORDER BY Visit_Year DESC;"
 
-    DoCmd.OpenForm "frm_Select_Park_Year", acNormal, , , , acWindowNormal, oArgs
+    DoCmd.OpenForm "frm_Select_EDSW_Data", acNormal, , , , acWindowNormal, oArgs
     
 Exit_Handler:
     Exit Sub

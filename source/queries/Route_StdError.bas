@@ -109,5 +109,7 @@ Begin
     Begin
         dbText "Name" ="TransectAverageCover"
         dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="780"
+        dbBoolean "ColumnHidden" ="0"
     End
 End

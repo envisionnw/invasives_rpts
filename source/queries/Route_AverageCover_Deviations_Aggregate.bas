@@ -3,9 +3,9 @@
     "mon_Name, MIN(d.IsDead) AS IsDead, MIN(d.TransectsSampled) AS TransectsSampled, "
     "MIN(d.TotalCover) AS TotalCover, MIN(d.TransectAverageCover) AS TransectAverageC"
     "over, MIN(d.RouteAverageCover) AS RouteAverageCover, SUM(d.DeviationSquared) AS "
-    "TotalDevSquared\015\012FROM Route_AverageCover_Deviations AS d\015\012GROUP BY d"
-    ".Unit_Code, d.Visit_Year, d.Route, d.Species\015\012ORDER BY d.Unit_Code, d.Visi"
-    "t_Year, d.Route, d.Species;\015\012"
+    "TotalDevSquared\015\012FROM Route_AverageCover_Deviations AS d\015\012WHERE d.Sp"
+    "ecies IS NOT NULL\015\012GROUP BY d.Unit_Code, d.Visit_Year, d.Route, d.Species\015"
+    "\012ORDER BY d.Unit_Code, d.Visit_Year, d.Route, d.Species;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -31,6 +31,8 @@ Begin
         dbBinary "GUID" = Begin
             0x0e8c64b8f7aeb04e8ee5057729816f1d
         End
+        dbInteger "ColumnWidth" ="465"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="TransectsSampled"
@@ -38,6 +40,8 @@ Begin
         dbBinary "GUID" = Begin
             0x1c87d6ba5e839d49a5be3884317226d4
         End
+        dbInteger "ColumnWidth" ="615"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="Unit_Code"

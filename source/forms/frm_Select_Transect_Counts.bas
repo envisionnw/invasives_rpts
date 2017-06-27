@@ -16,8 +16,8 @@ Begin Form
     ItemSuffix =14
     Left =1545
     Top =6135
-    Right =8745
-    Bottom =9720
+    Right =8490
+    Bottom =9465
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x3d34192b53bbe340
@@ -94,12 +94,11 @@ Begin Form
                     Top =1080
                     Width =2520
                     TabIndex =1
-                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"100\""
                     Name ="Park_Code"
                     RowSourceType ="Table/Query"
-                    RowSource ="SELECT tlu_Parks.ParkCode, tlu_Parks.ParkName FROM tlu_Parks; "
                     ColumnWidths ="0;2565"
                     AfterUpdate ="[Event Procedure]"
+
                     Begin
                         Begin Label
                             OverlapFlags =85
@@ -175,7 +174,7 @@ Option Explicit
 ' =================================
 ' MODULE:       frm_Select_Transect_Counts
 ' Level:        Form module
-' Version:      1.04
+' Version:      1.05
 ' Description:  Transect count related functions & subroutines
 '
 ' Source/date:  Unknown
@@ -185,6 +184,7 @@ Option Explicit
 '               BLC, 6/13/2017 - 1.02 - revised to point to Transect_Count_Param vs. qry_Transect_Count_Param
 '               BLC, 6/15/2017 - 1.03 - revised to pull year from Select_Cover_Year vs qry_sel_cover_year
 '               BLC, 6/20/2017 - 1.04 - cleared form fields after click
+'               BLC, 6/27/2017 - 1.05 - set park code rowsource
 ' =================================
 
 ' ---------------------------------
@@ -201,9 +201,14 @@ Option Explicit
 ' Source/date:  Bonnie Campbell, May 2017 - initial version
 ' Adapted:      -
 ' Revisions:    BLC - 5/10/2017 - initial version
+'               BLC - 6/27/2017 - set park code rowsource
 ' ---------------------------------
 Private Sub Form_Open(Cancel As Integer)
 On Error GoTo Err_Handler
+
+    'initialize park rowsource
+    'was: SELECT tlu_Parks.ParkCode, tlu_Parks.ParkName FROM tlu_Parks;
+    Me.Park_Code.RowSource = "SELECT ParkCode, ParkName FROM MonitoredParks;"
 
     'initialize (year & query button disabled until park selection)
     Me.Visit_Year.Enabled = False

@@ -15,10 +15,6 @@ dbBoolean "FilterOnLoad" ="0"
 dbBoolean "OrderByOnLoad" ="-1"
 Begin
     Begin
-        dbText "Name" ="sc.Transect"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
         dbText "Name" ="Transect_Select_SpeciesCover.Transect"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin

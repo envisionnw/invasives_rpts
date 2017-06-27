@@ -16,8 +16,8 @@ Begin Form
     ItemSuffix =13
     Left =1740
     Top =3900
-    Right =8940
-    Bottom =7485
+    Right =8685
+    Bottom =7230
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x3d34192b53bbe340
@@ -94,12 +94,11 @@ Begin Form
                     Top =1080
                     Width =2520
                     TabIndex =1
-                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"100\""
                     Name ="Park_Code"
                     RowSourceType ="Table/Query"
-                    RowSource ="SELECT tlu_Parks.ParkCode, tlu_Parks.ParkName FROM tlu_Parks; "
                     ColumnWidths ="0;2565"
                     AfterUpdate ="[Event Procedure]"
+
                     Begin
                         Begin Label
                             OverlapFlags =85
@@ -175,7 +174,7 @@ Option Explicit
 ' =================================
 ' MODULE:       frm_Monitoring_Transect
 ' Level:        Form module
-' Version:      1.04
+' Version:      1.05
 ' Description:  Transect count related functions & subroutines
 '
 ' Source/date:  Unknown
@@ -186,6 +185,7 @@ Option Explicit
 '               BLC, 6/20/2017 - 1.03 - added strip of existing WHERE clause if any in case user saves
 '                                        Transect_Data with the park & year filter, cleared form fields after click
 '               BLC, 6/22/2017 - 1.04 - Removed extraneous posWHERE, posORDER from btnReport_Click()
+'               BLC, 6/27/2017 - 1.05 - set park code rowsource
 ' =================================
 
 ' ---------------------------------
@@ -202,10 +202,15 @@ Option Explicit
 ' Source/date:  Bonnie Campbell, May 2017 - initial version
 ' Adapted:      -
 ' Revisions:    BLC - 5/10/2017 - initial version
+'               BLC - 6/27/2017 - set park code rowsource
 ' ---------------------------------
 Private Sub Form_Open(Cancel As Integer)
 On Error GoTo Err_Handler
 
+    'initialize park rowsource
+    'was: SELECT tlu_Parks.ParkCode, tlu_Parks.ParkName FROM tlu_Parks;
+    Me.Park_Code.RowSource = "SELECT ParkCode, ParkName FROM MonitoredParks;"
+    
     'initialize (year & query button disabled until park selection)
     Me.Visit_Year.Enabled = False
     Me.btnReport.Enabled = False

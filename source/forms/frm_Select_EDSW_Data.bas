@@ -101,7 +101,7 @@ Begin Form
                     ListWidth =2880
                     Left =2040
                     Top =1080
-                    Width =2520
+                    Width =2880
                     TabIndex =1
                     ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"10\""
                     Name ="lbxPark"
@@ -113,7 +113,7 @@ Begin Form
 
                     LayoutCachedLeft =2040
                     LayoutCachedTop =1080
-                    LayoutCachedWidth =4560
+                    LayoutCachedWidth =4920
                     LayoutCachedHeight =1320
                     Begin
                         Begin Label

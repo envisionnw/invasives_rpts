@@ -42,6 +42,8 @@ Begin
     Begin
         dbText "Name" ="IsDead"
         dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="660"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="TotalCover"
@@ -54,6 +56,8 @@ Begin
     Begin
         dbText "Name" ="TotalDevSquared"
         dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="2775"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="StdDeviation"
@@ -72,5 +76,7 @@ Begin
     Begin
         dbText "Name" ="TransectAverageCover"
         dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="615"
+        dbBoolean "ColumnHidden" ="0"
     End
 End

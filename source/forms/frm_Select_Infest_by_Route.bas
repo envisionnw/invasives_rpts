@@ -94,12 +94,11 @@ Begin Form
                     Top =1080
                     Width =2520
                     TabIndex =1
-                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"100\""
                     Name ="Park_Code"
                     RowSourceType ="Table/Query"
-                    RowSource ="SELECT tlu_Parks.ParkCode, tlu_Parks.ParkName FROM tlu_Parks; "
                     ColumnWidths ="0;2565"
                     AfterUpdate ="[Event Procedure]"
+
                     Begin
                         Begin Label
                             OverlapFlags =85
@@ -175,7 +174,7 @@ Option Explicit
 ' =================================
 ' MODULE:       frm_Select_Infest_by_Route
 ' Level:        Form module
-' Version:      1.02
+' Version:      1.03
 ' Description:  Transect count related functions & subroutines
 '
 ' Source/date:  Unknown
@@ -183,6 +182,7 @@ Option Explicit
 ' Revisions:    Unknown        - 1.00 - initial version
 '               BLC, 5/10/2017 - 1.01 - documentation, added Form_Open(), Visit_Year_AfterUpdate()
 '               BLC, 6/20/2017 - 1.02 - cleared form fields after click
+'               BLC, 6/27/2017 - 1.03 - set park code rowsource
 ' =================================
 
 ' ---------------------------------
@@ -199,9 +199,14 @@ Option Explicit
 ' Source/date:  Bonnie Campbell, May 2017 - initial version
 ' Adapted:      -
 ' Revisions:    BLC - 5/10/2017 - initial version
+'               BLC - 6/27/2017 - set park code rowsource
 ' ---------------------------------
 Private Sub Form_Open(Cancel As Integer)
 On Error GoTo Err_Handler
+
+    'initialize park rowsource
+    'was: SELECT tlu_Parks.ParkCode, tlu_Parks.ParkName FROM tlu_Parks;
+    Me.Park_Code.RowSource = "SELECT ParkCode, ParkName FROM MonitoredParks;"
 
     'initialize (year & query button disabled until park selection)
     Me.Visit_Year.Enabled = False

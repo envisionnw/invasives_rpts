@@ -16,8 +16,8 @@ Begin Form
     ItemSuffix =13
     Left =885
     Top =6060
-    Right =8085
-    Bottom =9645
+    Right =7830
+    Bottom =9390
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x3d34192b53bbe340
@@ -94,12 +94,11 @@ Begin Form
                     Top =1080
                     Width =2520
                     TabIndex =1
-                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"100\""
                     Name ="Park_Code"
                     RowSourceType ="Table/Query"
-                    RowSource ="SELECT tlu_Parks.ParkCode, tlu_Parks.ParkName FROM tlu_Parks; "
                     ColumnWidths ="0;2565"
                     AfterUpdate ="[Event Procedure]"
+
                     Begin
                         Begin Label
                             OverlapFlags =85
@@ -175,7 +174,7 @@ Option Explicit
 ' =================================
 ' MODULE:       frm_Select_Infest_by_Size
 ' Level:        Form module
-' Version:      1.03
+' Version:      1.04
 ' Description:  Infestation data by size related functions & subroutines
 '
 ' Source/date:  Unknown
@@ -184,6 +183,7 @@ Option Explicit
 '               BLC, 5/10/2017 - 1.01 - documentation, added Form_Open(), Visit_Year_AfterUpdate()
 '               BLC, 6/6/2017  - 1.02 - Added documentation, revised error handling
 '               BLC, 6/20/2017 - 1.03 - cleared form fields after click
+'               BLC, 6/27/2017 - 1.04 - set park code rowsource
 ' =================================
 
 ' ---------------------------------
@@ -200,9 +200,14 @@ Option Explicit
 ' Source/date:  Bonnie Campbell, May 2017 - initial version
 ' Adapted:      -
 ' Revisions:    BLC - 5/10/2017 - initial version
+'               BLC - 6/27/2017 - set park code rowsource
 ' ---------------------------------
 Private Sub Form_Open(Cancel As Integer)
 On Error GoTo Err_Handler
+
+    'initialize park rowsource
+    'was: SELECT tlu_Parks.ParkCode, tlu_Parks.ParkName FROM tlu_Parks;
+    Me.Park_Code.RowSource = "SELECT ParkCode, ParkName FROM MonitoredParks;"
 
     'initialize (year & report/query button disabled until park selection)
     Me.Visit_Year.Enabled = False

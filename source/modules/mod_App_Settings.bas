@@ -4,7 +4,7 @@ Option Explicit
 ' =================================
 ' MODULE:       mod_App_Settings
 ' Level:        Application module
-' Version:      1.08
+' Version:      1.09
 ' Description:  Application-wide related values, functions & subroutines
 '
 ' Source/date:  Bonnie Campbell, April 2015
@@ -29,6 +29,7 @@ Option Explicit
 '                       BLC, 5/28/2015 - 1.04 - added MAIN_APP_MENU constant
 '               BLC, 6/19/2017 - 1.08 - added APP_RELEASE_ID constant value for
 '                                       2017 Pre-Season Invasives Reporting Tool (tsys_App_Releases)
+'               BLC, 6/26/2017 - 1.09 - added REMOVE_RESULT_TABLES constant
 ' =================================
 
 ' ---------------------------------
@@ -68,6 +69,7 @@ Public gSubReportCount As Integer                  'global counter for subreport
 '               BLC, 9/7/2016  - added LINK_NORMAL_TEXT & _BKGD for disabling tile links
 '               BLC, 6/15/2017 - merged w/ prior version
 '               BLC, 6/19/2017 - added APP_RELEASE_ID constant value for 2017 Pre-Season Invasives Reporting Tool (tsys_App_Releases)
+'               BLC, 6/26/2017 - added REMOVE_RESULT_TABLES constant for 2017 Pre-Season Invasives
 ' ---------------------------------
 Public Const USER_ACCESS_CONTROL As Boolean = True             'Boolean flag -> db includes user access control or not
 Public Const DB_ADMIN_CONTROL As Boolean = True                'Boolean flag -> db does not include DbAdmin subform & controls
@@ -86,6 +88,10 @@ Public Const ACCESS_ROLES As String = "admin,power user,data entry,read only"
 Public Const SWITCHBOARD As String = "Main"                     'String -> main application form
 Public Const DB_ADMIN_FORM As String = "DbAdmin"                'String -> main db administrative form
 Public Const BACKEND_REQUIRED As Boolean = True                 'Boolean flag -> identifies if back-end required
+Public Const REMOVE_RESULT_TABLES As Boolean = True             'Boolean flag -> clears species by route tables for TCount, PctCover, SE, & related
+                                                                '                related tables, Park_VisitYr_SpeciesCover_by_Route_Result
+                                                                '                is left alone; if False all tables are left alone
+                                                                '                & are regenerated &  overwritten when the report is run again for that park/year
 
 '-----------------------------------------------------------------------
 ' Database Type

@@ -14,10 +14,10 @@ Begin Form
     GridY =24
     DatasheetFontHeight =9
     ItemSuffix =13
-    Left =840
-    Top =5835
-    Right =8040
-    Bottom =9420
+    Left =600
+    Top =2295
+    Right =7800
+    Bottom =5880
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x3d34192b53bbe340
@@ -94,12 +94,11 @@ Begin Form
                     Top =1080
                     Width =2520
                     TabIndex =1
-                    ColumnInfo ="\"\";\"\";\"\";\"\";\"10\";\"100\""
                     Name ="Park_Code"
                     RowSourceType ="Table/Query"
-                    RowSource ="SELECT tlu_Parks.ParkCode, tlu_Parks.ParkName FROM tlu_Parks; "
                     ColumnWidths ="0;2565"
                     AfterUpdate ="[Event Procedure]"
+
                     Begin
                         Begin Label
                             OverlapFlags =85
@@ -176,7 +175,7 @@ Option Explicit
 ' =================================
 ' MODULE:       frm_Species_Cover_by_Route
 ' Level:        Form module
-' Version:      1.05
+' Version:      1.08
 ' Description:  File and directory related functions & subroutines
 '
 ' Source/date:  Unknown
@@ -188,6 +187,13 @@ Option Explicit
 '               BLC, 6/22/2017 - 1.04 - revised to construct result from queries (Route_SpeciesCover_Crosstab_*,
 '                                       where * = TCount, PctCover, SE)
 '               BLC, 6/25/2017 - 1.05 - move tables to RESULT TABLE group
+'               BLC, 6/26/2017 - 1.06 - added REMOVE_RESULT_TABLES to control if TCount, PctCover, SE,
+'                                       SpeciesCover_by_Route are removed or not (see mod_App_Settings)
+'               BLC, 6/27/2017 - 1.07 - set park code rowsource
+'               BLC, 6/27/2017 - 1.08 - run Create_temp_Route_Transect_AverageCover() to shift to
+'                                       temp table vs. query & avoid Error 3048: Cannot open any more databases
+'                                       when running Route_AverageCover_Deviations off Route_Transect_AverageCover
+'                                       including 0 species transects
 ' =================================
 
 ' ---------------------------------
@@ -204,9 +210,14 @@ Option Explicit
 ' Source/date:  Bonnie Campbell, May 2017 - initial version
 ' Adapted:      -
 ' Revisions:    BLC - 5/10/2017 - initial version
+'               BLC - 6/27/2017 - set park code rowsource
 ' ---------------------------------
 Private Sub Form_Open(Cancel As Integer)
 On Error GoTo Err_Handler
+
+    'initialize park rowsource
+    'was: SELECT tlu_Parks.ParkCode, tlu_Parks.ParkName FROM tlu_Parks;
+    Me.Park_Code.RowSource = "SELECT ParkCode, ParkName FROM MonitoredParks;"
 
     'initialize (year & create table button disabled until park selection)
     Me.Visit_Year.Enabled = False
@@ -304,6 +315,12 @@ End Sub
 '               BLC - 6/22/2017 - revised to construct result from queries (Route_SpeciesCover_Crosstab_*,
 '                                       where * = TCount, PctCover, SE)
 '               BLC - 6/25/2017 - moved tables to RESULTS TABLE group
+'               BLC - 6/26/2017 - added REMOVE_RESULT_TABLES to control if TCount, PctCover, SE,
+'                                 SpeciesCover_by_Route are removed or not (see mod_App_Settings)
+'               BLC - 6/27/2017 - run Create_temp_Route_Transect_AverageCover() to shift to
+'                                 temp table vs. query & avoid Error 3048: Cannot open any more databases
+'                                 when running Route_AverageCover_Deviations off Route_Transect_AverageCover
+'                                 including 0 species transects
 ' ---------------------------------
 Private Sub btnReport_Click()
 On Error GoTo Err_Handler
@@ -335,6 +352,26 @@ On Error GoTo Err_Handler
     Dim strResult As String
     Dim strResultOld As String
     Dim ary As Variant
+    
+    'prepare the temp_Route_Transect_AverageCover temp table
+    If TableExists("temp_Route_Transect_AverageCover") Then
+        DoCmd.DeleteObject acTable, "temp_Route_Transect_AverageCover"
+    End If
+    
+    'run the route transect average cover query that creates temp table
+    DoCmd.SetWarnings False
+    DoCmd.OpenQuery "Create_temp_Route_Transect_AverageCover"
+    DoCmd.SetWarnings True
+    
+    'prepare the temp_Route_Transect_AverageCover_Deviations temp table
+    If TableExists("temp_Route_Transect_AverageCover_Deviations") Then
+        DoCmd.DeleteObject acTable, "temp_Route_Transect_AverageCover_Deviations"
+    End If
+    
+    'run the route transect average cover deviations query that creates temp table
+    DoCmd.SetWarnings False
+    DoCmd.OpenQuery "Create_temp_Route_Transect_AverageCover_Deviations"
+    DoCmd.SetWarnings True
     
     'prepare filter clause
     strFilter = " WHERE sc.Unit_Code = '" & Me!Park_Code & _
@@ -447,7 +484,7 @@ On Error GoTo Err_Handler
         qdf.SQL = origSQL
         
     Next
-                    
+    
     'cleanup & clear memory
     Set ary = Nothing
     Set qdf = Nothing
@@ -503,6 +540,72 @@ On Error GoTo Err_Handler
     'collapse rows of the result table
     CollapseRows tdf
     
+
+    Me.Refresh
+    
+    'final version of species cover by route
+    strNewTable = strComponent & "SpeciesCover_by_Route_Result_NEW"
+
+''  PROBLEM HERE CANNOT DELETE first version of Park_YYYY_SpeciesCover_by_Route_Result
+'    'replace the original SpeciesCover_by_Route
+'    If TableExists(strNewTable) Then
+'        Dim strOldTable As String
+'        strOldTable = Replace(strNewTable, "_NEW", "")
+'
+''        DoCmd.SetWarnings False
+'
+'        If TableExists(strOldTable) Then
+'            'avoid locking of the table by closing it first, then deleting
+''            DoCmd.Close acTable, strOldTable
+''            Me.Refresh
+''            db.TableDefs.Delete strOldTable
+'            DoCmd.DeleteObject acTable, strOldTable
+'        End If
+'
+'        DoCmd.Rename strOldTable, acTable, strNewTable
+''        DoCmd.SetWarnings True
+'
+'        'expose the new table (using name Park_YYYY_SpeciesCover_by_Route_Result)
+'        DoCmd.OpenTable strNewTable, acViewNormal, acReadOnly
+'
+'    End If
+    
+    'cleanup if desired
+    If REMOVE_RESULT_TABLES Then
+        Dim i As Integer
+        
+        ary = Array("TCount", "PctCover", "SE", "SpeciesCover_by_Route", "SpeciesCover_by_Route_Result")
+        For i = 0 To UBound(ary)
+            If TableExists(strComponent & ary(i)) Then
+                DoCmd.DeleteObject acTable, strComponent & ary(i)
+            End If
+        Next
+    
+    End If
+        
+    Dim strNewTableName As String
+    strNewTableName = strComponent & "SpeciesCover_by_Route_Result"
+    
+    'check for existing table
+    If TableExists(strNewTableName) Then
+        'exists skip rename
+        strNewTableName = strNewTable
+    Else
+        'rename results table
+        DoCmd.Rename strNewTableName, acTable, strNewTable
+    End If
+    
+    Me.Refresh
+    
+    'shift table to RESULT TABLES after renaming
+    If TableExists(strNewTableName) Then
+        'move table to RESULT TABLES group
+        SetNavGroup "RESULT TABLES", strNewTableName, "table"
+    End If
+    
+    'open results table
+    DoCmd.OpenTable strNewTableName, acViewNormal, acReadOnly
+
     msg = Me.Park_Code & " " & Me.Visit_Year & " results complete..."
     SysCmd acSysCmdSetStatus, msg
     
@@ -555,14 +658,6 @@ Err_Handler:
     Resume Exit_Procedure
 End Sub
 
-'Private Sub Visit_Year_Change()
-' Debug.Print Me.Visit_Year.RowSource
-'End Sub
-'
-'Private Sub Visit_Year_GotFocus()
-' Debug.Print Me.Visit_Year.RowSource
-'End Sub
-
 ' ---------------------------------
 ' SUB:          CollapseRows
 ' Description:  Collapses TCount, PctCover, SE for one species/IsDead into one row
@@ -602,7 +697,6 @@ On Error GoTo Err_Handler
     'Initialize the Progress Meter, set Maximum Value = intNoOfRecs
     'Show the progress bar
      SysCmd acSysCmdInitMeter, "working...", rs.RecordCount
-    'retVal = SysCmd(acSysCmdInitMeter, "Updating...", rs.RecordCount)
 
     'create empty table w/ same columns to fill into
     DoCmd.TransferDatabase acExport, "Microsoft Access", db.Name, acTable, tdf.Name, strNewTable, True
@@ -624,7 +718,6 @@ On Error GoTo Err_Handler
         iCounter = iCounter + 1
         
         'Update the Progress Meter to (iCounter/intNoOfRecs)%
-        'retVal = SysCmd(acSysCmdUpdateMeter, iCounter).Update
         SysCmd acSysCmdUpdateMeter, iCounter
 
             'order result columns (fields)
@@ -673,12 +766,42 @@ On Error GoTo Err_Handler
         Loop
     
     'Remove the Progress Meter
-    'retVal = SysCmd(acSysCmdClearStatus)
     SysCmd acSysCmdRemoveMeter
     
     End With
     
-    DoCmd.OpenTable strNewTable, acViewNormal, acReadOnly
+'    'shift table to RESULT TABLES
+'    If TableExists(strNewTable) Then
+'        'move table to RESULT TABLES group
+'        SetNavGroup "RESULT TABLES", strNewTable, "table"
+'    End If
+    
+''  PROBLEM HERE CANNOT DELETE first version of Park_YYYY_SpeciesCover_by_Route_Result
+'    'replace the original SpeciesCover_by_Route
+'    If TableExists(strNewTable) Then
+'        Dim strOldTable As String
+'        strOldTable = Replace(strNewTable, "_NEW", "")
+'
+''        DoCmd.SetWarnings False
+'
+'        If TableExists(strOldTable) Then
+'            'avoid locking of the table by closing it first, then deleting
+'            DoCmd.Close acTable, strOldTable
+'            Me.Refresh
+'            db.TableDefs.Delete strOldTable
+''            DoCmd.DeleteObject acTable, strOldTable
+'        End If
+'
+'        DoCmd.Rename strOldTable, acTable, strNewTable
+''        DoCmd.SetWarnings True
+'
+'        'expose the new table (using name Park_YYYY_SpeciesCover_by_Route_Result)
+'        DoCmd.OpenTable strOldTable, acViewNormal, acReadOnly
+'
+'    End If
+'
+'        DoCmd.OpenTable strNewTable, acViewNormal, acReadOnly
+    
 
 Exit_Procedure:
     'cleanup
