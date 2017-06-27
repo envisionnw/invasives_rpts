@@ -19,6 +19,8 @@ Begin
     Begin
         dbText "Name" ="ts.Transect"
         dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="810"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="ts.PlantCode"
@@ -43,13 +45,19 @@ Begin
     Begin
         dbText "Name" ="ts.Unit_Code"
         dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="960"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="ts.Visit_Year"
         dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="720"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="ts.Route"
         dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="2145"
+        dbBoolean "ColumnHidden" ="0"
     End
 End

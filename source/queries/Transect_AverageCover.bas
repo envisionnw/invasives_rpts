@@ -1,11 +1,17 @@
-﻿dbMemo "SQL" ="SELECT tc.Unit_Code, tc.Visit_Year, tc.Route, tc.Transect, tc.PlantCode, tc.IsDe"
-    "ad, MIN(tc.TotalCover) AS TotalCover, MIN(ts.SampledQuadrats) AS SampledQuadrats"
-    ", MIN(tc.TotalCover / ts.SampledQuadrats) AS AverageCover\015\012FROM Transect_S"
-    "elect_TotalCover AS tc INNER JOIN Transect_Select_QuadratsSampled AS ts ON (ts.U"
-    "nit_Code = tc.Unit_Code) AND (ts.Visit_Year = tc.Visit_Year) AND (ts.Route = tc."
-    "Route)\015\012WHERE tc.PlantCode IS NOT NULL\015\012GROUP BY tc.Unit_Code, tc.Vi"
-    "sit_Year, tc.Route, tc.Transect, tc.PlantCode, tc.IsDead\015\012ORDER BY tc.Unit"
-    "_Code, tc.Visit_Year, tc.Route, tc.Transect, tc.PlantCode, tc.IsDead;\015\012"
+﻿dbMemo "SQL" ="SELECT td.Unit_Code, td.Visit_Year, td.Route, td.Area, td.Transect, MIN(td.E_Coo"
+    "rd) AS E_Coord, MIN(td.N_Coord) AS N_Coord, tc.PlantCode, tc.IsDead, MIN(tc.Tota"
+    "lCover) AS TotalCover, MIN(qs.SampledQuadrats) AS QuadratsSampled, MIN(ts.Transe"
+    "ctsSampled) AS TransectsSampled, MIN(td.AverageCover) AS TransectAverageCover\015"
+    "\012FROM ((Route_TransectsSampled AS ts INNER JOIN Transect_Data AS td ON (ts.Ro"
+    "ute = td.Route) AND (ts.Visit_Year = td.Visit_Year) AND (ts.Unit_Code = td.Unit_"
+    "Code)) INNER JOIN Transect_Select_TotalCover AS tc ON (tc.Transect = td.Transect"
+    ") AND (tc.Route = td.Route) AND (tc.Visit_Year = td.Visit_Year) AND (tc.Unit_Cod"
+    "e = td.Unit_Code)) INNER JOIN Transect_Select_QuadratsSampled AS qs ON (qs.Route"
+    " = tc.Route) AND (qs.Visit_Year = tc.Visit_Year) AND (qs.Unit_Code = tc.Unit_Cod"
+    "e)\015\012WHERE tc.PlantCode IS NOT NULL\015\012GROUP BY td.Unit_Code, td.Visit_"
+    "Year, td.Route, td.Area, td.Transect, tc.PlantCode, tc.IsDead\015\012ORDER BY td"
+    ".Unit_Code, td.Visit_Year, td.Route, td.Area, td.Transect, tc.PlantCode, tc.IsDe"
+    "ad;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -17,42 +23,9 @@ dbBinary "GUID" = Begin
 End
 dbBoolean "FilterOnLoad" ="0"
 dbBoolean "OrderByOnLoad" ="-1"
+dbMemo "Filter" ="((([Transect_AverageCover].[Unit_Code]=\"CARE\"))) AND ([Transect_AverageCover]."
+    "[Visit_Year]=2015)"
 Begin
-    Begin
-        dbText "Name" ="tc.Unit_Code"
-        dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0xedda0aa4ee012e4588106d048d615851
-        End
-    End
-    Begin
-        dbText "Name" ="tc.Visit_Year"
-        dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0x039da84ddb9f1342baba9fc6e0ee893b
-        End
-    End
-    Begin
-        dbText "Name" ="tc.Route"
-        dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0xdaf5003d32c9bb42add881e7a2cd84f0
-        End
-    End
-    Begin
-        dbText "Name" ="tc.Transect"
-        dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0xb2407ede89fdf641a33df740c19f984b
-        End
-    End
-    Begin
-        dbText "Name" ="tc.PlantCode"
-        dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0x20e653e8a15b8840a9f5995ef0b88a14
-        End
-    End
     Begin
         dbText "Name" ="tc.IsDead"
         dbLong "AggregateType" ="-1"
@@ -68,19 +41,51 @@ Begin
         End
     End
     Begin
-        dbText "Name" ="AverageCover"
-        dbInteger "ColumnWidth" ="1995"
-        dbBoolean "ColumnHidden" ="0"
+        dbText "Name" ="td.Unit_Code"
         dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0x2edc6d21e4f8984193e5519f470dad9f
-        End
     End
     Begin
-        dbText "Name" ="SampledQuadrats"
+        dbText "Name" ="td.Visit_Year"
         dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0xebe4580196d1904e8326a3b477433c3a
-        End
+    End
+    Begin
+        dbText "Name" ="td.Route"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="td.Transect"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="TransectsSampled"
+        dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="2295"
+        dbBoolean "ColumnHidden" ="0"
+    End
+    Begin
+        dbText "Name" ="TransectAverageCover"
+        dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="2190"
+        dbBoolean "ColumnHidden" ="0"
+    End
+    Begin
+        dbText "Name" ="QuadratsSampled"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="tc.PlantCode"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="td.Area"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="E_Coord"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="N_Coord"
+        dbLong "AggregateType" ="-1"
     End
 End

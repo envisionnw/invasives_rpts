@@ -1,7 +1,8 @@
-﻿dbMemo "SQL" ="SELECT ts.Unit_Code, ts.Visit_Year, ts.Route, ts.PlantCode, ts.IsDead, SUM(ts.Pe"
-    "rcentCover) AS TotalCover\015\012FROM Transect_Select_SpeciesCover AS ts\015\012"
-    "GROUP BY ts.Unit_Code, ts.Visit_Year, ts.Route, ts.PlantCode, ts.IsDead\015\012O"
-    "RDER BY ts.Unit_Code, ts.Visit_Year, ts.Route, ts.PlantCode, ts.IsDead;\015\012"
+﻿dbMemo "SQL" ="SELECT ts.Unit_Code, ts.Visit_Year, ts.Route, ts.PlantCode, ts.IsDead, SUM(ts.Tr"
+    "ansectAverageCover) AS TotalTransectAverageCover\015\012FROM Transect_AverageCov"
+    "er AS ts\015\012GROUP BY ts.Unit_Code, ts.Visit_Year, ts.Route, ts.PlantCode, ts"
+    ".IsDead\015\012ORDER BY ts.Unit_Code, ts.Visit_Year, ts.Route, ts.PlantCode, ts."
+    "IsDead;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -13,8 +14,6 @@ dbBinary "GUID" = Begin
 End
 dbBoolean "FilterOnLoad" ="0"
 dbBoolean "OrderByOnLoad" ="-1"
-dbMemo "Filter" ="((([Route_TotalCover].[Unit_Code]=\"CARE\"))) AND ([Route_TotalCover].[Visit_Yea"
-    "r]=2015)"
 Begin
     Begin
         dbText "Name" ="ts.Unit_Code"
@@ -52,10 +51,7 @@ Begin
         End
     End
     Begin
-        dbText "Name" ="TotalCover"
+        dbText "Name" ="TotalTransectAverageCover"
         dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0x391c8c0d79fe5647b3dcd36f418b24d1
-        End
     End
 End

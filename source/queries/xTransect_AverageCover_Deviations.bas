@@ -149,10 +149,4 @@ Begin
             0xc6b79b0c43850943a75a3a2797cc253e
         End
     End
-    Begin
-        dbText "Name" ="ta.AverageCover"
-        dbInteger "ColumnWidth" ="1815"
-        dbBoolean "ColumnHidden" ="0"
-        dbLong "AggregateType" ="-1"
-    End
 End

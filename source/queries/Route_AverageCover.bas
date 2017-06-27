@@ -1,10 +1,11 @@
 ﻿dbMemo "SQL" ="SELECT tc.Unit_Code, tc.Visit_Year, tc.Route, tc.PlantCode, tc.IsDead, MIN(tc.To"
-    "talCover) AS TotalCover, MIN(ts.TransectsSampled) AS SampledTransects, MIN(tc.To"
-    "talCover / ts.TransectsSampled) AS AverageCover\015\012FROM Route_TotalCover AS "
-    "tc INNER JOIN Route_TransectsSampled AS ts ON (ts.Route = tc.Route) AND (ts.Visi"
-    "t_Year = tc.Visit_Year) AND (ts.Unit_Code = tc.Unit_Code)\015\012GROUP BY tc.Uni"
-    "t_Code, tc.Visit_Year, tc.Route, tc.PlantCode, tc.IsDead\015\012ORDER BY tc.Unit"
-    "_Code, tc.Visit_Year, tc.Route, tc.PlantCode, tc.IsDead;\015\012"
+    "talTransectAverageCover) AS TotalTransectAverageCover, MIN(ts.TransectsSampled) "
+    "AS SampledTransects, MIN(tc.TotalTransectAverageCover / ts.TransectsSampled) AS "
+    "RouteAverageCover\015\012FROM Route_TotalAverageCover AS tc INNER JOIN Route_Tra"
+    "nsectsSampled AS ts ON (ts.Route = tc.Route) AND (ts.Visit_Year = tc.Visit_Year)"
+    " AND (ts.Unit_Code = tc.Unit_Code)\015\012GROUP BY tc.Unit_Code, tc.Visit_Year, "
+    "tc.Route, tc.PlantCode, tc.IsDead\015\012ORDER BY tc.Unit_Code, tc.Visit_Year, t"
+    "c.Route, tc.PlantCode, tc.IsDead;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -55,22 +56,21 @@ Begin
         End
     End
     Begin
-        dbText "Name" ="AverageCover"
-        dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0x3ce6190874f1bd48b17b01302318e243
-        End
-        dbInteger "ColumnWidth" ="1815"
-        dbBoolean "ColumnHidden" ="0"
-    End
-    Begin
-        dbText "Name" ="TotalCover"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
         dbText "Name" ="SampledTransects"
         dbInteger "ColumnWidth" ="1935"
         dbBoolean "ColumnHidden" ="0"
         dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="TotalTransectAverageCover"
+        dbInteger "ColumnWidth" ="2490"
+        dbBoolean "ColumnHidden" ="0"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="RouteAverageCover"
+        dbLong "AggregateType" ="-1"
+        dbInteger "ColumnWidth" ="2400"
+        dbBoolean "ColumnHidden" ="0"
     End
 End

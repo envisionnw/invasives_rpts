@@ -103,7 +103,7 @@ Begin
     Begin
         dbText "Name" ="TransectsSampled"
         dbLong "AggregateType" ="-1"
-        dbInteger "ColumnWidth" ="1620"
+        dbInteger "ColumnWidth" ="885"
         dbBoolean "ColumnHidden" ="0"
     End
     Begin
