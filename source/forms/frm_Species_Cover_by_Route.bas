@@ -14,10 +14,10 @@ Begin Form
     GridY =24
     DatasheetFontHeight =9
     ItemSuffix =13
-    Left =600
-    Top =2295
-    Right =7800
-    Bottom =5880
+    Left =735
+    Top =4710
+    Right =7935
+    Bottom =8295
     DatasheetGridlinesColor =12632256
     RecSrcDt = Begin
         0x3d34192b53bbe340
@@ -353,14 +353,37 @@ On Error GoTo Err_Handler
     Dim strResultOld As String
     Dim ary As Variant
     
+    'prepare db
+    Set db = CurrentDb
+    
+    'prepare the temp_Route_TransectsDetected temp table
+    If TableExists("temp_temp_Route_TransectsDetected") Then
+        DoCmd.DeleteObject acTable, "temp_Route_TransectsDetected"
+    End If
+    
+    'run the create query that creates temp table
+    DoCmd.SetWarnings False
+    DoCmd.OpenQuery "Create_temp_Route_TransectsDetected"
+    DoCmd.SetWarnings True
+    
     'prepare the temp_Route_Transect_AverageCover temp table
     If TableExists("temp_Route_Transect_AverageCover") Then
         DoCmd.DeleteObject acTable, "temp_Route_Transect_AverageCover"
     End If
     
-    'run the route transect average cover query that creates temp table
+    'run the query that creates temp table
     DoCmd.SetWarnings False
     DoCmd.OpenQuery "Create_temp_Route_Transect_AverageCover"
+    DoCmd.SetWarnings True
+    
+    'DDL statement for adding TransectsDetected (AFTER statement fails in Access)
+    strSQL = "ALTER TABLE temp_Route_Transect_AverageCover " & _
+                "ADD COLUMN TransectsDetected INT;" 'AFTER TransectsSampled;"
+    db.Execute strSQL, dbFailOnError
+    
+    'run the update query that adds TransectsDetected data
+    DoCmd.SetWarnings False
+    DoCmd.OpenQuery "Update_temp_Route_Transect_AverageCover"
     DoCmd.SetWarnings True
     
     'prepare the temp_Route_Transect_AverageCover_Deviations temp table
@@ -368,7 +391,7 @@ On Error GoTo Err_Handler
         DoCmd.DeleteObject acTable, "temp_Route_Transect_AverageCover_Deviations"
     End If
     
-    'run the route transect average cover deviations query that creates temp table
+    'run the query that creates temp table
     DoCmd.SetWarnings False
     DoCmd.OpenQuery "Create_temp_Route_Transect_AverageCover_Deviations"
     DoCmd.SetWarnings True
@@ -379,10 +402,7 @@ On Error GoTo Err_Handler
     
     'prepare table name component
     strComponent = Me!Park_Code & "_" & Me!Visit_Year & "_"
-    
-    'prepare db
-    Set db = CurrentDb
-    
+        
     'set array
     ary = Array("TCount", "PctCover", "SE")
     
@@ -545,31 +565,7 @@ On Error GoTo Err_Handler
     
     'final version of species cover by route
     strNewTable = strComponent & "SpeciesCover_by_Route_Result_NEW"
-
-''  PROBLEM HERE CANNOT DELETE first version of Park_YYYY_SpeciesCover_by_Route_Result
-'    'replace the original SpeciesCover_by_Route
-'    If TableExists(strNewTable) Then
-'        Dim strOldTable As String
-'        strOldTable = Replace(strNewTable, "_NEW", "")
-'
-''        DoCmd.SetWarnings False
-'
-'        If TableExists(strOldTable) Then
-'            'avoid locking of the table by closing it first, then deleting
-''            DoCmd.Close acTable, strOldTable
-''            Me.Refresh
-''            db.TableDefs.Delete strOldTable
-'            DoCmd.DeleteObject acTable, strOldTable
-'        End If
-'
-'        DoCmd.Rename strOldTable, acTable, strNewTable
-''        DoCmd.SetWarnings True
-'
-'        'expose the new table (using name Park_YYYY_SpeciesCover_by_Route_Result)
-'        DoCmd.OpenTable strNewTable, acViewNormal, acReadOnly
-'
-'    End If
-    
+   
     'cleanup if desired
     If REMOVE_RESULT_TABLES Then
         Dim i As Integer
@@ -603,7 +599,7 @@ On Error GoTo Err_Handler
         SetNavGroup "RESULT TABLES", strNewTableName, "table"
     End If
     
-    'open results table
+    'open results table (Park_YYYY_SpeciesCover_by_Route_Result)
     DoCmd.OpenTable strNewTableName, acViewNormal, acReadOnly
 
     msg = Me.Park_Code & " " & Me.Visit_Year & " results complete..."
@@ -765,43 +761,10 @@ On Error GoTo Err_Handler
             rs.MoveNext
         Loop
     
-    'Remove the Progress Meter
-    SysCmd acSysCmdRemoveMeter
+        'Remove the Progress Meter
+        SysCmd acSysCmdRemoveMeter
     
     End With
-    
-'    'shift table to RESULT TABLES
-'    If TableExists(strNewTable) Then
-'        'move table to RESULT TABLES group
-'        SetNavGroup "RESULT TABLES", strNewTable, "table"
-'    End If
-    
-''  PROBLEM HERE CANNOT DELETE first version of Park_YYYY_SpeciesCover_by_Route_Result
-'    'replace the original SpeciesCover_by_Route
-'    If TableExists(strNewTable) Then
-'        Dim strOldTable As String
-'        strOldTable = Replace(strNewTable, "_NEW", "")
-'
-''        DoCmd.SetWarnings False
-'
-'        If TableExists(strOldTable) Then
-'            'avoid locking of the table by closing it first, then deleting
-'            DoCmd.Close acTable, strOldTable
-'            Me.Refresh
-'            db.TableDefs.Delete strOldTable
-''            DoCmd.DeleteObject acTable, strOldTable
-'        End If
-'
-'        DoCmd.Rename strOldTable, acTable, strNewTable
-''        DoCmd.SetWarnings True
-'
-'        'expose the new table (using name Park_YYYY_SpeciesCover_by_Route_Result)
-'        DoCmd.OpenTable strOldTable, acViewNormal, acReadOnly
-'
-'    End If
-'
-'        DoCmd.OpenTable strNewTable, acViewNormal, acReadOnly
-    
 
 Exit_Procedure:
     'cleanup
