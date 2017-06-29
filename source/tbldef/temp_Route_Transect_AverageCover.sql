@@ -12,6 +12,5 @@ CREATE TABLE [temp_Route_Transect_AverageCover] (
   [QuadratsSampled] DOUBLE ,
   [TransectsSampled] DOUBLE ,
   [TransectAverageCover] DOUBLE ,
-  [TransectsDetected] LONG ,
-   CONSTRAINT [PrimaryKey] PRIMARY KEY ([Unit_Code], [Visit_Year], [Route], [Transect], [PlantCode], [IsDead])
+  [TransectsDetected] LONG 
 )

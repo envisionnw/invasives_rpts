@@ -1,7 +1,7 @@
-﻿dbMemo "SQL" ="TRANSFORM Min(sc.TransectsSampled) AS TransectsSampled\015\012SELECT sc.Unit_Cod"
-    "e, sc.Visit_Year, sc.Species, sc.Master_Common_Name, sc.[Alive?]\015\012FROM Rou"
-    "te_SpeciesCover AS sc\015\012GROUP BY sc.Unit_Code, sc.Visit_Year, sc.Species, s"
-    "c.Master_Common_Name, sc.[Alive?]\015\012PIVOT sc.ColRouteTransects;\015\012"
+﻿dbMemo "SQL" ="TRANSFORM Min(sc.TransectsDetected) AS TransectsDetected\015\012SELECT sc.Unit_C"
+    "ode, sc.Visit_Year, sc.Species, sc.Master_Common_Name, sc.[Alive?]\015\012FROM R"
+    "oute_SpeciesCover AS sc\015\012GROUP BY sc.Unit_Code, sc.Visit_Year, sc.Species,"
+    " sc.Master_Common_Name, sc.[Alive?]\015\012PIVOT sc.ColRouteTransects;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -190,6 +190,8 @@ Begin
         dbBinary "GUID" = Begin
             0x632232fb7d04a3479ee73fd71dffd077
         End
+        dbInteger "ColumnWidth" ="1785"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="Poulsons Road (4) TCount"
@@ -505,6 +507,8 @@ Begin
         dbBinary "GUID" = Begin
             0x54a17ef6e2784741ba07269a11372d8b
         End
+        dbInteger "ColumnWidth" ="4065"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="Gunnison River 2 (4) TCount"
@@ -1235,6 +1239,8 @@ Begin
         dbBinary "GUID" = Begin
             0xb05aa4503365a94d8af52b287381e2a8
         End
+        dbInteger "ColumnWidth" ="2595"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="Blue Mesa Reservoir 1 (142) TCount"

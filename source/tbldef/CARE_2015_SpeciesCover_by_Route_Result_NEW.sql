@@ -1,4 +1,4 @@
-CREATE TABLE [CARE_2015_SpeciesCover_by_Route_Result] (
+CREATE TABLE [CARE_2015_SpeciesCover_by_Route_Result_NEW] (
   [Unit_Code] VARCHAR (255),
   [Visit_Year] SHORT ,
   [Species] VARCHAR (255),

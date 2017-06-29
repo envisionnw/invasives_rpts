@@ -175,7 +175,7 @@ Option Explicit
 ' =================================
 ' MODULE:       frm_Species_Cover_by_Route
 ' Level:        Form module
-' Version:      1.08
+' Version:      1.09
 ' Description:  File and directory related functions & subroutines
 '
 ' Source/date:  Unknown
@@ -194,6 +194,8 @@ Option Explicit
 '                                       temp table vs. query & avoid Error 3048: Cannot open any more databases
 '                                       when running Route_AverageCover_Deviations off Route_Transect_AverageCover
 '                                       including 0 species transects
+'               BLC, 6/29/2017 - 1.09 - run Create_temp_Route_TransectsDetected
+'
 ' =================================
 
 ' ---------------------------------
@@ -305,7 +307,9 @@ End Sub
 ' Parameters:   -
 ' Returns:      -
 ' Throws:       -
-' References:   -
+' References:
+'   elliotgr  July 14, 2011
+'   https://access-programmers.co.uk/forums/showthread.php?t=212702
 ' Source/date:  Russ DenBleyker - January 2010
 ' Adapted:      Bonnie Campbell, May 2017 - initial version
 ' Revisions:    RDB - 1/2010    - initial version
@@ -321,6 +325,8 @@ End Sub
 '                                 temp table vs. query & avoid Error 3048: Cannot open any more databases
 '                                 when running Route_AverageCover_Deviations off Route_Transect_AverageCover
 '                                 including 0 species transects
+'               BLC - 6/29/2017 - added Create_temp_Route_TransectsDetected to shift to temp
+'                                 table vs. query (avoids Error 3048)
 ' ---------------------------------
 Private Sub btnReport_Click()
 On Error GoTo Err_Handler
@@ -329,12 +335,6 @@ On Error GoTo Err_Handler
       MsgBox "You must select both park and year.", , "Monitoring Transect Data"
       Exit Sub
     End If
-
-    'notify user system is busy
-    DoCmd.Hourglass True
-    Dim msg As String
-    msg = "Generating " & Me.Park_Code & " " & Me.Visit_Year & " results..."
-    SysCmd acSysCmdSetStatus, msg
 
     Dim db As DAO.Database
     Dim qdf As DAO.QueryDef
@@ -352,39 +352,89 @@ On Error GoTo Err_Handler
     Dim strResult As String
     Dim strResultOld As String
     Dim ary As Variant
+    Dim i As Integer
+    
+    'prepare table name component
+    strComponent = Me!Park_Code & "_" & Me!Visit_Year & "_"
+
+    'notify user system is busy
+    DoCmd.Hourglass True
+    Dim msg As String
+    msg = "Generating " & Me.Park_Code & " " & Me.Visit_Year & " results..."
+    SysCmd acSysCmdSetStatus, msg
     
     'prepare db
     Set db = CurrentDb
+    
+    msg = "Generating temp tables..."
+    SysCmd acSysCmdSetStatus, msg
     
     'prepare the temp_Route_TransectsDetected temp table
     If TableExists("temp_temp_Route_TransectsDetected") Then
         DoCmd.DeleteObject acTable, "temp_Route_TransectsDetected"
     End If
     
-    'run the create query that creates temp table
+    'hide warnings
     DoCmd.SetWarnings False
+    
+    msg = "Generating " & Me.Park_Code & " " & Me.Visit_Year & " temp_Route_TransectsDetected"
+    SysCmd acSysCmdSetStatus, msg
+    
+    'run the create query that creates temp table
     DoCmd.OpenQuery "Create_temp_Route_TransectsDetected"
-    DoCmd.SetWarnings True
     
     'prepare the temp_Route_Transect_AverageCover temp table
     If TableExists("temp_Route_Transect_AverageCover") Then
         DoCmd.DeleteObject acTable, "temp_Route_Transect_AverageCover"
     End If
     
-    'run the query that creates temp table
-    DoCmd.SetWarnings False
+    msg = "Generating " & Me.Park_Code & " " & Me.Visit_Year & " temp_Route_Transect_AverageCover"
+    SysCmd acSysCmdSetStatus, msg
+    
+    'run the query that creates temp table (temp_Route_Transect_AverageCover)
     DoCmd.OpenQuery "Create_temp_Route_Transect_AverageCover"
-    DoCmd.SetWarnings True
     
-    'DDL statement for adding TransectsDetected (AFTER statement fails in Access)
-    strSQL = "ALTER TABLE temp_Route_Transect_AverageCover " & _
-                "ADD COLUMN TransectsDetected INT;" 'AFTER TransectsSampled;"
-    db.Execute strSQL, dbFailOnError
+    'run the query that creates temp table (temp_Update_Table)
+    '------------------------------------------------------------
+    ' NOTE: necessary to avoid "must use updatable query" errors
+    '       avoids 1:many issues by populating a table w/ one record
+    '       per transect in temp_Route_Transect_AverageCover
+    '       which can be joined with to generate a new table
+    '       that includes all records from temp_Route_Transect_AverageCover
+    '       and their associated TransectsDetected values
+    '------------------------------------------------------------
+    DoCmd.OpenQuery "Create_temp_Update_Table"
     
-    'run the update query that adds TransectsDetected data
-    DoCmd.SetWarnings False
-    DoCmd.OpenQuery "Update_temp_Route_Transect_AverageCover"
-    DoCmd.SetWarnings True
+    'run query that adds TransectsDetected
+    DoCmd.OpenQuery "Create_temp_Route_Transect_AverageCover_NEW"
+        
+    'delete the original & rename the new table
+    If TableExists("temp_Route_Transect_AverageCover") Then _
+        DoCmd.DeleteObject acTable, "temp_Route_Transect_AverageCover"
+    
+    DoCmd.Rename "temp_Route_Transect_AverageCover", acTable, _
+                    "temp_Route_Transect_AverageCover_NEW"
+    
+    'set array
+    ary = Array("Route_Transect_AverageCover", "Route_Transect_AverageCover_Deviations", _
+                "Route_TransectsDetected", "Update_table")
+    
+    For i = 0 To UBound(ary)
+        strTable = "temp_" & ary(i)
+        
+        'move tables to TEMP TABLES group
+        SetNavGroup "TEMP TABLES", strTable, "table"
+    Next
+    
+'    'DDL statement for adding TransectsDetected (AFTER statement fails in Access)
+'    strSQL = "ALTER TABLE temp_Route_Transect_AverageCover " & _
+'                "ADD COLUMN TransectsDetected INT;" 'AFTER TransectsSampled;"
+'    db.Execute strSQL, dbFailOnError
+'
+'    'run the update query that adds TransectsDetected data < Error: operation must use updatable query
+'    DoCmd.SetWarnings False
+'    DoCmd.OpenQuery "Update_temp_Route_Transect_AverageCover"
+'    DoCmd.SetWarnings True
     
     'prepare the temp_Route_Transect_AverageCover_Deviations temp table
     If TableExists("temp_Route_Transect_AverageCover_Deviations") Then
@@ -392,17 +442,15 @@ On Error GoTo Err_Handler
     End If
     
     'run the query that creates temp table
-    DoCmd.SetWarnings False
     DoCmd.OpenQuery "Create_temp_Route_Transect_AverageCover_Deviations"
+
+    'display warnings
     DoCmd.SetWarnings True
     
     'prepare filter clause
     strFilter = " WHERE sc.Unit_Code = '" & Me!Park_Code & _
                 "' AND sc.Visit_Year = " & Me!Visit_Year & " "
-    
-    'prepare table name component
-    strComponent = Me!Park_Code & "_" & Me!Visit_Year & "_"
-        
+            
     'set array
     ary = Array("TCount", "PctCover", "SE")
     
@@ -469,6 +517,7 @@ On Error GoTo Err_Handler
                 'remove existing prior results table of same name
                 If TableExists(strResult) Then _
                     DoCmd.DeleteObject acTable, strResult
+                
                 'add table to existing table
                 db.Execute CombineTableSQL(strTable, strNewTable, strResult)
                 
@@ -567,17 +616,16 @@ On Error GoTo Err_Handler
     strNewTable = strComponent & "SpeciesCover_by_Route_Result_NEW"
    
     'cleanup if desired
-    If REMOVE_RESULT_TABLES Then
-        Dim i As Integer
-        
-        ary = Array("TCount", "PctCover", "SE", "SpeciesCover_by_Route", "SpeciesCover_by_Route_Result")
-        For i = 0 To UBound(ary)
-            If TableExists(strComponent & ary(i)) Then
-                DoCmd.DeleteObject acTable, strComponent & ary(i)
-            End If
-        Next
-    
-    End If
+'    If REMOVE_RESULT_TABLES Then
+'
+'        ary = Array("TCount", "PctCover", "SE", "SpeciesCover_by_Route", "SpeciesCover_by_Route_Result")
+'        For i = 0 To UBound(ary)
+'            If TableExists(strComponent & ary(i)) Then
+'                DoCmd.DeleteObject acTable, strComponent & ary(i)
+'            End If
+'        Next
+'
+'    End If
         
     Dim strNewTableName As String
     strNewTableName = strComponent & "SpeciesCover_by_Route_Result"

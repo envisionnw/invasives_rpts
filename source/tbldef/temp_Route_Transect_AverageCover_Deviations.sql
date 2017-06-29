@@ -11,6 +11,7 @@ CREATE TABLE [temp_Route_Transect_AverageCover_Deviations] (
   [Master_Common_Name] VARCHAR (50),
   [IsDead] SHORT ,
   [TransectsSampled] DOUBLE ,
+  [TransectsDetected] LONG ,
   [TotalCover] DOUBLE ,
   [TransectAverageCover] DOUBLE ,
   [RouteAverageCover] DOUBLE ,

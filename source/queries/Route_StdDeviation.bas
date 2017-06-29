@@ -1,12 +1,12 @@
-﻿dbMemo "SQL" ="SELECT MIN(d.Unit_Code) AS Unit_Code, MIN(d.Visit_Year) AS Visit_Year, MIN(d.Rou"
-    "te) AS Route, MIN(d.Species) AS Species, MIN(d.Master_Common_Name) AS Master_Com"
-    "mon_Name, MIN(d.IsDead) AS IsDead, MIN(d.TransectsSampled) AS TransectsSampled, "
-    "MIN(d.TotalCover) AS TotalCover, MIN(d.TransectAverageCover) AS TransectAverageC"
-    "over, MIN(d.RouteAverageCover) AS RouteAverageCover, MIN(d.TotalDevSquared) AS T"
-    "otalDevSquared, MIN(IIF(d.TransectsSampled = 1, NULL, SQR(d.TotalDevSquared/(d.T"
-    "ransectsSampled -1)))) AS StdDeviation\015\012FROM Route_AverageCover_Deviations"
-    "_Aggregate AS d\015\012GROUP BY d.Unit_Code, d.Visit_Year, d.Route, d.Species\015"
-    "\012ORDER BY d.Unit_Code, d.Visit_Year, d.Route, d.Species;\015\012"
+﻿dbMemo "SQL" ="SELECT d.Unit_Code, d.Visit_Year, d.Route, d.Species, MIN(d.Master_Common_Name) "
+    "AS Master_Common_Name, d.IsDead, MIN(d.TransectsSampled) AS TransectsSampled, MI"
+    "N(d.TransectsDetected) AS TransectsDetected, MIN(d.TotalCover) AS TotalCover, MI"
+    "N(d.TransectAverageCover) AS TransectAverageCover, MIN(d.RouteAverageCover) AS R"
+    "outeAverageCover, MIN(d.TotalDevSquared) AS TotalDevSquared, MIN(IIF(d.Transects"
+    "Sampled = 1, NULL, SQR(d.TotalDevSquared/(d.TransectsSampled -1)))) AS StdDeviat"
+    "ion\015\012FROM Route_AverageCover_Deviations_Aggregate AS d\015\012GROUP BY d.U"
+    "nit_Code, d.Visit_Year, d.Route, d.Species, d.IsDead\015\012ORDER BY d.Unit_Code"
+    ", d.Visit_Year, d.Route, d.Species, d.IsDead;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -19,32 +19,6 @@ End
 dbBoolean "FilterOnLoad" ="0"
 dbBoolean "OrderByOnLoad" ="-1"
 Begin
-    Begin
-        dbText "Name" ="Unit_Code"
-        dbLong "AggregateType" ="-1"
-        dbInteger "ColumnWidth" ="1020"
-        dbBoolean "ColumnHidden" ="0"
-    End
-    Begin
-        dbText "Name" ="Visit_Year"
-        dbLong "AggregateType" ="-1"
-        dbInteger "ColumnWidth" ="765"
-        dbBoolean "ColumnHidden" ="0"
-    End
-    Begin
-        dbText "Name" ="Route"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="Species"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="IsDead"
-        dbLong "AggregateType" ="-1"
-        dbInteger "ColumnWidth" ="660"
-        dbBoolean "ColumnHidden" ="0"
-    End
     Begin
         dbText "Name" ="TotalCover"
         dbLong "AggregateType" ="-1"
