@@ -3,13 +3,13 @@
     ", \"Y\") AS [Alive?], ts.PlantCode, ts.IsDead, tc.TotalCover, qs.SampledQuadrats"
     ", rts.TransectsSampled, (tc.TotalCover/qs.SampledQuadrats) AS TransectAverageCov"
     "er\015\012FROM ((Transect_Select_SpeciesCover AS ts INNER JOIN Transect_Select_T"
-    "otalCover AS tc ON (tc.IsDead = ts.IsDead) AND (tc.PlantCode = ts.PlantCode) AND"
-    " (tc.Transect = ts.Transect) AND (tc.Route = ts.Route) AND (tc.Visit_Year = ts.V"
-    "isit_Year) AND (tc.Unit_Code = ts.Unit_Code)) INNER JOIN Transect_Select_Quadrat"
-    "sSampled AS qs ON (qs.Transect = ts.Transect) AND (qs.Route = ts.Route) AND (qs."
-    "Visit_Year = ts.Visit_Year) AND (qs.Unit_Code = ts.Unit_Code)) INNER JOIN Route_"
-    "TransectsSampled AS rts ON (rts.Route = ts.Route) AND (rts.Visit_Year = ts.Visit"
-    "_Year) AND (rts.Unit_Code = ts.Unit_Code)\015\012ORDER BY ts.Unit_Code, ts.Visit"
+    "otalCover AS tc ON (tc.Unit_Code = ts.Unit_Code) AND (tc.Visit_Year = ts.Visit_Y"
+    "ear) AND (tc.Route = ts.Route) AND (tc.Transect = ts.Transect) AND (tc.PlantCode"
+    " = ts.PlantCode) AND (tc.IsDead = ts.IsDead)) INNER JOIN Transect_Select_Quadrat"
+    "sSampled AS qs ON (qs.Unit_Code = ts.Unit_Code) AND (qs.Visit_Year = ts.Visit_Ye"
+    "ar) AND (qs.Route = ts.Route) AND (qs.Transect = ts.Transect)) INNER JOIN Route_"
+    "TransectsSampled AS rts ON (rts.Unit_Code = ts.Unit_Code) AND (rts.Visit_Year = "
+    "ts.Visit_Year) AND (rts.Route = ts.Route)\015\012ORDER BY ts.Unit_Code, ts.Visit"
     "_Year, ts.Route, ts.Transect, ts.Species, ts.IsDead;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
@@ -51,10 +51,6 @@ Begin
     End
     Begin
         dbText "Name" ="rts.TransectsSampled"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="AverageCover"
         dbLong "AggregateType" ="-1"
     End
     Begin

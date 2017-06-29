@@ -2,7 +2,7 @@
     "_Code, l.Visit_Year, l.Route, l.Area, l.Transect, \015\012MIN(IIF(l.E_Coord IS N"
     "ULL, ac.E_Coord, l.E_Coord)) AS E_Coord, \015\012MIN(IIF(l.N_Coord IS NULL, ac.N"
     "_Coord, l.N_Coord))  AS N_Coord, \015\012l.PlantCode, l.IsDead, \015\012MIN(ac.T"
-    "otalCover) AS TotalCover, \015\012MIN(ac.QuadratsSampled) AS QuadratsSampled, \015"
+    "otalCover) AS TotalCover, \015\012MIN(ac.SampledQuadrats) AS QuadratsSampled, \015"
     "\012MIN(ac.TransectsSampled) AS TransectsSampled, \015\012MIN(IIF(ac.TransectAve"
     "rageCover IS NULL, 0, ac.TransectAverageCover)) AS TransectAverageCover\015\012F"
     "ROM Route_Transect_Species_List l\015\012LEFT JOIN Transect_AverageCover ac\015\012"

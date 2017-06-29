@@ -1,11 +1,14 @@
 ﻿dbMemo "SQL" ="SELECT tc.Unit_Code, tc.Visit_Year, tc.Route, tc.PlantCode, tc.IsDead, MIN(tc.To"
     "talTransectAverageCover) AS TotalTransectAverageCover, MIN(ts.TransectsSampled) "
-    "AS SampledTransects, MIN(tc.TotalTransectAverageCover / ts.TransectsSampled) AS "
-    "RouteAverageCover\015\012FROM Route_TotalAverageCover AS tc INNER JOIN Route_Tra"
-    "nsectsSampled AS ts ON (ts.Route = tc.Route) AND (ts.Visit_Year = tc.Visit_Year)"
-    " AND (ts.Unit_Code = tc.Unit_Code)\015\012GROUP BY tc.Unit_Code, tc.Visit_Year, "
-    "tc.Route, tc.PlantCode, tc.IsDead\015\012ORDER BY tc.Unit_Code, tc.Visit_Year, t"
-    "c.Route, tc.PlantCode, tc.IsDead;\015\012"
+    "AS SampledTransects, MIN(td.TransectsDetected) AS TransectsDetected, MIN(tc.Tota"
+    "lTransectAverageCover / ts.TransectsSampled) AS RouteAverageCover\015\012FROM (R"
+    "oute_TotalAverageCover AS tc INNER JOIN Route_TransectsSampled AS ts ON (ts.Unit"
+    "_Code = tc.Unit_Code) AND (ts.Visit_Year = tc.Visit_Year) AND (ts.Route = tc.Rou"
+    "te)) INNER JOIN Route_TransectsDetected AS td ON (td.Route = tc.Route) AND (td.V"
+    "isit_Year = tc.Visit_Year) AND (td.Unit_Code = tc.Unit_Code) AND (td.PlantCode ="
+    " tc.PlantCode) AND (td.IsDead = tc.IsDead)\015\012GROUP BY tc.Unit_Code, tc.Visi"
+    "t_Year, tc.Route, tc.PlantCode, tc.IsDead\015\012ORDER BY tc.Unit_Code, tc.Visit"
+    "_Year, tc.Route, tc.PlantCode, tc.IsDead;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -72,5 +75,9 @@ Begin
         dbLong "AggregateType" ="-1"
         dbInteger "ColumnWidth" ="2400"
         dbBoolean "ColumnHidden" ="0"
+    End
+    Begin
+        dbText "Name" ="TransectsDetected"
+        dbLong "AggregateType" ="-1"
     End
 End
