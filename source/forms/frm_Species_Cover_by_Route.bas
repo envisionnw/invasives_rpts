@@ -370,7 +370,7 @@ On Error GoTo Err_Handler
     SysCmd acSysCmdSetStatus, msg
     
     'prepare the temp_Route_TransectsDetected temp table
-    If TableExists("temp_temp_Route_TransectsDetected") Then
+    If TableExists("temp_Route_TransectsDetected") Then
         DoCmd.DeleteObject acTable, "temp_Route_TransectsDetected"
     End If
     
@@ -415,16 +415,16 @@ On Error GoTo Err_Handler
     DoCmd.Rename "temp_Route_Transect_AverageCover", acTable, _
                     "temp_Route_Transect_AverageCover_NEW"
     
-    'set array
-    ary = Array("Route_Transect_AverageCover", "Route_Transect_AverageCover_Deviations", _
-                "Route_TransectsDetected", "Update_table")
-    
-    For i = 0 To UBound(ary)
-        strTable = "temp_" & ary(i)
-        
-        'move tables to TEMP TABLES group
-        SetNavGroup "TEMP TABLES", strTable, "table"
-    Next
+'    'set array
+'    ary = Array("Route_Transect_AverageCover", "Route_Transect_AverageCover_Deviations", _
+'                "Route_TransectsDetected", "Update_Table")
+'
+'    For i = 0 To UBound(ary)
+'        strTable = "temp_" & ary(i)
+'
+'        'move tables to TEMP TABLES group
+'        SetNavGroup "TEMP TABLES", strTable, "table"
+'    Next
     
 '    'DDL statement for adding TransectsDetected (AFTER statement fails in Access)
 '    strSQL = "ALTER TABLE temp_Route_Transect_AverageCover " & _
@@ -446,6 +446,17 @@ On Error GoTo Err_Handler
 
     'display warnings
     DoCmd.SetWarnings True
+    
+    'set array
+    ary = Array("Route_Transect_AverageCover", "Route_Transect_AverageCover_Deviations", _
+                "Route_TransectsDetected", "Update_Table")
+    
+    For i = 0 To UBound(ary)
+        strTable = "temp_" & ary(i)
+Debug.Print strTable
+        'move tables to TEMP TABLES group
+        SetNavGroup "TEMP TABLES", strTable, "table"
+    Next
     
     'prepare filter clause
     strFilter = " WHERE sc.Unit_Code = '" & Me!Park_Code & _
