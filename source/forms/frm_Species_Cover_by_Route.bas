@@ -627,16 +627,16 @@ Debug.Print strTable
     strNewTable = strComponent & "SpeciesCover_by_Route_Result_NEW"
    
     'cleanup if desired
-'    If REMOVE_RESULT_TABLES Then
-'
-'        ary = Array("TCount", "PctCover", "SE", "SpeciesCover_by_Route", "SpeciesCover_by_Route_Result")
-'        For i = 0 To UBound(ary)
-'            If TableExists(strComponent & ary(i)) Then
-'                DoCmd.DeleteObject acTable, strComponent & ary(i)
-'            End If
-'        Next
-'
-'    End If
+    If REMOVE_RESULT_TABLES Then
+
+        ary = Array("TCount", "PctCover", "SE", "SpeciesCover_by_Route", "SpeciesCover_by_Route_Result")
+        For i = 0 To UBound(ary)
+            If TableExists(strComponent & ary(i)) Then
+                DoCmd.DeleteObject acTable, strComponent & ary(i)
+            End If
+        Next
+
+    End If
         
     Dim strNewTableName As String
     strNewTableName = strComponent & "SpeciesCover_by_Route_Result"

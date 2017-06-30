@@ -1,12 +1,11 @@
 ﻿dbMemo "SQL" ="SELECT d.Unit_Code, d.Visit_Year, d.Route, d.Species, MIN(d.Master_Common_Name) "
     "AS Master_Common_Name, d.IsDead, MIN(d.TransectsSampled) AS TransectsSampled, MI"
     "N(d.TransectsDetected) AS TransectsDetected, MIN(d.TotalCover) AS TotalCover, MI"
-    "N(d.TransectAverageCover) AS TransectAverageCover, MIN(d.RouteAverageCover) AS R"
-    "outeAverageCover, MIN(d.TotalDevSquared) AS TotalDevSquared, MIN(IIF(d.Transects"
-    "Sampled = 1, NULL, SQR(d.TotalDevSquared/(d.TransectsSampled -1)))) AS StdDeviat"
-    "ion\015\012FROM Route_AverageCover_Deviations_Aggregate AS d\015\012GROUP BY d.U"
-    "nit_Code, d.Visit_Year, d.Route, d.Species, d.IsDead\015\012ORDER BY d.Unit_Code"
-    ", d.Visit_Year, d.Route, d.Species, d.IsDead;\015\012"
+    "N(d.RouteAverageCover) AS RouteAverageCover, MIN(d.TotalDevSquared) AS TotalDevS"
+    "quared, MIN(IIF(d.TransectsSampled = 1, NULL, SQR(d.TotalDevSquared/(d.Transects"
+    "Sampled -1)))) AS StdDeviation\015\012FROM Route_AverageCover_Deviations_Aggrega"
+    "te AS d\015\012GROUP BY d.Unit_Code, d.Visit_Year, d.Route, d.Species, d.IsDead\015"
+    "\012ORDER BY d.Unit_Code, d.Visit_Year, d.Route, d.Species, d.IsDead;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -52,5 +51,29 @@ Begin
         dbLong "AggregateType" ="-1"
         dbInteger "ColumnWidth" ="615"
         dbBoolean "ColumnHidden" ="0"
+    End
+    Begin
+        dbText "Name" ="d.Unit_Code"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="d.Visit_Year"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="d.Route"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="d.Species"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="d.IsDead"
+        dbLong "AggregateType" ="-1"
+    End
+    Begin
+        dbText "Name" ="TransectsDetected"
+        dbLong "AggregateType" ="-1"
     End
 End

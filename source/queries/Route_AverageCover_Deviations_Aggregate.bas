@@ -1,14 +1,13 @@
-﻿dbMemo "SQL" ="SELECT d.Unit_Code, d.Visit_Year, d.Route, d.Species, MIN(d.Master_Common_Name) "
-    "AS Master_Common_Name, d.IsDead, MIN(d.TransectsSampled) AS TransectsSampled, MI"
-    "N(td.TransectsDetected) AS TransectsDetected, MIN(d.TotalCover) AS TotalCover, M"
-    "IN(d.TransectAverageCover) AS TransectAverageCover, MIN(d.RouteAverageCover) AS "
-    "RouteAverageCover, SUM(d.DeviationSquared) AS TotalDevSquared\015\012FROM temp_R"
-    "oute_Transect_AverageCover_Deviations AS d INNER JOIN temp_Route_TransectsDetect"
-    "ed AS td ON (td.IsDead = d.IsDead) AND (td.PlantCode = d.PlantCode) AND (td.Rout"
-    "e = d.Route) AND (td.Visit_Year = d.Visit_Year) AND (td.Unit_Code = d.Unit_Code)"
-    "\015\012WHERE d.Species IS NOT NULL\015\012GROUP BY d.Unit_Code, d.Visit_Year, d"
-    ".Route, d.Species, d.IsDead\015\012ORDER BY d.Unit_Code, d.Visit_Year, d.Route, "
-    "d.Species, d.IsDead;\015\012"
+﻿dbMemo "SQL" ="SELECT d.Unit_Code, d.Visit_Year, d.Route, MIN(d.Species) AS Species, MIN(d.Mast"
+    "er_Common_Name) AS Master_Common_Name, d.IsDead, MIN(d.TransectsSampled) AS Tran"
+    "sectsSampled, MIN(td.TransectsDetected) AS TransectsDetected, MIN(d.TotalCover) "
+    "AS TotalCover, MIN(d.RouteAverageCover) AS RouteAverageCover, SUM(d.DeviationSqu"
+    "ared) AS TotalDevSquared\015\012FROM temp_Route_Transect_AverageCover_Deviations"
+    " AS d INNER JOIN temp_Route_TransectsDetected AS td ON (td.Unit_Code = d.Unit_Co"
+    "de) AND (td.Visit_Year = d.Visit_Year) AND (td.Route = d.Route) AND (td.PlantCod"
+    "e = d.PlantCode) AND (td.IsDead = d.IsDead)\015\012GROUP BY d.Unit_Code, d.Visit"
+    "_Year, d.Route, d.PlantCode, d.IsDead\015\012ORDER BY d.Unit_Code, d.Visit_Year,"
+    " d.Route, MIN(d.Species), d.IsDead;\015\012"
 dbMemo "Connect" =""
 dbBoolean "ReturnsRecords" ="-1"
 dbInteger "ODBCTimeout" ="60"
@@ -45,13 +44,6 @@ Begin
         End
     End
     Begin
-        dbText "Name" ="TransectAverageCover"
-        dbLong "AggregateType" ="-1"
-        dbBinary "GUID" = Begin
-            0x33b3e8fb02c59f4ca396b4e803fb8966
-        End
-    End
-    Begin
         dbText "Name" ="RouteAverageCover"
         dbLong "AggregateType" ="-1"
         dbBinary "GUID" = Begin
@@ -64,6 +56,8 @@ Begin
         dbBinary "GUID" = Begin
             0x3ef55be73d4c1c4aaa9a00492dd8455c
         End
+        dbInteger "ColumnWidth" ="2025"
+        dbBoolean "ColumnHidden" ="0"
     End
     Begin
         dbText "Name" ="TransectsDetected"
@@ -79,10 +73,6 @@ Begin
     End
     Begin
         dbText "Name" ="d.Route"
-        dbLong "AggregateType" ="-1"
-    End
-    Begin
-        dbText "Name" ="d.Species"
         dbLong "AggregateType" ="-1"
     End
     Begin
